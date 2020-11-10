@@ -1,4 +1,4 @@
-package backend.questions;
+package backend.general;
 
 import java.util.List;
 
