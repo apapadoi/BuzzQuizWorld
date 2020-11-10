@@ -11,5 +11,10 @@ public class BuzzGame {
     public static void main(String[] args) {
         Cli.printIntro();
         Cli.showAvailableChoices();
+        int userGamemodeChoice = Cli.readGamemodeChoice();
+        int userNumOfRoundsChoice = Cli.readNumOfRoundsChoice();
+
+        System.out.println("You chose the gamemode: " + userGamemodeChoice);
+        System.out.println("You chose the number of rounds: " + userNumOfRoundsChoice);
     }
 }
