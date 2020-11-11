@@ -1,5 +1,6 @@
 package backend.questions;
 
+import java.util.List;
 import java.util.Timer;
 
 /**
@@ -32,5 +33,5 @@ public class Round {
      * This method returns the question
      * @return The question as {@code Question}
      * */
-    public Question getQuestion(){ return this.questions;}
+    public List<Question> getQuestion(){ return this.questions;}
 }
