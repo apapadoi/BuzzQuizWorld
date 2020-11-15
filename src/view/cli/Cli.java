@@ -2,6 +2,7 @@ package view.cli;
 
 import model.gamemodes.PlayableNumOfPlayersGamemode;
 import model.gamemodes.OnePlayerGamemodes;
+import model.util.Util;
 
 /**
  * This class handles the UI of the app using the classes {@code package model } contains.
