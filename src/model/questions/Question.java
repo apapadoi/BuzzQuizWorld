@@ -7,7 +7,7 @@ import java.util.List;
  * @author Tasos Papadopoulos
  * @version 10.11.2020
  * */
-public abstract class Question implements Questionable {
+public class Question implements Questionable {
     protected final String questionText;
     protected final String correctAnswer;
     protected final List<String> answers;
