@@ -10,9 +10,9 @@ import java.util.List;
  * This abstract class represents a game session (A single game) with the number of the current round, the gamemode chosen by the player for this game, the current
  * skips available for the player, a list of the players and a list of the rounds.
  * @author Thodwrhs Myridis
- * @version 11.11.2020
+ * @version 16.11.2020
  * */
-public abstract class GameSession implements DoableGameSession {
+public class GameSession implements DoableGameSession {
 
     private int currentRoundId;
     private Gamemode CurrentGameMode;
@@ -20,6 +20,20 @@ public abstract class GameSession implements DoableGameSession {
     private List<Player> players;
     private List<Round> rounds;
 
+    public GameSession() {
+        this.currentRoundId=0;
+        this.CurrentGameMode=null;
+        this.CurrentNumOfSkipsAvailable=0;
+        this.players=null;
+        this.rounds=null;
+    }
+    public GameSession(int currentRoundId,Gamemode CurrentGameMode,int CurrentNumOfSkipsAvailable,List<Player> players,List<Round> rounds) {
+        this.currentRoundId=currentRoundId;
+        this.CurrentGameMode=CurrentGameMode;
+        this.CurrentNumOfSkipsAvailable=CurrentNumOfSkipsAvailable;
+        this.players=players;
+        this.rounds=rounds;
+    }
     /**
      * @see DoableGameSession
      * */
