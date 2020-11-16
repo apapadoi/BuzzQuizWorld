@@ -2,7 +2,6 @@ package controller;
 
 import controller.util.Util;
 import model.gameSessions.GameSession;
-import model.gameSessions.OnePlayerGameSession;
 import model.gamemodes.Gamemode;
 import model.gamemodes.OnePlayerGamemodes;
 import view.cli.Cli;
@@ -19,7 +18,7 @@ public class Controller {
 
     public Controller() {
         view = new Cli();
-        model = new OnePlayerGameSession();
+        model = new GameSession();
     }
 
     public Cli getView() {
