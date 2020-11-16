@@ -24,15 +24,15 @@ public class GameSession implements DoableGameSession {
 
     public GameSession() {
         this.currentRoundId=0;
-        this.CurrentGameMode=null;
-        this.CurrentNumOfSkipsAvailable=0;
+        this.currentGamemode=null;
+        this.currentNumOfSkipsAvailable=0;
         this.players=null;
         this.rounds=null;
     }
     public GameSession(int currentRoundId,Gamemode CurrentGameMode,int CurrentNumOfSkipsAvailable,List<Player> players,List<Round> rounds) {
         this.currentRoundId=currentRoundId;
-        this.CurrentGameMode=CurrentGameMode;
-        this.CurrentNumOfSkipsAvailable=CurrentNumOfSkipsAvailable;
+        this.currentGamemode=CurrentGameMode;
+        this.currentNumOfSkipsAvailable=CurrentNumOfSkipsAvailable;
         this.players=players;
         this.rounds=rounds;
     }

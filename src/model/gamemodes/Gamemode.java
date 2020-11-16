@@ -4,6 +4,7 @@ package model.gamemodes;
  * This class represents the gamemode that the player is going to choose and contains the gamemode's description, the number of the gamemode taking it from
  * the Enum "GamemodeId, the skips available for a gamemode and the time available for a gamemode. (Skips and time available depend on the gamemode and they differ)
  * @author Thodwrhs Myridis
+ * @author Tasos Papadopoulos
  * @version 16.11.2020
  * */
 public class Gamemode {
@@ -11,15 +12,6 @@ public class Gamemode {
     private GamemodeId id;
     private int InitialSkipsAvailable;
     private int InitialTimeAvailable;
-
-    /**
-     * Soon.
-     * @param description the {@code String} that will be showed to the player as the description of the gamemode
-     * @param id the {@code GamemodeId} that it is the number of the gamemode chosen from the enum "GamemodeId"
-     * @param InitialSkipsAvailable the {@code int} that contains the possible answers
-     * @param InitialTimeAvailable the {@code int} that contains the available time of the player
-     * */
-
 
     public Gamemode(String idString){
         this.description=" ";
@@ -41,7 +33,7 @@ public class Gamemode {
      * This method returns the current gamemode chosen by the player
      * @return The gamemode chosen by the player as enum {@code GamemodeId}
      * */
-    public GamemodeId getGamemodeId(){ return this.Id;}
+    public GamemodeId getGamemodeId(){ return this.id;}
 
     /**
      * This method returns the skips available for the player (it depends on the gamemode chosen)
