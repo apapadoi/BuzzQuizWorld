@@ -4,21 +4,29 @@ import model.gamemodes.Gamemode;
 import model.player.Player;
 import model.round.Round;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This abstract class represents a game session (A single game) with the number of the current round, the gamemode chosen by the player for this game, the current
  * skips available for the player, a list of the players and a list of the rounds.
  * @author Thodwrhs Myridis
- * @version 11.11.2020
+ * @author Tasos Papadopoulos
+ * @version 16.11.2020
  * */
-public abstract class GameSession implements DoableGameSession {
+public class GameSession implements DoableGameSession {
 
     private int currentRoundId;
-    private Gamemode CurrentGameMode;
-    private int CurrentNumOfSkipsAvailable;
+    private Gamemode currentGamemode;
+    private int currentNumOfSkipsAvailable;
     private List<Player> players;
     private List<Round> rounds;
+
+    public GameSession() {
+        currentRoundId = 0;
+        currentNumOfSkipsAvailable =0;
+        players = null;
+    }
 
     /**
      * @see DoableGameSession
@@ -30,13 +38,13 @@ public abstract class GameSession implements DoableGameSession {
      * @see DoableGameSession
      * */
     @Override
-    public Gamemode getCurrentGameMode(){ return this.CurrentGameMode;}
+    public Gamemode getCurrentGameMode(){ return this.currentGamemode;}
 
     /**
      * @see DoableGameSession
      * */
     @Override
-    public int getCurrentNumOfSkipsAvailable(){ return this.CurrentNumOfSkipsAvailable;}
+    public int getCurrentNumOfSkipsAvailable(){ return this.currentNumOfSkipsAvailable;}
 
     /**
      * @see DoableGameSession
@@ -50,5 +58,7 @@ public abstract class GameSession implements DoableGameSession {
     @Override
     public List<Round> getRounds(){ return this.rounds;}
 
-
+    public void addNumOfRounds(int numOfRounds) {
+        rounds = new ArrayList<>(numOfRounds);
+    }
 }

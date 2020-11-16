@@ -25,7 +25,7 @@ public class Controller {
     }
 
     public GameSession getGameSession () {
-        return new OnePlayerGameSession();
+        return new GameSession();
     }
 
     public void readGamemodeChoice() {
@@ -58,7 +58,7 @@ public class Controller {
                 view.printNumOfRoundsChoiceText();
                 int choice = Util.readIntInput();
                 if(Util.isInsideLimits(choice,1,10)) {
-                    // save choice to model
+                    model.addNumOfRounds(choice);
                 }
                 validInput = true;
             } catch (NumberFormatException exception) { /* handling the case that user did not type an integer with
