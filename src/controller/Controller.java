@@ -3,12 +3,14 @@ package controller;
 import controller.util.Util;
 import model.gameSessions.GameSession;
 import model.gameSessions.OnePlayerGameSession;
+import model.gamemodes.Gamemode;
 import model.gamemodes.OnePlayerGamemodes;
 import view.cli.Cli;
 
 /**
  * This class handles the flow of the program.
  * @author Tasos Papadopoulos
+ * @author Thodwrhs Myridis
  * @version 16.11.2020
  * */
 public class Controller {
@@ -36,7 +38,13 @@ public class Controller {
                 view.printGamemodeChoiceText();
                 int choice = Util.readIntInput();
                 if (Util.isInsideLimits(choice, 1, OnePlayerGamemodes.values().length)) {
-                    // save choice to model
+                    String idString=null;
+                    for (OnePlayerGamemodes gamemode:OnePlayerGamemodes.values()){
+                        if (gamemode.ordinal()==(--choice)){
+                            idString=gamemode.toString();
+                        }
+                    }
+                    Gamemode gamemode= new Gamemode(idString);
                 }
                 validInput = true;
             } catch (NumberFormatException exception) { /* handling the case that user did not type an integer with

@@ -23,11 +23,19 @@ public class GameSession implements DoableGameSession {
     private List<Round> rounds;
 
     public GameSession() {
-        currentRoundId = 0;
-        currentNumOfSkipsAvailable =0;
-        players = null;
+        this.currentRoundId=0;
+        this.CurrentGameMode=null;
+        this.CurrentNumOfSkipsAvailable=0;
+        this.players=null;
+        this.rounds=null;
     }
-
+    public GameSession(int currentRoundId,Gamemode CurrentGameMode,int CurrentNumOfSkipsAvailable,List<Player> players,List<Round> rounds) {
+        this.currentRoundId=currentRoundId;
+        this.CurrentGameMode=CurrentGameMode;
+        this.CurrentNumOfSkipsAvailable=CurrentNumOfSkipsAvailable;
+        this.players=players;
+        this.rounds=rounds;
+    }
     /**
      * @see DoableGameSession
      * */
