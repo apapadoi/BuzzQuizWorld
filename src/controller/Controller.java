@@ -66,6 +66,7 @@ public class Controller {
                 int choice = Util.readIntInput();
                 if(Util.isInsideLimits(choice,1,10)) {
                     model.addNumOfRounds(choice);
+                    model.initializeQuestions();
                 }
                 validInput = true;
             } catch (NumberFormatException exception) { /* handling the case that user did not type an integer with

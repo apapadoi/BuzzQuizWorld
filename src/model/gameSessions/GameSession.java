@@ -2,8 +2,12 @@ package model.gameSessions;
 
 import model.gamemodes.Gamemode;
 import model.player.Player;
+import model.questions.Category;
+import model.questions.Difficulty;
+import model.questions.Question;
 import model.round.Round;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,5 +72,16 @@ public class GameSession implements DoableGameSession {
 
     public void addNumOfRounds(int numOfRounds) {
         rounds = new ArrayList<>(numOfRounds);
+    }
+
+    public void initializeQuestions(){
+        for (Round round:rounds){
+            List<String> answers=List.of("Peanuts","Walnuts","Pine nuts","Almonds");
+            Question question1=new Question("Which nut is used to make dynamite?","Peanuts",answers,Difficulty.Medium,Category.ScienceAndNature);
+            Question question2=new Question("Which nut is used to make dynamite?","Peanuts",answers,Difficulty.Medium,Category.ScienceAndNature);
+            Question question3=new Question("Which nut is used to make dynamite?","Peanuts",answers,Difficulty.Medium,Category.ScienceAndNature);
+            Question question4=new Question("Which nut is used to make dynamite?","Peanuts",answers,Difficulty.Medium,Category.ScienceAndNature);
+            Question question5=new Question("Which nut is used to make dynamite?","Peanuts",answers,Difficulty.Medium,Category.ScienceAndNature);
+        }
     }
 }
