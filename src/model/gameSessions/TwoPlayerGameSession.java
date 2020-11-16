@@ -2,7 +2,8 @@ package model.gameSessions;
 
 /**
  * @author Thodwrhs Myridis
- * @version 11.11.2020
+ * @author Tasos Papadopoulos
+ * @version 16.11.2020
  * */
-public class TwoPlayerGameSession {
+public class TwoPlayerGameSession extends GameSession{
 }

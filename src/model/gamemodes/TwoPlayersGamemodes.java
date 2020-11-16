@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * This enum represents the available gamemodes that can be played by two players.
  * @author Tasos Papadopoulos
- * @version 10.11.2020
+ * @version 16.11.2020
  * */
 public enum TwoPlayersGamemodes implements PlayableNumOfPlayersGamemode {
     PointBuilder{
@@ -43,7 +43,7 @@ public enum TwoPlayersGamemodes implements PlayableNumOfPlayersGamemode {
     /**
      * @see PlayableNumOfPlayersGamemode
      * */
-    public List<String> getAvailableGamemodes() {
+    public static List<String> getAvailableGamemodes() {
         List<String> availableGamemodes= new ArrayList<>(TwoPlayersGamemodes.values().length);
         for(PlayableNumOfPlayersGamemode currentGamemodeId : TwoPlayersGamemodes.values())
             availableGamemodes.add(currentGamemodeId.toString());

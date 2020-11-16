@@ -33,7 +33,7 @@ public enum OnePlayerGamemodes implements PlayableNumOfPlayersGamemode {
     /**
      * @see PlayableNumOfPlayersGamemode
      * */
-    public List<String> getAvailableGamemodes() {
+    static public List<String> getAvailableGamemodes() {
         List<String> availableGamemodes= new ArrayList<>(OnePlayerGamemodes.values().length);
         for(PlayableNumOfPlayersGamemode currentGamemodeId : OnePlayerGamemodes.values())
             availableGamemodes.add(currentGamemodeId.toString());

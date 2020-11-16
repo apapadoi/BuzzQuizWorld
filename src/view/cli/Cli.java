@@ -1,21 +1,19 @@
 package view.cli;
 
-import model.gamemodes.PlayableNumOfPlayersGamemode;
-import model.gamemodes.OnePlayerGamemodes;
-import model.util.Util;
+import java.util.List;
 
 /**
  * This class handles the UI of the app using the classes {@code package model } contains.
  * @author Tasos Papadopoulos
- * @version 10.11.2020
+ * @version 16.11.2020
  * */
 public class Cli {
-    public static final String version = "10.11.2020";
+    public final String version = "16.11.2020";
 
     /**
-     * This method prints the intro section in the command line.
+     * This method prints the intro page in the command line.
      * */
-    public static void printIntro() {
+    public void printIntroPage() {
         System.out.println("Welcome to Buzz!: Quiz World Remaster");
         System.out.println("Developed by Tasos Papadopoulos");
         System.out.println("             Thodwris Myridhs");
@@ -26,16 +24,24 @@ public class Cli {
     }
 
     /**
+     * This method prints the number of players that the game supports in the current version.
+     * */
+    public void printNumOfPlayersAvailablePage() {
+        System.out.println("The game in the current version can be played from one player only.");
+    }
+
+    /**
      * This method prints the available gamemodes section in the command line.
      * Gamemodes' are shown in the same sequence as the enum they are saved.
      * Also gamemodes' corresponding integer shown is the number that ordinal() method returns plus 1 so
      * the user does not see the choice 0 for better experience.
      * */
-    public static void showAvailableChoices() {
+    public void printAvailableGamemodeChoices(List<String> availableGamemodes) {
         System.out.println("The game in the current version can be played from one player only.");
         System.out.println("Available gamemodes: ");
-        for(PlayableNumOfPlayersGamemode currentGamemodeId : OnePlayerGamemodes.values()) 
-            System.out.println(( currentGamemodeId.ordinal() + 1) + ". " + currentGamemodeId.toString());
+        for(String currentGamemode : availableGamemodes) {
+            System.out.println(( availableGamemodes.indexOf(currentGamemode)+1) + ". " + currentGamemode);
+        }
     }
 
     /**
@@ -45,74 +51,25 @@ public class Cli {
      * gamemodes.So after choice is read, it must be changed to be 0-indexed according to the way {@code ordinal()}
      * method returns the corresponding integers for values from an enum-type.
      * */
-    public static int readGamemodeChoice() {
-        String askGamemodeChoiceMessage = "Choose gamemode with typing a number from the available gamemodes list" +
-                ": "; //the message that asks from the user to choose a gamemode
-        String invalidInputFormatMessage = "Not a number!"; /*the message that is shown if the user does not type
-                                                            an integer*/
-        String inputOutOfBoundsMessage = "There is no such gamemode!";/*the message that is shown if the user
-                                                                      types an integer that does not correspond to a valid
-                                                                      gamemode*/
-        System.out.print(askGamemodeChoiceMessage);
-
-        int inputInt = 0;
-
-        boolean inputIsInteger = false;
-        boolean inputInsideLimits = false;
-        while(!inputIsInteger || !inputInsideLimits) { // asking from user continuously to choose a gamemode until a valid choice is made
-            try {
-                inputInt = Util.readIntInput(); // try to read an integer from the user
-                inputIsInteger = true; // if an exception is not thrown from readIntInput() then the user typed an integer
-
-                if(inputInt >= 1 && inputInt <= OnePlayerGamemodes.values().length) //checking if the user typed an integer that corresponds to a valid gamemode
-                    inputInsideLimits = true;
-                else
-                    throw new ArithmeticException();// if not then throw an arithmetic exception
-            } catch (NumberFormatException exception) { // handling the case that user did not type an integer with printing the corresponding messages
-                System.out.println(invalidInputFormatMessage);
-                System.out.print(askGamemodeChoiceMessage);
-            } catch (ArithmeticException exception) { // handling the case that user typed an integer that does not correspond to a valid gamemode with printing the
-                                                      // corresponding messages
-                System.out.println(inputOutOfBoundsMessage);
-                System.out.print(askGamemodeChoiceMessage);
-            }
-        }
-        return inputInt;
+    public void printGamemodeChoiceText() {
+        //Print the message that asks from the user to choose a gamemode
+        System.out.print("Choose gamemode with typing a number from the available gamemodes list: ");
     }
 
-    /**
-     * This method reads the user's choice about how many number of rounds he wants to play.
-     * */
-    public static int readNumOfRoundsChoice() {
-        String askNumOfRoundsChoiceMessage = "Choose the number of rounds you want to play from[1-10]: ";//the message that asks from the user to choose a number of rounds
-        String invalidInputFormatMessage = "Not a number!";//the message that is shown if the user does not type an integer
-        String inputOutOfBoundsMessage = "There is no such number of rounds!"; /*the message that is shown if the user
-                                                                      types an integer that does not correspond to a valid
-                                                                      number of rounds*/
-
-        System.out.print(askNumOfRoundsChoiceMessage);
-
-        int inputInt = 1;
-        boolean inputIsInteger = false;
-        boolean inputInsideLimits = false;
-        while(!inputIsInteger || !inputInsideLimits) { // asking from user continuously to choose a number of rounds until a valid choice is made
-            try {
-                inputInt = Util.readIntInput(); // try to read an integer from the user
-                inputIsInteger = true; // if an exception is not thrown from readIntInput() then the user typed an integer
-
-                if(inputInt >= 1 && inputInt <= 10) //checking if the user typed an integer that corresponds to a valid number of rounds
-                    inputInsideLimits = true;
-                else
-                    throw new ArithmeticException();// if not then throw an arithmetic exception
-            } catch (NumberFormatException exception) {// handling the case that user did not type an integer with printing the corresponding messages
-                System.out.println(invalidInputFormatMessage);
-                System.out.print(askNumOfRoundsChoiceMessage);
-            }catch (ArithmeticException exception) { // handling the case that user typed an integer that does not correspond to a valid number of rounds
-                // with printing the corresponding messages
-                System.out.println(inputOutOfBoundsMessage);
-                System.out.print(askNumOfRoundsChoiceMessage);
-        }
+    public void printInputOutOfBoundsMessage() {
+        System.out.println("There is no such gamemode!");
     }
-    return inputInt;
-}
+
+    public void printNumberFormatExceptionMessage() {
+        System.out.println("Not a number!");
+    }
+
+    public void printNumOfRoundsChoiceText() {
+        //the message that asks from the user to choose a number of rounds
+        System.out.print("Choose the number of rounds you want to play from[1-10]: ");
+    }
+
+    public void printNoSuchNumOfRoundsMessage() {
+        System.out.println("There is no such number of rounds!");
+    }
 }
