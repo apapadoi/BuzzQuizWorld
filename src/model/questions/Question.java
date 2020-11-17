@@ -3,16 +3,28 @@ package model.questions;
 import java.util.List;
 
 /**
- * This class represents an abstract question entity.
+ * This class represents a question entity.
+ *
  * @author Tasos Papadopoulos
- * @version 10.11.2020
- * */
-public abstract class Question implements Questionable {
-    protected final String questionText;
-    protected final String correctAnswer;
-    protected final List<String> answers;
-    protected final Difficulty difficulty;
-    protected final Category category;
+ * @version 17.11.2020
+ */
+public class Question implements Questionable {
+    protected String questionText;
+    protected String correctAnswer;
+    protected List<String> answers;
+    protected Difficulty difficulty;
+    protected Category category;
+
+    /**
+     * Default constructor.
+     * */
+    public Question() {
+        questionText = "";
+        correctAnswer = "";
+        answers = null;
+        difficulty = null;
+        category = null;
+    }
 
     /**
      * Used to help construct a new type of question from a class that extends this abstract class.
@@ -22,11 +34,51 @@ public abstract class Question implements Questionable {
      * @param difficulty the {@code Difficulty} of the question
      * @param category the {@code Category} of the question
      * */
-    public Question(String questionText,String correctAnswer,List<String> answers,Difficulty difficulty,Category category) {
+    public Question(String questionText, String correctAnswer, List<String> answers, Difficulty difficulty, Category category) {
         this.questionText = questionText;
         this.correctAnswer = correctAnswer;
         this.answers = answers;
         this.difficulty = difficulty;
+        this.category = category;
+    }
+
+    /**
+     * Setter for the question for the text attribute.
+     * @param questionText The new question text.
+     * */
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    /**
+     * Setter for the question for the correct answer attribute.
+     * @param correctAnswer The new correct answer.
+     * */
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    /**
+     * Setter for the answers attribute.
+     * @param answers The list of possible answers for the question as {@code List<String>}}
+     * */
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
+
+    /**
+     * Setter for the difficulty attribute.
+     * @param difficulty The difficulty of the question as {@code Difficulty}
+     * */
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    /**
+     * Setter for the category attribute.
+     * @param category The difficulty of the question as {@code Category}
+     * */
+    public void setCategory(Category category) {
         this.category = category;
     }
 
