@@ -21,8 +21,5 @@ class OnePlayerGamemodesTest {
 
     @Test
     void getAvailableGamemodes() {
-        for(String currentGamemode : OnePlayerGamemodes.getAvailableGamemodes()) {
-            System.out.println(currentGamemode);
-        }
     }
 }
