@@ -12,7 +12,7 @@ import view.cli.Cli;
  *
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 17.11.2020
+ * @version 18.11.2020
  */
 public class Controller implements Runnable {
     private final Cli view;
@@ -134,8 +134,7 @@ public class Controller implements Runnable {
                         if (model.hasPreQuestionFormat()) { // if any action needs to be performed before the question is shown
                             // e.g High Stakes betting phase has to be shown before the question
                             // is shown then these methods complete these actions
-                            model.showPreQuestionFormat(view);
-                            model.preQuestionsAction();
+                            model.actionsPreQuestionsPhase(view,currentQuestion);
                         }
 
                         model.showQuestionFormat(view, currentQuestion, i); // showing the question depending the gamemode

@@ -123,7 +123,7 @@ public class PointBuilder implements Gamemodable {
      * @see Gamemodable
      */
     @Override
-    public void showPreQuestionFormat(Model model, Cli view) {
+    public void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion) {
     }
 
     /**
