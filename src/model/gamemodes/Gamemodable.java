@@ -8,7 +8,8 @@ import view.cli.Cli;
  * This interface contains all the methods that a new Gamemode class must implement so it can be added to the game.
  *
  * @author Tasos Papadopoulos
- * @version 17.11.2020
+ * @author Thodwrhs Myridis
+ * @version 18.11.2020
  */
 public interface Gamemodable {
     /**
@@ -47,9 +48,9 @@ public interface Gamemodable {
     boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException;
 
     /**
-     * This method shows the pre question page using the object {@code view}
+     * This method completes the actions that need to be done in the pre question's page.
      */
-    void showPreQuestionFormat(Model model, Cli view);
+    void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion);
 
     /**
      * This method returns if the current gamemode has pre question page or not as {@code boolean}.

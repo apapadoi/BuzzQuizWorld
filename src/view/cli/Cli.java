@@ -9,7 +9,8 @@ import java.util.List;
  * This class handles the UI of the app.
  *
  * @author Tasos Papadopoulos
- * @version 17.11.2020
+ * @author Thodwrhs Myridis
+ * @version 18.11.2020
  */
 public class Cli {
     /**
@@ -163,5 +164,21 @@ public class Cli {
     public void printTimeEndedMessage() {
         System.out.println("Unfortunately, available time has ended!");
         System.out.println("So you don't earn any points!");
+    }
+
+    public void printBettingPhaseAmount() {
+        System.out.print("Place your bet [250,500,750,1000]: ");
+    }
+
+    public void printNoSuchBettingAmount() {
+        System.out.println("No such betting amount.");
+    }
+
+    public void printBetDoneAutomatically(int score) {
+        System.out.println("Your score is under 250 so game bets automatically " + score + ".");
+    }
+
+    public void printPlayersBet(int bet) {
+        System.out.println("Bet : " + bet);
     }
 }

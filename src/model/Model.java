@@ -17,7 +17,8 @@ import java.util.concurrent.TimeUnit;
  * This class represents the model of the app.
  *
  * @author Tasos Papadopoulos
- * @version 17.11.2020
+ * @author Thodwrhs Myridis
+ * @version 18.11.2020
  */
 public class Model {
     final Player currentPlayer;
@@ -239,12 +240,12 @@ public class Model {
     }
 
     /**
-     * Method that shows the pre question page depending using the object {@code view}.
+     * This method completes the actions that need to be done in the pre question's page..
      *
      * @param view The object that handles User Interface.
      */
-    public void showPreQuestionFormat(Cli view) {
-        this.currentGamemode.showPreQuestionFormat(this, view);
+    public void actionsPreQuestionsPhase(Cli view, Question currentQuestion) {
+        this.currentGamemode.actionsPreQuestionsPhase(this, view,currentQuestion);
     }
 
     /**
@@ -296,9 +297,13 @@ public class Model {
     }
 
     /**
-     * This method performs the actions that must be done in the pre question page.
+     * Method that checks if the betting amount is inside its available values.
      */
-    public void preQuestionsAction() {
+    public boolean betIsInsideLimits(int choice,List<Integer> availablePage) {
+        for (Integer choices:availablePage)
+            if (choices.equals(choice))
+                return true;
 
+        return false;
     }
 }
