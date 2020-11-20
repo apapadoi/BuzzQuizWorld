@@ -2,124 +2,74 @@ package controller;
 
 import model.Model;
 import model.gamemodes.HighStakes;
-import model.gamemodes.OnePlayerGamemodes;
 import model.gamemodes.PointBuilder;
 import model.questions.Question;
+import model.util.Util;
+import view.View;
 import view.cli.Cli;
 
-/**
- * This class handles the flow of the program.
- *
- * @author Tasos Papadopoulos
- * @author Thodwrhs Myridis
- * @version 18.11.2020
- */
 public class Controller implements Runnable {
-    private final Cli view;
-    private final Model model;
+    final Model model;
+    final View view;
 
-    /**
-     * Default Constructor
-     */
-    public Controller() {
+    public Controller(/*NumerablePlayersGamemode availableGamemodes*/) {
         view = new Cli();
-        model = new Model();
+        this.model = new Model(/*availableGamemodes*/);
+    }
+
+    @Override
+    public void run() {
+        // Printing the intro page.
+        view.printIntroPage(model.getVersion());
+        // Printing the available number of players that can play the game.
+        view.printNumOfPlayersAvailablePage();
+        // Printing the available gamemodes.
+        view.printAvailableGamemodeChoices(model.getAvailableGamemodes());
+        // Asking from the user to type his username.
+        view.printUsernameChoiceText();
+        model.setUsername(Util.readStringInput());
+        // Asking from the user to choose what gamemode he wants to play.
+        this.readGamemodeChoice();
+        // Asking from the user to choose the number of rounds he wants to play.
+        this.readNumOfRoundsChoice();
+        // Stopping the execution to create a "loading" effect and then clearing the screen.
+        Util.stopExecution(2L);
+        view.clearScreen();
+        // Printing the loading screen and then stopping the execution to create a "loading" effect and then clearing the screen.
+        view.printLoadingScreen(model.getCurrentGamemodeString(), model.getCurrentGamemodeDescription());
+        Util.stopExecution(3L);
+        view.clearScreen();
+        // Starting the gameplay.
+        this.startGameplay();
+        // Clearing the screen after the gameplay has ended and then printing the finish screen.
+        view.clearScreen();
+        view.printFinishPage(model.getUsername(), model.getScore());
     }
 
     /**
      * This method reads the user's gamemode choice.
      */
     public void readGamemodeChoice() {
-        boolean validInput = false;
+        int choice = model.readValidIntInput(this.view,1,model.getAvailableGamemodes().size(),
+                "Not a number!",
+                "Choose a gamemode with typing a number from the available gamemodes list: ",
+                "No such gamemode!");
 
-        while (!validInput) { // asking from user continuously to choose a gamemode until a valid choice is made
-            try {
-                view.printGamemodeChoiceText();
-                int choice = model.readIntInput();
-                if (model.isInsideLimits(choice, 1, OnePlayerGamemodes.values().length)) {
-                    if (choice == 1) // creating an instance of the corresponding gamemode the user chose
-                        model.setGamemode(new PointBuilder());
-                    else
-                        model.setGamemode(new HighStakes());
-                }
-                validInput = true;
-            } catch (NumberFormatException exception) { /* handling the case that user did not type an integer with
-                                                        requesting to print the corresponding message from view */
-                view.printNumberFormatExceptionMessage();
-            } catch (ArithmeticException exception) { /* handling the case that user typed an integer that does not correspond
-                                                         to a valid gamemode with requesting to print the corresponding message
-                                                         from view */
-                view.printInputOutOfBoundsMessage();
-            }
-        }
-    }
-
-    /**
-     * This method reads the user's name.
-     */
-    public void readPlayersUsername() {
-        view.printUsernameChoiceText();
-        model.setPlayersUsername(model.readStringInput());
+        if (choice == 1) // creating an instance of the corresponding gamemode the user chose
+            model.setCurrentGamemode(new PointBuilder());
+        else
+            model.setCurrentGamemode(new HighStakes());
     }
 
     /**
      * This method reads the user's number of rounds choice.
      */
     public void readNumOfRoundsChoice() {
-        boolean validInput = false;
+        int choice = model.readValidIntInput(this.view,1,10,
+                "Choose the number of rounds you want to play from[1-10]: ",
+                "Not a number!","There is no such number of rounds!");
 
-        while (!validInput) { // asking from user continuously to choose a number of rounds until a valid choice is made
-            try {
-                view.printNumOfRoundsChoiceText();
-                int choice = model.readIntInput();
-                if (model.isInsideLimits(choice, 1, 10)) {
-                    model.setNumOfRoundsChoice(choice);
-                }
-                validInput = true;
-            } catch (NumberFormatException exception) { /* handling the case that user did not type an integer with
-                                                        requesting to print the corresponding message from view */
-                view.printNumberFormatExceptionMessage();
-            } catch (ArithmeticException exception) { /* handling the case that user typed an integer that does not correspond
-                                                         to a valid number of rounds with requesting to print the corresponding
-                                                         message from view */
-                view.printNoSuchNumOfRoundsMessage();
-            }
-        }
-    }
-
-    /**
-     * This method prints the loading screen of the corresponding gamemode.
-     */
-    public void printLoadingScreen() {
-        view.printLoadingScreen(model.getCurrentGamemodeString(), model.getCurrentGamemodeDescription());
-    }
-
-    /**
-     * This method prints the available gamemode choices.
-     */
-    public void printAvailableGamemodeChoices() {
-        view.printAvailableGamemodeChoices(this.model.getAvailableGamemodesAsString());
-    }
-
-    /**
-     * This method prints the number of players that can play the game.
-     */
-    public void printNumOfPlayersAvailablePage() {
-        view.printNumOfPlayersAvailablePage();
-    }
-
-    /**
-     * This method prints the intro page of the game.
-     */
-    public void printIntroPage(String version) {
-        view.printIntroPage(version);
-    }
-
-    /**
-     * This method clears the command line.
-     */
-    public void clearScreen() {
-        view.clearScreen();
+        model.setNumOfRoundsChoice(choice);
     }
 
     /**
@@ -139,7 +89,7 @@ public class Controller implements Runnable {
 
                         model.showQuestionFormat(view, currentQuestion, i); // showing the question depending the gamemode
                         model.startTimer();
-                        String choice = model.readStringInput();
+                        String choice = Util.readStringInput();
                         int secondsTookToAnswer = model.getSecondsCounted();
                         model.stopTimer();
 
@@ -157,39 +107,11 @@ public class Controller implements Runnable {
                     } catch (NumberFormatException exception) { // if the user did not type a valid answer then print
                         // print the corresponding message of not valid input
                         view.printNotValidAnswerChoiceText();
-                        model.stopExecution(2L);
+                        Util.stopExecution(2L);
                     }
                     view.clearScreen();
                 }
             }
         }
-    }
-
-    /**
-     * This method prints the finish page of the game.
-     */
-    public void printFinishPage() {
-        view.printFinishPage(this.model.getUsername(), this.model.getScore());
-    }
-
-    /**
-     * This method is called when the game starts.
-     */
-    @Override
-    public void run() {
-        this.printIntroPage(model.getVersion());
-        this.printNumOfPlayersAvailablePage();
-        this.printAvailableGamemodeChoices();
-        this.readPlayersUsername();
-        this.readGamemodeChoice();
-        this.readNumOfRoundsChoice();
-        this.model.stopExecution(2L);
-        this.clearScreen();
-        this.printLoadingScreen();
-        this.model.stopExecution(3L);
-        this.clearScreen();
-        this.startGameplay();
-        this.clearScreen();
-        this.printFinishPage();
     }
 }

@@ -2,8 +2,8 @@ package model.gamemodes;
 
 import model.Model;
 import model.questions.Question;
-import view.cli.Cli;
-
+import model.util.Util;
+import view.View;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +13,12 @@ import java.util.List;
  * @author Tasos Papadopoulos
  * @version 17.11.2020
  */
-public class PointBuilder implements Gamemodable {
-    final int availableTime;
-    final String description;
-    int skipsAvailable;
-
+public class PointBuilder extends Gamemode {
     /**
      * Default Constructor.
      */
     public PointBuilder() {
-        this.description = "Each player that answers correctly earns 1000 points.";
-        this.availableTime = 5;
-        this.skipsAvailable = 3;
+        super("Each player that answers correctly earns 1000 points.",5,3);
     }
 
     /**
@@ -39,29 +33,6 @@ public class PointBuilder implements Gamemodable {
      * @see Gamemodable
      */
     @Override
-    public int getSkipsAvailable() {
-        return this.skipsAvailable;
-    }
-
-    /**
-     * @see Gamemodable
-     */
-    @Override
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
-     * @see Gamemodable
-     */
-    public void decreaseSkips() {
-        (this.skipsAvailable)--;
-    }
-
-    /**
-     * @see Gamemodable
-     */
-    @Override
     public void actionIfCorrectAnswer(Model model) {
         model.updateScore(1000);
     }
@@ -70,33 +41,7 @@ public class PointBuilder implements Gamemodable {
      * @see Gamemodable
      */
     @Override
-    public int getAvailableTime() {
-        return this.availableTime;
-    }
-
-    /**
-     * @see Gamemodable
-     */
-    @Override
-    public void showQuestionFormat(Model model, Cli view, Question currentQuestion, int roundId) {
-        view.printCurrentGamemode(model.getCurrentGamemodeString());
-        view.printCurrentPlayersUsername(model.getUsername());
-        view.printPlayersScore(model.getScore());
-        view.printRoundId(roundId);
-        view.printSkipsAvailable(model.getSkipsAvailable());
-        view.printQuestionsCategory(currentQuestion.getCategory());
-        view.printQuestionsDifficulty(currentQuestion.getDifficulty());
-        view.printAvailableTime(model.getAvailableTime());
-        view.printQuestionsText(currentQuestion.getQuestionText());
-        view.printQuestionsAnswers(currentQuestion.getAnswers());
-        view.printChooseAnswerText();
-    }
-
-    /**
-     * @see Gamemodable
-     */
-    @Override
-    public boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException {
+    public boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, View view, Model model) throws NumberFormatException {
         int choiceInt = Integer.parseInt(choice);
         if (choiceInt < 1 || choiceInt > 4)
             throw new NumberFormatException();
@@ -109,10 +54,10 @@ public class PointBuilder implements Gamemodable {
 
             if (currentPossibleAnswerIsCorrect && userAnsweredCorrect) {
                 if (userAnsweredOnTime)
-                    model.actionIfCorrectAnswer();
+                    this.actionIfCorrectAnswer(model);
                 else {
                     view.printTimeEndedMessage();
-                    model.stopExecution(2L);
+                    Util.stopExecution(2L);
                 }
             }
         }
@@ -123,8 +68,7 @@ public class PointBuilder implements Gamemodable {
      * @see Gamemodable
      */
     @Override
-    public void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion) {
-    }
+    public void actionsPreQuestionsPhase(Model model, View view, Question currentQuestion) { }
 
     /**
      * @see Gamemodable
