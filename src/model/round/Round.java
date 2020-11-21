@@ -29,7 +29,7 @@ public class Round {
 
         currentQuestion.setQuestionText("The famous computer Deep Blue was created by which company?");
         currentQuestion.setCorrectAnswer("IBM");
-        currentQuestion.setCategory(Category.ScienceAndNature);
+        currentQuestion.setCategory(Category.Science);
         currentQuestion.setDifficulty(Difficulty.Medium);
 
         List<String> answers = new ArrayList<>(4);
