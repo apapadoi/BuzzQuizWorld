@@ -6,14 +6,15 @@ import model.questions.Question;
 import model.round.Round;
 import model.util.MyTimer;
 import model.util.Util;
-import view.View;
+import view.cli.Cli;
+
 import java.util.*;
 
 /**
  * This class represents the model of the app that handles the data.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 20.11.2020
+ * @version 23.11.2020
  */
 public class Model{
     final Player currentPlayer;
@@ -115,7 +116,7 @@ public class Model{
      * @param currentQuestion The current question of a round.
      * @param roundId         The id of the current round.
      */
-    public void showQuestionFormat(View view, Question currentQuestion, int roundId) {
+    public void showQuestionFormat(Cli view, Question currentQuestion, int roundId) {
         this.currentGamemode.showQuestionFormat(this, view, currentQuestion, roundId);
     }
 
@@ -144,7 +145,7 @@ public class Model{
         return this.currentGamemode.hasPreQuestionFormat();
     }
 
-    public void actionsPreQuestionsPhase(View view,Question currentQuestion) {
+    public void actionsPreQuestionsPhase(Cli view,Question currentQuestion) {
         this.currentGamemode.actionsPreQuestionsPhase(this,view,currentQuestion);
     }
 
@@ -152,26 +153,26 @@ public class Model{
         this.currentGamemode.decreaseSkips();
     }
 
-    public boolean actionWhenAnswered(String choice,Question currentQuestion,int secondsTookToAnswer,View view) {
+    public boolean actionWhenAnswered(String choice,Question currentQuestion,int secondsTookToAnswer,Cli view) {
         return this.currentGamemode.actionWhenAnswered(choice,currentQuestion,secondsTookToAnswer,view,this);
     }
 
-    public int readValidIntInput(View view,int lowValidValue,int maxValidValue,String numberFormatExceptionMessage,String askInputMessage,
+    public int readValidIntInput(Cli view, int lowValidValue, int maxValidValue, String numberFormatExceptionMessage, String askInputMessage,
                                  String notANumberFromTheListMessage) {
         boolean validInput = false;
         int choice =0;
 
         while (!validInput) { // asking from user continuously to choose a number of rounds until a valid choice is made
             try {
-                view.printSingleTextWithoutLineSeparator(askInputMessage);
+                view.printStringWithoutLineSeparator(askInputMessage);
                 choice = Util.readIntInput();
 
                 if (Util.isInsideLimits(choice, lowValidValue, maxValidValue))
                     validInput = true;
                 else
-                    view.printSingleTextWithoutLineSeparator(notANumberFromTheListMessage+System.lineSeparator());
+                    view.printStringWithoutLineSeparator(notANumberFromTheListMessage+System.lineSeparator());
             } catch (NumberFormatException exception) {
-                view.printSingleTextWithoutLineSeparator(numberFormatExceptionMessage);
+                view.printStringWithoutLineSeparator(numberFormatExceptionMessage);
             }
 
         }

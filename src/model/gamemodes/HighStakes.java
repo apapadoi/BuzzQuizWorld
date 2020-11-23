@@ -3,11 +3,15 @@ package model.gamemodes;
 import model.Model;
 import model.questions.Question;
 import model.util.Util;
-import view.View;
+import view.cli.Cli;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author Tasos Papadopoulos
+ * @version 23.11.2020
+ * */
 public class HighStakes extends Gamemode {
     int betAmount;
     final List<Integer> availableBets;
@@ -33,13 +37,13 @@ public class HighStakes extends Gamemode {
     }
 
     @Override
-    public void showQuestionFormat(Model model, View view, Question currentQuestion, int roundId) {
+    public void showQuestionFormat(Model model, Cli view, Question currentQuestion, int roundId) {
         view.printPlayersBet(this.betAmount);
         super.showQuestionFormat(model,view,currentQuestion,roundId);
     }
 
     @Override
-    public boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, View view, Model model) throws NumberFormatException {
+    public boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException {
         int choiceInt = Integer.parseInt(choice);
         if (choiceInt < 1 || choiceInt > 4)
             throw new NumberFormatException();
@@ -56,7 +60,7 @@ public class HighStakes extends Gamemode {
                         this.actionIfCorrectAnswer(model);
                     else {
                         this.actionIfWrongAnswer(model);
-                        view.printTimeEndedMessage();
+                        view.printStringWithoutLineSeparator("Unfortunately, available time has ended!%nSo you don't earn any points!");
                         Util.stopExecution(2L);
                     }
                 }
@@ -69,7 +73,7 @@ public class HighStakes extends Gamemode {
     }
 
     @Override
-    public void actionsPreQuestionsPhase(Model model, View view, Question currentQuestion) {
+    public void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion) {
         if (model.getScore()==0){
             model.updateScore(250);
         }
@@ -83,7 +87,7 @@ public class HighStakes extends Gamemode {
         return true;
     }
 
-    private void readBettingAmount(View view, Model model) {
+    private void readBettingAmount(Cli view, Model model) {
         boolean validInput = false;
         while (!validInput) { // asking from user continuously to choose a number of rounds until a valid choice is made
             try {
@@ -98,11 +102,11 @@ public class HighStakes extends Gamemode {
                     validInput=true;
                 }
                 else
-                    view.printNoSuchBettingAmount();
+                    view.printStringWithoutLineSeparator("No such betting amount.");
 
             } catch (NumberFormatException exception) { /* handling the case that user did not type an integer with
                                                         requesting to print the corresponding message from view */
-                view.printNumberFormatExceptionMessage();
+                view.printStringWithoutLineSeparator("Not a number!%n");
             }
         }
     }

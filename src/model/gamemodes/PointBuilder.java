@@ -3,7 +3,8 @@ package model.gamemodes;
 import model.Model;
 import model.questions.Question;
 import model.util.Util;
-import view.View;
+import view.cli.Cli;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * This class represents the gamemode Point Builder.
  *
  * @author Tasos Papadopoulos
- * @version 17.11.2020
+ * @version 23.11.2020
  */
 public class PointBuilder extends Gamemode {
     /**
@@ -41,7 +42,7 @@ public class PointBuilder extends Gamemode {
      * @see Gamemodable
      */
     @Override
-    public boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, View view, Model model) throws NumberFormatException {
+    public boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException {
         int choiceInt = Integer.parseInt(choice);
         if (choiceInt < 1 || choiceInt > 4)
             throw new NumberFormatException();
@@ -56,7 +57,7 @@ public class PointBuilder extends Gamemode {
                 if (userAnsweredOnTime)
                     this.actionIfCorrectAnswer(model);
                 else {
-                    view.printTimeEndedMessage();
+                    view.printStringWithoutLineSeparator("Unfortunately, available time has ended!%nSo you don't earn any points!");
                     Util.stopExecution(2L);
                 }
             }
@@ -68,7 +69,7 @@ public class PointBuilder extends Gamemode {
      * @see Gamemodable
      */
     @Override
-    public void actionsPreQuestionsPhase(Model model, View view, Question currentQuestion) { }
+    public void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion) { }
 
     /**
      * @see Gamemodable

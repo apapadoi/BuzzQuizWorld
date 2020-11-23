@@ -2,14 +2,14 @@ package model.gamemodes;
 
 import model.Model;
 import model.questions.Question;
-import view.View;
+import view.cli.Cli;
 
 /**
  * This interface contains all the methods that a new Gamemode class must implement so it can be added to the game.
  *
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 18.11.2020
+ * @version 23.11.2020
  */
 public interface Gamemodable {
     /**
@@ -40,17 +40,17 @@ public interface Gamemodable {
     /**
      * This method shows the current question depending the format each gamemode wants to implement.
      */
-    void showQuestionFormat(Model model, View view, Question currentQuestion, int roundId);
+    void showQuestionFormat(Model model, Cli view, Question currentQuestion, int roundId);
 
     /**
      * This method performs the actions that must be done when user decides to answer the question depending the gamemode.
      */
-    boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, View view, Model model) throws NumberFormatException;
+    boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException;
 
     /**
      * This method completes the actions that need to be done in the pre question's page.
      */
-    void actionsPreQuestionsPhase(Model model, View view, Question currentQuestion);
+    void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion);
 
     /**
      * This method returns if the current gamemode has pre question page or not as {@code boolean}.

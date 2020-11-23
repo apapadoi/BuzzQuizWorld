@@ -5,12 +5,15 @@ import model.gamemodes.HighStakes;
 import model.gamemodes.PointBuilder;
 import model.questions.Question;
 import model.util.Util;
-import view.View;
 import view.cli.Cli;
 
+/**
+ * @author Tasos Papadopoulos
+ * @version 23.11.2020
+ * */
 public class Controller implements Runnable {
     final Model model;
-    final View view;
+    final Cli view;
 
     public Controller(/*NumerablePlayersGamemode availableGamemodes*/) {
         view = new Cli();
@@ -22,11 +25,11 @@ public class Controller implements Runnable {
         // Printing the intro page.
         view.printIntroPage(model.getVersion());
         // Printing the available number of players that can play the game.
-        view.printNumOfPlayersAvailablePage();
+        view.printStringWithoutLineSeparator("The game in the current version can be played from one player only.%n");
         // Printing the available gamemodes.
         view.printAvailableGamemodeChoices(model.getAvailableGamemodes());
         // Asking from the user to type his username.
-        view.printUsernameChoiceText();
+        view.printStringWithoutLineSeparator("Type your username: ");
         model.setUsername(Util.readStringInput());
         // Asking from the user to choose what gamemode he wants to play.
         this.readGamemodeChoice();
@@ -99,14 +102,14 @@ public class Controller implements Runnable {
                                 model.decreaseSkips();
                                 validInput = true;
                             } else // if the user has no more skips then print the corresponding message
-                                view.printOutOfSkipsMessage();
+                                view.printStringWithoutLineSeparator("There are no more skips available!%nYou have to answer the question!");
                         } else { // if the user chose to answer the question then do the corresponding actions for each gamemode
                             // using actionWhenAnswered method
                             validInput = model.actionWhenAnswered(choice, currentQuestion, secondsTookToAnswer, view);
                         }
                     } catch (NumberFormatException exception) { // if the user did not type a valid answer then print
                         // print the corresponding message of not valid input
-                        view.printNotValidAnswerChoiceText();
+                        view.printStringWithoutLineSeparator("Not a valid answer!");
                         Util.stopExecution(2L);
                     }
                     view.clearScreen();

@@ -2,8 +2,12 @@ package model.gamemodes;
 
 import model.Model;
 import model.questions.Question;
-import view.View;
+import view.cli.Cli;
 
+/**
+ * @author Tasos Papadopoulos
+ * @version 23.11.2020
+ * */
 public abstract class Gamemode implements Gamemodable{
     protected final String description;
     protected final int availableTime;
@@ -40,7 +44,7 @@ public abstract class Gamemode implements Gamemodable{
     }
 
     @Override
-    public void showQuestionFormat(Model model, View view, Question currentQuestion, int roundId) {
+    public void showQuestionFormat(Model model, Cli view, Question currentQuestion, int roundId) {
         view.printCurrentGamemode(model.getCurrentGamemodeString());
         view.printCurrentPlayersUsername(model.getUsername());
         view.printPlayersScore(model.getScore());
@@ -51,14 +55,14 @@ public abstract class Gamemode implements Gamemodable{
         view.printAvailableTime(model.getAvailableTime());
         view.printQuestionsText(currentQuestion.getQuestionText());
         view.printQuestionsAnswers(currentQuestion.getAnswers());
-        view.printChooseAnswerText();
+        view.printStringWithoutLineSeparator("Choose your answer or type 'skip' if you want to skip the question!%n>");
     }
 
     @Override
-    public abstract boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, View view, Model model) throws NumberFormatException;
+    public abstract boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException;
 
     @Override
-    public abstract void actionsPreQuestionsPhase(Model model, View view, Question currentQuestion);
+    public abstract void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion);
 
     @Override
     public abstract boolean hasPreQuestionFormat();
