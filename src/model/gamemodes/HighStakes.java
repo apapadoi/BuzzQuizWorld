@@ -106,7 +106,7 @@ public class HighStakes extends Gamemode {
 
             } catch (NumberFormatException exception) { /* handling the case that user did not type an integer with
                                                         requesting to print the corresponding message from view */
-                view.printStringWithoutLineSeparator("Not a number!%n");
+                view.printStringWithoutLineSeparator("Not a number!"+System.lineSeparator());
             }
         }
     }

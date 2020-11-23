@@ -4,6 +4,7 @@ import model.Model;
 import model.gamemodes.HighStakes;
 import model.gamemodes.PointBuilder;
 import model.questions.Question;
+import model.util.MyTimer;
 import model.util.Util;
 import view.cli.Cli;
 
@@ -69,8 +70,9 @@ public class Controller implements Runnable {
      */
     public void readNumOfRoundsChoice() {
         int choice = model.readValidIntInput(this.view,1,10,
+                "Not a number!",
                 "Choose the number of rounds you want to play from[1-10]: ",
-                "Not a number!","There is no such number of rounds!");
+                "There is no such number of rounds!");
 
         model.setNumOfRoundsChoice(choice);
     }
@@ -91,10 +93,14 @@ public class Controller implements Runnable {
                         }
 
                         model.showQuestionFormat(view, currentQuestion, i); // showing the question depending the gamemode
-                        model.startTimer();
+
+                        MyTimer timer = new MyTimer();
+                        Thread timerThread = new Thread(timer);
+                        timerThread.start();
+
                         String choice = Util.readStringInput();
-                        int secondsTookToAnswer = model.getSecondsCounted();
-                        model.stopTimer();
+                        int secondsTookToAnswer = timer.getSecondsCounted();
+                        timerThread.interrupt();
 
                         if (choice.equals("skip")) { // if the user chose to skip and has skips to burn decrease the amount
                             // of available skips

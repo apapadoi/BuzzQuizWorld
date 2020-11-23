@@ -4,10 +4,8 @@ import model.gamemodes.*;
 import model.player.Player;
 import model.questions.Question;
 import model.round.Round;
-import model.util.MyTimer;
 import model.util.Util;
 import view.cli.Cli;
-
 import java.util.*;
 
 /**
@@ -20,14 +18,10 @@ public class Model{
     final Player currentPlayer;
     Gamemodable currentGamemode;
     List<Round> rounds;
-    final MyTimer timer;
-    final Thread timerThread;
 
     /**Default constructor. Initializes the player of the game.*/
     public Model() {
         currentPlayer = new Player();
-        timer = new MyTimer(this);
-        timerThread = new Thread(timer);
     }
 
     public String getCurrentGamemodeDescription() {
@@ -120,25 +114,8 @@ public class Model{
         this.currentGamemode.showQuestionFormat(this, view, currentQuestion, roundId);
     }
 
-    /** Method that starts a timer that is used to count how long took the user to answer the question.
-     * Implemented using multithreading.
-     */
-    public void startTimer() {
-        timerThread.start();
-    }
-
-    /** Method that stops the timer.
-     */
-    public void stopTimer() {
-        timerThread.interrupt();
-    }
-
     public String getCurrentGamemodeString() {
         return this.currentGamemode.toString();
-    }
-
-    public int getSecondsCounted() {
-        return this.timer.getSecondsCounted();
     }
 
     public boolean hasPreQuestionFormat() {

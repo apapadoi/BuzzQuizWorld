@@ -1,5 +1,4 @@
 import controller.Controller;
-import model.gamemodes.OnePlayerGamemodes;
 
 /**
  * This class contains the main method that program starts from.
@@ -9,7 +8,7 @@ import model.gamemodes.OnePlayerGamemodes;
  */
 public class BuzzApp {
     public static void main(String[] args) {
-        Controller controller = new Controller(/*new OnePlayerGamemodes()*/);
+        Controller controller = new Controller();
         Thread controllerThread = new Thread(controller);
         controllerThread.start();
     }

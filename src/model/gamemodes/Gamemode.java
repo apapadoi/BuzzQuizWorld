@@ -55,7 +55,7 @@ public abstract class Gamemode implements Gamemodable{
         view.printAvailableTime(model.getAvailableTime());
         view.printQuestionsText(currentQuestion.getQuestionText());
         view.printQuestionsAnswers(currentQuestion.getAnswers());
-        view.printStringWithoutLineSeparator("Choose your answer or type 'skip' if you want to skip the question!%n>");
+        view.printStringWithoutLineSeparator("Choose your answer or type 'skip' if you want to skip the question!"+System.lineSeparator()+">");
     }
 
     @Override
