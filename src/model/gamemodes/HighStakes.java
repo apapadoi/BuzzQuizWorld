@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class represents the gamemode High Stakes.
+ *
+ * @author Thodwrhs Myridis
+ * @version 18.11.2020
+ */
 public class HighStakes implements Gamemodable {
     final String description;
     final int availableTime;
@@ -16,6 +22,9 @@ public class HighStakes implements Gamemodable {
     int betAmount;
     List<Integer> availableBets;
 
+    /**
+     * Default constructor.
+     */
     public HighStakes() {
         this.description = "At first the category of the question is shown.\nEach player places his bet.\n" +
                 "Then, the question is shown, each player answers and if he answered correctly\n" +
@@ -27,35 +36,51 @@ public class HighStakes implements Gamemodable {
         this.betAmount=0;
         availableBets=new ArrayList<Integer>(List.of(250,500,750,1000));
     }
-
+    /**
+     * @see Gamemodable
+     */
     @Override
-    public String toString() {
-        return "High Stakes";
-    }
+    public String toString() { return "High Stakes";}
 
+    /**
+     * @see Gamemodable
+     */
     @Override
-    public int getSkipsAvailable() {
-        return this.skipsAvailable;
-    }
+    public int getSkipsAvailable() { return this.skipsAvailable; }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void decreaseSkips() {
         this.skipsAvailable--;
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void actionIfCorrectAnswer(Model model) {model.updateScore(betAmount);}
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public int getAvailableTime() {
         return this.availableTime;
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void showQuestionFormat(Model model, Cli view, Question currentQuestion, int roundId) {
         view.printPlayersBet(this.betAmount);
@@ -72,6 +97,9 @@ public class HighStakes implements Gamemodable {
         view.printChooseAnswerText();
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException {
         int choiceInt = Integer.parseInt(choice);
@@ -102,6 +130,9 @@ public class HighStakes implements Gamemodable {
         return true;
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion) {
         if (model.getScore()==0){
@@ -112,6 +143,9 @@ public class HighStakes implements Gamemodable {
         this.readBettingAmount(view,model);
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public boolean hasPreQuestionFormat() {
         return true;
@@ -139,5 +173,9 @@ public class HighStakes implements Gamemodable {
             }
         }
     }
+
+    /**
+     * Method that updates player's score if he selected wrong answer.
+     */
     public void actionIfWrongAnswer(Model model) {model.updateScore(-betAmount);}
 }
