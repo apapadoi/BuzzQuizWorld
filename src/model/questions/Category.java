@@ -6,15 +6,8 @@ package model.questions;
  * @version 10.11.2020
  * */
 public enum Category {
-    Geography,
-    History,
-    Art,
-    ScienceAndNature{
-        @Override
-        public String toString() {
-            return "Science And Nature";
-        }
-    },
-    Sports,
-    Entertainment
+    Food,
+    Technology,
+    Films,
+    Science
 }

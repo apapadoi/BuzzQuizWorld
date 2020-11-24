@@ -1,0 +1,60 @@
+Food;Which nut is used to make dynamite?;Peanuts;Walnuts;Pine nuts;Almonds;Peanuts;Medium
+Food;What was the first cold breakfast cereal invented in 1863?;Granola;Corn flakes;Bran flakes;Cheerios;Granola;Hard
+Food;Who invented Coca-Cola?;John Pemberton;Asa Griggs Candler;Charles Elmer Hires;John Matthews;John Pemberton;Medium
+Food;How many calories per gram are stored in protein?;4;3;2;5;4;Easy
+Food;What is the only U.S. state to grow coffee beans?;Hawaii;California;Louisiana;Florida;Hawaii;Medium
+Food;What does the word “onion” mean in Latin?;Large pearl;Small oyster;White sphere;White oyster;Large pearl
+Food;What is the only edible food that never expires?;Honey;Rye;Barley;White rice;Honey
+Food;What condiment was sold in the 1830’s as medicine?;Ketchup;Maple syrup;Ranch dressing;Soy sauce;Ketchup;Hard
+Food;What is a tall chef’s hat called?;Toque;Skull cap;Bucket hat;Trilby;Toque;Hard
+Food;How many flowers do honeybees need to visit in order to make one pound of honey?;2 million;1 million;1.5 million;900.000;2 million;
+Food;Toblerone is a chocolate brand from which country?;UK;Belgium;Switzerland;Sweeden;Switzerland;Medium
+Food;Which monk invented champagne?;Father Brown;Friar Tuck;Abbot Prosecco;Dom Perignon;Dom Perignon;Hard
+Technology;The famous computer Deep Blue was created by which company?;IBM;Amazon;Gateway;Oracle;IBM;Medium
+Technology;The computer Deep Blue is known for beating a grandmaster in which game?;Checkers;Chess;Monopoly;Snakes and Ladders;Chess;Easy
+Technology;Released in 1900, the Brownie was a famous early camera from what company?;Kodak;Polaroid;Canon;Fuji;Kodak;Hard
+Technology;In which country did the brand LG originate?;USA;China;Germany;South Korea;South Korea;Hard
+Technology;What website was originally known as "Gadabra"?;Google;Facebook;Amazon;Instagram;Amazon;Medium
+Technology;What company specializes in GPS technology?;Bose;Garmin;Nintendo;Mozilla;Garmin;Medium
+Technology;What video-on-demand service was originally called "Watch Now"?;Hulu;Prime Video;Vudu;Netflix;Netflix;Medium
+Technology;In which year did Tim Berners-Lee invent the World Wide Web?;1960;1985;1993;1989;1989;Hard
+Technology;On an email, what does "CC" stand for?;Carbon Copy;Course Corrected;Check Core;Can't Complete;Carbon Copy;Medium
+Technology;What is the name of the blue bird that is in Twitter's logo?;Freddy;Larry;Manny;Tony;Larry;Hard
+Technology;Paypal was spun off from which major company in 2015?;eBay;Microsoft;Amazon;Yahoo!;eBay;Medium
+Technology;Tech giant Foxconn is headquartered in which of these countries?;Mexico;Brazil;Denmark;Taiwan;Taiwan;Hard
+Technology;The compact disc was originally developed by Philips and which company?;Sony;IBM;Apple;Zenith;Sony;Medium
+Technology;What is a type of test to see if a specific network address can be reached?;Trumpet;Dot;Ping;Jam;Ping;Hard
+Technology;Which food is slang for poorly-written computer code?;Roast Beef;Rye Bread;Spaghetti;Lasagna;Spaghetti;Easy
+Technology;Which of these social media platforms was launched in 2010?;Twitter;Myspace;Facebook;Instagram;Instagram;Medium
+Technology;What search engine was originally called "Jerry and David's Guide to the World Wide Web"?;Amazon;AOL;Google;Yahoo!;Yahoo!;Medium
+Films;What year was the first Toy Story film released in cinemas?;1995;1999;2001;1992;1995;Medium
+Films;Who directed Titanic, Avatar and The Terminator?;Quentin Tarantino;James Cameron;Joss Whedon;Edgar Wright;James Cameron;Medium
+Films;Which Oscar-winning actress is the voice of Helen Parr (Elastigirl) in The Incredibles?;Emma Stone;Kate Winslet;Holly Hunter;Julianne Moore;Holly Hunter;Hard
+Films;Who played Freddy Krueger in the first eight "Night on Elm Street" movies?;Kane Hodder;Robert Englund;Jackie Earle Haley;Johnny Depp;Robert Englund;Medium
+Films;Which actor broke two toes whilst filming The Lord of the Rings: The Two Towers?;Viggo Mortensen;Elijah Wood;Ian McKellen;Orlando Bloom;Viggo Mortensen;Medium
+Films;How many films have Al Pacino and Robert De Niro starred in together?;10;6;2;4;4;Hard
+Films;The Imitation Game is a biopic based on which twentieth century figure?;Albert Einstein;Nikola Tesla;Alan Turing;Marie Curie;Alan Turing;Easy
+Films;What does Tom Hanks compare life to in Forest Gump?;A book;A box of chocolates;A sunny day;A bouquet of flowers;A box of chocolates;Medium
+Science;What part of the eye determines what the color of it is ?;Iris;Lens;Cornea;Pupil;Iris;Medium
+Science;Which of these is a metal on the periodic table?;Neon;Radon;Zinc;Krypton;Zinc;Medium
+Science;What does a spectrometer help measure?;Light;Voltage;Liquid Density;Fermentation;Light;Easy
+Science;How many moons does Mars have in all?;0;5;8;2;2;Medium
+Science;What liquid did thermometers have in them, because of its sensitivity to temperature?;Bromine;Barium;Gallium;Mercury;Mercury;Medium
+Science;Which planet has the Great Red Spot?;Jupiter;Mercury;Mars;Venus;Jupiter;Medium
+ScienceWhat is NOT considered one of the Galilean Moons of Jupiter?;Io;Phobos;Ganymede;Europa;Phobos;Medium
+Science;How many different blood types can be found in the human body?;4;3;1;2;4;Medium
+Science;Ascorbic acid is more commonly referred to as what?;Gluten;Lactose;Vitamin C;Aspirin;Vitamin C;Hard
+Science;What is the largest organ in the human body?;Heart;Large Intestine;Lungs;Skin;Skin;Medium
+Science;Approximately how many Earths could fit inside the sun?;356000;1.3 Million;864000;2 Million;1.3 Million;Medium
+Science;What type of brain disorder causes difficulty in speech and movement?;Arthritis;Parkinson's Disease;Diabetes;Pneumonia;Parkinson's Disease;Medium
+Science;Which organ could grow back if you donated part of it?;Liver;Stomach;Pancreas;Intestine;Liver;Hard
+Science;What disease is created when cells in the body begin to divide uncontrollably?;Cancer;Influenza;Alzheimer's;Diabetes;Cancer;Hard
+Science;What is the closest star to the Earth, beside the Sun?;Rigel;Proxima Centauri;Canopus;Arctutus;Proxima Centauri;Hard
+Science;Who developed the smallpox vaccine?;John Adams;Edward Jenner;Louis Pasteur;Alexander Fleming;Edward Jenner;Hard
+Science;What is the only metal tha can be in liquid form at room temperature?;Iron;Copper;Magnesium;Mercury;Mercury;Medium
+Science;"Fe" is the chemical symbol for which common element?;Copper;Iron;Oxygen;Hydrogen;Iron;Easy
+Science;Which chemical element is historically known as quicksilver?;Platinum;Mercury;Silver;Gold;Mercury;Medium
+Science;Vaccine gets its name from the Latin for which farm animal?;Sheep;Pig;Cow;Goat;Cow;Medium
+Science;Which planet has the coldest atmosphere in the solar system?;Jupiter;Mercury;Uranus;Neptune;Uranus;Medium
+Science;Which part of the body is affected by a Pott's fracture?;Wrist;Knee;Ankle;Arm;Ankle;Hard
+Science;During which century was the telescope created?;16th Century;19th Century;17th Century;18th Century;17th Century;Medium
