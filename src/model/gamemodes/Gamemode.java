@@ -36,7 +36,7 @@ public abstract class Gamemode implements Gamemodable{
         (this.skipsAvailable)--;
     }
 
-    public abstract void actionIfCorrectAnswer(Model model);
+    public abstract void actionIfCorrectAnswer(Model model,int secondsTookToAnswer);
 
     @Override
     public int getAvailableTime() {
@@ -59,11 +59,11 @@ public abstract class Gamemode implements Gamemodable{
     }
 
     @Override
-    public abstract boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException;
+    public void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion) { }
 
     @Override
-    public abstract void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion);
+    public boolean hasPreQuestionFormat() { return false; }
 
     @Override
-    public abstract boolean hasPreQuestionFormat();
+    public void actionIfWrongAnswer(Model model) { }
 }

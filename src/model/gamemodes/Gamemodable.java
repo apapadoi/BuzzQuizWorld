@@ -35,17 +35,12 @@ public interface Gamemodable {
     /**
      * This method performs the actions that must be done when user answers correctly the question depending the gamemode.
      */
-    void actionIfCorrectAnswer(Model model);
+    void actionIfCorrectAnswer(Model model,int secondsTookToAnswer);
 
     /**
      * This method shows the current question depending the format each gamemode wants to implement.
      */
     void showQuestionFormat(Model model, Cli view, Question currentQuestion, int roundId);
-
-    /**
-     * This method performs the actions that must be done when user decides to answer the question depending the gamemode.
-     */
-    boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException;
 
     /**
      * This method completes the actions that need to be done in the pre question's page.
@@ -56,6 +51,8 @@ public interface Gamemodable {
      * This method returns if the current gamemode has pre question page or not as {@code boolean}.
      */
     boolean hasPreQuestionFormat();
+
+    void actionIfWrongAnswer(Model model);
 
     /**
      * This method returns {@code Gamemodable} object as {@code String}

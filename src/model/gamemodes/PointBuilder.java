@@ -1,12 +1,6 @@
 package model.gamemodes;
 
 import model.Model;
-import model.questions.Question;
-import model.util.Util;
-import view.cli.Cli;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class represents the gamemode Point Builder.
@@ -34,48 +28,7 @@ public class PointBuilder extends Gamemode {
      * @see Gamemodable
      */
     @Override
-    public void actionIfCorrectAnswer(Model model) {
+    public void actionIfCorrectAnswer(Model model,int secondsTookToAnswer) {
         model.updateScore(1000);
-    }
-
-    /**
-     * @see Gamemodable
-     */
-    @Override
-    public boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException {
-        int choiceInt = Integer.parseInt(choice);
-        if (choiceInt < 1 || choiceInt > 4)
-            throw new NumberFormatException();
-        choiceInt--;
-        List<String> possibleAnswers = new ArrayList<>(currentQuestion.getAnswers());
-        for (String currentPossibleAnswer : possibleAnswers) {
-            boolean currentPossibleAnswerIsCorrect = currentPossibleAnswer.equals(currentQuestion.getCorrectAnswer());
-            boolean userAnsweredCorrect = choiceInt == possibleAnswers.indexOf(currentQuestion.getCorrectAnswer());
-            boolean userAnsweredOnTime = secondsTookToAnswer <= model.getAvailableTime();
-
-            if (currentPossibleAnswerIsCorrect && userAnsweredCorrect) {
-                if (userAnsweredOnTime)
-                    this.actionIfCorrectAnswer(model);
-                else {
-                    view.printStringWithoutLineSeparator("Unfortunately, available time has ended!%nSo you don't earn any points!");
-                    Util.stopExecution(2L);
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * @see Gamemodable
-     */
-    @Override
-    public void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion) { }
-
-    /**
-     * @see Gamemodable
-     */
-    @Override
-    public boolean hasPreQuestionFormat() {
-        return false;
     }
 }

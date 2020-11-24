@@ -32,7 +32,7 @@ public class HighStakes extends Gamemode {
     }
 
     @Override
-    public void actionIfCorrectAnswer(Model model) {
+    public void actionIfCorrectAnswer(Model model,int secondsTookToAnswer) {
         model.updateScore(betAmount);
     }
 
@@ -40,36 +40,6 @@ public class HighStakes extends Gamemode {
     public void showQuestionFormat(Model model, Cli view, Question currentQuestion, int roundId) {
         view.printPlayersBet(this.betAmount);
         super.showQuestionFormat(model,view,currentQuestion,roundId);
-    }
-
-    @Override
-    public boolean actionWhenAnswered(String choice, Question currentQuestion, int secondsTookToAnswer, Cli view, Model model) throws NumberFormatException {
-        int choiceInt = Integer.parseInt(choice);
-        if (choiceInt < 1 || choiceInt > 4)
-            throw new NumberFormatException();
-        choiceInt--;
-        List<String> possibleAnswers = new ArrayList<>(currentQuestion.getAnswers());
-        for (String currentPossibleAnswer : possibleAnswers) {
-            boolean currentPossibleAnswerIsCorrect = currentPossibleAnswer.equals(currentQuestion.getCorrectAnswer());
-            boolean userAnsweredCorrect = choiceInt == possibleAnswers.indexOf(currentQuestion.getCorrectAnswer());
-            boolean userAnsweredOnTime = secondsTookToAnswer <= model.getAvailableTime();
-
-            if (currentPossibleAnswerIsCorrect) {
-                if (userAnsweredCorrect) {
-                    if (userAnsweredOnTime)
-                        this.actionIfCorrectAnswer(model);
-                    else {
-                        this.actionIfWrongAnswer(model);
-                        view.printStringWithoutLineSeparator("Unfortunately, available time has ended!%nSo you don't earn any points!");
-                        Util.stopExecution(2L);
-                    }
-                }
-                else{
-                    this.actionIfWrongAnswer(model);
-                }
-            }
-        }
-        return true;
     }
 
     @Override
@@ -111,6 +81,7 @@ public class HighStakes extends Gamemode {
         }
     }
 
+    @Override
     public void actionIfWrongAnswer(Model model) {
         model.updateScore(-betAmount);
     }

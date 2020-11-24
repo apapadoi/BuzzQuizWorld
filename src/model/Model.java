@@ -15,13 +15,21 @@ import java.util.*;
  * @version 23.11.2020
  */
 public class Model{
-    final Player currentPlayer;
-    Gamemodable currentGamemode;
-    List<Round> rounds;
+    private final Player currentPlayer;
+    private Gamemodable currentGamemode;
+    private List<Round> rounds;
+    private final List<String> validAnswers;
 
     /**Default constructor. Initializes the player of the game.*/
     public Model() {
         currentPlayer = new Player();
+        this.validAnswers = new ArrayList<>(List.of("skip","1","2","3","4"));
+    }
+
+    public Gamemodable getCurrentGamemode() { return this.currentGamemode; }
+
+    public List<String> getValidAnswers() {
+        return this.validAnswers;
     }
 
     public String getCurrentGamemodeDescription() {
@@ -111,7 +119,7 @@ public class Model{
      * @param roundId         The id of the current round.
      */
     public void showQuestionFormat(Cli view, Question currentQuestion, int roundId) {
-        this.currentGamemode.showQuestionFormat(this, view, currentQuestion, roundId);
+        this.currentGamemode.showQuestionFormat(this,view,currentQuestion,roundId);
     }
 
     public String getCurrentGamemodeString() {
@@ -130,8 +138,8 @@ public class Model{
         this.currentGamemode.decreaseSkips();
     }
 
-    public boolean actionWhenAnswered(String choice,Question currentQuestion,int secondsTookToAnswer,Cli view) {
-        return this.currentGamemode.actionWhenAnswered(choice,currentQuestion,secondsTookToAnswer,view,this);
+    public void actionIfCorrectAnswer(int secondsTookToAnswer) {
+        this.currentGamemode.actionIfCorrectAnswer(this,secondsTookToAnswer);
     }
 
     public int readValidIntInput(Cli view, int lowValidValue, int maxValidValue, String numberFormatExceptionMessage, String askInputMessage,
@@ -154,5 +162,9 @@ public class Model{
 
         }
         return choice;
+    }
+
+    public void actionIfWrongAnswer() {
+        this.currentGamemode.actionIfWrongAnswer(this);
     }
 }
