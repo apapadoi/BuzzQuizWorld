@@ -10,9 +10,9 @@ import java.util.List;
  *
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 18.11.2020
+ * @version 23.11.2020
  */
-public class Cli {
+public class Cli{
     /**
      * This method prints the intro page in the command line.
      * @param version The version of the app
@@ -25,13 +25,6 @@ public class Cli {
         System.out.println("A quiz game with several gamemodes to choose from and players answering trivial questions for the " +
                 "ultimate goal...what else winning!");
         System.out.println("Choose the gamemode and the rounds you want to play and let the game begin!");
-    }
-
-    /**
-     * This method prints the number of players that the game supports in the current version.
-     * */
-    public void printNumOfPlayersAvailablePage() {
-        System.out.println("The game in the current version can be played from one player only.");
     }
 
     /**
@@ -55,38 +48,8 @@ public class Cli {
      * gamemodes.So after choice is read, it must be changed to be 0-indexed according to the way {@code ordinal()}
      * method returns the corresponding integers for values from an enum-type.
      */
-    public void printGamemodeChoiceText() {
-        //Print the message that asks from the user to choose a gamemode
-        System.out.print("Choose gamemode with typing a number from the available gamemodes list: ");
-    }
-
-    /**
-     * This method prints a message when input is out of bounds.
-     */
-    public void printInputOutOfBoundsMessage() {
-        System.out.println("There is no such gamemode!");
-    }
-
-    /**
-     * This method prints a message when input is not a number.
-     */
-    public void printNumberFormatExceptionMessage() {
-        System.out.println("Not a number!");
-    }
-
-    /**
-     * This method prints a message that asks the player to choose a number of rounds.
-     */
-    public void printNumOfRoundsChoiceText() {
-        //the message that asks from the user to choose a number of rounds
-        System.out.print("Choose the number of rounds you want to play from[1-10]: ");
-    }
-
-    /**
-     * This method prints a message when input of rounds is out of bounds.
-     */
-    public void printNoSuchNumOfRoundsMessage() {
-        System.out.println("There is no such number of rounds!");
+    public void printStringWithoutLineSeparator(String text) {
+        System.out.print(text);
     }
 
     /**
@@ -117,18 +80,7 @@ public class Cli {
     public void printCurrentGamemode(String currentGamemode) {
         System.out.println("Gamemode: " + currentGamemode);
     }
-
-    /**
-     * This method prints a message to ask a player to type his username.
-     */
-    public void printUsernameChoiceText() {
-        System.out.print("Type your username: ");
-    }
-
-    /**
-     * This method prints the player's username
-     * @param username Players username {@code String}
-     */
+  
     public void printCurrentPlayersUsername(String username) {
         System.out.println("Current player: " + username);
     }
@@ -200,34 +152,6 @@ public class Cli {
         System.out.println("4. " + answers.get(3));
     }
 
-    /**
-     * This method prints a message that asks the player to choose his answer or skip.
-     */
-    public void printChooseAnswerText() {
-        System.out.println("Choose your answer or type 'skip' if you want to skip the question!");
-        System.out.print(">");
-    }
-
-    /**
-     * This method prints a message when the answer is not valid.
-     */
-    public void printNotValidAnswerChoiceText() {
-        System.out.print("Not a valid answer!");
-    }
-
-    /**
-     * This method prints a message when there is no more skips available for the player.
-     */
-    public void printOutOfSkipsMessage() {
-        System.out.println("There are no more skips available!");
-        System.out.println("You have to answer the question!");
-    }
-
-    /**
-     * This method prints finish screen and shows player's username and his final score.
-     * @param username Player's username {@code String}
-     * @param score Player's final score {@code int}
-     */
     public void printFinishPage(String username, int score) {
         System.out.println("Game Finished!");
         System.out.println();
@@ -238,26 +162,8 @@ public class Cli {
         System.out.println("Thank you for playing!");
     }
 
-    /**
-     * This method prints a message when the player ran out of time.
-     */
-    public void printTimeEndedMessage() {
-        System.out.println("Unfortunately, available time has ended!");
-        System.out.println("So you don't earn any points!");
-    }
-
-    /**
-     * This method prints a message (Gamemode: HighStakes) that asks the player to place his bet among available bet values.
-     */
     public void printBettingPhaseAmount() {
         System.out.print("Place your bet [250,500,750,1000]: ");
-    }
-
-    /**
-     * This method prints a message (Gamemode: HighStakes) when the bet value is out of bounds.
-     */
-    public void printNoSuchBettingAmount() {
-        System.out.println("No such betting amount.");
     }
 
     /**

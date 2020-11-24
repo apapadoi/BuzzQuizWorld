@@ -1,7 +1,5 @@
 package model.util;
 
-import model.Model;
-
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,14 +10,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class MyTimer implements Runnable {
     int secondsCounted;
-    Model model;
 
     /**
      * Default Constructor.
-     *
-     * @param model The model of the app.
      */
-    public MyTimer(Model model) {
+    public MyTimer() {
         secondsCounted = 0;
     }
 
