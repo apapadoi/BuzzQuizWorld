@@ -9,13 +9,18 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * This class represents the gamemode High Stakes.
  * @author Tasos Papadopoulos
+ * @author Thodwrhs Myridis
  * @version 23.11.2020
  * */
 public class HighStakes extends Gamemode {
     int betAmount;
     final List<Integer> availableBets;
 
+    /**
+     * Default constructor.
+     */
     public HighStakes() {
         super("At first the category of the question is shown.\nEach player places his bet.\n" +
                 "Then, the question is shown, each player answers and if he answered correctly\n" +
@@ -25,23 +30,32 @@ public class HighStakes extends Gamemode {
         this.betAmount=0;
         availableBets=new ArrayList<>(List.of(250,500,750,1000));
     }
-
+    /**
+     * @see Gamemodable
+     */
     @Override
-    public String toString() {
-        return "High Stakes";
-    }
+    public String toString() { return "High Stakes";}
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void actionIfCorrectAnswer(Model model,int secondsTookToAnswer) {
         model.updateScore(betAmount);
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void showQuestionFormat(Model model, Cli view, Question currentQuestion, int roundId) {
         view.printPlayersBet(this.betAmount);
         super.showQuestionFormat(model,view,currentQuestion,roundId);
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion) {
         if (model.getScore()==0){
@@ -52,6 +66,9 @@ public class HighStakes extends Gamemode {
         this.readBettingAmount(view,model);
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public boolean hasPreQuestionFormat() {
         return true;

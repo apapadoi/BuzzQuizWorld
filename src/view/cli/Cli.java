@@ -52,6 +52,11 @@ public class Cli{
         System.out.print(text);
     }
 
+    /**
+     * This method prints current gamemode and its description with a loading screen after.
+     * @param currentGamemodeString The current gamemode {@code String}
+     * @param currentGamemodeDescription The current gamemode's description {@code String}
+     */
     public void printLoadingScreen(String currentGamemodeString, String currentGamemodeDescription) {
         System.out.println(currentGamemodeString);
         System.out.println();
@@ -60,47 +65,86 @@ public class Cli{
         System.out.print("Loading...");
     }
 
+    /**
+     * This method clears the screen.
+     */
     public void clearScreen() {
         for (int i = 0; i < 50; i++)
             System.out.println();
     }
 
+    /**
+     * This method prints current gamemode.
+     * @param currentGamemode The current gamemode {@code String}
+     */
     public void printCurrentGamemode(String currentGamemode) {
         System.out.println("Gamemode: " + currentGamemode);
     }
-
+  
     public void printCurrentPlayersUsername(String username) {
         System.out.println("Current player: " + username);
     }
 
+    /**
+     * This method prints current player's score
+     * @param score Player's score {@code int}
+     */
     public void printPlayersScore(int score) {
         System.out.println("Score: " + score);
     }
 
+    /**
+     * This method prints current round.
+     * @param id Current round {@code int}
+     */
     public void printRoundId(int id) {
         System.out.println("Round : " + (id + 1));
     }
 
+    /**
+     * This method prints player's available skips.
+     * @param skips Player's available skips {@code int}
+     */
     public void printSkipsAvailable(int skips) {
         System.out.println("Available skips : " + skips);
     }
 
+    /**
+     * This method prints question's category.
+     * @param category Question's category {@code Category}
+     */
     public void printQuestionsCategory(Category category) {
         System.out.println("Category : " + category.toString());
     }
 
+    /**
+     * This method prints question's difficulty.
+     * @param difficulty Question's difficulty {@code Difficulty}
+     */
     public void printQuestionsDifficulty(Difficulty difficulty) {
         System.out.println("Difficulty : " + difficulty.toString());
     }
 
+    /**
+     * This method prints available time.
+     * @param availableTime available time{@code int}
+     */
     public void printAvailableTime(int availableTime) {
         System.out.println("Available Time : " + availableTime);
     }
 
+    /**
+     * This method prints question's text.
+     * @param questionsText Question's text{@code String}
+     */
     public void printQuestionsText(String questionsText) {
         System.out.println(questionsText);
     }
 
+    /**
+     * This method prints question's answers.
+     * @param answers Question's answers {@code List<String>}
+     */
     public void printQuestionsAnswers(List<String> answers) {
         System.out.println("1. " + answers.get(0));
         System.out.println("2. " + answers.get(1));
@@ -122,10 +166,18 @@ public class Cli{
         System.out.print("Place your bet [250,500,750,1000]: ");
     }
 
+    /**
+     * This method prints a message (Gamemode: HighStakes) to tell the player that he has no points > 250 so the game bets automatically his available points.
+     * @param score Player's score {@code int}
+     */
     public void printBetDoneAutomatically(int score) {
         System.out.println("Your score is under 250 so game bets automatically " + score + ".");
     }
 
+    /**
+     * This method prints player's bet choice.
+     * @param bet Player's bet choice {@code int}
+     */
     public void printPlayersBet(int bet) {
         System.out.println("Bet : " + bet);
     }
