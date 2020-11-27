@@ -15,8 +15,8 @@ import java.util.List;
  * @version 23.11.2020
  * */
 public class HighStakes extends Gamemode {
-    int betAmount;
-    final List<Integer> availableBets;
+    private int betAmount;
+    private final List<Integer> availableBets;
 
     /**
      * Default constructor.
@@ -101,5 +101,17 @@ public class HighStakes extends Gamemode {
     @Override
     public void actionIfWrongAnswer(Model model) {
         model.updateScore(-betAmount);
+    }
+
+    public int getBetAmount(){
+        return this.betAmount;
+    }
+
+    public List<Integer> getAvailableBets(){
+        return this.availableBets;
+    }
+
+    public void setBetAmount(int betAmount){
+        this.betAmount=betAmount;
     }
 }
