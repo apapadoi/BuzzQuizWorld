@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class represents a testing JUnit for HighStakes gamemode.
+ * @author Thodwrhs Myridis
+ * @version 24/11/2020
+ */
 class PointBuilderTest {
 
     @BeforeEach

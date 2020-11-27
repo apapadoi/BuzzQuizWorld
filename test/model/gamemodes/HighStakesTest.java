@@ -17,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This class represents a testing JUnit for HighStakes gamemode.
+ * @author Thodwrhs Myridis
+ * @version 27/11/2020
  */
 class HighStakesTest {
     HighStakes test;
@@ -25,9 +27,6 @@ class HighStakesTest {
     List<String> answers;
     Question currentQuestion;
 
-    /**
-     *
-     */
     @BeforeEach
     void setUp() {
         test=new HighStakes();
