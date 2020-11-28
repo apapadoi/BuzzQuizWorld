@@ -4,15 +4,13 @@ import model.gamemodes.*;
 import model.player.Player;
 import model.questions.Question;
 import model.round.Round;
-import model.util.Util;
-import view.cli.Cli;
 import java.util.*;
 
 /**
  * This class represents the model of the app that handles the data.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 23.11.2020
+ * @version 28.11.2020
  */
 public class Model{
     private final Player currentPlayer;
@@ -114,12 +112,11 @@ public class Model{
     }
 
     /** Method that shows the current question depending the gamemode using the {@code view} parameter.
-     * @param view            The object that handles User Interface.
      * @param currentQuestion The current question of a round.
      * @param roundId         The id of the current round.
      */
-    public void showQuestionFormat(Cli view, Question currentQuestion, int roundId) {
-        this.currentGamemode.showQuestionFormat(this,view,currentQuestion,roundId);
+    public String getQuestionFormat(Question currentQuestion, int roundId) {
+        return currentGamemode.getQuestionFormat(this,currentQuestion,roundId);
     }
 
     public String getCurrentGamemodeString() {
@@ -130,8 +127,16 @@ public class Model{
         return this.currentGamemode.hasPreQuestionFormat();
     }
 
-    public void actionsPreQuestionsPhase(Cli view,Question currentQuestion) {
-        this.currentGamemode.actionsPreQuestionsPhase(this,view,currentQuestion);
+    public String getPreQuestionFormat(Question currentQuestion) {
+        return this.currentGamemode.getPreQuestionFormat(this,currentQuestion);
+    }
+
+    public String getPreQuestionAskMessage() {
+        return this.currentGamemode.getPreQuestionAskMessage();
+    }
+
+    public void actionsPreQuestionsPhase(Question currentQuestion) throws NumberFormatException,ArithmeticException{
+        this.currentGamemode.actionsPreQuestionsPhase(this,currentQuestion);
     }
 
     public void decreaseSkips() {
@@ -140,28 +145,6 @@ public class Model{
 
     public void actionIfCorrectAnswer(int secondsTookToAnswer) {
         this.currentGamemode.actionIfCorrectAnswer(this,secondsTookToAnswer);
-    }
-
-    public int readValidIntInput(Cli view, int lowValidValue, int maxValidValue, String numberFormatExceptionMessage, String askInputMessage,
-                                 String notANumberFromTheListMessage) {
-        boolean validInput = false;
-        int choice =0;
-
-        while (!validInput) { // asking from user continuously to choose a number of rounds until a valid choice is made
-            try {
-                view.printStringWithoutLineSeparator(askInputMessage);
-                choice = Util.readIntInput();
-
-                if (Util.isInsideLimits(choice, lowValidValue, maxValidValue))
-                    validInput = true;
-                else
-                    view.printStringWithoutLineSeparator(notANumberFromTheListMessage+System.lineSeparator());
-            } catch (NumberFormatException exception) {
-                view.printStringWithoutLineSeparator(numberFormatExceptionMessage);
-            }
-
-        }
-        return choice;
     }
 
     public void actionIfWrongAnswer() {

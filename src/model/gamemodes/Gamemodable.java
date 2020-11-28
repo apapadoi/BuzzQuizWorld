@@ -2,14 +2,13 @@ package model.gamemodes;
 
 import model.Model;
 import model.questions.Question;
-import view.cli.Cli;
 
 /**
  * This interface contains all the methods that a new Gamemode class must implement so it can be added to the game.
  *
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 23.11.2020
+ * @version 28.11.2020
  */
 public interface Gamemodable {
     /**
@@ -40,12 +39,16 @@ public interface Gamemodable {
     /**
      * This method shows the current question depending the format each gamemode wants to implement.
      */
-    void showQuestionFormat(Model model, Cli view, Question currentQuestion, int roundId);
+    String getQuestionFormat(Model model,Question currentQuestion, int roundId);
+
+    String getPreQuestionFormat(Model model,Question currentQuestion);
+
+    String getPreQuestionAskMessage();
 
     /**
      * This method completes the actions that need to be done in the pre question's page.
      */
-    void actionsPreQuestionsPhase(Model model, Cli view, Question currentQuestion);
+    void actionsPreQuestionsPhase(Model model,Question currentQuestion) throws NumberFormatException,ArithmeticException;
 
     /**
      * This method returns if the current gamemode has pre question page or not as {@code boolean}.

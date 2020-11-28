@@ -6,15 +6,15 @@ import java.util.concurrent.TimeUnit;
  * This class represents a timer for counting seconds that took a specific event to finish.
  *
  * @author Tasos Papadopoulos
- * @version 17.11.2020
+ * @version 28.11.2020
  */
-public class MyTimer implements Runnable {
+public class UserAnswerTimer implements Runnable {
     int secondsCounted;
 
     /**
      * Default Constructor.
      */
-    public MyTimer() {
+    public UserAnswerTimer() {
         secondsCounted = 0;
     }
 

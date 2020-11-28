@@ -1,25 +1,27 @@
 package controller;
 
 import model.Model;
-import model.gamemodes.Gamemodable;
 import model.gamemodes.HighStakes;
 import model.gamemodes.PointBuilder;
 import model.questions.Question;
-import model.util.MyTimer;
+import model.util.InputOutOfBoundsException;
+import model.util.UserAnswerTimer;
 import model.util.Util;
 import view.cli.Cli;
 
 /**
  * @author Tasos Papadopoulos
- * @version 23.11.2020
+ * @version 28.11.2020
  * */
 public class Controller implements Runnable {
     private final Model model;
     private final Cli view;
+    private int secondsTookToAnswer;
 
     public Controller(/*NumerablePlayersGamemode availableGamemodes*/) {
         view = new Cli();
         this.model = new Model(/*availableGamemodes*/);
+        this.secondsTookToAnswer = 0;
     }
 
     @Override
@@ -57,10 +59,10 @@ public class Controller implements Runnable {
      * This method reads the user's gamemode choice.
      */
     public void readGamemodeChoice() {
-        int choice = model.readValidIntInput(this.view,1,model.getAvailableGamemodes().size(),
-                "Not a number!",
+        int choice = this.readValidIntInput(this.view,1,model.getAvailableGamemodes().size(),
+                "Not a number!"+System.lineSeparator(),
                 "Choose a gamemode with typing a number from the available gamemodes list: ",
-                "No such gamemode!");
+                "No such gamemode!"+System.lineSeparator());
 
         if (choice == 1) // creating an instance of the corresponding gamemode the user chose
             model.setCurrentGamemode(new PointBuilder());
@@ -72,10 +74,10 @@ public class Controller implements Runnable {
      * This method reads the user's number of rounds choice.
      */
     public void readNumOfRoundsChoice() {
-        int choice = model.readValidIntInput(this.view,1,10,
-                "Not a number!",
+        int choice = this.readValidIntInput(this.view,1,10,
+                "Not a number!"+System.lineSeparator(),
                 "Choose the number of rounds you want to play from[1-10]: ",
-                "There is no such number of rounds!");
+                "There is no such number of rounds!"+System.lineSeparator());
 
         model.setNumOfRoundsChoice(choice);
     }
@@ -85,47 +87,7 @@ public class Controller implements Runnable {
      */
     public void startGameplay() {
         for (int i = 0; i < model.getNumOfRounds(); i++) { // loop as many rounds as the user chose
-            for (Question currentQuestion : model.getRound(i).getQuestions()) { // loop as many questions as the round has
-                boolean validInput = false;
-                Gamemodable currentGamemode = model.getCurrentGamemode();
-                while (!validInput) {
-                    try {
-                        this.actionsPreQuestionPhase(currentQuestion);
-                        model.showQuestionFormat(view, currentQuestion, i); // showing the question depending the gamemode
-
-                        MyTimer timer = new MyTimer();
-                        Thread timerThread = new Thread(timer);
-                        timerThread.start();
-                        String choice = Util.readStringInput();
-                        int secondsTookToAnswer = timer.getSecondsCounted();
-                        timerThread.interrupt();
-
-                        if(!model.getValidAnswers().contains(choice))
-                            throw new NumberFormatException();
-
-                        if(this.userSkipped(choice)) {
-                            validInput = this.decreaseSkips();
-                        }else if( secondsTookToAnswer > model.getAvailableTime() ) {
-                            view.printStringWithoutLineSeparator("Unfortunately, available time has ended!"+System.lineSeparator()+"Correct answer: "+currentQuestion.getCorrectAnswer());
-                            validInput = true;
-                            Util.stopExecution(1L);
-                        }else if(this.userAnsweredCorrect(choice,currentQuestion)) {
-                            model.actionIfCorrectAnswer(secondsTookToAnswer);
-                            validInput = true;
-                        } else {
-                            view.printStringWithoutLineSeparator("Unfortunately, your answer was not correct!"+System.lineSeparator()+"Correct answer: "+currentQuestion.getCorrectAnswer());
-                            Util.stopExecution(1L);
-                            model.actionIfWrongAnswer();
-                            validInput = true;
-                        }
-                    } catch (NumberFormatException exception) { // if the user did not type a valid answer then print
-                        // print the corresponding message of not valid input
-                        view.printStringWithoutLineSeparator("Not a valid answer!");
-                        Util.stopExecution(2L);
-                    }
-                    view.clearScreen();
-                }
-            }
+            this.startRound(i);
         }
     }
 
@@ -133,7 +95,21 @@ public class Controller implements Runnable {
         if (model.hasPreQuestionFormat()) { // if any action needs to be performed before the question is shown
             // e.g High Stakes betting phase has to be shown before the question
             // is shown then these methods complete these actions
-            model.actionsPreQuestionsPhase(view,currentQuestion);
+            view.printStringWithoutLineSeparator(model.getPreQuestionFormat(currentQuestion));
+
+            boolean validInput = false;
+            while (!validInput) {
+                try {
+                    view.printStringWithoutLineSeparator(model.getPreQuestionAskMessage());
+                    model.actionsPreQuestionsPhase(currentQuestion);
+                    validInput = true;
+                } catch (InputOutOfBoundsException|NumberFormatException exception) {
+                    view.printStringWithoutLineSeparator(exception.getMessage() + System.lineSeparator());
+                }catch (RuntimeException exception) {
+                    view.printStringWithoutLineSeparator(exception.getMessage()+System.lineSeparator());
+                    validInput = true;
+                }
+            }
         }
     }
 
@@ -157,5 +133,81 @@ public class Controller implements Runnable {
             view.printStringWithoutLineSeparator("There are no more skips available!"+System.lineSeparator()+"You have to answer the question!");
             return false;
         }
+    }
+
+    public void startRound(int i) {
+        for (Question currentQuestion : model.getRound(i).getQuestions()) { // loop as many questions as the round has
+            boolean validInput = false;
+            while (!validInput) {
+                try {
+                    this.actionsPreQuestionPhase(currentQuestion);
+                    this.showQuestionFormat(currentQuestion,i);// showing the question depending the gamemode
+                    String choice = this.readAnswer();
+                    validInput = this.processAnswer(choice,currentQuestion);
+                } catch (NumberFormatException exception) { // if the user did not type a valid answer then print
+                    // print the corresponding message of not valid input
+                    view.printStringWithoutLineSeparator(exception.getMessage());
+                    Util.stopExecution(2L);
+                }
+                view.clearScreen();
+            }
+        }
+    }
+
+    public void showQuestionFormat(Question currentQuestion,int roundId) {
+        view.printStringWithoutLineSeparator(model.getQuestionFormat(currentQuestion,roundId));
+    }
+
+    public String readAnswer() {
+        UserAnswerTimer timer = new UserAnswerTimer();
+        Thread timerThread = new Thread(timer);
+        timerThread.start();
+        String choice = Util.readStringInput();
+        secondsTookToAnswer = timer.getSecondsCounted();
+        timerThread.interrupt();
+        return choice;
+    }
+
+    public boolean processAnswer(String choice,Question currentQuestion) throws NumberFormatException{
+        if(!model.getValidAnswers().contains(choice))
+            throw new NumberFormatException("Not a valid answer!");
+
+        if(this.userSkipped(choice)) {
+            return this.decreaseSkips();
+        }else if( secondsTookToAnswer > model.getAvailableTime() ) {
+            view.printStringWithoutLineSeparator("Unfortunately, available time has ended!"+System.lineSeparator()+"Correct answer: "+currentQuestion.getCorrectAnswer());
+            Util.stopExecution(1L);
+            return true;
+        }else if(this.userAnsweredCorrect(choice,currentQuestion)) {
+            model.actionIfCorrectAnswer(secondsTookToAnswer);
+            return true;
+        } else {
+            view.printStringWithoutLineSeparator("Unfortunately, your answer was not correct!"+System.lineSeparator()+"Correct answer: "+currentQuestion.getCorrectAnswer());
+            Util.stopExecution(1L);
+            model.actionIfWrongAnswer();
+            return true;
+        }
+    }
+
+    public int readValidIntInput(Cli view, int lowValidValue, int maxValidValue, String numberFormatExceptionMessage, String askInputMessage,
+                                 String notANumberFromTheListMessage) {
+        boolean validInput = false;
+        int choice =0;
+
+        while (!validInput) { // asking from user continuously to choose a number of rounds until a valid choice is made
+            try {
+                view.printStringWithoutLineSeparator(askInputMessage);
+                choice = Util.readIntInput();
+
+                if (Util.isInsideLimits(choice, lowValidValue, maxValidValue))
+                    validInput = true;
+                else
+                    view.printStringWithoutLineSeparator(notANumberFromTheListMessage);
+            } catch (NumberFormatException exception) {
+                view.printStringWithoutLineSeparator(numberFormatExceptionMessage);
+            }
+
+        }
+        return choice;
     }
 }
