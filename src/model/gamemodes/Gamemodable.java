@@ -8,7 +8,7 @@ import model.questions.Question;
  *
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 28.11.2020
+ * @version 29.11.2020
  */
 public interface Gamemodable {
     /**
@@ -17,19 +17,9 @@ public interface Gamemodable {
     String getDescription();
 
     /**
-     * This method returns the available skips of the gamemode as {@code int}.
-     */
-    int getSkipsAvailable();
-
-    /**
      * This method returns the available time of the gamemode for each question as {@code int}.
      */
     int getAvailableTime();
-
-    /**
-     * This method decreases the available skips of the gamemode.
-     */
-    void decreaseSkips();
 
     /**
      * This method performs the actions that must be done when user answers correctly the question depending the gamemode.

@@ -12,7 +12,7 @@ import java.util.List;
  * This class represents the gamemode High Stakes.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 28.11.2020
+ * @version 29.11.2020
  * */
 public class HighStakes extends Gamemode {
     int betAmount;
@@ -26,7 +26,7 @@ public class HighStakes extends Gamemode {
                 "Then, the question is shown, each player answers and if he answered correctly\n" +
                 "he earns his bet, otherwise he loses his bet.\n" +
                 "Available bets: 250,500,750,1000\n" +
-                "If player's points get under 250 automatically the game bets all of his points.\n",5,3);
+                "If player's points get under 250 automatically the game bets all of his points.\n",5);
         this.betAmount=0;
         availableBets=new ArrayList<>(List.of(250,500,750,1000));
     }
@@ -49,10 +49,11 @@ public class HighStakes extends Gamemode {
      */
     @Override
     public String getQuestionFormat(Model model,Question currentQuestion, int roundId) {
-        StringBuilder questionFormat = new StringBuilder(super.getQuestionFormat(model,currentQuestion,roundId));
+        StringBuilder questionFormat = new StringBuilder();
         questionFormat.append("Your bet is : ");
         questionFormat.append(this.betAmount);
         questionFormat.append(System.lineSeparator());
+        questionFormat.append(super.getQuestionFormat(model,currentQuestion,roundId));
 
         return questionFormat.toString();
     }
@@ -61,6 +62,7 @@ public class HighStakes extends Gamemode {
     public String getPreQuestionFormat(Model model,Question currentQuestion) {
         StringBuilder preQuestionFormat = new StringBuilder();
         this.checkZeroScoreAndUpdate(model);
+        preQuestionFormat.append("Your score : ");
         preQuestionFormat.append(model.getScore());
         preQuestionFormat.append(System.lineSeparator());
         preQuestionFormat.append(currentQuestion.getCategory());

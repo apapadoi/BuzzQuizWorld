@@ -1,5 +1,10 @@
 package model.round;
 
+import model.Model;
+import model.gamemodes.Gamemodable;
+import model.gamemodes.Gamemode;
+import model.gamemodes.HighStakes;
+import model.gamemodes.PointBuilder;
 import model.questions.Category;
 import model.questions.Difficulty;
 import model.questions.Question;
@@ -7,6 +12,7 @@ import model.questions.Question;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * This class represents a single round with the number of the rounds, a list of the questions that are going to be picked randomly, the current question id (contains
@@ -14,11 +20,11 @@ import java.util.List;
  *
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
- * @version 17.11.2020
+ * @version 29.11.2020
  */
 public class Round {
     private final List<Question> questions;
-
+    private Gamemodable gamemode;
     /**
      * Default constructor.
      * */
@@ -44,6 +50,7 @@ public class Round {
         for (int i = 0; i < 5; i++) {
             questions.add(currentQuestion);
         }
+        this.initializeGamemode();
     }
 
     /**
@@ -52,5 +59,75 @@ public class Round {
      * @return The questions as {@code List<Question>}
      */
     public List<Question> getQuestions() {
-        return this.questions;}
+        return this.questions;
+    }
+
+    private void initializeGamemode() {
+        switch(ThreadLocalRandom.current().nextInt(2)) {
+            case 0:
+                this.gamemode= new PointBuilder();
+                break;
+            case 1:
+                this.gamemode = new HighStakes();
+                break;
+        }
+    }
+
+    public String getGamemodeDescription() {
+        return this.gamemode.getDescription();
+    }
+
+    public String getGamemodeString() {
+        return this.gamemode.toString();
+    }
+
+    /**Returns the number of available skips as {@code int}.
+     * @return int
+     */
+    public int getSkipsAvailable() {
+        return Gamemode.getSkipsAvailable();
+    }
+
+    /** Returns the available time as {@code int}.
+     * @return int
+     */
+    public int getAvailableTime() {
+        return this.gamemode.getAvailableTime();
+    }
+
+    /** Method that shows the current question depending the gamemode using the {@code view} parameter.
+     * @param currentQuestion The current question of a round.
+     * @param roundId         The id of the current round.
+     */
+    public String getQuestionFormat(Model model,Question currentQuestion, int roundId) {
+        return gamemode.getQuestionFormat(model,currentQuestion,roundId);
+    }
+
+    public boolean hasPreQuestionFormat() {
+        return this.gamemode.hasPreQuestionFormat();
+    }
+
+    public String getPreQuestionFormat(Model model, Question currentQuestion) {
+        return this.gamemode.getPreQuestionFormat(model,currentQuestion);
+    }
+
+    public void actionsPreQuestionsPhase(Model model,Question currentQuestion) throws NumberFormatException,ArithmeticException{
+        this.gamemode.actionsPreQuestionsPhase(model,currentQuestion);
+    }
+
+    public String getPreQuestionAskMessage() {
+        return this.gamemode.getPreQuestionAskMessage();
+    }
+
+    public void decreaseSkips() {
+        Gamemode.decreaseSkips();
+    }
+
+    public void actionIfCorrectAnswer(Model model,int secondsTookToAnswer) {
+        this.gamemode.actionIfCorrectAnswer(model,secondsTookToAnswer);
+    }
+
+    public void actionIfWrongAnswer(Model model) {
+        this.gamemode.actionIfWrongAnswer(model);
+    }
 }

@@ -6,14 +6,14 @@ import model.Model;
  * This class represents the gamemode Point Builder.
  *
  * @author Tasos Papadopoulos
- * @version 23.11.2020
+ * @version 29.11.2020
  */
 public class PointBuilder extends Gamemode {
     /**
      * Default Constructor.
      */
     public PointBuilder() {
-        super("Each player that answers correctly earns 1000 points.",5,3);
+        super("Each player that answers correctly earns 1000 points.",5);
     }
 
     /**

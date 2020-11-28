@@ -2,7 +2,6 @@ package model;
 
 import model.gamemodes.*;
 import model.player.Player;
-import model.questions.Question;
 import model.round.Round;
 import java.util.*;
 
@@ -10,11 +9,10 @@ import java.util.*;
  * This class represents the model of the app that handles the data.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 28.11.2020
+ * @version 29.11.2020
  */
 public class Model{
     private final Player currentPlayer;
-    private Gamemodable currentGamemode;
     private List<Round> rounds;
     private final List<String> validAnswers;
 
@@ -24,14 +22,8 @@ public class Model{
         this.validAnswers = new ArrayList<>(List.of("skip","1","2","3","4"));
     }
 
-    public Gamemodable getCurrentGamemode() { return this.currentGamemode; }
-
     public List<String> getValidAnswers() {
         return this.validAnswers;
-    }
-
-    public String getCurrentGamemodeDescription() {
-        return this.currentGamemode.getDescription();
     }
 
     public List<String> getAvailableGamemodes() {
@@ -40,10 +32,6 @@ public class Model{
 
     public void setUsername(String username) {
         currentPlayer.setUsername(username);
-    }
-
-    public void setCurrentGamemode(Gamemodable currentGamemode) {
-        this.currentGamemode = currentGamemode;
     }
 
     /**
@@ -81,13 +69,6 @@ public class Model{
         return this.currentPlayer.getScore();
     }
 
-    /**Returns the number of available skips as {@code int}.
-     * @return int
-     */
-    public int getSkipsAvailable() {
-        return this.currentGamemode.getSkipsAvailable();
-    }
-
     /** Returns the round that has index {@code i} as {@code Round}.
      * @param i The index of the round we want to get.
      * @return Round
@@ -96,58 +77,11 @@ public class Model{
         return this.rounds.get(i);
     }
 
-    /** Returns the available time as {@code int}.
-     * @return int
-     */
-    public int getAvailableTime() {
-        return this.currentGamemode.getAvailableTime();
-    }
-
     /** Method that updates user's score with adding the {@code amount} value.
      * No checking is done on the {@code amount} parameter's value.
      * @param amount The amount we want to add to the user's score.
      */
     public void updateScore(int amount) {
         this.currentPlayer.addScore(amount);
-    }
-
-    /** Method that shows the current question depending the gamemode using the {@code view} parameter.
-     * @param currentQuestion The current question of a round.
-     * @param roundId         The id of the current round.
-     */
-    public String getQuestionFormat(Question currentQuestion, int roundId) {
-        return currentGamemode.getQuestionFormat(this,currentQuestion,roundId);
-    }
-
-    public String getCurrentGamemodeString() {
-        return this.currentGamemode.toString();
-    }
-
-    public boolean hasPreQuestionFormat() {
-        return this.currentGamemode.hasPreQuestionFormat();
-    }
-
-    public String getPreQuestionFormat(Question currentQuestion) {
-        return this.currentGamemode.getPreQuestionFormat(this,currentQuestion);
-    }
-
-    public String getPreQuestionAskMessage() {
-        return this.currentGamemode.getPreQuestionAskMessage();
-    }
-
-    public void actionsPreQuestionsPhase(Question currentQuestion) throws NumberFormatException,ArithmeticException{
-        this.currentGamemode.actionsPreQuestionsPhase(this,currentQuestion);
-    }
-
-    public void decreaseSkips() {
-        this.currentGamemode.decreaseSkips();
-    }
-
-    public void actionIfCorrectAnswer(int secondsTookToAnswer) {
-        this.currentGamemode.actionIfCorrectAnswer(this,secondsTookToAnswer);
-    }
-
-    public void actionIfWrongAnswer() {
-        this.currentGamemode.actionIfWrongAnswer(this);
     }
 }

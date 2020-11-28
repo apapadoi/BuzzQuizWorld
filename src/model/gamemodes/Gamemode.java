@@ -5,24 +5,25 @@ import model.questions.Question;
 
 /**
  * @author Tasos Papadopoulos
- * @version 28.11.2020
+ * @version 29.11.2020
  * */
 public abstract class Gamemode implements Gamemodable{
     protected final String description;
     protected final int availableTime;
-    protected int skipsAvailable;
+    protected static int skipsAvailable;
 
-    public Gamemode(String description,int availableTime,int skipsAvailable) {
+    static {
+        skipsAvailable = 3;
+    }
+    public Gamemode(String description,int availableTime) {
         this.description = description;
         this.availableTime = availableTime;
-        this.skipsAvailable = skipsAvailable;
     }
 
     public abstract String toString();
 
-    @Override
-    public int getSkipsAvailable() {
-        return this.skipsAvailable;
+    public static int getSkipsAvailable() {
+        return skipsAvailable;
     }
 
     @Override
@@ -31,8 +32,8 @@ public abstract class Gamemode implements Gamemodable{
     }
 
 
-    public void decreaseSkips() {
-        (this.skipsAvailable)--;
+    public static void decreaseSkips() {
+        skipsAvailable--;
     }
 
     public abstract void actionIfCorrectAnswer(Model model,int secondsTookToAnswer);
@@ -46,7 +47,7 @@ public abstract class Gamemode implements Gamemodable{
     public String getQuestionFormat(Model model,Question currentQuestion, int roundId) {
         StringBuilder questionFormat = new StringBuilder();
         questionFormat.append("Current Gamemode : ");
-        questionFormat.append(model.getCurrentGamemodeString());
+        questionFormat.append(model.getRound(roundId).getGamemodeString());
         questionFormat.append(System.lineSeparator());
         questionFormat.append("Username : ");
         questionFormat.append(model.getUsername());
@@ -55,10 +56,12 @@ public abstract class Gamemode implements Gamemodable{
         questionFormat.append(model.getScore());
         questionFormat.append(System.lineSeparator());
         questionFormat.append("Current round : ");
-        questionFormat.append(roundId);
+        questionFormat.append(roundId+1);
+        questionFormat.append(" of ");
+        questionFormat.append(model.getNumOfRounds());
         questionFormat.append(System.lineSeparator());
         questionFormat.append("Available number of skips : ");
-        questionFormat.append(model.getSkipsAvailable());
+        questionFormat.append(Gamemode.getSkipsAvailable());
         questionFormat.append(System.lineSeparator());
         questionFormat.append("Question's category : ");
         questionFormat.append(currentQuestion.getCategory());
@@ -67,7 +70,7 @@ public abstract class Gamemode implements Gamemodable{
         questionFormat.append(currentQuestion.getDifficulty());
         questionFormat.append(System.lineSeparator());
         questionFormat.append("Available time : ");
-        questionFormat.append(model.getAvailableTime());
+        questionFormat.append(model.getRound(roundId).getAvailableTime());
         questionFormat.append(" seconds");
         questionFormat.append(System.lineSeparator());
         questionFormat.append("Question : ");
