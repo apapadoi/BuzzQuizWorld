@@ -2,8 +2,7 @@ package model.round;
 
 import model.Model;
 import model.gamemodes.Gamemodable;
-import model.gamemodes.HighStakes;
-import model.gamemodes.PointBuilder;
+import model.gamemodes.NumerablePlayersGamemode;
 import model.questions.Category;
 import model.questions.Difficulty;
 import model.questions.Question;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * This class represents a single round with the number of the rounds, a list of the questions that are going to be picked randomly, the current question id (contains
@@ -23,11 +21,11 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Round {
     private final List<Question> questions;
-    private Gamemodable gamemode;
+    private final Gamemodable gamemode;
     /**
      * Default constructor.
      * */
-    public Round() {
+    public Round(NumerablePlayersGamemode gamemodesForCurrentNumOfPlayers) {
         questions = new ArrayList<>(5);
 
         Question currentQuestion = new Question();
@@ -49,7 +47,8 @@ public class Round {
         for (int i = 0; i < 5; i++) {
             questions.add(currentQuestion);
         }
-        this.initializeGamemode();
+
+        this.gamemode = gamemodesForCurrentNumOfPlayers.getRandomGamemode();
     }
 
     /**
@@ -59,17 +58,6 @@ public class Round {
      */
     public List<Question> getQuestions() {
         return this.questions;
-    }
-
-    private void initializeGamemode() {
-        switch(ThreadLocalRandom.current().nextInt(2)) {
-            case 0:
-                this.gamemode= new PointBuilder();
-                break;
-            case 1:
-                this.gamemode = new HighStakes();
-                break;
-        }
     }
 
     public String getGamemodeDescription() {

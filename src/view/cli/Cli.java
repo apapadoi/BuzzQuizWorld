@@ -1,7 +1,5 @@
 package view.cli;
 
-import java.util.List;
-
 /**
  * This class handles the UI of the app.
  *
@@ -19,23 +17,9 @@ public class Cli{
         System.out.println("Developed by Tasos Papadopoulos");
         System.out.println("             Thodwris Myridhs");
         System.out.println("Version " + version + System.lineSeparator());
-        System.out.println("A quiz game with several gamemodes to choose from and players answering trivial questions for the " +
+        System.out.println("A quiz game with several gamemodes and players answering trivial questions for the " +
                 "ultimate goal...what else winning!");
-        System.out.println("Choose the gamemode and the rounds you want to play and let the game begin!");
-    }
-
-    /**
-     * This method prints the available gamemodes section in the command line.
-     * Gamemodes' are shown in the same sequence as the enum they are saved.
-     * Also gamemodes' corresponding integer shown is the number that ordinal() method returns plus 1 so
-     * the user does not see the choice 0 for better experience.
-     * */
-    public void printAvailableGamemodeChoices(List<String> availableGamemodes) {
-        System.out.println("Available gamemodes: ");
-        int i = 1;
-        for (String currentGamemode : availableGamemodes) {
-            System.out.println((i++) + ". " + currentGamemode);
-        }
+        System.out.println("Choose the number of rounds you want to play and let the game begin!");
     }
 
     /**
@@ -68,61 +52,6 @@ public class Cli{
     public void clearScreen() {
         for (int i = 0; i < 50; i++)
             System.out.println();
-    }
-  
-    public void printCurrentPlayersUsername(String username) {
-        System.out.println("Current player: " + username);
-    }
-
-    /**
-     * This method prints current player's score
-     * @param score Player's score {@code int}
-     */
-    public void printPlayersScore(int score) {
-        System.out.println("Score: " + score);
-    }
-
-    /**
-     * This method prints current round.
-     * @param id Current round {@code int}
-     */
-    public void printRoundId(int id) {
-        System.out.println("Round : " + (id + 1));
-    }
-
-    /**
-     * This method prints player's available skips.
-     * @param skips Player's available skips {@code int}
-     */
-    public void printSkipsAvailable(int skips) {
-        System.out.println("Available skips : " + skips);
-    }
-
-    /**
-     * This method prints available time.
-     * @param availableTime available time{@code int}
-     */
-    public void printAvailableTime(int availableTime) {
-        System.out.println("Available Time : " + availableTime);
-    }
-
-    /**
-     * This method prints question's text.
-     * @param questionsText Question's text{@code String}
-     */
-    public void printQuestionsText(String questionsText) {
-        System.out.println(questionsText);
-    }
-
-    /**
-     * This method prints question's answers.
-     * @param answers Question's answers {@code List<String>}
-     */
-    public void printQuestionsAnswers(List<String> answers) {
-        System.out.println("1. " + answers.get(0));
-        System.out.println("2. " + answers.get(1));
-        System.out.println("3. " + answers.get(2));
-        System.out.println("4. " + answers.get(3));
     }
 
     public void printFinishPage(String username, int score) {

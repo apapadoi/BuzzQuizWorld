@@ -10,11 +10,7 @@ import model.questions.Question;
 public abstract class Gamemode implements Gamemodable{
     protected final String description;
     protected final int availableTime;
-    protected static int skipsAvailable;
 
-    static {
-        skipsAvailable = 3;
-    }
     public Gamemode(String description,int availableTime) {
         this.description = description;
         this.availableTime = availableTime;
@@ -22,18 +18,9 @@ public abstract class Gamemode implements Gamemodable{
 
     public abstract String toString();
 
-    public static int getSkipsAvailable() {
-        return skipsAvailable;
-    }
-
     @Override
     public String getDescription() {
         return this.description;
-    }
-
-
-    public static void decreaseSkips() {
-        skipsAvailable--;
     }
 
     public abstract void actionIfCorrectAnswer(Model model,int secondsTookToAnswer);
@@ -60,9 +47,6 @@ public abstract class Gamemode implements Gamemodable{
         questionFormat.append(" of ");
         questionFormat.append(model.getNumOfRounds());
         questionFormat.append(System.lineSeparator());
-        questionFormat.append("Available number of skips : ");
-        questionFormat.append(Gamemode.getSkipsAvailable());
-        questionFormat.append(System.lineSeparator());
         questionFormat.append("Question's category : ");
         questionFormat.append(currentQuestion.getCategory());
         questionFormat.append(System.lineSeparator());
@@ -73,30 +57,28 @@ public abstract class Gamemode implements Gamemodable{
         questionFormat.append(model.getRound(roundId).getAvailableTime());
         questionFormat.append(" seconds");
         questionFormat.append(System.lineSeparator());
-        questionFormat.append("Question : ");
+        questionFormat.append("Question ");
+        questionFormat.append(model.getRound(roundId).getQuestions().indexOf(currentQuestion)+1);
+        questionFormat.append(" of ");
+        questionFormat.append(model.getRound(roundId).getQuestions().size());
+        questionFormat.append(" : ");
         questionFormat.append(currentQuestion.getQuestionText());
         questionFormat.append(System.lineSeparator());
-
         questionFormat.append("Answers : ");
         questionFormat.append(System.lineSeparator());
-
         questionFormat.append("1. ");
         questionFormat.append(currentQuestion.getAnswers().get(0));
         questionFormat.append(System.lineSeparator());
-
         questionFormat.append("2. ");
         questionFormat.append(currentQuestion.getAnswers().get(1));
         questionFormat.append(System.lineSeparator());
-
         questionFormat.append("3. ");
         questionFormat.append(currentQuestion.getAnswers().get(2));
         questionFormat.append(System.lineSeparator());
-
         questionFormat.append("4. ");
         questionFormat.append(currentQuestion.getAnswers().get(3));
         questionFormat.append(System.lineSeparator());
-
-        questionFormat.append("Choose your answer or type 'skip' if you want to skip the question!");
+        questionFormat.append("Choose your answer!");
         questionFormat.append(System.lineSeparator());
         questionFormat.append(">");
 

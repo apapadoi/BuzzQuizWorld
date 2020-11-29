@@ -1,7 +1,6 @@
 package controller;
 
 import model.Model;
-import model.gamemodes.Gamemode;
 import model.questions.Question;
 import model.round.Round;
 import model.util.UserAnswerTimer;
@@ -19,9 +18,9 @@ public class Controller implements Runnable {
     private final Cli view;
     private int secondsTookToAnswer;
 
-    public Controller(/*NumerablePlayersGamemode availableGamemodes*/) {
+    public Controller() {
         view = new Cli();
-        this.model = new Model(/*availableGamemodes*/);
+        this.model = new Model();
         this.secondsTookToAnswer = 0;
     }
 
@@ -43,7 +42,7 @@ public class Controller implements Runnable {
         this.startGameplay();
         // Clearing the screen after the gameplay has ended and then printing the finish screen.
         view.clearScreen();
-        view.printFinishPage(model.getUsername(),model.getScore());
+        view.printFinishPage(model.getUsername(), model.getScore());
     }
 
     /**
@@ -98,35 +97,19 @@ public class Controller implements Runnable {
         return currentQuestion.getAnswers().get(choiceInt).equals(currentQuestion.getCorrectAnswer());
     }
 
-    public boolean userSkipped(String choice) {
-        return choice.equals("skip");
-    }
-
-    public boolean decreaseSkips(){
-        if (Gamemode.getSkipsAvailable() > 0) {
-            Gamemode.decreaseSkips();
-            return true;
-        }
-        else {
-            view.printStringWithoutLineSeparator("There are no more skips available!"+System.lineSeparator()+"You have to answer the question!");
-            Util.stopExecution(2L);
-            return false;
-        }
-    }
-
     public void startRound(int i) {
         for (Question currentQuestion : model.getRound(i).getQuestions()) { // loop as many questions as the round has
             boolean validInput = false;
             while (!validInput) {
                 try {
-                    view.printLoadingScreen(model.getRound(i).getGamemodeString(),model.getRound(i).getGamemodeDescription());
+                    view.printLoadingScreen(model.getRound(i).getGamemodeString(), model.getRound(i).getGamemodeDescription());
                     Util.stopExecution(2L);
                     view.clearScreen();
-                    this.actionsPreQuestionPhase(currentQuestion,model.getRound(i));
+                    this.actionsPreQuestionPhase(currentQuestion, model.getRound(i));
                     view.clearScreen();
-                    this.showQuestionFormat(currentQuestion,model.getRound(i),i);// showing the question depending the gamemode
+                    this.showQuestionFormat(currentQuestion, model.getRound(i), i);// showing the question depending the gamemode
                     String choice = this.readAnswer();
-                    validInput = this.processAnswer(choice,currentQuestion,model.getRound(i));
+                    validInput = this.processAnswer(choice, currentQuestion, model.getRound(i));
                 } catch (NumberFormatException exception) { // if the user did not type a valid answer then print
                     // print the corresponding message of not valid input
                     view.printStringWithoutLineSeparator(exception.getMessage());
@@ -155,9 +138,7 @@ public class Controller implements Runnable {
         if(!model.getValidAnswers().contains(choice))
             throw new NumberFormatException("Not a valid answer!");
 
-        if(this.userSkipped(choice)) {
-            return this.decreaseSkips();
-        }else if( secondsTookToAnswer > currentRound.getAvailableTime() ) {
+        if( secondsTookToAnswer > currentRound.getAvailableTime() ) {
             view.printStringWithoutLineSeparator("Unfortunately, available time has ended!"+System.lineSeparator()+"Correct answer: "+currentQuestion.getCorrectAnswer());
             Util.stopExecution(1L);
             currentRound.actionIfWrongAnswer(this.model);

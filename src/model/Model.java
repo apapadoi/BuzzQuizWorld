@@ -1,6 +1,7 @@
 package model;
 
-import model.gamemodes.*;
+import model.gamemodes.NumerablePlayersGamemode;
+import model.gamemodes.OnePlayerGamemodes;
 import model.player.Player;
 import model.round.Round;
 import java.util.*;
@@ -12,26 +13,22 @@ import java.util.*;
  * @version 29.11.2020
  */
 public class Model{
-    private final Player currentPlayer;
+    private final Player player;
     private List<Round> rounds;
     private final List<String> validAnswers;
 
     /**Default constructor. Initializes the player of the game.*/
     public Model() {
-        currentPlayer = new Player();
-        this.validAnswers = new ArrayList<>(List.of("skip","1","2","3","4"));
+        this.validAnswers = new ArrayList<>(List.of("1","2","3","4"));
+        player = new Player();
     }
 
     public List<String> getValidAnswers() {
         return this.validAnswers;
     }
 
-    public List<String> getAvailableGamemodes() {
-        return new OnePlayerGamemodes().getAvailableGamemodes();
-    }
-
     public void setUsername(String username) {
-        currentPlayer.setUsername(username);
+        player.setUsername(username);
     }
 
     /**
@@ -47,8 +44,12 @@ public class Model{
     public void setNumOfRoundsChoice(int choice) {
         rounds = new ArrayList<>(choice);
         for (int i = 0; i < choice; i++) {
-            rounds.add(new Round());
+            rounds.add(new Round(this.chooseGamemodesForCurrentNumOfPlayers()));
         }
+    }
+
+    public NumerablePlayersGamemode chooseGamemodesForCurrentNumOfPlayers() {
+        return new OnePlayerGamemodes();
     }
 
     public int getNumOfRounds() {
@@ -59,14 +60,14 @@ public class Model{
      * @return String
      */
     public String getUsername() {
-        return this.currentPlayer.getUsername();
+        return this.player.getUsername();
     }
 
     /**Returns the user's score as {@code int}}
      * @return int
      */
     public int getScore() {
-        return this.currentPlayer.getScore();
+        return this.player.getScore();
     }
 
     /** Returns the round that has index {@code i} as {@code Round}.
@@ -82,6 +83,6 @@ public class Model{
      * @param amount The amount we want to add to the user's score.
      */
     public void updateScore(int amount) {
-        this.currentPlayer.addScore(amount);
+        this.player.addScore(amount);
     }
 }

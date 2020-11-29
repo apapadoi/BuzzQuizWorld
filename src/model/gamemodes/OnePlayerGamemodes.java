@@ -1,25 +1,20 @@
 package model.gamemodes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * This enum represents the available gamemodes that can be played by one player.
+ * This class represents the available gamemodes that can be played by one player.
  *
  * @author Tasos Papadopoulos
- * @version 17.11.2020
+ * @version 29.11.2020
  */
 public class OnePlayerGamemodes implements NumerablePlayersGamemode{
-    final List<String> gamemodes;
-
-    public OnePlayerGamemodes() {
-        gamemodes = new ArrayList<>(2);
-        gamemodes.add("Point Builder");
-        gamemodes.add("High Stakes");
-    }
-
     @Override
-    public List<String> getAvailableGamemodes() {
-        return gamemodes;
+    public final Gamemodable getRandomGamemode() {
+        int randomNumber = ThreadLocalRandom.current().nextInt(2);
+        if(randomNumber == 0)
+            return new PointBuilder();
+
+        return new HighStakes();
     }
 }
