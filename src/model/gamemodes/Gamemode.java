@@ -78,7 +78,7 @@ public abstract class Gamemode implements Gamemodable{
         questionFormat.append("4. ");
         questionFormat.append(currentQuestion.getAnswers().get(3));
         questionFormat.append(System.lineSeparator());
-        questionFormat.append("Choose your answer!");
+        questionFormat.append("Choose your answer![1-4]");
         questionFormat.append(System.lineSeparator());
         questionFormat.append(">");
 

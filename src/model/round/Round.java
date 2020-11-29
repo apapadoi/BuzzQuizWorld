@@ -1,13 +1,10 @@
 package model.round;
 
+import model.FileHandler.FileHandler;
 import model.Model;
 import model.gamemodes.Gamemodable;
 import model.gamemodes.NumerablePlayersGamemode;
-import model.questions.Category;
-import model.questions.Difficulty;
 import model.questions.Question;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -25,29 +22,8 @@ public class Round {
     /**
      * Default constructor.
      * */
-    public Round(NumerablePlayersGamemode gamemodesForCurrentNumOfPlayers) {
-        questions = new ArrayList<>(5);
-
-        Question currentQuestion = new Question();
-
-        currentQuestion.setQuestionText("The famous computer Deep Blue was created by which company?");
-        currentQuestion.setCorrectAnswer("IBM");
-        currentQuestion.setCategory(Category.Science);
-        currentQuestion.setDifficulty(Difficulty.Medium);
-
-        List<String> answers = new ArrayList<>(4);
-        answers.add("IBM");
-        answers.add("Amazon");
-        answers.add("Gateway");
-        answers.add("Oracle");
-        Collections.shuffle(answers);
-
-        currentQuestion.setAnswers(answers);
-
-        for (int i = 0; i < 5; i++) {
-            questions.add(currentQuestion);
-        }
-
+    public Round(NumerablePlayersGamemode gamemodesForCurrentNumOfPlayers,FileHandler fileHandler) {
+        this.questions = fileHandler.getNextQuestions();
         this.gamemode = gamemodesForCurrentNumOfPlayers.getRandomGamemode();
     }
 

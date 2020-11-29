@@ -1,12 +1,12 @@
 package controller;
 
+import model.FileHandler.FileHandler;
 import model.Model;
 import model.questions.Question;
 import model.round.Round;
 import model.util.UserAnswerTimer;
 import model.util.Util;
 import view.cli.Cli;
-
 import java.util.InputMismatchException;
 
 /**
@@ -17,17 +17,20 @@ public class Controller implements Runnable {
     private final Model model;
     private final Cli view;
     private int secondsTookToAnswer;
+    private final FileHandler fileHandler;
 
     public Controller() {
         view = new Cli();
         this.model = new Model();
         this.secondsTookToAnswer = 0;
+        this.fileHandler = new FileHandler();
     }
 
     @Override
     public void run() {
         // Printing the intro page.
         view.printIntroPage(model.getVersion());
+        fileHandler.readQuestions();
         // Printing the available number of players that can play the game.
         view.printStringWithoutLineSeparator("The game in the current version can be played from one player only."+System.lineSeparator());
         // Asking from players to type their username.
@@ -54,7 +57,7 @@ public class Controller implements Runnable {
                 "Choose the number of rounds you want to play from[1-10]: ",
                 "There is no such number of rounds!"+System.lineSeparator());
 
-        model.setNumOfRoundsChoice(choice);
+        model.setNumOfRoundsChoice(choice,this.fileHandler);
     }
 
     /**
@@ -99,14 +102,14 @@ public class Controller implements Runnable {
 
     public void startRound(int i) {
         for (Question currentQuestion : model.getRound(i).getQuestions()) { // loop as many questions as the round has
+            view.printLoadingScreen(model.getRound(i).getGamemodeString(), model.getRound(i).getGamemodeDescription());
+            Util.stopExecution(2L);
+            view.clearScreen();
+            this.actionsPreQuestionPhase(currentQuestion, model.getRound(i));
+            view.clearScreen();
             boolean validInput = false;
             while (!validInput) {
                 try {
-                    view.printLoadingScreen(model.getRound(i).getGamemodeString(), model.getRound(i).getGamemodeDescription());
-                    Util.stopExecution(2L);
-                    view.clearScreen();
-                    this.actionsPreQuestionPhase(currentQuestion, model.getRound(i));
-                    view.clearScreen();
                     this.showQuestionFormat(currentQuestion, model.getRound(i), i);// showing the question depending the gamemode
                     String choice = this.readAnswer();
                     validInput = this.processAnswer(choice, currentQuestion, model.getRound(i));
@@ -140,7 +143,7 @@ public class Controller implements Runnable {
 
         if( secondsTookToAnswer > currentRound.getAvailableTime() ) {
             view.printStringWithoutLineSeparator("Unfortunately, available time has ended!"+System.lineSeparator()+"Correct answer: "+currentQuestion.getCorrectAnswer());
-            Util.stopExecution(1L);
+            Util.stopExecution(2L);
             currentRound.actionIfWrongAnswer(this.model);
             return true;
         }else if(this.userAnsweredCorrect(choice,currentQuestion)) {
@@ -148,7 +151,7 @@ public class Controller implements Runnable {
             return true;
         } else {
             view.printStringWithoutLineSeparator("Unfortunately, your answer was not correct!"+System.lineSeparator()+"Correct answer: "+currentQuestion.getCorrectAnswer());
-            Util.stopExecution(1L);
+            Util.stopExecution(2L);
             currentRound.actionIfWrongAnswer(this.model);
             return true;
         }

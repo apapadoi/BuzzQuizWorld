@@ -65,6 +65,7 @@ public class HighStakes extends Gamemode {
         preQuestionFormat.append("Your score : ");
         preQuestionFormat.append(model.getScore());
         preQuestionFormat.append(System.lineSeparator());
+        preQuestionFormat.append("Question's category : ");
         preQuestionFormat.append(currentQuestion.getCategory());
         preQuestionFormat.append(System.lineSeparator());
 

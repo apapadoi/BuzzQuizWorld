@@ -1,5 +1,6 @@
 package model;
 
+import model.FileHandler.FileHandler;
 import model.gamemodes.NumerablePlayersGamemode;
 import model.gamemodes.OnePlayerGamemodes;
 import model.player.Player;
@@ -41,10 +42,10 @@ public class Model{
 
     /** Setter for the number of rounds.
      */
-    public void setNumOfRoundsChoice(int choice) {
+    public void setNumOfRoundsChoice(int choice, FileHandler fileHandler) {
         rounds = new ArrayList<>(choice);
         for (int i = 0; i < choice; i++) {
-            rounds.add(new Round(this.chooseGamemodesForCurrentNumOfPlayers()));
+            rounds.add(new Round(this.chooseGamemodesForCurrentNumOfPlayers(),fileHandler));
         }
     }
 
