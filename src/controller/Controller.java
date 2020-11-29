@@ -4,10 +4,11 @@ import model.Model;
 import model.gamemodes.Gamemode;
 import model.questions.Question;
 import model.round.Round;
-import model.util.InputOutOfBoundsException;
 import model.util.UserAnswerTimer;
 import model.util.Util;
 import view.cli.Cli;
+
+import java.util.InputMismatchException;
 
 /**
  * @author Tasos Papadopoulos
@@ -78,11 +79,12 @@ public class Controller implements Runnable {
                     view.printStringWithoutLineSeparator(currentRound.getPreQuestionAskMessage());
                     currentRound.actionsPreQuestionsPhase(this.model,currentQuestion);
                     validInput = true;
-                } catch (InputOutOfBoundsException|NumberFormatException exception) {
+                } catch (InputMismatchException |NumberFormatException exception) {
                     view.printStringWithoutLineSeparator(exception.getMessage() + System.lineSeparator());
-                    Util.stopExecution(2L);
+                    Util.stopExecution(1L);
                 }catch (RuntimeException exception) {
                     view.printStringWithoutLineSeparator(exception.getMessage()+System.lineSeparator());
+                    Util.stopExecution(2L);
                     validInput = true;
                 }
             }
@@ -158,6 +160,7 @@ public class Controller implements Runnable {
         }else if( secondsTookToAnswer > currentRound.getAvailableTime() ) {
             view.printStringWithoutLineSeparator("Unfortunately, available time has ended!"+System.lineSeparator()+"Correct answer: "+currentQuestion.getCorrectAnswer());
             Util.stopExecution(1L);
+            currentRound.actionIfWrongAnswer(this.model);
             return true;
         }else if(this.userAnsweredCorrect(choice,currentQuestion)) {
             currentRound.actionIfCorrectAnswer(this.model,secondsTookToAnswer);

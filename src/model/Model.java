@@ -39,7 +39,7 @@ public class Model{
      * @return String
      */
     public String getVersion() {
-        return "18.11.2020";
+        return "29.11.2020";
     }
 
     /** Setter for the number of rounds.

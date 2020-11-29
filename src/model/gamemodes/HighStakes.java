@@ -2,10 +2,10 @@ package model.gamemodes;
 
 import model.Model;
 import model.questions.Question;
-import model.util.InputOutOfBoundsException;
 import model.util.Util;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.List;
 
 /**
@@ -89,7 +89,7 @@ public class HighStakes extends Gamemode {
      * @see Gamemodable
      */
     @Override
-    public void actionsPreQuestionsPhase(Model model,Question currentQuestion) throws NumberFormatException,ArithmeticException{
+    public void actionsPreQuestionsPhase(Model model,Question currentQuestion) throws NumberFormatException,InputMismatchException{
         try {
             this.betAmount = Util.readIntInput();
 
@@ -100,7 +100,7 @@ public class HighStakes extends Gamemode {
                 }
             }
             else
-                throw new InputOutOfBoundsException("No such betting amount.");
+                throw new InputMismatchException("No such betting amount.");
         } catch (NumberFormatException exception) { /* handling the case that user did not type an integer with
                                                         requesting to print the corresponding message from view */
             throw new NumberFormatException("Not a number!");

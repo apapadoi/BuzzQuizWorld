@@ -2,15 +2,14 @@ package model.round;
 
 import model.Model;
 import model.gamemodes.Gamemodable;
-import model.gamemodes.Gamemode;
 import model.gamemodes.HighStakes;
 import model.gamemodes.PointBuilder;
 import model.questions.Category;
 import model.questions.Difficulty;
 import model.questions.Question;
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -81,13 +80,6 @@ public class Round {
         return this.gamemode.toString();
     }
 
-    /**Returns the number of available skips as {@code int}.
-     * @return int
-     */
-    public int getSkipsAvailable() {
-        return Gamemode.getSkipsAvailable();
-    }
-
     /** Returns the available time as {@code int}.
      * @return int
      */
@@ -111,16 +103,12 @@ public class Round {
         return this.gamemode.getPreQuestionFormat(model,currentQuestion);
     }
 
-    public void actionsPreQuestionsPhase(Model model,Question currentQuestion) throws NumberFormatException,ArithmeticException{
+    public void actionsPreQuestionsPhase(Model model,Question currentQuestion) throws NumberFormatException, InputMismatchException {
         this.gamemode.actionsPreQuestionsPhase(model,currentQuestion);
     }
 
     public String getPreQuestionAskMessage() {
         return this.gamemode.getPreQuestionAskMessage();
-    }
-
-    public void decreaseSkips() {
-        Gamemode.decreaseSkips();
     }
 
     public void actionIfCorrectAnswer(Model model,int secondsTookToAnswer) {
