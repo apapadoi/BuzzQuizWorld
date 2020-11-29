@@ -1,16 +1,11 @@
 package view.cli;
 
-import model.questions.Category;
-import model.questions.Difficulty;
-
-import java.util.List;
-
 /**
  * This class handles the UI of the app.
  *
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 23.11.2020
+ * @version 29.11.2020
  */
 public class Cli{
     /**
@@ -22,23 +17,9 @@ public class Cli{
         System.out.println("Developed by Tasos Papadopoulos");
         System.out.println("             Thodwris Myridhs");
         System.out.println("Version " + version + System.lineSeparator());
-        System.out.println("A quiz game with several gamemodes to choose from and players answering trivial questions for the " +
+        System.out.println("A quiz game with several gamemodes and players answering trivial questions for the " +
                 "ultimate goal...what else winning!");
-        System.out.println("Choose the gamemode and the rounds you want to play and let the game begin!");
-    }
-
-    /**
-     * This method prints the available gamemodes section in the command line.
-     * Gamemodes' are shown in the same sequence as the enum they are saved.
-     * Also gamemodes' corresponding integer shown is the number that ordinal() method returns plus 1 so
-     * the user does not see the choice 0 for better experience.
-     * */
-    public void printAvailableGamemodeChoices(List<String> availableGamemodes) {
-        System.out.println("Available gamemodes: ");
-        int i = 1;
-        for (String currentGamemode : availableGamemodes) {
-            System.out.println((i++) + ". " + currentGamemode);
-        }
+        System.out.println("Choose the number of rounds you want to play and let the game begin!");
     }
 
     /**
@@ -73,85 +54,6 @@ public class Cli{
             System.out.println();
     }
 
-    /**
-     * This method prints current gamemode.
-     * @param currentGamemode The current gamemode {@code String}
-     */
-    public void printCurrentGamemode(String currentGamemode) {
-        System.out.println("Gamemode: " + currentGamemode);
-    }
-  
-    public void printCurrentPlayersUsername(String username) {
-        System.out.println("Current player: " + username);
-    }
-
-    /**
-     * This method prints current player's score
-     * @param score Player's score {@code int}
-     */
-    public void printPlayersScore(int score) {
-        System.out.println("Score: " + score);
-    }
-
-    /**
-     * This method prints current round.
-     * @param id Current round {@code int}
-     */
-    public void printRoundId(int id) {
-        System.out.println("Round : " + (id + 1));
-    }
-
-    /**
-     * This method prints player's available skips.
-     * @param skips Player's available skips {@code int}
-     */
-    public void printSkipsAvailable(int skips) {
-        System.out.println("Available skips : " + skips);
-    }
-
-    /**
-     * This method prints question's category.
-     * @param category Question's category {@code Category}
-     */
-    public void printQuestionsCategory(Category category) {
-        System.out.println("Category : " + category.toString());
-    }
-
-    /**
-     * This method prints question's difficulty.
-     * @param difficulty Question's difficulty {@code Difficulty}
-     */
-    public void printQuestionsDifficulty(Difficulty difficulty) {
-        System.out.println("Difficulty : " + difficulty.toString());
-    }
-
-    /**
-     * This method prints available time.
-     * @param availableTime available time{@code int}
-     */
-    public void printAvailableTime(int availableTime) {
-        System.out.println("Available Time : " + availableTime);
-    }
-
-    /**
-     * This method prints question's text.
-     * @param questionsText Question's text{@code String}
-     */
-    public void printQuestionsText(String questionsText) {
-        System.out.println(questionsText);
-    }
-
-    /**
-     * This method prints question's answers.
-     * @param answers Question's answers {@code List<String>}
-     */
-    public void printQuestionsAnswers(List<String> answers) {
-        System.out.println("1. " + answers.get(0));
-        System.out.println("2. " + answers.get(1));
-        System.out.println("3. " + answers.get(2));
-        System.out.println("4. " + answers.get(3));
-    }
-
     public void printFinishPage(String username, int score) {
         System.out.println("Game Finished!");
         System.out.println();
@@ -160,25 +62,5 @@ public class Cli{
         System.out.println("Score : " + score);
         System.out.println();
         System.out.println("Thank you for playing!");
-    }
-
-    public void printBettingPhaseAmount() {
-        System.out.print("Place your bet [250,500,750,1000]: ");
-    }
-
-    /**
-     * This method prints a message (Gamemode: HighStakes) to tell the player that he has no points > 250 so the game bets automatically his available points.
-     * @param score Player's score {@code int}
-     */
-    public void printBetDoneAutomatically(int score) {
-        System.out.println("Your score is under 250 so game bets automatically " + score + ".");
-    }
-
-    /**
-     * This method prints player's bet choice.
-     * @param bet Player's bet choice {@code int}
-     */
-    public void printPlayersBet(int bet) {
-        System.out.println("Bet : " + bet);
     }
 }
