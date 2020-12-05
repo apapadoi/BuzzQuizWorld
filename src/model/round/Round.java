@@ -97,11 +97,10 @@ public class Round {
      * Calls the corresponding method of round's current gamemode.
      * @see Gamemodable
      * @param model an instance of {@code Model} class
-     * @param currentQuestion the current question
      * @throws NumberFormatException if the user did not type an integer at all
      * @throws InputMismatchException if the user typed a valid type of input but not a valid logical input
      */
-    public void actionsPreQuestionsPhase(Model model,Question currentQuestion) throws NumberFormatException, InputMismatchException {
+    public void actionsPreQuestionsPhase(Model model) throws NumberFormatException, InputMismatchException {
         this.gamemode.actionsPreQuestionsPhase(model);
     }
 
@@ -119,9 +118,8 @@ public class Round {
      * Calls the corresponding method of round's current gamemode.
      * @see Gamemodable
      * @param model an instance of {@code Model} class
-     * @param secondsTookToAnswer the seconds that took the user to answer
      */
-    public void actionIfCorrectAnswer(Model model,int secondsTookToAnswer) {
+    public void actionIfCorrectAnswer(Model model) {
         this.gamemode.actionIfCorrectAnswer(model);
     }
 

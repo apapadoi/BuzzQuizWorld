@@ -1,8 +1,5 @@
 package model.questions;
 
-import model.questions.Category;
-import model.questions.Difficulty;
-
 import java.util.List;
 
 /**

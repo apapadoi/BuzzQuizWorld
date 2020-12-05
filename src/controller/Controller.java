@@ -118,7 +118,7 @@ public class Controller implements Runnable {
             while (!validInput) {
                 try {
                     view.printStringWithoutLineSeparator(currentRound.getPreQuestionAskMessage()); // showing the request message depending the gamemode
-                    currentRound.actionsPreQuestionsPhase(this.model,currentQuestion);   // and calling the actionsPreQuestionsPhase method of the current round
+                    currentRound.actionsPreQuestionsPhase(this.model);   // and calling the actionsPreQuestionsPhase method of the current round
                     validInput = true;                                                  // the method throws exceptions depending the invalid input the user
                                                                                         // typed and then these exceptions are handled from the controller
                                                                                         // component
@@ -232,7 +232,7 @@ public class Controller implements Runnable {
             currentRound.actionIfWrongAnswer(this.model);
             return true;
         }else if(this.userAnsweredCorrect(choice,currentQuestion)) { // if the player answered correct
-            currentRound.actionIfCorrectAnswer(this.model,secondsTookToAnswer);
+            currentRound.actionIfCorrectAnswer(this.model);
             view.printStringWithoutLineSeparator("Correct Answer!");
             Util.stopExecution(1L);
             return true;

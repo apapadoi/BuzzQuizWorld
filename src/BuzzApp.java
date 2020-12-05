@@ -2,7 +2,6 @@ import controller.Controller;
 import model.fileHandler.FileHandler;
 import model.Model;
 import view.cli.Cli;
-
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
