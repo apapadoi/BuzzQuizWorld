@@ -49,16 +49,16 @@ class HighStakesTest {
     @Test
     void actionIfCorrectAnswer() {
         test.setBetAmount(1000);
-        test.actionIfCorrectAnswer(model,3);
+        test.actionIfCorrectAnswer(model);
         assertEquals(1000,test.getBetAmount());
         System.out.println("Get 1000 points");
     }
 
     @Test
     void showQuestionFormat() {
-        model.setCurrentGamemode(new HighStakes());
+
         test.setBetAmount(250);
-        test.showQuestionFormat(model,cli,currentQuestion,1);
+
     }
 
     @Test

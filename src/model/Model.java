@@ -1,6 +1,6 @@
 package model;
 
-import model.FileHandler.FileHandler;
+import model.fileHandler.FileHandler;
 import model.gamemodes.NumerablePlayersGamemode;
 import model.gamemodes.OnePlayerGamemodes;
 import model.player.Player;
@@ -8,7 +8,7 @@ import model.round.Round;
 import java.util.*;
 
 /**
- * This class represents the model of the app that handles the data.
+ * This class represents the model of the app that groups the data of the app.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
  * @version 29.11.2020
@@ -18,16 +18,27 @@ public class Model{
     private List<Round> rounds;
     private final List<String> validAnswers;
 
-    /**Default constructor. Initializes the player of the game.*/
+    /**
+     * Default constructor.
+     * */
     public Model() {
         this.validAnswers = new ArrayList<>(List.of("1","2","3","4"));
         player = new Player();
     }
 
+    /**
+     * Returns the valid answers that the player can type.
+     * @return the valid answers that the player can type as {@code List<String>}
+     */
     public List<String> getValidAnswers() {
         return this.validAnswers;
     }
 
+    /**
+     * Sets the player's username
+     * @param username the new username of the player
+     * @see Player
+     */
     public void setUsername(String username) {
         player.setUsername(username);
     }
@@ -37,10 +48,13 @@ public class Model{
      * @return String
      */
     public String getVersion() {
-        return "29.11.2020";
+        return "6.12.2020";
     }
 
-    /** Setter for the number of rounds.
+    /**
+     * Initializes as many as number of rounds the player chose.
+     * @param choice the number of rounds the player chose
+     * @param fileHandler the file handler that will provide 5 random questions for each round
      */
     public void setNumOfRoundsChoice(int choice, FileHandler fileHandler) {
         rounds = new ArrayList<>(choice);
@@ -49,39 +63,53 @@ public class Model{
         }
     }
 
-    public NumerablePlayersGamemode chooseGamemodesForCurrentNumOfPlayers() {
+    /**
+     * Returns an object depending the number of players that can play the game. In this version the game can be player by one player only so
+     * an object of {@code OnePlayerGamemodes} is returned. If new number of players support needs to be added then this method must be updated
+     * with the new class implementing the {@code NumerablePlayersGamemode} interface.
+     * @return an object that will provide random gamemodes depending the number of player as {@code NumerablePlayersGamemode}
+     */
+    private NumerablePlayersGamemode chooseGamemodesForCurrentNumOfPlayers() {
         return new OnePlayerGamemodes();
     }
 
+    /**
+     * Returns the number of rounds.
+     * @return the number of rounds as {@code int}
+     */
     public int getNumOfRounds() {
         return this.rounds.size();
     }
 
-    /** Returns the user's name as {@code String}.
-     * @return String
+    /**
+     * Returns the player's name
+     * @return the player's name as {@code String}.
      */
     public String getUsername() {
         return this.player.getUsername();
     }
 
-    /**Returns the user's score as {@code int}}
-     * @return int
+    /**
+     * Returns the player's score
+     * @return the player's score as {@code int}}
      */
     public int getScore() {
         return this.player.getScore();
     }
 
-    /** Returns the round that has index {@code i} as {@code Round}.
-     * @param i The index of the round we want to get.
-     * @return Round
+    /**
+     * Returns the round that has index {@code i} as {@code Round}.
+     * @param i the index of the round with offset 0
+     * @return the round that has index {@code i} as {@code Round}
      */
     public Round getRound(int i) {
         return this.rounds.get(i);
     }
 
-    /** Method that updates user's score with adding the {@code amount} value.
+    /**
+     * Method that updates player's score with adding the {@code amount} value.
      * No checking is done on the {@code amount} parameter's value.
-     * @param amount The amount we want to add to the user's score.
+     * @param amount The amount we want to add to the player's score.
      */
     public void updateScore(int amount) {
         this.player.addScore(amount);

@@ -33,7 +33,7 @@ class PointBuilderTest {
     void actionIfCorrectAnswer() {
         PointBuilder test=new PointBuilder();
         Model model=new Model();
-        test.actionIfCorrectAnswer(model,1000);
+        test.actionIfCorrectAnswer(model);
         assertEquals(1000,model.getScore());
         System.out.println("Get 1000 points");
     }

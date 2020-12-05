@@ -3,7 +3,7 @@ package model.questions;
 import java.util.List;
 
 /**
- * This class represents a question entity.
+ * This class represents a question with only a correct answer, a difficulty, a category and 3 other wrong answers.
  *
  * @author Tasos Papadopoulos
  * @version 17.11.2020
@@ -27,7 +27,7 @@ public class Question implements Questionable {
     }
 
     /**
-     * Used to help construct a new type of question from a class that extends this abstract class.
+     * Create a question with the information given.
      * @param questionText the {@code String} that will be showed to the player as the question
      * @param correctAnswer the {@code String} that is the correct answer
      * @param answers the {@code List<String>} that contains the possible answers
@@ -43,7 +43,7 @@ public class Question implements Questionable {
     }
 
     /**
-     * Setter for the question for the text attribute.
+     * Setter for the question's text attribute.
      * @param questionText The new question text.
      * */
     public void setQuestionText(String questionText) {
@@ -51,7 +51,7 @@ public class Question implements Questionable {
     }
 
     /**
-     * Setter for the question for the correct answer attribute.
+     * Setter for the question's correct answer attribute.
      * @param correctAnswer The new correct answer.
      * */
     public void setCorrectAnswer(String correctAnswer) {
@@ -59,7 +59,7 @@ public class Question implements Questionable {
     }
 
     /**
-     * Setter for the answers attribute.
+     * Setter for the question's answers attribute.
      * @param answers The list of possible answers for the question as {@code List<String>}}
      * */
     public void setAnswers(List<String> answers) {
@@ -67,7 +67,7 @@ public class Question implements Questionable {
     }
 
     /**
-     * Setter for the difficulty attribute.
+     * Setter for the question's difficulty attribute.
      * @param difficulty The difficulty of the question as {@code Difficulty}
      * */
     public void setDifficulty(Difficulty difficulty) {
@@ -75,7 +75,7 @@ public class Question implements Questionable {
     }
 
     /**
-     * Setter for the category attribute.
+     * Setter for the question's category attribute.
      * @param category The difficulty of the question as {@code Category}
      * */
     public void setCategory(Category category) {
@@ -84,6 +84,7 @@ public class Question implements Questionable {
 
     /**
      * @see Questionable
+     * @return the question's text as {@code String}
      * */
     @Override
     public String getQuestionText() {
@@ -92,6 +93,7 @@ public class Question implements Questionable {
 
     /**
      * @see Questionable
+     * @return the question's correct answer as {@code String}
      * */
     @Override
     public String getCorrectAnswer() {
@@ -100,6 +102,7 @@ public class Question implements Questionable {
 
     /**
      * @see Questionable
+     * @return the question's possible answer as {@code List<String>}
      * */
     @Override
     public List<String> getAnswers() {
@@ -108,6 +111,7 @@ public class Question implements Questionable {
 
     /**
      * @see Questionable
+     * @return the question's difficulty as {@code Difficulty}
      * */
     @Override
     public Difficulty getDifficulty() {
@@ -116,6 +120,7 @@ public class Question implements Questionable {
 
     /**
      * @see Questionable
+     * @return the question's category as {@code Category}
      * */
     @Override
     public Category getCategory() {
@@ -124,6 +129,7 @@ public class Question implements Questionable {
 
     /**
      * @see Questionable
+     * @return Whether or not the question has content as {@code boolean}
      * */
     @Override
     public boolean hasContent() {

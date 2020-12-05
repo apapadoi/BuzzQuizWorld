@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * This class represents a question associated with an image and 4 possible answers, with only one of them being correct,
- * a category and a difficulty.
+ * a category and a difficulty. In the current version there are no question associated with images. This class will be used
+ * in the next version.
  * @author Tasos Papadopoulos
  * @version 10.11.2020
  * */
@@ -13,7 +14,7 @@ public class ImagedQuestion extends Question {
     private final ImageIcon image;
 
     /**
-     * Constructs a new question with an image as content.
+     * Create a new question with the information given.
      * @param questionText the {@code String} that will be showed to the player as the question
      * @param correctAnswer the {@code String} that is the correct answer
      * @param answers the {@code List<String>} that contains the possible answers
@@ -27,7 +28,9 @@ public class ImagedQuestion extends Question {
     }
 
     /**
+     * Imaged questions have to show an image so the return value is true.
      * @see Questionable
+     * @return Whether or not the question has content as {@code boolean}
      * */
     @Override
     public boolean hasContent() {
@@ -35,6 +38,7 @@ public class ImagedQuestion extends Question {
     }
 
     /**
+     * Shows the image's description.
      * @see Questionable
      * */
     @Override

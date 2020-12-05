@@ -1,4 +1,4 @@
-package model.FileHandler;
+package model.fileHandler;
 
 import model.questions.Category;
 import model.questions.Difficulty;
@@ -8,28 +8,36 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * This class represents a file handler which handles the data of the app.
+ * This class represents a file handler which handles the files containing the data of the app.
  * @author Tasos Papadopoulos
- * @version 29.11.2020
+ * @version 5.12.2020
  * */
 public class FileHandler {
     List<Question> questionList;
     Path dataPath;
     int questionsReturned;
 
-    public FileHandler() {
-        this.questionList = new ArrayList<>();
-        this.dataPath = Paths.get("data/questions/textQuestions/textQuestions.txt");
+    /**
+     * Create a file handler using the given {@code List<Question>} and {@code Path} given.
+     * @param dataPath the path of the file that contains the questions
+     * @param questionList the List that will be stored the questions from the file
+     */
+    public FileHandler(List<Question> questionList,Path dataPath) {
+        this.questionList = questionList;
+        this.dataPath = dataPath;
         this.questionsReturned = 0;
     }
 
-    public void readQuestions() {
+    /**
+     * Reads the questions from the file with path the path that was given in the constructor of the class.
+     * @throws IOException if the file was not found
+     */
+    public void readQuestions() throws IOException{
         try (BufferedReader reader = Files.newBufferedReader(dataPath, Charset.forName("UTF-8"))) {
             String line;
             while(( line = reader.readLine() ) != null) {
@@ -48,11 +56,13 @@ public class FileHandler {
                 questionList.add(currentQuestion);
             }
             Collections.shuffle(this.questionList);
-        } catch(IOException e) {
-            System.out.println("Could not found questions file.");
         }
     }
 
+    /**
+     * Returns 5 questions when invoked.
+     * @return 5 new questions as {@code List<Question>}
+     */
     public List<Question> getNextQuestions() {
         List<Question> nextQuestions = new ArrayList<>(5);
         int i;
@@ -60,6 +70,7 @@ public class FileHandler {
             nextQuestions.add(this.questionList.get(i));
 
         this.questionsReturned = i;
+        Collections.shuffle(nextQuestions);
         return nextQuestions;
     }
 }

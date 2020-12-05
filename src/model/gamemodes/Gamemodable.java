@@ -2,54 +2,82 @@ package model.gamemodes;
 
 import model.Model;
 import model.questions.Question;
+import java.util.InputMismatchException;
 
 /**
- * This interface contains all the methods that a new Gamemode class must implement so it can be added to the game.
+ * This interface contains all the methods that a new gamemode class must implement so it can be added to the game.
  *
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 29.11.2020
+ * @version 5.12.2020
  */
 public interface Gamemodable {
     /**
-     * This method returns the description of the gamemode as {@code String}.
+     * Returns the description of the gamemode
+     * @return the description of the gamemode as {@code String}.
      */
     String getDescription();
 
     /**
-     * This method returns the available time of the gamemode for each question as {@code int}.
+     * Returns the available time of the gamemode for each question in seconds.
+     *
+     * @return the available time of the gamemode for each question in seconds as {@code int}.
      */
     int getAvailableTime();
 
     /**
-     * This method performs the actions that must be done when user answers correctly the question depending the gamemode.
+     * Performs the actions that must be done when user answers correct.
+     * @param model instance of {@code Model} class
+     *
      */
-    void actionIfCorrectAnswer(Model model,int secondsTookToAnswer);
+    void actionIfCorrectAnswer(Model model);
 
     /**
-     * This method shows the current question depending the format each gamemode wants to implement.
+     * Returns the question format depending the gamemode.
+     * @param model instance of {@code Model} class
+     * @param currentQuestion the current question
+     * @param roundId the id of the current round with offset 0
+     * @return the question format for the current gamemode as {@code String}
      */
     String getQuestionFormat(Model model,Question currentQuestion, int roundId);
 
+    /**
+     * Returns the pre-question format depending the gamemode that needs to be shown before the current question is shown.
+     * @param model instance of {@code Model} class
+     * @param currentQuestion the current question
+     * @return the pre-question format for the current gamemode as {@code String}
+     */
     String getPreQuestionFormat(Model model,Question currentQuestion);
 
+    /**
+     * Returns the pre-question message that will be shown before an input request is asked to the user.
+     * @return the pre-question message for the current gamemode as {@code String}
+     */
     String getPreQuestionAskMessage();
 
     /**
-     * This method completes the actions that need to be done in the pre question's page.
+     * Performs the actions that must be done before the question is shown.
+     * @param model instance of {@code Model} class
+     * @throws NumberFormatException if the user did not type an integer at all
+     * @throws InputMismatchException if the user typed a valid type of input but not a valid logical input
      */
-    void actionsPreQuestionsPhase(Model model,Question currentQuestion) throws NumberFormatException,ArithmeticException;
+    void actionsPreQuestionsPhase(Model model) throws NumberFormatException, InputMismatchException;
 
     /**
-     * This method returns if the current gamemode has pre question page or not as {@code boolean}.
+     * Returns whether or not the current gamemode has pre question phase.
+     * @return whether or not the current gamemode has pre question phase as {@code boolean}
      */
     boolean hasPreQuestionFormat();
 
+    /**
+     * Performs the actions that must be done when user answers wrong.
+     * @param model instance of {@code Model} class
+     */
     void actionIfWrongAnswer(Model model);
 
     /**
-     * This method returns {@code Gamemodable} object as {@code String}
-     * @return String
+     * Returns a gamemode to string representation
+     * @return the current gamemode as {@code String}
      * */
     String toString();
 }

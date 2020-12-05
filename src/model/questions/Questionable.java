@@ -14,31 +14,31 @@ import java.util.List;
 public interface Questionable {
     /**
      * This method returns the question's text
-     * @return The question's text as {@code String}
+     * @return the question's text as {@code String}
      * */
     String getQuestionText();
 
     /**
      * This method returns the question's correct answer
-     * @return The correct answer as {@code String}
+     * @return the correct answer as {@code String}
      * */
     String getCorrectAnswer();
 
     /**
      * This method returns the question's possible answers
-     * @return The question's possible answers as {@code List<String>}
+     * @return the question's possible answers as {@code List<String>}
      * */
     List<String> getAnswers();
 
     /**
      * This method returns the question's difficulty
-     * @return The question's difficulty as a value of enumerated type {@code Difficulty}
+     * @return the question's difficulty as a value of enumerated type {@code Difficulty}
      * */
     Difficulty getDifficulty();
 
     /**
      * This method returns the question's category
-     * @return The question's category as a value of enumerated type {@code Category}
+     * @return the question's category as a value of enumerated type {@code Category}
      * */
     Category getCategory();
 

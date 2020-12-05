@@ -3,10 +3,16 @@ package model.util;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class provides static methods for utility operations e.g. reading input from the player.
+ *
+ * @author Tasos Papadopoulos
+ * @version 28.11.2020
+ */
 public class Util {
 
     /**
-     * Method that reads a string from the user and returns it as {@code String}.
+     * Reads a string from the user and returns it as {@code String}.
      *
      * @return The string the user typed as {@code String}.
      */
@@ -15,16 +21,14 @@ public class Util {
     }
 
     /**
-     * Method that checks if the {@code value} is inside the interval [{@code lower},{@code upper}]
+     * Checks if the {@code value} is inside the interval [{@code lower},{@code upper}]
      *
      * @param value The value we want to check if it inside the interval
      * @param lower The minimum value of the interval.
      * @param upper The maximum value of the interval.
-     * @return True if the value is inside the interval.
-     * @throws ArithmeticException if the value is not inside the interval
+     * @return true if the value is inside the interval, false otherwise.
      */
     public static boolean isInsideLimits(int value, int lower, int upper){
-        //checking if the user typed an integer that corresponds to a valid gamemode
         return value >= lower && value <= upper;
     }
 

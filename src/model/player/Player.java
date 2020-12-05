@@ -11,13 +11,16 @@ public class Player {
     private String username;
     private int score;
 
+    /**
+     * Default constructor. Create a player with empty string as username and score equal to 0.
+     */
     public Player() {
         this.username = "";
         this.score = 0;
     }
 
     /**
-     * This method returns the username of the player
+     * Returns the username of the player
      *
      * @return The username of the player as {@code String}
      */
@@ -26,7 +29,7 @@ public class Player {
     }
 
     /**
-     * Setter for the username attribute of the player.
+     * Setter for the username of the player.
      *
      * @param username The new username.
      */
@@ -35,7 +38,7 @@ public class Player {
     }
 
     /**
-     * This method returns the points of the player
+     * Returns the score of the player
      *
      * @return The score of the player as {@code int}
      */
@@ -44,10 +47,10 @@ public class Player {
     }
 
     /**
-     * Method that updates user's score with adding the {@code amount} value.
+     * Updates user's score with adding the {@code amount} value.
      * No checking is done on the {@code amount} parameter's value.
      *
-     * @param amount The amount we want to add to the user's score.
+     * @param amount The amount that will be added to player's score.
      */
     public void addScore(int amount) {
         this.score += amount;

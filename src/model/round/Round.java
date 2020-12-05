@@ -1,6 +1,6 @@
 package model.round;
 
-import model.FileHandler.FileHandler;
+import model.fileHandler.FileHandler;
 import model.Model;
 import model.gamemodes.Gamemodable;
 import model.gamemodes.NumerablePlayersGamemode;
@@ -9,8 +9,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 /**
- * This class represents a single round with the number of the rounds, a list of the questions that are going to be picked randomly, the current question id (contains
- * correct answer, 4 possible answers, the description and the difficulty) and the countdown timer.
+ * This class represents a single round with 5 questions and a random gamemode.
  *
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
@@ -20,7 +19,10 @@ public class Round {
     private final List<Question> questions;
     private final Gamemodable gamemode;
     /**
-     * Default constructor.
+     * Create a round with a random gamemode from the {@code NumerablePlayersGamemode} object provided and load 5 questions
+     * using the {@code fileHandler}  provided.
+     * @param gamemodesForCurrentNumOfPlayers an object of a class implementing {@code NumerablePlayersGamemode} interface that will provide a random gamemode for the current number of players
+     * @param fileHandler the file handler that loaded the questions from the data txt file.
      * */
     public Round(NumerablePlayersGamemode gamemodesForCurrentNumOfPlayers,FileHandler fileHandler) {
         this.questions = fileHandler.getNextQuestions();
@@ -28,57 +30,106 @@ public class Round {
     }
 
     /**
-     * This method returns the questions
-     *
+     * This method returns the questions of the current round
      * @return The questions as {@code List<Question>}
      */
     public List<Question> getQuestions() {
         return this.questions;
     }
 
+    /**
+     * Returns the round's gamemode description
+     * @return the round's gamemode description as {@code String}
+     */
     public String getGamemodeDescription() {
         return this.gamemode.getDescription();
     }
 
+    /**
+     * Returns the round's gamemode to a {@code String} representation.
+     * @return the round's gamemode as {@code String}
+     */
     public String getGamemodeString() {
         return this.gamemode.toString();
     }
 
-    /** Returns the available time as {@code int}.
-     * @return int
+    /** Returns the available time in seconds as {@code int}.
+     * @return the round's gamemode available time in seconds as {@code int}
      */
     public int getAvailableTime() {
         return this.gamemode.getAvailableTime();
     }
 
-    /** Method that shows the current question depending the gamemode using the {@code view} parameter.
-     * @param currentQuestion The current question of a round.
-     * @param roundId         The id of the current round.
+    /**
+     * Calls the corresponding method of round's current gamemode.
+     * @see Gamemodable
+     * @param model an instance of {@code Model} class
+     * @param currentQuestion the current question
+     * @param roundId the round's id with offset 0
+     * @return the question format for the current gamemode as {@code String}
      */
     public String getQuestionFormat(Model model,Question currentQuestion, int roundId) {
         return gamemode.getQuestionFormat(model,currentQuestion,roundId);
     }
 
+    /**
+     * Calls the corresponding method of round's current gamemode.
+     * Returns whether or not the current gamemode has pre question phase.
+     * @see Gamemodable
+     * @return whether or not the current gamemode has pre question phase as {@code boolean}
+     */
     public boolean hasPreQuestionFormat() {
         return this.gamemode.hasPreQuestionFormat();
     }
 
+    /**
+     * Calls the corresponding method of round's current gamemode.
+     * @see Gamemodable
+     * @param model an instance of {@code Model} class
+     * @param currentQuestion the current question
+     * @return the pre-question format for the current gamemode as {@code String}
+     */
     public String getPreQuestionFormat(Model model, Question currentQuestion) {
         return this.gamemode.getPreQuestionFormat(model,currentQuestion);
     }
 
+    /**
+     * Calls the corresponding method of round's current gamemode.
+     * @see Gamemodable
+     * @param model an instance of {@code Model} class
+     * @param currentQuestion the current question
+     * @throws NumberFormatException if the user did not type an integer at all
+     * @throws InputMismatchException if the user typed a valid type of input but not a valid logical input
+     */
     public void actionsPreQuestionsPhase(Model model,Question currentQuestion) throws NumberFormatException, InputMismatchException {
-        this.gamemode.actionsPreQuestionsPhase(model,currentQuestion);
+        this.gamemode.actionsPreQuestionsPhase(model);
     }
 
+    /**
+     * Calls the corresponding method of round's current gamemode.
+     * Returns the pre-question message that will be shown before an input request is asked to the user.
+     * @see Gamemodable
+     * @return the pre-question message for the current gamemode as {@code String}
+     */
     public String getPreQuestionAskMessage() {
         return this.gamemode.getPreQuestionAskMessage();
     }
 
+    /**
+     * Calls the corresponding method of round's current gamemode.
+     * @see Gamemodable
+     * @param model an instance of {@code Model} class
+     * @param secondsTookToAnswer the seconds that took the user to answer
+     */
     public void actionIfCorrectAnswer(Model model,int secondsTookToAnswer) {
-        this.gamemode.actionIfCorrectAnswer(model,secondsTookToAnswer);
+        this.gamemode.actionIfCorrectAnswer(model);
     }
 
+    /**
+     * Calls the corresponding method of round's current gamemode.
+     * @see Gamemodable
+     * @param model an instance of {@code Model} class
+     */
     public void actionIfWrongAnswer(Model model) {
         this.gamemode.actionIfWrongAnswer(model);
     }

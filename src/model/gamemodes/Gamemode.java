@@ -4,32 +4,56 @@ import model.Model;
 import model.questions.Question;
 
 /**
+ * Abstract class containing several default implementations for methods of the {@code Gamemodable} interface.
  * @author Tasos Papadopoulos
- * @version 29.11.2020
+ * @version 5.12.2020
  * */
 public abstract class Gamemode implements Gamemodable{
     protected final String description;
     protected final int availableTime;
 
+    /**
+     * Create a gamemode using the given description and available time for each question for this gamemode
+     * Used for subclasses because object with dynamic type of this class can not be created.
+     * @param description the description of this gamemode
+     * @param availableTime the available time in seconds for each question for this gamemode
+     */
     public Gamemode(String description,int availableTime) {
         this.description = description;
         this.availableTime = availableTime;
     }
 
+    /**
+     * @see Gamemodable
+     */
     public abstract String toString();
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public String getDescription() {
         return this.description;
     }
 
-    public abstract void actionIfCorrectAnswer(Model model,int secondsTookToAnswer);
+    /**
+     * @see Gamemodable
+     */
+    public abstract void actionIfCorrectAnswer(Model model);
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public int getAvailableTime() {
         return this.availableTime;
     }
 
+    /**
+     * @see Gamemodable
+     * @return default value of this implementation is showing the current gamemode,the player's username, the player's score,the id of the current round,
+     * the question's category and difficulty, the available time in seconds, the question itself, the possible answers and then an ask message to the user
+     */
     @Override
     public String getQuestionFormat(Model model,Question currentQuestion, int roundId) {
         StringBuilder questionFormat = new StringBuilder();
@@ -85,20 +109,38 @@ public abstract class Gamemode implements Gamemodable{
         return questionFormat.toString();
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
-    public void actionsPreQuestionsPhase(Model model,Question currentQuestion) throws NumberFormatException,ArithmeticException{ }
+    public void actionsPreQuestionsPhase(Model model) throws NumberFormatException,ArithmeticException{ }
 
+    /**
+     * @see Gamemodable
+     * @return default value for this implementation is false
+     */
     @Override
     public boolean hasPreQuestionFormat() { return false; }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void actionIfWrongAnswer(Model model) { }
 
+    /**
+     * @see Gamemodable
+     * @return default value for this implementation is an empty string
+     */
     @Override
     public String getPreQuestionAskMessage() {
-        return null;
+        return "";
     }
 
+    /**
+     * @see Gamemodable
+     * @return default value for this implementation is an empty string
+     */
     @Override
-    public String getPreQuestionFormat(Model model, Question currentQuestion) { return null; }
+    public String getPreQuestionFormat(Model model, Question currentQuestion) { return ""; }
 }
