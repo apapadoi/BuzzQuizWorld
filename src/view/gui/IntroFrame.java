@@ -1,9 +1,14 @@
 package view.gui;
 
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import resources.images.Constants;
 import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,6 +28,7 @@ public class IntroFrame extends JFrame {
     private JLabel logoImageLabel;
     private JPanel iconPanel;
     private JPanel optionQuitButtonsPanel;
+    private ActionListener buttonSoundListener;
 
     public IntroFrame() {
         this.loadFont();
@@ -31,6 +37,7 @@ public class IntroFrame extends JFrame {
         this.setUpVersionPanel();
         this.setUpIconPanel();
         this.setUpButtonsPanel();
+        this.setUpButtonListeners();
         this.setVisible(true);
     }
 
@@ -55,6 +62,7 @@ public class IntroFrame extends JFrame {
         playButton.setFont(font);
         playButton.setBorderPainted(false);
         playButton.setFocusPainted(false);
+
         scoresButton = new JButton("High Scores");
         scoresButton.setFont(font);
         scoresButton.setBorderPainted(false);
@@ -132,7 +140,7 @@ public class IntroFrame extends JFrame {
         // set properties of JFrame
         this.setTitle("Buzz! Quiz World Remastered");
         this.setIconImage(ImageFactory.createImage(Image.APP_ICON).getImage());
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.screenWidth = (int)screenSize.getWidth();
         this.screenHeight = (int)screenSize.getHeight();
@@ -142,7 +150,23 @@ public class IntroFrame extends JFrame {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch(Exception ignored){}
         this.setLayout(new BorderLayout());
+        new JFXPanel();
+        this.buttonSoundListener = e -> new MediaPlayer(new Media(new File(Constants.BUTTON_SOUND_URL).toURI().toString())).play();
     }
+
+    private void setUpButtonListeners() {
+        playButton.addActionListener(buttonSoundListener);
+        optionsButton.addActionListener(buttonSoundListener);
+        optionsButton.addActionListener(e -> new OptionsFrame(IntroFrame.this));
+        scoresButton.addActionListener(buttonSoundListener);
+        scoresButton.addActionListener(e -> new ScoresFrame(IntroFrame.this));
+        quitButton.addActionListener(buttonSoundListener);
+    }
+
+    public int getScreenWidth() { return this.screenWidth; }
+    public int getScreenHeight() { return this.screenHeight; }
+    public ActionListener getButtonSoundListener() { return this.buttonSoundListener; }
+    public Font getFont() { return this.font; }
 
     public static void main(String[] args) {
         new IntroFrame();

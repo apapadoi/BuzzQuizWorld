@@ -15,6 +15,18 @@ public class ImageFactory {
                 break;
             case INTRO_PAGE_BACKGROUND_IMG:
                 imageIcon = new ImageIcon(Constants.INTRO_PAGE_BACKGROUND_IMG_URL);
+                break;
+            case OPTIONS_PAGE_BACKGROUND_IMG:
+                imageIcon = new ImageIcon(Constants.OPTIONS_PAGE_BACKGROUND_IMG_URL);
+                break;
+            case ENGLISH_FLAG:
+                imageIcon = new ImageIcon(Constants.ENGLISH_FLAG_IMG_URL);
+                break;
+            case GREEK_FLAG:
+                imageIcon = new ImageIcon(Constants.GREEK_FLAG_IMG_URL);
+                break;
+            case SCORES_PAGE_BACKGROUND_IMG:
+                imageIcon = new ImageIcon(Constants.SCORES_PAGE_IMG_URL);
         }
         return imageIcon;
     }

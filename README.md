@@ -8,14 +8,11 @@ Point Builder and High Stakes. Also, the game can be played in command line
 interface.
 
 ![](https://img.shields.io/badge/IDE-IntelliJ_IDEA-informational?style=flat-square&logo=intellij-idea&logoColor=white&color=informational)
-
 ![](https://img.shields.io/badge/Code-Java_11-informational?style=flat-square&logo=Java&logoColor=white&color=informational)
-
 ![](https://img.shields.io/badge/VCS-Git-informational?style=flat-square&logo=Git&logoColor=white&color=informational)
-
 
 ## 🔧 Dependencies
 
-![](https://img.shields.io/badge/JDK-Java_11.0.8-informational?style=flat-square&logo=Java&logoColor=white&color=informational)
-
-![](https://img.shields.io/badge/JUnit-JUnit_5.4-informational?style=flat-square&logo=Java&logoColor=white&color=informational)
+![](https://img.shields.io/badge/JDK-Java_11.0.8-informational?style=flat-square&logo=Java&logoColor=white&color=informational) 
+![](https://img.shields.io/badge/JUnit-JUnit_5.4-informational?style=flat-square&logo=Java&logoColor=white&color=informational) 
+![](https://img.shields.io/badge/JavaFX-SDK_11.0.2-informational?style=flat-square&logo=Java&logoColor=white&color=informational)   
