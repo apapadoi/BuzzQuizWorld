@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class BuzzApp {
     public static void main(String[] args) {
         Controller controller = new Controller(new Model(),new Cli(),new FileHandler(new ArrayList<>(),
-                Paths.get("data/questions/textQuestions/textQuestions.txt")));
+                Paths.get("src/resources/data/questions/textQuestions/textQuestions.txt")));
         Thread controllerThread = new Thread(controller);
         controllerThread.start();
     }

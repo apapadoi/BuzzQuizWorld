@@ -1,5 +1,6 @@
 package model.util;
 
+import java.net.URL;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -53,5 +54,14 @@ public class Util {
         } catch (InterruptedException ie) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    /**
+     * Return the {@code URL} that corresponds to an image
+     * @param imageFilename the image file name which we want the url of as {@code String}
+     * @return the url of the defined image file name
+     */
+    public static URL getURL(String imageFilename) {
+        return Util.class.getResource(imageFilename);
     }
 }
