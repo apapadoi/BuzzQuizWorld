@@ -39,7 +39,7 @@ public class IntroFrame extends JFrame {
         iconPanel.setBackground(new Color(0,0,0,0));
         logoImageLabel = new JLabel();
         java.awt.Image resizedImage = ImageFactory.createImage(Image.INTRO_PAGE_LOGO).getImage().
-                getScaledInstance(this.screenWidth/3,this.screenHeight/3, java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance((int)(0.186*this.screenWidth),(int)(0.362*this.screenHeight), java.awt.Image.SCALE_DEFAULT);
         this.logoImageLabel.setIcon(new ImageIcon(resizedImage));
         iconPanel.add(logoImageLabel,BorderLayout.CENTER);
         backgroundImageLabel.add(iconPanel,BorderLayout.PAGE_START);
@@ -49,7 +49,7 @@ public class IntroFrame extends JFrame {
         buttonsPanel = new JPanel();
         buttonsPanel.setBackground(new Color(0,0,0,0));
         buttonsPanel.setLayout(new GridLayout(3,1,0,15));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,495,screenHeight/3,495));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.362*this.screenWidth),(int)(0.333*this.screenHeight),(int)(0.362*this.screenWidth)));
 
         playButton = new JButton("Play");
         playButton.setFont(font);
@@ -65,11 +65,11 @@ public class IntroFrame extends JFrame {
         quitButton = new JButton("Quit Game");
         quitButton.setFont(font);
 
-        optionsButton.setPreferredSize(new Dimension(175,35));
+        optionsButton.setPreferredSize(new Dimension((int)(0.127*this.screenWidth),(int)(0.041*this.screenHeight)));
         optionsButton.setBorderPainted(false);
         optionsButton.setFocusPainted(false);
 
-        quitButton.setPreferredSize(new Dimension(175,35));
+        quitButton.setPreferredSize(new Dimension((int)(0.127*this.screenWidth),(int)(0.041*this.screenHeight)));
         quitButton.setBorderPainted(false);
         quitButton.setFocusPainted(false);
 
