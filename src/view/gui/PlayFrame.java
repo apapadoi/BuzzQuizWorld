@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.Flow;
 
 public class PlayFrame extends JFrame {
     private Font font;
@@ -23,6 +24,8 @@ public class PlayFrame extends JFrame {
     private JPanel playPanel;
     private JButton backButton;
     private JLabel backgroundImageLabel;
+    private JLabel gamemodesLabel;
+    private JPanel labelPanel;
 
 
     public PlayFrame(IntroFrame introFrame){
@@ -37,10 +40,9 @@ public class PlayFrame extends JFrame {
 
     private void setUpButtonsPanel() {
         buttonsPanel =new JPanel();
-        //playPanel.setBackground(new Color(0,0,0,0));
         buttonsPanel.setOpaque(false);
         buttonsPanel.setLayout(new GridLayout(1,2,650,0));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(680,270,250,250));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(740,270,160,190));
 
         onePlayerButton=new JButton("One Player");
         onePlayerButton.setFont(font);
@@ -64,7 +66,7 @@ public class PlayFrame extends JFrame {
         backButton.setFont(font);
         backButton.setBorderPainted(false);
         backButton.setFocusPainted(false);
-        backButton.setPreferredSize(new Dimension(175,25));
+        backButton.setPreferredSize(new Dimension(175,40));
         backPanel.add(backButton,BorderLayout.LINE_END);
         backPanel.setBorder(BorderFactory.createEmptyBorder(0,0,15,15));
 
@@ -136,8 +138,15 @@ public class PlayFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 introFrame.setVisible(true);
                 PlayFrame.this.setVisible(false);
-                System.out.println("rns");
             }
         });
+    }
+
+    public int getScreenWidth(){
+        return introFrame.getScreenWidth();
+    }
+
+    public int getScreenHeight(){
+        return introFrame.getScreenHeight();
     }
 }
