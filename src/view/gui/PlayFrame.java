@@ -42,7 +42,7 @@ public class PlayFrame extends JFrame {
         buttonsPanel =new JPanel();
         buttonsPanel.setOpaque(false);
         buttonsPanel.setLayout(new GridLayout(1,2,650,0));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(740,270,160,190));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(740,270,50,190));
 
         onePlayerButton=new JButton("One Player");
         onePlayerButton.setFont(font);
@@ -74,6 +74,17 @@ public class PlayFrame extends JFrame {
         playPanel.setLayout(new BorderLayout());
         playPanel.setOpaque(false);
 
+        labelPanel=new JPanel();
+        labelPanel.setLayout(new GridLayout(1,1));
+        labelPanel.setBorder(BorderFactory.createEmptyBorder(80,900,0,500));
+        labelPanel.setOpaque(false);
+
+        gamemodesLabel=new JLabel("Select Gamemode");
+        gamemodesLabel.setFont(font);
+        gamemodesLabel.setForeground(Color.WHITE);
+        labelPanel.add(gamemodesLabel);
+
+        playPanel.add(labelPanel,BorderLayout.PAGE_START);
         playPanel.add(backPanel,BorderLayout.PAGE_END);
         playPanel.add(buttonsPanel,BorderLayout.CENTER);
 
