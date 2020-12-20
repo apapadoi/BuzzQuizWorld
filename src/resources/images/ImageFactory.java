@@ -15,6 +15,9 @@ public class ImageFactory {
                 break;
             case INTRO_PAGE_BACKGROUND_IMG:
                 imageIcon = new ImageIcon(Constants.INTRO_PAGE_BACKGROUND_IMG_URL);
+                break;
+            case PLAY_PAGE_BACKGROUND_IMG:
+                imageIcon=new ImageIcon(Constants.PLAY_PAGE_BACKGROUND_IMG_URL);
         }
         return imageIcon;
     }

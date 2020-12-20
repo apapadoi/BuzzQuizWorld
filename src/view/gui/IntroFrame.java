@@ -4,6 +4,8 @@ import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -31,6 +33,7 @@ public class IntroFrame extends JFrame {
         this.setUpVersionPanel();
         this.setUpIconPanel();
         this.setUpButtonsPanel();
+        this.setUpButtonListeners();
         this.setVisible(true);
     }
 
@@ -142,6 +145,31 @@ public class IntroFrame extends JFrame {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch(Exception ignored){}
         this.setLayout(new BorderLayout());
+    }
+
+    private void setUpButtonListeners(){
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PlayFrame playFrame=new PlayFrame(IntroFrame.this);
+                IntroFrame.this.setVisible(false);
+            }
+        });
+
+        quitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+    }
+
+    public int getScreenWidth(){
+        return this.screenWidth;
+    }
+
+    public int getScreenHeight(){
+        return this.screenHeight;
     }
 
     public static void main(String[] args) {
