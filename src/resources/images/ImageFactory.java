@@ -21,6 +21,9 @@ public class ImageFactory {
                 break;
             case ONE_PLAYER_PAGE_BACKGROUND_IMG:
                 imageIcon=new ImageIcon(Constants.ONE_PLAYER_PAGE_BACKGROUND_IMG_URL);
+                break;
+            case LOADING_SCREEN_PAGE_IMG:
+                imageIcon=new ImageIcon(Constants.LOADING_SCREEN_PAGE_IMG_URL);
         }
         return imageIcon;
     }

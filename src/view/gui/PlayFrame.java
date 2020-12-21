@@ -9,14 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.Flow;
 
 public class PlayFrame extends JFrame {
     private Font font;
-    private JLabel logoImageLabel;
     private IntroFrame introFrame;
-    private int screenWidth;
-    private int screenHeight;
     private JButton onePlayerButton;
     private JButton twoPlayersButton;
     private JPanel buttonsPanel;
@@ -131,7 +127,7 @@ public class PlayFrame extends JFrame {
         onePlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OnePlayerFrame onePlayerFrame=new OnePlayerFrame(PlayFrame.this);
+                OnePlayerSelectionFrame onePlayerFrame=new OnePlayerSelectionFrame(PlayFrame.this);
                 PlayFrame.this.setVisible(false);
             }
         });
@@ -139,7 +135,7 @@ public class PlayFrame extends JFrame {
         twoPlayersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TwoPlayersFrame twoPlayersFrame=new TwoPlayersFrame(PlayFrame.this);
+                TwoPlayersSelectionFrame twoPlayersFrame=new TwoPlayersSelectionFrame(PlayFrame.this);
                 PlayFrame.this.setVisible(false);
             }
         });
