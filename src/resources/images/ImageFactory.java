@@ -27,6 +27,7 @@ public class ImageFactory {
                 break;
             case SCORES_PAGE_BACKGROUND_IMG:
                 imageIcon = new ImageIcon(Constants.SCORES_PAGE_IMG_URL);
+                break;
             case PLAY_PAGE_BACKGROUND_IMG:
                 imageIcon=new ImageIcon(Constants.PLAY_PAGE_BACKGROUND_IMG_URL);
                 break;
