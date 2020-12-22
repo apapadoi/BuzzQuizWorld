@@ -9,7 +9,8 @@ package model.player;
  */
 public class Player {
     private String username;
-    private int score;
+    private int score; // one player gamemodes high score
+    private int wins; // two players gamemodes wins
 
     /**
      * Default constructor. Create a player with empty string as username and score equal to 0.
@@ -17,6 +18,20 @@ public class Player {
     public Player() {
         this.username = "";
         this.score = 0;
+        this.wins = 0;
+    }
+
+    /**
+     * Constructs a player with username,score and wins with the username,score and wins provided.
+     *
+     * @param username Player's username as {@code String}
+     * @param score Player's score as {@code int}
+     * @param wins Player's wins as {@code int}
+     */
+    public Player(String username,int score,int wins) {
+        this.username = username;
+        this.score = score;
+        this.wins = wins;
     }
 
     /**
@@ -40,7 +55,7 @@ public class Player {
     /**
      * Returns the score of the player
      *
-     * @return The score of the player as {@code int}
+     * @return The player's score as {@code int}
      */
     public int getScore() {
         return this.score;
@@ -54,5 +69,24 @@ public class Player {
      */
     public void addScore(int amount) {
         this.score += amount;
+    }
+
+    /**
+     * Updates player's wins with adding the {@code amount} value.
+     * No checking is done on the {@code amount} parameter's value.
+     *
+     * @param amount The amount that will be added to player's wins.
+     */
+    public void addWins(int amount) {
+        this.wins += amount;
+    }
+
+    /**
+     *  Returns the wins of the player
+     *
+     * @return The player's wins as {@code int}
+     */
+    public int getWins() {
+        return this.wins;
     }
 }
