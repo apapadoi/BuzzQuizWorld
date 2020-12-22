@@ -11,7 +11,8 @@ public class Constants {
     public static final String GREEK_FLAG_IMG_URL = "src/resources/images/greekFlag.png";
     public static final String SCORES_PAGE_IMG_URL = "src/resources/images/scoresPageBackground.png";
     public static final String PLAY_PAGE_BACKGROUND_IMG_URL="src/resources/images/playFrameBackground.png";
-    public static final String ONE_PLAYER_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerFrameBackground.png";
+    public static final String ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerSelectionFrameBackground.png";
     public static final String LOADING_SCREEN_PAGE_IMG_URL="src/resources/images/loadingScreen.gif";
+    public static final String ONE_PLAYER_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerFrameBackground.png";
 
 }
