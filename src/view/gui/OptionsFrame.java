@@ -1,6 +1,5 @@
 package view.gui;
 
-import model.util.Util;
 import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
@@ -25,7 +24,7 @@ public class OptionsFrame extends JFrame{
     public OptionsFrame(IntroFrame introFrame) {
         this.introFrame = introFrame;
         this.fullScreened = false;
-        this.fullscreenText = " ON";
+        this.fullscreenText = " OFF";
         this.setUpJFrameProperties();
         this.setUpBackGround();
         this.setUpButtonsPanel();
@@ -115,6 +114,13 @@ public class OptionsFrame extends JFrame{
         languageButton.addActionListener(this.introFrame.getButtonSoundListener());
         fullscreenButton.addActionListener(this.introFrame.getButtonSoundListener());
         backButton.addActionListener(this.introFrame.getButtonSoundListener());
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OptionsFrame.this.introFrame.setVisible(true);
+                OptionsFrame.this.dispose();
+            }
+        });
     }
 
     private void setUpFullScreenListener() {
@@ -122,10 +128,15 @@ public class OptionsFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 fullScreened = !fullScreened;
-                if (fullScreened)
+                if (fullScreened) {
                     GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(OptionsFrame.this);
-                else
+                    fullscreenButton.setText(fullscreenButton.getText().replace("OFF","ON"));
+                }
+                else {
                     GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(null);
+                    OptionsFrame.this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    fullscreenButton.setText(fullscreenButton.getText().replace("ON","OFF"));
+                }
             }
         });
     }

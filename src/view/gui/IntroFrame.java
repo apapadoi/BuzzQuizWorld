@@ -160,7 +160,7 @@ public class IntroFrame extends JFrame {
         optionsButton.addActionListener(e -> new OptionsFrame(IntroFrame.this));
         scoresButton.addActionListener(buttonSoundListener);
         scoresButton.addActionListener(e -> new ScoresFrame(IntroFrame.this));
-        quitButton.addActionListener(buttonSoundListener);
+        quitButton.addActionListener(e -> System.exit(0));
     }
 
     public int getScreenWidth() { return this.screenWidth; }
