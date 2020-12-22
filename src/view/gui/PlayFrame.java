@@ -37,8 +37,9 @@ public class PlayFrame extends JFrame {
     private void setUpButtonsPanel() {
         buttonsPanel =new JPanel();
         buttonsPanel.setOpaque(false);
-        buttonsPanel.setLayout(new GridLayout(1,2,650,0));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(740,270,50,190));
+        buttonsPanel.setLayout(new GridLayout(1,2,(int)(0.338*introFrame.getScreenWidth()),0));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.625*introFrame.getScreenHeight()),(int)(0.140*introFrame.getScreenWidth()),
+                (int)(0.106*introFrame.getScreenHeight()),(int)(0.098*introFrame.getScreenWidth())));
 
         onePlayerButton=new JButton("One Player");
         onePlayerButton.setFont(font);
@@ -62,9 +63,9 @@ public class PlayFrame extends JFrame {
         backButton.setFont(font);
         backButton.setBorderPainted(false);
         backButton.setFocusPainted(false);
-        backButton.setPreferredSize(new Dimension(175,40));
+        backButton.setPreferredSize(new Dimension((int)(0.091*introFrame.getScreenWidth()),(int)(0.037*introFrame.getScreenHeight())));
         backPanel.add(backButton,BorderLayout.LINE_END);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,0,15,15));
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.013*introFrame.getScreenHeight()),(int)(0.007*introFrame.getScreenWidth())));
 
         playPanel=new JPanel();
         playPanel.setLayout(new BorderLayout());
@@ -72,7 +73,8 @@ public class PlayFrame extends JFrame {
 
         labelPanel=new JPanel();
         labelPanel.setLayout(new GridLayout(1,1));
-        labelPanel.setBorder(BorderFactory.createEmptyBorder(80,900,0,500));
+        labelPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.074*introFrame.getScreenHeight()),(int)(0.468*introFrame.getScreenWidth()),
+                0,(int)(0.260*introFrame.getScreenWidth())));
         labelPanel.setOpaque(false);
 
         gamemodesLabel=new JLabel("Select Gamemode");
