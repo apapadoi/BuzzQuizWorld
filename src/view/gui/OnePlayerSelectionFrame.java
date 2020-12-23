@@ -119,6 +119,8 @@ public class OnePlayerSelectionFrame extends JFrame {
     }
 
     private void setUpButtonListeners() {
+        backButton.addActionListener(this.getButtonSoundListener());
+        confirmButton.addActionListener(this.getButtonSoundListener());
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -182,4 +184,6 @@ public class OnePlayerSelectionFrame extends JFrame {
     public int getScreenHeight(){
         return playFrame.getScreenHeight();
     }
+
+    public ActionListener getButtonSoundListener() { return playFrame.getButtonSoundListener(); }
 }

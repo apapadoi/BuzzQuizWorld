@@ -46,7 +46,7 @@ public class BettingFrame extends JFrame {
 
         labelsPanel=new JPanel();
         labelsPanel.setLayout(new GridLayout(2,1,0,30));
-        //labelsPanel.setBorder(BorderFactory.createEmptyBorder(25,800,0,0));
+        labelsPanel.setBorder(BorderFactory.createEmptyBorder(25,800,0,0));
 
         bettingPhaseLabel=new JLabel("Betting Phase");
         bettingPhaseLabel.setFont(font);
@@ -68,7 +68,7 @@ public class BettingFrame extends JFrame {
         labelsPanel.add(bettingLabel);
 
         bettingPanel.add(bettingPhasePanel,BorderLayout.PAGE_START);
-        //bettingPanel.add(labelsPanel,BorderLayout.AFTER_LINE_ENDS);
+        bettingPanel.add(labelsPanel,BorderLayout.AFTER_LINE_ENDS);
         backgroundImageLabel.add(bettingPanel);
     }
 

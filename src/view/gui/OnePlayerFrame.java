@@ -4,7 +4,9 @@ import javafx.css.Size;
 import resources.images.ImageFactory;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -15,6 +17,10 @@ public class OnePlayerFrame extends JFrame {
     private JPanel onePlayerPanel;
     private JPanel questionsPanel;
     private JLabel questionsLabel;
+    private JLabel roundLabel;
+    private JPanel roundPanel;
+    private JLabel timerLabel;
+    private JPanel timerPanel;
     private JPanel answersPanel;
     private JButton answersButton1;
     private JButton answersButton2;
@@ -27,37 +33,74 @@ public class OnePlayerFrame extends JFrame {
         onePlayerPanel.setOpaque(false);
         onePlayerPanel.setLayout(new BorderLayout());
 
-
         questionsPanel=new JPanel();
-        questionsPanel.setLayout(new GridBagLayout());
-        questionsPanel.setBorder(BorderFactory.createEmptyBorder(50,0,0,0));
+        questionsPanel.setLayout(new BorderLayout());
+        questionsPanel.setBorder(BorderFactory.createEmptyBorder(50,0,30,0));
+        questionsPanel.setOpaque(false);
 
-        questionsLabel =new JLabel("When did you die?");
+        questionsLabel =new JLabel("<html>What is the most visited country of<br/>all four given?</html>",SwingConstants.CENTER);
         questionsLabel.setFont(font);
-        questionsPanel.add(questionsLabel);
+        questionsLabel.setForeground(Color.WHITE);
+
+        roundLabel=new JLabel("Round 1");
+        roundLabel.setFont(font);
+        roundLabel.setForeground(Color.WHITE);
+
+        roundPanel=new JPanel();
+        roundPanel.setOpaque(false);
+        roundPanel.setLayout(new BorderLayout());
+        roundPanel.setBorder(BorderFactory.createEmptyBorder(20,0,30,215));
+
+        roundPanel.add(roundLabel);
+
+        timerLabel=new JLabel("30 seconds");
+        timerLabel.setFont(font);
+        timerLabel.setForeground(Color.WHITE);
+
+        timerPanel=new JPanel();
+        timerPanel.setOpaque(false);
+        timerLabel.setLayout(new BorderLayout());
+        timerPanel.setBorder(BorderFactory.createEmptyBorder(20,215,30,0));
+
+        timerPanel.add(timerLabel,BorderLayout.CENTER);
+        questionsPanel.add(timerPanel,BorderLayout.LINE_START);
+        questionsPanel.add(questionsLabel,BorderLayout.CENTER);
+        questionsPanel.add(roundPanel,BorderLayout.LINE_END);
 
         answersPanel=new JPanel();
-        answersPanel.setLayout(new GridLayout(4,1,200,30));
-        answersPanel.setBorder(BorderFactory.createEmptyBorder(25,100,100,100));
-
-        answersButton1=new JButton("1995");
+        answersPanel.setOpaque(false);
+        answersPanel.setLayout(new BoxLayout(answersPanel,BoxLayout.Y_AXIS));
+        answersPanel.setBorder(BorderFactory.createEmptyBorder(50,300,170,100));
+        answersButton1=new JButton("Spain");
         answersButton1.setFont(font);
-        answersButton2=new JButton("1998");
+        answersButton2=new JButton("France");
         answersButton2.setFont(font);
-        answersButton3=new JButton("1975");
+        answersButton3=new JButton("Fiji");
         answersButton3.setFont(font);
-        answersButton4=new JButton("1996");
+        answersButton4=new JButton("Finland");
         answersButton4.setFont(font);
 
+
+        answersButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        answersButton2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        answersButton3.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        answersButton4.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        answersButton1.setPreferredSize(new Dimension(300,60));
+        answersButton2.setPreferredSize(new Dimension(300,60));
+        answersButton3.setPreferredSize(new Dimension(300,60));
+        answersButton4.setPreferredSize(new Dimension(300,60));
         answersPanel.add(answersButton1);
+        answersPanel.add(Box.createRigidArea(new Dimension(0,100)));
         answersPanel.add(answersButton2);
+        answersPanel.add(Box.createRigidArea(new Dimension(0,100)));
         answersPanel.add(answersButton3);
+        answersPanel.add(Box.createRigidArea(new Dimension(0,100)));
         answersPanel.add(answersButton4);
 
 
 
-        onePlayerPanel.add(questionsPanel,BorderLayout.NORTH);
-        onePlayerPanel.add(answersPanel,BorderLayout.EAST);
+        onePlayerPanel.add(questionsPanel,BorderLayout.PAGE_START);
+        onePlayerPanel.add(answersPanel,BorderLayout.LINE_END);
         backgroundImageLabel.add(onePlayerPanel);
     }
 
@@ -118,4 +161,5 @@ public class OnePlayerFrame extends JFrame {
     public int getScreenHeight(){
         return onePlayerSelectionFrame.getScreenHeight();
     }
+
 }

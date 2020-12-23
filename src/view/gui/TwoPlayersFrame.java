@@ -11,7 +11,16 @@ public class TwoPlayersFrame extends JFrame {
 
 
 
-    public TwoPlayersFrame(){
+    public TwoPlayersFrame(TwoPlayersSelectionFrame twoPlayersSelectionFrame){
+        this.twoPlayersSelectionFrame=twoPlayersSelectionFrame;
+        this.setVisible(true);
+    }
 
+    public int getScreenWidth(){
+        return twoPlayersSelectionFrame.getWidth();
+    }
+
+    public int getScreenHeight(){
+        return twoPlayersSelectionFrame.getHeight();
     }
 }
