@@ -36,6 +36,37 @@ public class ImageFactory {
                 break;
             case LOADING_SCREEN_PAGE_IMG:
                 imageIcon=new ImageIcon(Constants.LOADING_SCREEN_PAGE_IMG_URL);
+                break;
+            case TWO_PLAYERS_GAMEMODE_BACKGROUND_IMG:
+                imageIcon = new ImageIcon(Constants.TWO_PLAYERS_GAMEMODE_BACKGROUND_IMG_URL);
+                break;
+            case W_KEY_IMG:
+                imageIcon = new ImageIcon(Constants.W_KEY_IMG_URL);
+                break;
+            case A_KEY_IMG:
+                imageIcon = new ImageIcon(Constants.A_KEY_IMG_URL);
+                break;
+            case S_KEY_IMG:
+                imageIcon = new ImageIcon(Constants.S_KEY_IMG_URL);
+                break;
+            case D_KEY_IMG:
+                imageIcon = new ImageIcon(Constants.D_KEY_IMG_URL);
+                break;
+            case UP_KEY_IMG:
+                imageIcon = new ImageIcon(Constants.UP_KEY_IMG_URL);
+                break;
+            case LEFT_KEY_IMG:
+                imageIcon = new ImageIcon(Constants.LEFT_KEY_IMG_URL);
+                break;
+            case DOWN_KEY_IMG:
+                imageIcon = new ImageIcon(Constants.DOWN_KEY_IMG_URL);
+                break;
+            case RIGHT_KEY_IMG:
+                imageIcon = new ImageIcon(Constants.RIGHT_KEY_IMG_URL);
+                break;
+            case QUESTION_IMG_TEST_IMG:
+                imageIcon = new ImageIcon(Constants.QUESTION_IMG_TEST_IMG_URL);
+                break;
         }
         return imageIcon;
     }
