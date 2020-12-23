@@ -1,11 +1,10 @@
 package view.gui;
 
-import javafx.css.Size;
 import resources.images.ImageFactory;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +25,15 @@ public class OnePlayerFrame extends JFrame {
     private JButton answersButton2;
     private JButton answersButton3;
     private JButton answersButton4;
+    private JLabel usernameLabel;
+    private JPanel usernamePanel;
+    private JLabel scoreLabel;
+    private JPanel bottomPanel;
+    private JPanel exitPanel;
+    private JButton exitButton;
+    private JPanel leftPanel;
+    private JLabel gamemodeLabel;
+    private JLabel categoryLabel;
 
 
     private void setComponentsPanel() {
@@ -39,7 +47,7 @@ public class OnePlayerFrame extends JFrame {
         questionsPanel.setOpaque(false);
 
         questionsLabel =new JLabel("<html>What is the most visited country of<br/>all four given?</html>",SwingConstants.CENTER);
-        questionsLabel.setFont(font);
+        questionsLabel.setFont(font.deriveFont(100));
         questionsLabel.setForeground(Color.WHITE);
 
         roundLabel=new JLabel("Round 1");
@@ -49,7 +57,7 @@ public class OnePlayerFrame extends JFrame {
         roundPanel=new JPanel();
         roundPanel.setOpaque(false);
         roundPanel.setLayout(new BorderLayout());
-        roundPanel.setBorder(BorderFactory.createEmptyBorder(20,0,30,215));
+        roundPanel.setBorder(BorderFactory.createEmptyBorder(0,0,30,215));
 
         roundPanel.add(roundLabel);
 
@@ -60,7 +68,7 @@ public class OnePlayerFrame extends JFrame {
         timerPanel=new JPanel();
         timerPanel.setOpaque(false);
         timerLabel.setLayout(new BorderLayout());
-        timerPanel.setBorder(BorderFactory.createEmptyBorder(20,215,30,0));
+        timerPanel.setBorder(BorderFactory.createEmptyBorder(0,215,30,0));
 
         timerPanel.add(timerLabel,BorderLayout.CENTER);
         questionsPanel.add(timerPanel,BorderLayout.LINE_START);
@@ -98,7 +106,63 @@ public class OnePlayerFrame extends JFrame {
         answersPanel.add(answersButton4);
 
 
+        usernamePanel=new JPanel();
+        usernamePanel.setLayout(new BoxLayout(usernamePanel,BoxLayout.Y_AXIS));
+        usernamePanel.setBorder(BorderFactory.createEmptyBorder(0,20,40,0));
+        usernamePanel.setOpaque(false);
 
+        usernameLabel=new JLabel("Username: papster");
+        usernameLabel.setFont(font);
+        usernameLabel.setForeground(Color.WHITE);
+
+        scoreLabel=new JLabel("Score: 1000");
+        scoreLabel.setFont(font);
+        scoreLabel.setForeground(Color.WHITE);
+
+        usernamePanel.add(usernameLabel);
+        usernamePanel.add(Box.createRigidArea(new Dimension(0,15)));
+        usernamePanel.add(scoreLabel);
+
+        bottomPanel =new JPanel();
+        bottomPanel.setLayout(new BorderLayout());
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
+        bottomPanel.setOpaque(false);
+
+        exitButton=new JButton("Exit");
+        exitButton.setFont(font);
+        exitButton.setPreferredSize(new Dimension(175,5));
+
+        exitPanel=new JPanel();
+        exitPanel.setLayout(new BorderLayout());
+        exitPanel.setOpaque(false);
+        exitPanel.setBorder(BorderFactory.createEmptyBorder(25,0,25,20));
+
+        exitPanel.add(exitButton,BorderLayout.CENTER);
+
+        leftPanel=new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
+        leftPanel.setBorder(BorderFactory.createEmptyBorder(200,30,0,0));
+        leftPanel.setOpaque(false);
+
+        gamemodeLabel=new JLabel("Gamemode: PointBuilder");
+        gamemodeLabel.setForeground(Color.WHITE);
+        gamemodeLabel.setFont(font.deriveFont(35));
+
+        categoryLabel=new JLabel("Category: Sports");
+        categoryLabel.setForeground(Color.WHITE);
+        categoryLabel.setFont(font);
+
+        leftPanel.add(gamemodeLabel);
+        leftPanel.add(Box.createRigidArea(new Dimension(0,40)));
+        leftPanel.add(categoryLabel);
+
+
+        bottomPanel.add(exitPanel,BorderLayout.LINE_END);
+        bottomPanel.add(usernamePanel,BorderLayout.LINE_START);
+
+
+        onePlayerPanel.add(leftPanel,BorderLayout.LINE_START);
+        onePlayerPanel.add(bottomPanel,BorderLayout.PAGE_END);
         onePlayerPanel.add(questionsPanel,BorderLayout.PAGE_START);
         onePlayerPanel.add(answersPanel,BorderLayout.LINE_END);
         backgroundImageLabel.add(onePlayerPanel);
@@ -116,6 +180,12 @@ public class OnePlayerFrame extends JFrame {
     }
 
     private void setUpButtonListeners() {
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
     }
 
