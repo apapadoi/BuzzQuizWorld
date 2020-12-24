@@ -14,5 +14,6 @@ public class Constants {
     public static final String ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerSelectionFrameBackground.png";
     public static final String LOADING_SCREEN_PAGE_IMG_URL="src/resources/images/loadingScreen.gif";
     public static final String ONE_PLAYER_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerFrame.gif";
+    public static final String ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerBettingFrameBackground.jpg";
 
 }

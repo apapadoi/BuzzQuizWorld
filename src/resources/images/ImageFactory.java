@@ -39,6 +39,9 @@ public class ImageFactory {
                 break;
             case ONE_PLAYER_PAGE_BACKGROUND_IMG:
                 imageIcon=new ImageIcon(Constants.ONE_PLAYER_PAGE_BACKGROUND_IMG_URL);
+                break;
+            case ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG:
+                imageIcon=new ImageIcon(Constants.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG_URL);
         }
         return imageIcon;
     }

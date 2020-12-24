@@ -159,8 +159,8 @@ public class OnePlayerSelectionFrame extends JFrame {
                            @Override
                            public void run() {
                                loadingScreenFrame.setVisible(false);
-                               OnePlayerFrame onePlayerFrame=new OnePlayerFrame(OnePlayerSelectionFrame.this);
-                               //BettingFrame bettingFrame=new BettingFrame(OnePlayerSelectionFrame.this);
+                               //OnePlayerFrame onePlayerFrame=new OnePlayerFrame(OnePlayerSelectionFrame.this);
+                               OnePlayerBettingFrame bettingFrame=new OnePlayerBettingFrame(OnePlayerSelectionFrame.this);
                            }
                        };
                        timer.schedule(timerTask,1000);
