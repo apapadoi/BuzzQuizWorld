@@ -67,6 +67,9 @@ public class ImageFactory {
             case QUESTION_IMG_TEST_IMG:
                 imageIcon = new ImageIcon(Constants.QUESTION_IMG_TEST_IMG_URL);
                 break;
+            case FINISH_PAGE_BACKGROUND_IMG:
+                imageIcon = new ImageIcon(Constants.FINISH_PAGE_BACKGROUND_IMG_URL);
+                break;
         }
         return imageIcon;
     }

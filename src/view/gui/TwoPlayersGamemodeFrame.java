@@ -4,6 +4,7 @@ import javafx.embed.swing.JFXPanel;
 import model.player.Player;
 import model.questions.Category;
 import model.questions.Difficulty;
+import model.util.Util;
 import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
@@ -29,6 +30,9 @@ public class TwoPlayersGamemodeFrame extends JFrame {
         this.setUpQuestionsImage();
         this.setUpDataPanel();
         this.setVisible(true);
+        Util.stopExecution(2L);
+        FinishFrame finishFrame = new  FinishFrame(this);
+        finishFrame.setVisible(true);
     }
 
     private void setUpDataPanel() {
@@ -93,10 +97,19 @@ public class TwoPlayersGamemodeFrame extends JFrame {
         this.backgroundImageLabel.add(topPanel,BorderLayout.PAGE_START);
     }
 
-    private JLabel constructCustomJLabel(String text) {
+    public static JLabel constructCustomJLabel(String text) {
         JLabel label = new JLabel(text);
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(UtilGUI.getCustomFont());
+        label.setForeground(Color.WHITE);
+
+        return label;
+    }
+
+    public static JLabel constructCustomJLabel(String text,float fontSize) {
+        JLabel label = new JLabel(text);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setFont(UtilGUI.getCustomFont().deriveFont(fontSize));
         label.setForeground(Color.WHITE);
 
         return label;

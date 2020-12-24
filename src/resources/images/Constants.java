@@ -23,4 +23,5 @@ public class Constants {
     public static final String DOWN_KEY_IMG_URL = "src/resources/images/downKey.png";
     public static final String RIGHT_KEY_IMG_URL = "src/resources/images/rightKey.png";
     public static final String QUESTION_IMG_TEST_IMG_URL = "src/resources/images/questionImageTest.png";
+    public static final String FINISH_PAGE_BACKGROUND_IMG_URL = "src/resources/images/finishPageBackground.png";
 }
