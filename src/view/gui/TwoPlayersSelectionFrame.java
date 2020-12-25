@@ -16,23 +16,84 @@ import java.util.TimerTask;
 public class TwoPlayersSelectionFrame extends JFrame {
     private PlayFrame playFrame;
     private Font font;
-    private JLabel logoImageLabel;
-    private int screenWidth;
-    private int screenHeight;
     private JLabel backgroundImageLabel;
-    private IntroFrame introFrame;
     private JPanel twoPlayersPanel;
     private JPanel backPanel;
     private JButton backButton;
-    private JPanel componentsPanel1;
-    private JPanel componentsPanel2;
+    private JPanel confirmButtonPanel;
     private JButton confirmButton;
+    private JPanel topComponentsPanel;
     private JComboBox roundSelectionBox;
     private JTextField usernameField1;
     private JTextField usernameField2;
     private String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
 
 
+    private void setComponentsPanel() {
+        twoPlayersPanel=new JPanel();
+        twoPlayersPanel.setLayout(new BorderLayout());
+        twoPlayersPanel.setOpaque(false);
+
+        usernameField1=new JTextField("Enter username:");
+        usernameField1.setFont(font);
+        usernameField1.setHorizontalAlignment(JTextField.CENTER);
+        usernameField2=new JTextField("Enter username:");
+        usernameField2.setFont(font);
+        usernameField2.setHorizontalAlignment(JTextField.CENTER);
+        roundSelectionBox=new JComboBox(roundsList);
+        roundSelectionBox.setAlignmentX(2);
+        roundSelectionBox.setSelectedIndex(0);
+        roundSelectionBox.setFont(font);
+
+        topComponentsPanel=new JPanel();
+        topComponentsPanel.setLayout(new BoxLayout(topComponentsPanel,BoxLayout.X_AXIS));
+        topComponentsPanel.setBorder(BorderFactory.createEmptyBorder(200,100,0,100));
+        topComponentsPanel.setOpaque(false);
+
+        usernameField1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        usernameField2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        roundSelectionBox.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+
+        usernameField1.setPreferredSize(new Dimension(100,50));
+        usernameField2.setPreferredSize(new Dimension(100,50));
+        roundSelectionBox.setPreferredSize(new Dimension(100,50));
+
+        topComponentsPanel.add(usernameField1);
+        topComponentsPanel.add(Box.createRigidArea(new Dimension(300,0)));
+        topComponentsPanel.add(roundSelectionBox);
+        topComponentsPanel.add(Box.createRigidArea(new Dimension(300,0)));
+        topComponentsPanel.add(usernameField2);
+
+        confirmButton=new JButton("Confirm");
+        confirmButton.setFont(font);
+        confirmButton.setFocusPainted(false);
+        confirmButton.setBorderPainted(false);
+
+        confirmButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        confirmButton.setPreferredSize(new Dimension(175,50));
+
+        confirmButtonPanel=new JPanel();
+        confirmButtonPanel.setLayout(new BoxLayout(confirmButtonPanel,BoxLayout.X_AXIS));
+        confirmButtonPanel.setBorder(BorderFactory.createEmptyBorder(200,800,450,800));
+        confirmButtonPanel.setOpaque(false);
+        confirmButtonPanel.add(confirmButton);
+
+        backPanel=new JPanel();
+        backButton=new JButton("Back");
+        backButton.setFont(font);
+        backButton.setBorderPainted(false);
+        backButton.setFocusPainted(false);
+        backButton.setPreferredSize(new Dimension(175,40));
+        backPanel.add(backButton,BorderLayout.LINE_END);
+        backPanel.setOpaque(false);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,1717,10,0));
+
+
+        twoPlayersPanel.add(topComponentsPanel,BorderLayout.PAGE_START);
+        twoPlayersPanel.add(backPanel,BorderLayout.PAGE_END);
+        twoPlayersPanel.add(confirmButtonPanel,BorderLayout.CENTER);
+        backgroundImageLabel.add(twoPlayersPanel);
+    }
 
     public TwoPlayersSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
@@ -113,66 +174,6 @@ public class TwoPlayersSelectionFrame extends JFrame {
             }
         });
     }
-
-    private void setComponentsPanel() {
-        twoPlayersPanel=new JPanel();
-        twoPlayersPanel.setLayout(new BorderLayout());
-        twoPlayersPanel.setOpaque(false);
-
-        backPanel=new JPanel();
-        backPanel.setLayout(new BorderLayout());
-        backPanel.setOpaque(false);
-
-        backButton=new JButton("Back");
-        backButton.setFont(font);
-        backButton.setBorderPainted(false);
-        backButton.setFocusPainted(false);
-        backButton.setPreferredSize(new Dimension(175,40));
-        backPanel.add(backButton,BorderLayout.LINE_END);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,0,15,15));
-
-        componentsPanel2=new JPanel();
-        componentsPanel2.setOpaque(false);
-        componentsPanel2.setLayout(new BorderLayout());
-        componentsPanel2.setBorder(BorderFactory.createEmptyBorder(185,0,500,835));
-
-        componentsPanel1=new JPanel();
-        componentsPanel1.setLayout(new GridLayout(1,3,250,0));
-        componentsPanel1.setOpaque(false);
-        componentsPanel1.setBorder(BorderFactory.createEmptyBorder(200,150,0,150));
-
-        usernameField1=new JTextField("Enter username:");
-        usernameField1.setHorizontalAlignment(JTextField.CENTER);
-        usernameField1.setFont(font);
-        usernameField1.setMinimumSize(new Dimension(175,30));
-
-        usernameField2=new JTextField("Enter username:");
-        usernameField2.setHorizontalAlignment(JTextField.CENTER);
-        usernameField2.setFont(font);
-
-        roundSelectionBox=new JComboBox(roundsList);
-        roundSelectionBox.setAlignmentX(2);
-        roundSelectionBox.setSelectedIndex(0);
-        roundSelectionBox.setFont(font);
-
-        confirmButton=new JButton("Confirm");
-        confirmButton.setFont(font);
-        confirmButton.setBorderPainted(false);
-        confirmButton.setFocusPainted(false);
-        confirmButton.setPreferredSize(new Dimension(250,50));
-
-        componentsPanel1.add(usernameField1);
-        componentsPanel1.add(roundSelectionBox);
-        componentsPanel1.add(usernameField2);
-
-        componentsPanel2.add(confirmButton,BorderLayout.LINE_END);
-
-        twoPlayersPanel.add(componentsPanel1,BorderLayout.PAGE_START);
-        twoPlayersPanel.add(backPanel,BorderLayout.PAGE_END);
-        twoPlayersPanel.add(componentsPanel2,BorderLayout.CENTER);
-        backgroundImageLabel.add(twoPlayersPanel);
-    }
-
     private void setUpBackGround() {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
