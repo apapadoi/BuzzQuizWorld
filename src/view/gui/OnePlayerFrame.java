@@ -180,15 +180,85 @@ public class OnePlayerFrame extends JFrame {
     }
 
     private void setUpButtonListeners() {
+        exitButton.addActionListener(this.getButtonSoundListener());
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                createExitButtonFrame();
             }
         });
 
-    }
+        answersButton1.addActionListener(this.getButtonSoundListener());
+        answersButton2.addActionListener(this.getButtonSoundListener());
+        answersButton3.addActionListener(this.getButtonSoundListener());
+        answersButton4.addActionListener(this.getButtonSoundListener());
 
+    }
+    private void createExitButtonFrame(){
+        JFrame exitFrame=new JFrame();
+        exitFrame.setTitle("Exit");
+        exitFrame.setSize(450,130);
+        exitFrame.setIconImage(ImageFactory.createImage(resources.images.Image.APP_ICON).getImage());
+        exitFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        exitFrame.setResizable(false);
+        exitFrame.setLocationRelativeTo(null);
+        JPanel exitPanel=new JPanel();
+        JLabel exitLabel=new JLabel("Are you sure you want to exit?");
+        JButton yesButton=new JButton("Yes");
+        JButton noButton=new JButton("No");
+        JPanel buttonsPanel=new JPanel();
+        JPanel labelsPanel=new JPanel();
+
+        yesButton.setFont(font);
+        noButton.setFont(font);
+
+        exitLabel.setFont(font);
+        exitLabel.setForeground(Color.BLACK);
+
+        exitPanel.setLayout(new BorderLayout());
+
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel,BoxLayout.X_AXIS));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(15,50,0,50));
+
+        labelsPanel.setLayout(new BorderLayout());
+        labelsPanel.setBorder(BorderFactory.createEmptyBorder(0,70,0,0));
+        labelsPanel.add(exitLabel,BorderLayout.CENTER);
+
+        yesButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,yesButton.getMinimumSize().height));
+        noButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,noButton.getMinimumSize().height));
+
+        yesButton.setPreferredSize(new Dimension(5,5));
+        noButton.setPreferredSize(new Dimension(5,5));
+        buttonsPanel.add(yesButton);
+        buttonsPanel.add(Box.createRigidArea(new Dimension(30,0)));
+        buttonsPanel.add(noButton);
+
+        exitPanel.add(buttonsPanel,BorderLayout.CENTER);
+        exitPanel.add(labelsPanel,BorderLayout.PAGE_START);
+
+
+        exitFrame.add(exitPanel);
+        exitFrame.setVisible(true);
+
+        yesButton.addActionListener(this.getButtonSoundListener());
+        noButton.addActionListener(this.getButtonSoundListener());
+
+        yesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                IntroFrame introFrame=new IntroFrame();
+                exitFrame.setVisible(false);
+                OnePlayerFrame.this.setVisible(false);
+            }
+        });
+
+        noButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exitFrame.setVisible(false);
+            }
+        });
+    }
     private void setUpBackGround() {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
@@ -231,5 +301,7 @@ public class OnePlayerFrame extends JFrame {
     public int getScreenHeight(){
         return onePlayerSelectionFrame.getScreenHeight();
     }
+
+    public ActionListener getButtonSoundListener() { return onePlayerSelectionFrame.getButtonSoundListener(); }
 
 }
