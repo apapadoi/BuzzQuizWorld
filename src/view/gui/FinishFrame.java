@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class FinishFrame extends JFrame{
+public class FinishFrame extends JFrame implements GUI{
     private final TwoPlayersGamemodeFrame gamemodeFrame;
     private JPanel textPanel;
     private final JPanel centralPanel;

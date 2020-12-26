@@ -1,5 +1,6 @@
 package view.gui;
 
+import controller.ButtonSoundListener;
 import resources.images.ImageFactory;
 
 import javax.swing.*;
@@ -13,8 +14,7 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class OnePlayerSelectionFrame extends JFrame {
-    private Font font;
+public class OnePlayerSelectionFrame extends JFrame implements GUI{
     private PlayFrame playFrame;
     private JLabel backgroundImageLabel;
     private JPanel onePlayerSelectionPanel;
@@ -29,7 +29,6 @@ public class OnePlayerSelectionFrame extends JFrame {
 
     public OnePlayerSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
-        this.loadFont();
         this.setUpJFrameProperties();
         this.setUpBackGround();
         this.setComponentsPanel();
@@ -47,32 +46,32 @@ public class OnePlayerSelectionFrame extends JFrame {
         backPanel.setOpaque(false);
 
         backButton=new JButton("Back");
-        backButton.setFont(font);
+        backButton.setFont(UtilGUI.getCustomFont());
         backButton.setBorderPainted(false);
         backButton.setFocusPainted(false);
-        backButton.setPreferredSize(new Dimension((int)(0.091*playFrame.getScreenWidth()),(int)(0.037*playFrame.getScreenHeight())));
+        backButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.037*UtilGUI.getScreenHeight())));
         backPanel.add(backButton,BorderLayout.LINE_END);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*playFrame.getScreenWidth()),(int)(0.013*playFrame.getScreenHeight()),
-                (int)(0.007*playFrame.getScreenWidth())));
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*UtilGUI.getScreenWidth()),(int)(0.013*UtilGUI.getScreenHeight()),
+                (int)(0.007*UtilGUI.getScreenWidth())));
 
 
         componentsPanel=new JPanel();
-        componentsPanel.setLayout(new GridLayout(3,1,0,(int)(0.231*playFrame.getScreenHeight())));
+        componentsPanel.setLayout(new GridLayout(3,1,0,(int)(0.231*UtilGUI.getScreenHeight())));
         componentsPanel.setOpaque(false);
-        componentsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.138*playFrame.getScreenHeight()),(int)(0.078*playFrame.getScreenWidth()),
-                (int)(0.138*playFrame.getScreenHeight()),(int)(0.781*playFrame.getScreenWidth())));
+        componentsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.138*UtilGUI.getScreenHeight()),(int)(0.078*UtilGUI.getScreenWidth()),
+                (int)(0.138*UtilGUI.getScreenHeight()),(int)(0.781*UtilGUI.getScreenWidth())));
 
         usernameField =new JTextField("Enter username:");
         usernameField.setHorizontalAlignment(JTextField.CENTER);
-        usernameField.setFont(font);
+        usernameField.setFont(UtilGUI.getCustomFont());
 
         roundSelectionBox =new JComboBox(roundsList);
         roundSelectionBox.setAlignmentX(2);
         roundSelectionBox.setSelectedIndex(0);
-        roundSelectionBox.setFont(font);
+        roundSelectionBox.setFont(UtilGUI.getCustomFont());
 
         confirmButton=new JButton("Confirm");
-        confirmButton.setFont(font);
+        confirmButton.setFont(UtilGUI.getCustomFont());
         confirmButton.setBorderPainted(false);
         confirmButton.setFocusPainted(false);
 
@@ -89,22 +88,9 @@ public class OnePlayerSelectionFrame extends JFrame {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(playFrame.getScreenWidth(),playFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
-    }
-
-    private void loadFont() {
-        // create the custom font
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/fonts/Minecraft.ttf")).deriveFont(20f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-            font = customFont;
-        } catch (IOException |FontFormatException e) {
-            //Handle exception
-            font = new Font("Serif",Font.BOLD,12);
-        }
     }
 
     private void setUpJFrameProperties() {
@@ -121,8 +107,8 @@ public class OnePlayerSelectionFrame extends JFrame {
     }
 
     private void setUpButtonListeners() {
-        backButton.addActionListener(this.getButtonSoundListener());
-        confirmButton.addActionListener(this.getButtonSoundListener());
+        backButton.addActionListener(ButtonSoundListener.getInstance());
+        confirmButton.addActionListener(ButtonSoundListener.getInstance());
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -177,14 +163,4 @@ public class OnePlayerSelectionFrame extends JFrame {
            }
        });
     }
-
-    public int getScreenWidth(){
-        return playFrame.getScreenWidth();
-    }
-
-    public int getScreenHeight(){
-        return playFrame.getScreenHeight();
-    }
-
-    public ActionListener getButtonSoundListener() { return playFrame.getButtonSoundListener(); }
 }

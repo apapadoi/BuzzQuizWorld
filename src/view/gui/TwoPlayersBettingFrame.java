@@ -7,17 +7,13 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class TwoPlayersBettingFrame extends JFrame {
-    private Font font;
+public class TwoPlayersBettingFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
     private TwoPlayersGamemodeFrame twoPlayersGamemodeFrame;
     private TwoPlayersSelectionFrame twoPlayersSelectionFrame;
 
-
-
     public TwoPlayersBettingFrame(TwoPlayersGamemodeFrame twoPlayersGamemodeFrame){
         this.twoPlayersGamemodeFrame=twoPlayersGamemodeFrame;
-        this.loadFont();
         this.setUpJFrameProperties();
         this.setUpBackGround();
         this.setComponentsPanel();
@@ -35,7 +31,7 @@ public class TwoPlayersBettingFrame extends JFrame {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(twoPlayersSelectionFrame.getScreenWidth(),twoPlayersSelectionFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
     }
@@ -51,18 +47,5 @@ public class TwoPlayersBettingFrame extends JFrame {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch(Exception ignored){}
         this.setLayout(new BorderLayout());
-    }
-
-    private void loadFont() {
-        // create the custom font
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/fonts/Minecraft.ttf")).deriveFont(20f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-            font = customFont;
-        } catch (IOException |FontFormatException e) {
-            //Handle exception
-            font = new Font("Serif",Font.BOLD,12);
-        }
     }
 }

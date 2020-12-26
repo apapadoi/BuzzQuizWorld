@@ -7,8 +7,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class OnePlayerBettingFrame extends JFrame {
-    private Font font;
+public class OnePlayerBettingFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
     private OnePlayerFrame onePlayerFrame;
     private OnePlayerSelectionFrame onePlayerSelectionFrame;
@@ -25,11 +24,8 @@ public class OnePlayerBettingFrame extends JFrame {
     private JButton bettingAmountButton3;
     private JButton bettingAmountButton4;
 
-
-
     public OnePlayerBettingFrame(OnePlayerSelectionFrame onePlayerSelectionFrame){
         this.onePlayerSelectionFrame=onePlayerSelectionFrame;
-        this.loadFont();
         this.setUpJFrameProperties();
         this.setUpBackGround();
         this.setComponentsPanel();
@@ -51,11 +47,11 @@ public class OnePlayerBettingFrame extends JFrame {
         bettingPhasePanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 
         bettingPhaseLabel=new JLabel("             High Stakes");
-        bettingPhaseLabel.setFont(font);
+        bettingPhaseLabel.setFont(UtilGUI.getCustomFont());
         bettingPhaseLabel.setForeground(Color.WHITE);
 
         bettingLabel=new JLabel("Select your betting amount");
-        bettingLabel.setFont(font);
+        bettingLabel.setFont(UtilGUI.getCustomFont());
         bettingLabel.setForeground(Color.WHITE);
 
         labelsPanel=new JPanel();
@@ -79,17 +75,17 @@ public class OnePlayerBettingFrame extends JFrame {
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,200,530,0));
         buttonsPanel.setOpaque(false);
         bettingAmountButton1=new JButton("250");
-        bettingAmountButton1.setFont(font);
+        bettingAmountButton1.setFont(UtilGUI.getCustomFont());
         bettingAmountButton2=new JButton("500");
-        bettingAmountButton2.setFont(font);
+        bettingAmountButton2.setFont(UtilGUI.getCustomFont());
         bettingAmountButton3=new JButton("750");
-        bettingAmountButton3.setFont(font);
+        bettingAmountButton3.setFont(UtilGUI.getCustomFont());
         bettingAmountButton4=new JButton("1000");
-        bettingAmountButton4.setFont(font);
+        bettingAmountButton4.setFont(UtilGUI.getCustomFont());
 
         amountAvailableLabel=new JLabel("Amounts Available");
         amountAvailableLabel.setForeground(Color.WHITE);
-        amountAvailableLabel.setFont(font);
+        amountAvailableLabel.setFont(UtilGUI.getCustomFont());
 
         bettingAmountButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         bettingAmountButton2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
@@ -120,7 +116,7 @@ public class OnePlayerBettingFrame extends JFrame {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(onePlayerSelectionFrame.getScreenWidth(),onePlayerSelectionFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
     }
@@ -136,18 +132,5 @@ public class OnePlayerBettingFrame extends JFrame {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch(Exception ignored){}
         this.setLayout(new BorderLayout());
-    }
-
-    private void loadFont() {
-        // create the custom font
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/fonts/Minecraft.ttf")).deriveFont(20f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-            font = customFont;
-        } catch (IOException |FontFormatException e) {
-            //Handle exception
-            font = new Font("Serif",Font.BOLD,12);
-        }
     }
 }

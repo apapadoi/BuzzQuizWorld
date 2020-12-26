@@ -1,5 +1,6 @@
 package view.gui;
 
+import controller.ButtonSoundListener;
 import resources.images.Image;
 import resources.images.ImageFactory;
 
@@ -10,8 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-public class PlayFrame extends JFrame {
-    private Font font;
+public class PlayFrame extends JFrame implements GUI{
     private IntroFrame introFrame;
     private JButton onePlayerButton;
     private JButton twoPlayersButton;
@@ -26,7 +26,6 @@ public class PlayFrame extends JFrame {
 
     public PlayFrame(IntroFrame introFrame){
         this.introFrame=introFrame;
-        this.loadFont();
         this.setUpJFrameProperties();
         this.setUpBackGround();
         this.setUpButtonsPanel();
@@ -37,17 +36,17 @@ public class PlayFrame extends JFrame {
     private void setUpButtonsPanel() {
         buttonsPanel =new JPanel();
         buttonsPanel.setOpaque(false);
-        buttonsPanel.setLayout(new GridLayout(1,2,(int)(0.338*introFrame.getScreenWidth()),0));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.625*introFrame.getScreenHeight()),(int)(0.140*introFrame.getScreenWidth()),
-                (int)(0.106*introFrame.getScreenHeight()),(int)(0.098*introFrame.getScreenWidth())));
+        buttonsPanel.setLayout(new GridLayout(1,2,(int)(0.338*UtilGUI.getScreenWidth()),0));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.625*UtilGUI.getScreenHeight()),(int)(0.140*UtilGUI.getScreenWidth()),
+                (int)(0.106*UtilGUI.getScreenHeight()),(int)(0.098*UtilGUI.getScreenWidth())));
 
         onePlayerButton=new JButton("One Player");
-        onePlayerButton.setFont(font);
+        onePlayerButton.setFont(UtilGUI.getCustomFont());
         onePlayerButton.setBorderPainted(false);
         onePlayerButton.setFocusPainted(false);
 
         twoPlayersButton=new JButton("Two Players");
-        twoPlayersButton.setFont(font);
+        twoPlayersButton.setFont(UtilGUI.getCustomFont());
         twoPlayersButton.setBorderPainted(false);
         twoPlayersButton.setFocusPainted(false);
 
@@ -60,12 +59,12 @@ public class PlayFrame extends JFrame {
 
 
         backButton=new JButton("Back");
-        backButton.setFont(font);
+        backButton.setFont(UtilGUI.getCustomFont());
         backButton.setBorderPainted(false);
         backButton.setFocusPainted(false);
-        backButton.setPreferredSize(new Dimension((int)(0.091*introFrame.getScreenWidth()),(int)(0.037*introFrame.getScreenHeight())));
+        backButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.037*UtilGUI.getScreenHeight())));
         backPanel.add(backButton,BorderLayout.LINE_END);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.013*introFrame.getScreenHeight()),(int)(0.007*introFrame.getScreenWidth())));
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.013*UtilGUI.getScreenHeight()),(int)(0.007*UtilGUI.getScreenWidth())));
 
         playPanel=new JPanel();
         playPanel.setLayout(new BorderLayout());
@@ -73,12 +72,12 @@ public class PlayFrame extends JFrame {
 
         labelPanel=new JPanel();
         labelPanel.setLayout(new GridLayout(1,1));
-        labelPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.074*introFrame.getScreenHeight()),(int)(0.468*introFrame.getScreenWidth()),
-                0,(int)(0.260*introFrame.getScreenWidth())));
+        labelPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.074*UtilGUI.getScreenHeight()),(int)(0.468*UtilGUI.getScreenWidth()),
+                0,(int)(0.260*UtilGUI.getScreenWidth())));
         labelPanel.setOpaque(false);
 
         gamemodesLabel=new JLabel("Select Gamemode");
-        gamemodesLabel.setFont(font);
+        gamemodesLabel.setFont(UtilGUI.getCustomFont());
         gamemodesLabel.setForeground(Color.WHITE);
         labelPanel.add(gamemodesLabel);
 
@@ -94,22 +93,9 @@ public class PlayFrame extends JFrame {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
         java.awt.Image resizedImage = ImageFactory.createImage(Image.PLAY_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(introFrame.getScreenWidth(),introFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
-    }
-
-    private void loadFont() {
-        // create the custom font
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/fonts/Minecraft.ttf")).deriveFont(20f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-            font = customFont;
-        } catch (IOException |FontFormatException e) {
-            //Handle exception
-            font = new Font("Serif",Font.BOLD,12);
-        }
     }
 
     private void setUpJFrameProperties() {
@@ -126,9 +112,9 @@ public class PlayFrame extends JFrame {
     }
 
     private void setUpButtonListeners(){
-        onePlayerButton.addActionListener(this.getButtonSoundListener());
-        twoPlayersButton.addActionListener(this.getButtonSoundListener());
-        backButton.addActionListener(this.getButtonSoundListener());
+        onePlayerButton.addActionListener(ButtonSoundListener.getInstance());
+        twoPlayersButton.addActionListener(ButtonSoundListener.getInstance());
+        backButton.addActionListener(ButtonSoundListener.getInstance());
         onePlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -153,14 +139,4 @@ public class PlayFrame extends JFrame {
             }
         });
     }
-
-    public int getScreenWidth(){
-        return introFrame.getScreenWidth();
-    }
-
-    public int getScreenHeight(){
-        return introFrame.getScreenHeight();
-    }
-
-    public ActionListener getButtonSoundListener() { return introFrame.getButtonSoundListener(); }
 }

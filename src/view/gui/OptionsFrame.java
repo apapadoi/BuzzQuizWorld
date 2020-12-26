@@ -1,5 +1,6 @@
 package view.gui;
 
+import controller.ButtonSoundListener;
 import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
@@ -7,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class OptionsFrame extends JFrame{
+public class OptionsFrame extends JFrame implements GUI{
     private JButton languageButton;
     private JButton fullscreenButton;
     private JButton backButton;
@@ -48,7 +49,7 @@ public class OptionsFrame extends JFrame{
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
         java.awt.Image resizedImage = ImageFactory.createImage(Image.OPTIONS_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(this.introFrame.getScreenWidth(),this.introFrame.getScreenHeight()+40, java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight()+40, java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
     }
@@ -60,9 +61,9 @@ public class OptionsFrame extends JFrame{
 
         this.optionsTextPanel = new JPanel();
         this.optionsTextPanel.setOpaque(false);
-        this.optionsTextPanel.setBorder(BorderFactory.createEmptyBorder(this.introFrame.getScreenHeight()/10,0,0,0));
+        this.optionsTextPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()/10,0,0,0));
         this.optionsTextLabel = new JLabel("Options");
-        this.optionsTextLabel.setFont(this.introFrame.getFont());
+        this.optionsTextLabel.setFont(UtilGUI.getCustomFont());
         this.optionsTextLabel.setForeground(Color.WHITE);
         this.optionsTextPanel.add(optionsTextLabel,BorderLayout.CENTER);
         backgroundImageLabel.add(optionsTextPanel,BorderLayout.PAGE_START);
@@ -71,18 +72,18 @@ public class OptionsFrame extends JFrame{
         this.languageFullScreenPanel = new JPanel();
         this.languageFullScreenPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 12,15));
         this.languageFullScreenPanel.setOpaque(false);
-        this.languageFullScreenPanel.setBorder(BorderFactory.createEmptyBorder(this.introFrame.getScreenHeight()/3,
-                this.introFrame.getScreenWidth()/3,this.introFrame.getScreenHeight()/2,this.introFrame.getScreenWidth()/3));
+        this.languageFullScreenPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()/3,
+                UtilGUI.getScreenWidth()/3,UtilGUI.getScreenHeight()/2,UtilGUI.getScreenWidth()/3));
         this.languageButton = new JButton("Language");
         java.awt.Image resizedEnglishFlag = ImageFactory.createImage(Image.ENGLISH_FLAG).getImage().
-                getScaledInstance(this.introFrame.getScreenWidth()/35,this.introFrame.getScreenHeight()/35, java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance(UtilGUI.getScreenWidth()/35,UtilGUI.getScreenHeight()/35, java.awt.Image.SCALE_DEFAULT);
         this.languageButton.setIcon(new ImageIcon(resizedEnglishFlag));
         this.languageButton.setPreferredSize(new Dimension(180,35));
-        languageButton.setFont(this.introFrame.getFont());
+        languageButton.setFont(UtilGUI.getCustomFont());
         languageButton.setBorderPainted(false);
         languageButton.setFocusPainted(false);
         this.fullscreenButton = new JButton("FullScreen :"+this.fullscreenText);
-        fullscreenButton.setFont(this.introFrame.getFont());
+        fullscreenButton.setFont(UtilGUI.getCustomFont());
         fullscreenButton.setBorderPainted(false);
         fullscreenButton.setFocusPainted(false);
         this.languageFullScreenPanel.add(languageButton);
@@ -94,10 +95,10 @@ public class OptionsFrame extends JFrame{
         this.backButtonPanel.setLayout(new BorderLayout());
         this.backButtonPanel.setBackground(new Color(0,0,0,0));
         this.backgroundImageLabel.setBorder(BorderFactory.createEmptyBorder(0,0,
-                this.introFrame.getScreenHeight()/25,this.introFrame.getScreenWidth()/25));
+                UtilGUI.getScreenHeight()/25,UtilGUI.getScreenWidth()/25));
 
         this.backButton = new JButton("Back");
-        backButton.setFont(this.introFrame.getFont());
+        backButton.setFont(UtilGUI.getCustomFont());
         backButton.setBorderPainted(false);
         backButton.setFocusPainted(false);
         this.backButton.setPreferredSize(new Dimension( (int)(this.introFrame.getWidth()*0.135),
@@ -111,9 +112,9 @@ public class OptionsFrame extends JFrame{
     }
 
     private void setUpButtonListeners() {
-        languageButton.addActionListener(this.introFrame.getButtonSoundListener());
-        fullscreenButton.addActionListener(this.introFrame.getButtonSoundListener());
-        backButton.addActionListener(this.introFrame.getButtonSoundListener());
+        languageButton.addActionListener(ButtonSoundListener.getInstance());
+        fullscreenButton.addActionListener(ButtonSoundListener.getInstance());
+        backButton.addActionListener(ButtonSoundListener.getInstance());
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

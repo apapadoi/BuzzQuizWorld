@@ -7,16 +7,13 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class LoadingScreenFrame extends JFrame {
+public class LoadingScreenFrame extends JFrame implements GUI{
     private OnePlayerSelectionFrame onePlayerSelectionFrame;
     private TwoPlayersSelectionFrame twoPlayersSelectionFrame;
     private JLabel backgroundImageLabel;
-    private Font font;
-
 
     public LoadingScreenFrame(OnePlayerSelectionFrame onePlayerFrame) {
         this.onePlayerSelectionFrame =onePlayerFrame;
-        this.loadFont();
         this.setUpJFrameProperties();
         this.setUpBackgroundOnePlayer();
         this.setVisible(true);
@@ -24,7 +21,6 @@ public class LoadingScreenFrame extends JFrame {
 
     public LoadingScreenFrame(TwoPlayersSelectionFrame twoPlayersFrame){
         this.twoPlayersSelectionFrame =twoPlayersFrame;
-        this.loadFont();
         this.setUpJFrameProperties();
         this.setUpBackgroundTwoPlayers();
         this.setVisible(true);
@@ -34,7 +30,7 @@ public class LoadingScreenFrame extends JFrame {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.LOADING_SCREEN_PAGE_IMG).getImage().
-                getScaledInstance(twoPlayersSelectionFrame.getScreenWidth(), twoPlayersSelectionFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance(UtilGUI.getScreenWidth(), UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
     }
@@ -43,7 +39,7 @@ public class LoadingScreenFrame extends JFrame {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.LOADING_SCREEN_PAGE_IMG).getImage().
-                getScaledInstance(onePlayerSelectionFrame.getScreenWidth(), onePlayerSelectionFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance(UtilGUI.getScreenWidth(), UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
     }
@@ -60,19 +56,4 @@ public class LoadingScreenFrame extends JFrame {
         } catch(Exception ignored){}
         this.setLayout(new BorderLayout());
     }
-
-    private void loadFont() {
-        // create the custom font
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/fonts/Minecraft.ttf")).deriveFont(20f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-            font = customFont;
-        } catch (IOException |FontFormatException e) {
-            //Handle exception
-            font = new Font("Serif",Font.BOLD,12);
-        }
-    }
-
-
 }

@@ -1,21 +1,18 @@
 package view.gui;
 
+import controller.ButtonSoundListener;
 import resources.images.ImageFactory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TwoPlayersSelectionFrame extends JFrame {
+public class TwoPlayersSelectionFrame extends JFrame implements GUI{
     private PlayFrame playFrame;
-    private Font font;
     private JLabel backgroundImageLabel;
     private JPanel twoPlayersPanel;
     private JPanel backPanel;
@@ -28,22 +25,21 @@ public class TwoPlayersSelectionFrame extends JFrame {
     private JTextField usernameField2;
     private String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
 
-
     private void setComponentsPanel() {
         twoPlayersPanel=new JPanel();
         twoPlayersPanel.setLayout(new BorderLayout());
         twoPlayersPanel.setOpaque(false);
 
         usernameField1=new JTextField("Enter username:");
-        usernameField1.setFont(font);
+        usernameField1.setFont(UtilGUI.getCustomFont());
         usernameField1.setHorizontalAlignment(JTextField.CENTER);
         usernameField2=new JTextField("Enter username:");
-        usernameField2.setFont(font);
+        usernameField2.setFont(UtilGUI.getCustomFont());
         usernameField2.setHorizontalAlignment(JTextField.CENTER);
         roundSelectionBox=new JComboBox(roundsList);
         roundSelectionBox.setAlignmentX(2);
         roundSelectionBox.setSelectedIndex(0);
-        roundSelectionBox.setFont(font);
+        roundSelectionBox.setFont(UtilGUI.getCustomFont());
 
         topComponentsPanel=new JPanel();
         topComponentsPanel.setLayout(new BoxLayout(topComponentsPanel,BoxLayout.X_AXIS));
@@ -65,7 +61,7 @@ public class TwoPlayersSelectionFrame extends JFrame {
         topComponentsPanel.add(usernameField2);
 
         confirmButton=new JButton("Confirm");
-        confirmButton.setFont(font);
+        confirmButton.setFont(UtilGUI.getCustomFont());
         confirmButton.setFocusPainted(false);
         confirmButton.setBorderPainted(false);
 
@@ -80,7 +76,7 @@ public class TwoPlayersSelectionFrame extends JFrame {
 
         backPanel=new JPanel();
         backButton=new JButton("Back");
-        backButton.setFont(font);
+        backButton.setFont(UtilGUI.getCustomFont());
         backButton.setBorderPainted(false);
         backButton.setFocusPainted(false);
         backButton.setPreferredSize(new Dimension(175,40));
@@ -97,7 +93,6 @@ public class TwoPlayersSelectionFrame extends JFrame {
 
     public TwoPlayersSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
-        this.loadFont();
         this.setUpJFrameProperties();
         this.setUpBackGround();
         this.setComponentsPanel();
@@ -106,8 +101,8 @@ public class TwoPlayersSelectionFrame extends JFrame {
     }
 
     private void setUpButtonListeners() {
-        backButton.addActionListener(this.getButtonSoundListener());
-        confirmButton.addActionListener(this.getButtonSoundListener());
+        backButton.addActionListener(ButtonSoundListener.getInstance());
+        confirmButton.addActionListener(ButtonSoundListener.getInstance());
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -174,11 +169,12 @@ public class TwoPlayersSelectionFrame extends JFrame {
             }
         });
     }
+
     private void setUpBackGround() {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(playFrame.getScreenWidth(),playFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
     }
@@ -195,27 +191,4 @@ public class TwoPlayersSelectionFrame extends JFrame {
         } catch(Exception ignored){}
         this.setLayout(new BorderLayout());
     }
-
-    private void loadFont() {
-        // create the custom font
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/fonts/Minecraft.ttf")).deriveFont(20f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-            font = customFont;
-        } catch (IOException |FontFormatException e) {
-            //Handle exception
-            font = new Font("Serif",Font.BOLD,12);
-        }
-    }
-
-    public int getScreenWidth(){
-        return playFrame.getWidth();
-    }
-
-    public int getScreenHeight(){
-        return playFrame.getHeight();
-    }
-
-    public ActionListener getButtonSoundListener() { return playFrame.getButtonSoundListener(); }
 }

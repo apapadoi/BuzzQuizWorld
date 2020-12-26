@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class TwoPlayersGamemodeFrame extends JFrame {
+public class TwoPlayersGamemodeFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
     private JPanel buttonsPanel;
     private JPanel leftSideIconsPanel;

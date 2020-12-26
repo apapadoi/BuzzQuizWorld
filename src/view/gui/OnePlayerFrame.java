@@ -1,16 +1,13 @@
 package view.gui;
 
+import controller.ButtonSoundListener;
 import resources.images.ImageFactory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
-public class OnePlayerFrame extends JFrame {
-    private Font font;
+public class OnePlayerFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
     private OnePlayerSelectionFrame onePlayerSelectionFrame;
     private JPanel onePlayerPanel;
@@ -47,11 +44,11 @@ public class OnePlayerFrame extends JFrame {
         questionsPanel.setOpaque(false);
 
         questionsLabel =new JLabel("<html>What is the most visited country of<br/>all four given?</html>",SwingConstants.CENTER);
-        questionsLabel.setFont(font.deriveFont(100));
+        questionsLabel.setFont(UtilGUI.getCustomFont().deriveFont(100));
         questionsLabel.setForeground(Color.WHITE);
 
         roundLabel=new JLabel("Round 1");
-        roundLabel.setFont(font);
+        roundLabel.setFont(UtilGUI.getCustomFont());
         roundLabel.setForeground(Color.WHITE);
 
         roundPanel=new JPanel();
@@ -62,7 +59,7 @@ public class OnePlayerFrame extends JFrame {
         roundPanel.add(roundLabel);
 
         timerLabel=new JLabel("30 seconds");
-        timerLabel.setFont(font);
+        timerLabel.setFont(UtilGUI.getCustomFont());
         timerLabel.setForeground(Color.WHITE);
 
         timerPanel=new JPanel();
@@ -80,13 +77,13 @@ public class OnePlayerFrame extends JFrame {
         answersPanel.setLayout(new BoxLayout(answersPanel,BoxLayout.Y_AXIS));
         answersPanel.setBorder(BorderFactory.createEmptyBorder(50,300,170,100));
         answersButton1=new JButton("Spain");
-        answersButton1.setFont(font);
+        answersButton1.setFont(UtilGUI.getCustomFont());
         answersButton2=new JButton("France");
-        answersButton2.setFont(font);
+        answersButton2.setFont(UtilGUI.getCustomFont());
         answersButton3=new JButton("Fiji");
-        answersButton3.setFont(font);
+        answersButton3.setFont(UtilGUI.getCustomFont());
         answersButton4=new JButton("Finland");
-        answersButton4.setFont(font);
+        answersButton4.setFont(UtilGUI.getCustomFont());
 
 
         answersButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
@@ -112,11 +109,11 @@ public class OnePlayerFrame extends JFrame {
         usernamePanel.setOpaque(false);
 
         usernameLabel=new JLabel("Username: papster");
-        usernameLabel.setFont(font);
+        usernameLabel.setFont(UtilGUI.getCustomFont());
         usernameLabel.setForeground(Color.WHITE);
 
         scoreLabel=new JLabel("Score: 1000");
-        scoreLabel.setFont(font);
+        scoreLabel.setFont(UtilGUI.getCustomFont());
         scoreLabel.setForeground(Color.WHITE);
 
         usernamePanel.add(usernameLabel);
@@ -129,7 +126,7 @@ public class OnePlayerFrame extends JFrame {
         bottomPanel.setOpaque(false);
 
         exitButton=new JButton("Exit");
-        exitButton.setFont(font);
+        exitButton.setFont(UtilGUI.getCustomFont());
         exitButton.setPreferredSize(new Dimension(175,5));
 
         exitPanel=new JPanel();
@@ -146,11 +143,11 @@ public class OnePlayerFrame extends JFrame {
 
         gamemodeLabel=new JLabel("Gamemode: PointBuilder");
         gamemodeLabel.setForeground(Color.WHITE);
-        gamemodeLabel.setFont(font.deriveFont(35));
+        gamemodeLabel.setFont(UtilGUI.getCustomFont().deriveFont(35));
 
         categoryLabel=new JLabel("Category: Sports");
         categoryLabel.setForeground(Color.WHITE);
-        categoryLabel.setFont(font);
+        categoryLabel.setFont(UtilGUI.getCustomFont());
 
         leftPanel.add(gamemodeLabel);
         leftPanel.add(Box.createRigidArea(new Dimension(0,40)));
@@ -168,10 +165,8 @@ public class OnePlayerFrame extends JFrame {
         backgroundImageLabel.add(onePlayerPanel);
     }
 
-
     public OnePlayerFrame(OnePlayerSelectionFrame onePlayerSelectionFrame){
         this.onePlayerSelectionFrame=onePlayerSelectionFrame;
-        this.loadFont();
         this.setUpJFrameProperties();
         this.setUpBackGround();
         this.setComponentsPanel();
@@ -180,7 +175,7 @@ public class OnePlayerFrame extends JFrame {
     }
 
     private void setUpButtonListeners() {
-        exitButton.addActionListener(this.getButtonSoundListener());
+        exitButton.addActionListener(ButtonSoundListener.getInstance());
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -188,10 +183,10 @@ public class OnePlayerFrame extends JFrame {
             }
         });
 
-        answersButton1.addActionListener(this.getButtonSoundListener());
-        answersButton2.addActionListener(this.getButtonSoundListener());
-        answersButton3.addActionListener(this.getButtonSoundListener());
-        answersButton4.addActionListener(this.getButtonSoundListener());
+        answersButton1.addActionListener(ButtonSoundListener.getInstance());
+        answersButton2.addActionListener(ButtonSoundListener.getInstance());
+        answersButton3.addActionListener(ButtonSoundListener.getInstance());
+        answersButton4.addActionListener(ButtonSoundListener.getInstance());
 
     }
     private void createExitButtonFrame(){
@@ -209,10 +204,10 @@ public class OnePlayerFrame extends JFrame {
         JPanel buttonsPanel=new JPanel();
         JPanel labelsPanel=new JPanel();
 
-        yesButton.setFont(font);
-        noButton.setFont(font);
+        yesButton.setFont(UtilGUI.getCustomFont());
+        noButton.setFont(UtilGUI.getCustomFont());
 
-        exitLabel.setFont(font);
+        exitLabel.setFont(UtilGUI.getCustomFont());
         exitLabel.setForeground(Color.BLACK);
 
         exitPanel.setLayout(new BorderLayout());
@@ -240,8 +235,8 @@ public class OnePlayerFrame extends JFrame {
         exitFrame.add(exitPanel);
         exitFrame.setVisible(true);
 
-        yesButton.addActionListener(this.getButtonSoundListener());
-        noButton.addActionListener(this.getButtonSoundListener());
+        yesButton.addActionListener(ButtonSoundListener.getInstance());
+        noButton.addActionListener(ButtonSoundListener.getInstance());
 
         yesButton.addActionListener(new ActionListener() {
             @Override
@@ -263,7 +258,7 @@ public class OnePlayerFrame extends JFrame {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(onePlayerSelectionFrame.getScreenWidth(),onePlayerSelectionFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
     }
@@ -280,28 +275,4 @@ public class OnePlayerFrame extends JFrame {
         } catch(Exception ignored){}
         this.setLayout(new BorderLayout());
     }
-
-    private void loadFont() {
-        // create the custom font
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/fonts/Minecraft.ttf")).deriveFont(20f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-            font = customFont;
-        } catch (IOException |FontFormatException e) {
-            //Handle exception
-            font = new Font("Serif",Font.BOLD,12);
-        }
-    }
-
-    public int getScreenWidth(){
-        return onePlayerSelectionFrame.getScreenWidth();
-    }
-
-    public int getScreenHeight(){
-        return onePlayerSelectionFrame.getScreenHeight();
-    }
-
-    public ActionListener getButtonSoundListener() { return onePlayerSelectionFrame.getButtonSoundListener(); }
-
 }
