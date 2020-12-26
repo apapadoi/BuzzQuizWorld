@@ -20,8 +20,14 @@ public class TwoPlayersGamemodeFrame extends JFrame {
     private JLabel questionsImageLabel;
     private JPanel topPanel;
     private java.util.List<JLabel> topPanelLabels;
+    private JPanel answersPanel;
 
     public TwoPlayersGamemodeFrame() {
+        answersPanel = new JPanel();
+        answersPanel.setOpaque(false);
+        answersPanel.setLayout(new BorderLayout());
+        answersPanel.setBorder(BorderFactory.createEmptyBorder(0,UtilGUI.getScreenWidth()*175/1368,
+                UtilGUI.getScreenHeight()*50/768,0));
         this.setUpJFrameProperties();
         this.setUpBackGround();
         this.setUpButtonsPanel();
@@ -44,7 +50,7 @@ public class TwoPlayersGamemodeFrame extends JFrame {
         Player player2 = new Player("z3",1000,500);
         JLabel timer = constructCustomJLabel("30 seconds");
         topPanelLabels.add(timer);
-        JLabel questionText = constructCustomJLabel("<html>What is the name of the video game <br/>in the picture;</html>");
+        JLabel questionText = constructCustomJLabel("<html>What is the name of the video game in the picture;</html>");
         topPanelLabels.add(questionText);
         JLabel roundId = constructCustomJLabel("Round : 3");
         topPanelLabels.add(roundId);
@@ -77,8 +83,8 @@ public class TwoPlayersGamemodeFrame extends JFrame {
         JPanel secondHalfPanel = new JPanel();
         secondHalfPanel.setLayout(new GridLayout(2,7,0,20));
         secondHalfPanel.setOpaque(false);
-        secondHalfPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()*75/768,0,
-                UtilGUI.getScreenHeight()*75/768,0));
+        secondHalfPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()*50/768,0,
+                UtilGUI.getScreenHeight()*40/768,0));
         secondHalfPanel.add(constructCustomJLabel("Player 1 :"));
         secondHalfPanel.add(constructCustomJLabel("Score :"));
         secondHalfPanel.add(constructCustomJLabel("Gamemode :"));
@@ -100,7 +106,7 @@ public class TwoPlayersGamemodeFrame extends JFrame {
     public static JLabel constructCustomJLabel(String text) {
         JLabel label = new JLabel(text);
         label.setHorizontalAlignment(JLabel.CENTER);
-        label.setFont(UtilGUI.getCustomFont());
+        label.setFont(UtilGUI.getCustomFont().deriveFont((float)25.0));
         label.setForeground(Color.WHITE);
 
         return label;
@@ -120,13 +126,13 @@ public class TwoPlayersGamemodeFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
         panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(0,UtilGUI.getScreenWidth()*583/1368,
-                0,UtilGUI.getScreenWidth()*456/1368));
+        panel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()*50/768,UtilGUI.getScreenWidth()*175/1368,
+                UtilGUI.getScreenHeight()*125/768,UtilGUI.getScreenWidth()*50/1368));
         java.awt.Image resizedImage = ImageFactory.createImage(Image.QUESTION_IMG_TEST_IMG).getImage().
-                getScaledInstance((int)(UtilGUI.getScreenWidth()*0.146),UtilGUI.getScreenHeight()*220/768,java.awt.Image.SCALE_DEFAULT);
+                getScaledInstance((int)(UtilGUI.getScreenWidth()*550/1368),UtilGUI.getScreenHeight()*300/768,java.awt.Image.SCALE_DEFAULT);
         this.questionsImageLabel.setIcon(new ImageIcon(resizedImage));
         panel.add(questionsImageLabel,JLabel.CENTER);
-        this.backgroundImageLabel.add(panel,BorderLayout.PAGE_END);
+        this.backgroundImageLabel.add(panel,BorderLayout.EAST);
     }
 
     private void setUpRightSideIcons() {
@@ -134,7 +140,7 @@ public class TwoPlayersGamemodeFrame extends JFrame {
         rightSideIconsPanel.setOpaque(false);
         rightSideIconsPanel.setLayout(new GridLayout(4,1,0,0));
         rightSideIconsPanel.setBorder(BorderFactory.createEmptyBorder(0,
-                0,0,UtilGUI.getScreenWidth()/3));
+                UtilGUI.getScreenWidth()*30/1368,0,0));
 
         JLabel label = new JLabel();
         java.awt.Image resizedImage = ImageFactory.createImage(Image.UP_KEY_IMG).getImage().
@@ -160,7 +166,7 @@ public class TwoPlayersGamemodeFrame extends JFrame {
         label.setIcon(new ImageIcon(resizedImage));
         rightSideIconsPanel.add(label);
 
-        this.backgroundImageLabel.add(rightSideIconsPanel,BorderLayout.EAST);
+        this.answersPanel.add(rightSideIconsPanel,BorderLayout.EAST);
     }
 
     private void setUpLeftSideIcons() {
@@ -168,8 +174,8 @@ public class TwoPlayersGamemodeFrame extends JFrame {
         leftSideIconsPanel.setOpaque(false);
         leftSideIconsPanel.setLayout(new GridLayout(4,1,0,0));
 
-        leftSideIconsPanel.setBorder(BorderFactory.createEmptyBorder(0,
-                UtilGUI.getScreenWidth()/3,0,0));
+       leftSideIconsPanel.setBorder(BorderFactory.createEmptyBorder(0,
+                0,0,UtilGUI.getScreenWidth()*30/1368));
         JLabel label = new JLabel();
         java.awt.Image resizedImage = ImageFactory.createImage(Image.W_KEY_IMG).getImage().
                 getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
@@ -194,7 +200,7 @@ public class TwoPlayersGamemodeFrame extends JFrame {
         label.setIcon(new ImageIcon(resizedImage));
         leftSideIconsPanel.add(label);
 
-        this.backgroundImageLabel.add(leftSideIconsPanel,BorderLayout.WEST);
+        this.answersPanel.add(leftSideIconsPanel,BorderLayout.WEST);
     }
 
     private void setUpButtonsPanel() {
@@ -230,7 +236,8 @@ public class TwoPlayersGamemodeFrame extends JFrame {
         label.setHorizontalAlignment(JLabel.CENTER);
         buttonsPanel.add(label);
 
-        this.backgroundImageLabel.add(buttonsPanel,BorderLayout.CENTER);
+        this.backgroundImageLabel.add(answersPanel,BorderLayout.WEST);
+        this.answersPanel.add(buttonsPanel,BorderLayout.CENTER);
     }
 
     private void setUpJFrameProperties() {
