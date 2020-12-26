@@ -10,27 +10,90 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TwoPlayersSelectionFrame extends JFrame {
     private PlayFrame playFrame;
     private Font font;
-    private JLabel logoImageLabel;
-    private int screenWidth;
-    private int screenHeight;
     private JLabel backgroundImageLabel;
-    private IntroFrame introFrame;
     private JPanel twoPlayersPanel;
     private JPanel backPanel;
     private JButton backButton;
-    private JPanel componentsPanel1;
-    private JPanel componentsPanel2;
+    private JPanel confirmButtonPanel;
     private JButton confirmButton;
+    private JPanel topComponentsPanel;
     private JComboBox roundSelectionBox;
     private JTextField usernameField1;
     private JTextField usernameField2;
     private String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
 
 
+    private void setComponentsPanel() {
+        twoPlayersPanel=new JPanel();
+        twoPlayersPanel.setLayout(new BorderLayout());
+        twoPlayersPanel.setOpaque(false);
+
+        usernameField1=new JTextField("Enter username:");
+        usernameField1.setFont(font);
+        usernameField1.setHorizontalAlignment(JTextField.CENTER);
+        usernameField2=new JTextField("Enter username:");
+        usernameField2.setFont(font);
+        usernameField2.setHorizontalAlignment(JTextField.CENTER);
+        roundSelectionBox=new JComboBox(roundsList);
+        roundSelectionBox.setAlignmentX(2);
+        roundSelectionBox.setSelectedIndex(0);
+        roundSelectionBox.setFont(font);
+
+        topComponentsPanel=new JPanel();
+        topComponentsPanel.setLayout(new BoxLayout(topComponentsPanel,BoxLayout.X_AXIS));
+        topComponentsPanel.setBorder(BorderFactory.createEmptyBorder(200,100,0,100));
+        topComponentsPanel.setOpaque(false);
+
+        usernameField1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        usernameField2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        roundSelectionBox.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+
+        usernameField1.setPreferredSize(new Dimension(100,50));
+        usernameField2.setPreferredSize(new Dimension(100,50));
+        roundSelectionBox.setPreferredSize(new Dimension(100,50));
+
+        topComponentsPanel.add(usernameField1);
+        topComponentsPanel.add(Box.createRigidArea(new Dimension(300,0)));
+        topComponentsPanel.add(roundSelectionBox);
+        topComponentsPanel.add(Box.createRigidArea(new Dimension(300,0)));
+        topComponentsPanel.add(usernameField2);
+
+        confirmButton=new JButton("Confirm");
+        confirmButton.setFont(font);
+        confirmButton.setFocusPainted(false);
+        confirmButton.setBorderPainted(false);
+
+        confirmButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        confirmButton.setPreferredSize(new Dimension(175,50));
+
+        confirmButtonPanel=new JPanel();
+        confirmButtonPanel.setLayout(new BoxLayout(confirmButtonPanel,BoxLayout.X_AXIS));
+        confirmButtonPanel.setBorder(BorderFactory.createEmptyBorder(200,800,450,800));
+        confirmButtonPanel.setOpaque(false);
+        confirmButtonPanel.add(confirmButton);
+
+        backPanel=new JPanel();
+        backButton=new JButton("Back");
+        backButton.setFont(font);
+        backButton.setBorderPainted(false);
+        backButton.setFocusPainted(false);
+        backButton.setPreferredSize(new Dimension(175,40));
+        backPanel.add(backButton,BorderLayout.LINE_END);
+        backPanel.setOpaque(false);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,1717,10,0));
+
+
+        twoPlayersPanel.add(topComponentsPanel,BorderLayout.PAGE_START);
+        twoPlayersPanel.add(backPanel,BorderLayout.PAGE_END);
+        twoPlayersPanel.add(confirmButtonPanel,BorderLayout.CENTER);
+        backgroundImageLabel.add(twoPlayersPanel);
+    }
 
     public TwoPlayersSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
@@ -43,6 +106,8 @@ public class TwoPlayersSelectionFrame extends JFrame {
     }
 
     private void setUpButtonListeners() {
+        backButton.addActionListener(this.getButtonSoundListener());
+        confirmButton.addActionListener(this.getButtonSoundListener());
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -96,66 +161,23 @@ public class TwoPlayersSelectionFrame extends JFrame {
                         if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
                             LoadingScreenFrame loadingScreenFrame=new LoadingScreenFrame(TwoPlayersSelectionFrame.this);
                             TwoPlayersSelectionFrame.this.setVisible(false);
+                            Timer timer=new Timer();
+                            TimerTask timerTask=new TimerTask() {
+                                @Override
+                                public void run() {
+                                    loadingScreenFrame.setVisible(false);
+                                    TwoPlayersFrame twoPlayersFrame=new TwoPlayersFrame(TwoPlayersSelectionFrame.this);
+                                }
+                            };
+                            timer.schedule(timerTask,1000);
                         }
             }
         });
     }
-
-    private void setComponentsPanel() {
-        twoPlayersPanel=new JPanel();
-        twoPlayersPanel.setLayout(new BorderLayout());
-        twoPlayersPanel.setOpaque(false);
-
-        backPanel=new JPanel();
-        backPanel.setLayout(new BorderLayout());
-        backPanel.setOpaque(false);
-
-        backButton=new JButton("Back");
-        backButton.setFont(font);
-        backButton.setBorderPainted(false);
-        backButton.setFocusPainted(false);
-        backButton.setPreferredSize(new Dimension((int)(0.091*playFrame.getScreenWidth()),(int)(0.037*playFrame.getScreenHeight())));
-        backPanel.add(backButton,BorderLayout.LINE_END);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*playFrame.getScreenWidth()),(int)(0.013*playFrame.getScreenHeight()),
-                (int)(0.007*playFrame.getScreenWidth())));
-
-        componentsPanel1=new JPanel();
-        componentsPanel1.setLayout(new GridLayout(1,3,(int)(0.130*playFrame.getScreenWidth()),0));
-        componentsPanel1.setOpaque(false);
-        componentsPanel1.setBorder(BorderFactory.createEmptyBorder((int)(0.416*playFrame.getScreenHeight()),(int)(0.078*playFrame.getScreenWidth()),
-                (int)(0.416*playFrame.getScreenHeight()),(int)(0.078*playFrame.getScreenWidth())));
-
-        usernameField1=new JTextField("Enter username:");
-        usernameField1.setHorizontalAlignment(JTextField.CENTER);
-        usernameField1.setFont(font);
-
-        usernameField2=new JTextField("Enter username:");
-        usernameField2.setHorizontalAlignment(JTextField.CENTER);
-        usernameField2.setFont(font);
-
-        roundSelectionBox=new JComboBox(roundsList);
-        roundSelectionBox.setAlignmentX(2);
-        roundSelectionBox.setSelectedIndex(0);
-        roundSelectionBox.setFont(font);
-
-        confirmButton=new JButton("Confirm");
-        confirmButton.setFont(font);
-        confirmButton.setBorderPainted(false);
-        confirmButton.setFocusPainted(false);
-
-        componentsPanel1.add(usernameField1);
-        componentsPanel1.add(roundSelectionBox);
-        componentsPanel1.add(usernameField2);
-
-        twoPlayersPanel.add(componentsPanel1,BorderLayout.CENTER);
-        twoPlayersPanel.add(backPanel,BorderLayout.PAGE_END);
-        backgroundImageLabel.add(twoPlayersPanel);
-    }
-
     private void setUpBackGround() {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_PAGE_BACKGROUND_IMG).getImage().
+        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG).getImage().
                 getScaledInstance(playFrame.getScreenWidth(),playFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
@@ -186,4 +208,14 @@ public class TwoPlayersSelectionFrame extends JFrame {
             font = new Font("Serif",Font.BOLD,12);
         }
     }
+
+    public int getScreenWidth(){
+        return playFrame.getWidth();
+    }
+
+    public int getScreenHeight(){
+        return playFrame.getHeight();
+    }
+
+    public ActionListener getButtonSoundListener() { return playFrame.getButtonSoundListener(); }
 }

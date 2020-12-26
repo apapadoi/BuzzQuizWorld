@@ -10,7 +10,7 @@ public class Constants {
     public static final String GREEK_FLAG_IMG_URL = "src/resources/images/greekFlag.png";
     public static final String SCORES_PAGE_IMG_URL = "src/resources/images/scoresPageBackground.png";
     public static final String PLAY_PAGE_BACKGROUND_IMG_URL="src/resources/images/playFrameBackground.png";
-    public static final String ONE_PLAYER_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerFrameBackground.png";
+    public static final String ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerSelectionFrameBackground.png";
     public static final String LOADING_SCREEN_PAGE_IMG_URL="src/resources/images/loadingScreen.gif";
     public static final String TWO_PLAYERS_GAMEMODE_BACKGROUND_IMG_URL =
             "src/resources/images/twoPlayersGamemodeBackground.png";
@@ -24,4 +24,6 @@ public class Constants {
     public static final String RIGHT_KEY_IMG_URL = "src/resources/images/rightKey.png";
     public static final String QUESTION_IMG_TEST_IMG_URL = "src/resources/images/questionImageTest.png";
     public static final String FINISH_PAGE_BACKGROUND_IMG_URL = "src/resources/images/finishPageBackground.png";
+    public static final String ONE_PLAYER_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerFrame.gif";
+    public static final String ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerBettingFrameBackground.jpg";
 }

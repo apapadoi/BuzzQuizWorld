@@ -7,43 +7,35 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class LoadingScreenFrame extends JFrame {
-    private OnePlayerSelectionFrame onePlayerSelectionFrame;
-    private TwoPlayersSelectionFrame twoPlayersSelectionFrame;
-    private JLabel backgroundImageLabel;
+public class TwoPlayersBettingFrame extends JFrame {
     private Font font;
+    private JLabel backgroundImageLabel;
+    private TwoPlayersFrame twoPlayersFrame;
+    private TwoPlayersSelectionFrame twoPlayersSelectionFrame;
 
 
-    public LoadingScreenFrame(OnePlayerSelectionFrame onePlayerFrame) {
-        this.onePlayerSelectionFrame =onePlayerFrame;
+
+    public TwoPlayersBettingFrame(TwoPlayersFrame twoPlayersFrame){
+        this.twoPlayersFrame=twoPlayersFrame;
         this.loadFont();
         this.setUpJFrameProperties();
-        this.setUpBackgroundOnePlayer();
+        this.setUpBackGround();
+        this.setComponentsPanel();
+        this.setUpButtonListeners();
         this.setVisible(true);
     }
 
-    public LoadingScreenFrame(TwoPlayersSelectionFrame twoPlayersFrame){
-        this.twoPlayersSelectionFrame =twoPlayersFrame;
-        this.loadFont();
-        this.setUpJFrameProperties();
-        this.setUpBackgroundTwoPlayers();
-        this.setVisible(true);
+    private void setUpButtonListeners() {
     }
 
-    private void setUpBackgroundTwoPlayers() {
-        this.backgroundImageLabel = new JLabel();
-        this.add(backgroundImageLabel,BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.LOADING_SCREEN_PAGE_IMG).getImage().
-                getScaledInstance(twoPlayersSelectionFrame.getScreenWidth(), twoPlayersSelectionFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
-        this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
-        this.backgroundImageLabel.setLayout(new BorderLayout());
+    private void setComponentsPanel() {
     }
 
-    private void setUpBackgroundOnePlayer() {
+    private void setUpBackGround() {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.LOADING_SCREEN_PAGE_IMG).getImage().
-                getScaledInstance(onePlayerSelectionFrame.getScreenWidth(), onePlayerSelectionFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
+        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG).getImage().
+                getScaledInstance(twoPlayersSelectionFrame.getScreenWidth(),twoPlayersSelectionFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
     }
@@ -73,6 +65,4 @@ public class LoadingScreenFrame extends JFrame {
             font = new Font("Serif",Font.BOLD,12);
         }
     }
-
-
 }
