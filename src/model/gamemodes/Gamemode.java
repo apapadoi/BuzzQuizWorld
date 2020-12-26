@@ -39,7 +39,13 @@ public abstract class Gamemode implements Gamemodable{
     /**
      * @see Gamemodable
      */
-    public abstract void actionIfCorrectAnswer(Model model);
+    public void actionIfCorrectAnswer(Model model) { }
+
+    /**
+     * @see Gamemodable
+     */
+    @Override
+    public void actionsIfCorrectAnswer(Model model, int millis) { }
 
     /**
      * @see Gamemodable

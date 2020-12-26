@@ -33,6 +33,14 @@ public interface Gamemodable {
     void actionIfCorrectAnswer(Model model);
 
     /**
+     * Performs the actions that must be done when user answers correct.
+     * Uses the milliseconds it took the player to answer.
+     * @param model instance of {@code Model} class
+     * @param millis the time it took the player to answer in milliseconds
+     */
+    void actionsIfCorrectAnswer(Model model,int millis);
+
+    /**
      * Returns the question format depending the gamemode.
      * @param model instance of {@code Model} class
      * @param currentQuestion the current question
