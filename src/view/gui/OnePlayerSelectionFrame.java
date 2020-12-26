@@ -50,15 +50,17 @@ public class OnePlayerSelectionFrame extends JFrame {
         backButton.setFont(font);
         backButton.setBorderPainted(false);
         backButton.setFocusPainted(false);
-        backButton.setPreferredSize(new Dimension(175,40));
+        backButton.setPreferredSize(new Dimension((int)(0.091*playFrame.getScreenWidth()),(int)(0.037*playFrame.getScreenHeight())));
         backPanel.add(backButton,BorderLayout.LINE_END);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,500,15,15));
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*playFrame.getScreenWidth()),(int)(0.013*playFrame.getScreenHeight()),
+                (int)(0.007*playFrame.getScreenWidth())));
 
 
         componentsPanel=new JPanel();
-        componentsPanel.setLayout(new GridLayout(3,1,0,250));
+        componentsPanel.setLayout(new GridLayout(3,1,0,(int)(0.231*playFrame.getScreenHeight())));
         componentsPanel.setOpaque(false);
-        componentsPanel.setBorder(BorderFactory.createEmptyBorder(150,150,150,1500));
+        componentsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.138*playFrame.getScreenHeight()),(int)(0.078*playFrame.getScreenWidth()),
+                (int)(0.138*playFrame.getScreenHeight()),(int)(0.781*playFrame.getScreenWidth())));
 
         usernameField =new JTextField("Enter username:");
         usernameField.setHorizontalAlignment(JTextField.CENTER);
