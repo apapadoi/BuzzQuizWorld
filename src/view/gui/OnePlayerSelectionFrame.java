@@ -17,7 +17,7 @@ public class OnePlayerSelectionFrame extends JFrame {
     private Font font;
     private PlayFrame playFrame;
     private JLabel backgroundImageLabel;
-    private JPanel onePlayerPanel;
+    private JPanel onePlayerSelectionPanel;
     private JPanel backPanel;
     private JButton backButton;
     private JPanel componentsPanel;
@@ -38,9 +38,9 @@ public class OnePlayerSelectionFrame extends JFrame {
     }
 
     private void setComponentsPanel() {
-        onePlayerPanel=new JPanel();
-        onePlayerPanel.setLayout(new BorderLayout());
-        onePlayerPanel.setOpaque(false);
+        onePlayerSelectionPanel =new JPanel();
+        onePlayerSelectionPanel.setLayout(new BorderLayout());
+        onePlayerSelectionPanel.setOpaque(false);
 
         backPanel=new JPanel();
         backPanel.setLayout(new BorderLayout());
@@ -80,15 +80,15 @@ public class OnePlayerSelectionFrame extends JFrame {
         componentsPanel.add(roundSelectionBox);
         componentsPanel.add(confirmButton);
 
-        onePlayerPanel.add(backPanel,BorderLayout.PAGE_END);
-        onePlayerPanel.add(componentsPanel,BorderLayout.CENTER);
-        backgroundImageLabel.add(onePlayerPanel);
+        onePlayerSelectionPanel.add(backPanel,BorderLayout.PAGE_END);
+        onePlayerSelectionPanel.add(componentsPanel,BorderLayout.CENTER);
+        backgroundImageLabel.add(onePlayerSelectionPanel);
     }
 
     private void setUpBackGround() {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_PAGE_BACKGROUND_IMG).getImage().
+        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG).getImage().
                 getScaledInstance(playFrame.getScreenWidth(),playFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
         this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
         this.backgroundImageLabel.setLayout(new BorderLayout());
@@ -121,6 +121,8 @@ public class OnePlayerSelectionFrame extends JFrame {
     }
 
     private void setUpButtonListeners() {
+        backButton.addActionListener(this.getButtonSoundListener());
+        confirmButton.addActionListener(this.getButtonSoundListener());
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -159,12 +161,12 @@ public class OnePlayerSelectionFrame extends JFrame {
                            @Override
                            public void run() {
                                loadingScreenFrame.setVisible(false);
-                               OnePlayerSelectionFrame.this.setVisible(true);
+                               OnePlayerFrame onePlayerFrame=new OnePlayerFrame(OnePlayerSelectionFrame.this);
+                               //OnePlayerBettingFrame bettingFrame=new OnePlayerBettingFrame(OnePlayerSelectionFrame.this);
                            }
                        };
-                       timer.schedule(timerTask,5000);
+                       timer.schedule(timerTask,1000);
                    }
-
            }
        });
 
@@ -183,4 +185,6 @@ public class OnePlayerSelectionFrame extends JFrame {
     public int getScreenHeight(){
         return playFrame.getScreenHeight();
     }
+
+    public ActionListener getButtonSoundListener() { return playFrame.getButtonSoundListener(); }
 }

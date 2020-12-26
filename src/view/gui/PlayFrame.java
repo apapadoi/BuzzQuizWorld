@@ -126,6 +126,9 @@ public class PlayFrame extends JFrame {
     }
 
     private void setUpButtonListeners(){
+        onePlayerButton.addActionListener(this.getButtonSoundListener());
+        twoPlayersButton.addActionListener(this.getButtonSoundListener());
+        backButton.addActionListener(this.getButtonSoundListener());
         onePlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -158,4 +161,6 @@ public class PlayFrame extends JFrame {
     public int getScreenHeight(){
         return introFrame.getScreenHeight();
     }
+
+    public ActionListener getButtonSoundListener() { return introFrame.getButtonSoundListener(); }
 }
