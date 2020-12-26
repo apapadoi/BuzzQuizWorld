@@ -10,13 +10,13 @@ import java.io.IOException;
 public class TwoPlayersBettingFrame extends JFrame {
     private Font font;
     private JLabel backgroundImageLabel;
-    private TwoPlayersFrame twoPlayersFrame;
+    private TwoPlayersGamemodeFrame twoPlayersGamemodeFrame;
     private TwoPlayersSelectionFrame twoPlayersSelectionFrame;
 
 
 
-    public TwoPlayersBettingFrame(TwoPlayersFrame twoPlayersFrame){
-        this.twoPlayersFrame=twoPlayersFrame;
+    public TwoPlayersBettingFrame(TwoPlayersGamemodeFrame twoPlayersGamemodeFrame){
+        this.twoPlayersGamemodeFrame=twoPlayersGamemodeFrame;
         this.loadFont();
         this.setUpJFrameProperties();
         this.setUpBackGround();
