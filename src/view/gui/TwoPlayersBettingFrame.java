@@ -8,29 +8,182 @@ import java.io.File;
 import java.io.IOException;
 
 public class TwoPlayersBettingFrame extends JFrame {
-    private Font font;
     private JLabel backgroundImageLabel;
-    private TwoPlayersGamemodeFrame twoPlayersGamemodeFrame;
+    private Font font;
     private TwoPlayersSelectionFrame twoPlayersSelectionFrame;
+    private static final int iconMultiplier = 30;
+    private JLabel wKey;
+    private JLabel aKey;
+    private JLabel sKey;
+    private JLabel dKey;
+    private JLabel upKey;
+    private JLabel downKey;
+    private JLabel leftKey;
+    private JLabel rightKey;
+    private JLabel betAmount1;
+    private JLabel betAmount2;
+    private JLabel betAmount3;
+    private JLabel betAmount4;
+    private JPanel bettingPanel;
+    private JPanel leftPanel;
+    private JPanel rightPanel;
+    private JPanel amountPanel;
+    private JPanel topPanel;
+    private JLabel chooseAmountLabel;
+    private JLabel amountLabel;
+    private JLabel highStakesLabel;
 
 
-
-    public TwoPlayersBettingFrame(TwoPlayersGamemodeFrame twoPlayersGamemodeFrame){
-        this.twoPlayersGamemodeFrame=twoPlayersGamemodeFrame;
+    public TwoPlayersBettingFrame(TwoPlayersSelectionFrame twoPlayersSelectionFrame){
+        this.twoPlayersSelectionFrame=twoPlayersSelectionFrame;
+        bettingPanel=new JPanel();
+        bettingPanel.setLayout(new BorderLayout());
+        bettingPanel.setOpaque(false);
         this.loadFont();
         this.setUpJFrameProperties();
         this.setUpBackGround();
-        this.setComponentsPanel();
+        this.setUpTopPanel();
+        this.setUpAmountPanel();
+        this.setUpRightSideIcons();
+        this.setUpLeftSideIcons();
         this.setUpButtonListeners();
         this.setVisible(true);
     }
 
+    private void setUpAmountPanel() {
+        amountPanel = new JPanel();
+        amountPanel.setLayout(new GridLayout(4,1,15,15));
+        amountPanel.setOpaque(false);
+        amountPanel.setBorder(BorderFactory.createEmptyBorder(0,
+                0,0,0));
+
+
+        betAmount1 = new JLabel("250");
+        betAmount1.setForeground(Color.WHITE);
+        betAmount1.setFont(UtilGUI.getCustomFont().deriveFont((float) 30.0));
+
+        betAmount1.setHorizontalAlignment(JLabel.CENTER);
+        amountPanel.add(betAmount1);
+
+        betAmount2 = new JLabel("500");
+        betAmount2.setForeground(Color.WHITE);
+        betAmount2.setFont(UtilGUI.getCustomFont().deriveFont((float) 30.0));
+        betAmount2.setHorizontalAlignment(JLabel.CENTER);
+        amountPanel.add(betAmount2);
+
+        betAmount3 = new JLabel("750");
+        betAmount3.setForeground(Color.WHITE);
+        betAmount3.setFont(UtilGUI.getCustomFont().deriveFont((float)30.0));
+        betAmount3.setHorizontalAlignment(JLabel.CENTER);
+        amountPanel.add(betAmount3);
+
+        betAmount4 = new JLabel("1000");
+        betAmount4.setForeground(Color.WHITE);
+        betAmount4.setFont(UtilGUI.getCustomFont().deriveFont((float)30.0));
+        betAmount4.setHorizontalAlignment(JLabel.CENTER);
+        amountPanel.add(betAmount4);
+
+        bettingPanel.add(amountPanel,BorderLayout.CENTER);
+    }
+
+    private void setUpRightSideIcons() {
+        rightPanel = new JPanel();
+        rightPanel.setOpaque(false);
+        rightPanel.setLayout(new GridLayout(4,1,0,0));
+        rightPanel.setBorder(BorderFactory.createEmptyBorder(0,
+                0,0,700));
+
+        upKey = new JLabel();
+        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.UP_KEY_IMG).getImage().
+                getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
+        upKey.setIcon(new ImageIcon(resizedImage));
+        rightPanel.add(upKey);
+
+        leftKey = new JLabel();
+        resizedImage = ImageFactory.createImage(resources.images.Image.LEFT_KEY_IMG).getImage().
+                getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
+        leftKey.setIcon(new ImageIcon(resizedImage));
+        rightPanel.add(leftKey);
+
+        downKey = new JLabel();
+        resizedImage = ImageFactory.createImage(resources.images.Image.DOWN_KEY_IMG).getImage().
+                getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
+        downKey.setIcon(new ImageIcon(resizedImage));
+        rightPanel.add(downKey);
+
+        rightKey = new JLabel();
+        resizedImage = ImageFactory.createImage(resources.images.Image.RIGHT_KEY_IMG).getImage().
+                getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
+        rightKey.setIcon(new ImageIcon(resizedImage));
+        rightPanel.add(rightKey);
+
+        this.bettingPanel.add(rightPanel,BorderLayout.EAST);
+    }
+
+    private void setUpLeftSideIcons() {
+        leftPanel = new JPanel();
+        leftPanel.setOpaque(false);
+        leftPanel.setLayout(new GridLayout(4,1,0,0));
+
+        leftPanel.setBorder(BorderFactory.createEmptyBorder(0,
+                700,0,0));
+        wKey = new JLabel();
+        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.W_KEY_IMG).getImage().
+                getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
+        wKey.setIcon(new ImageIcon(resizedImage));
+        leftPanel.add(wKey);
+
+        aKey = new JLabel();
+        resizedImage = ImageFactory.createImage(resources.images.Image.A_KEY_IMG).getImage().
+                getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
+        aKey.setIcon(new ImageIcon(resizedImage));
+        leftPanel.add(aKey);
+
+        sKey = new JLabel();
+        resizedImage = ImageFactory.createImage(resources.images.Image.S_KEY_IMG).getImage().
+                getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
+        sKey.setIcon(new ImageIcon(resizedImage));
+        leftPanel.add(sKey);
+
+        dKey = new JLabel();
+        resizedImage = ImageFactory.createImage(resources.images.Image.D_KEY_IMG).getImage().
+                getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
+        dKey.setIcon(new ImageIcon(resizedImage));
+        leftPanel.add(dKey);
+
+        this.bettingPanel.add(leftPanel,BorderLayout.WEST);
+    }
+
+    private void setUpTopPanel() {
+        topPanel=new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.Y_AXIS));
+        topPanel.setOpaque(false);
+        topPanel.setBorder(BorderFactory.createEmptyBorder(0,800,0,0));
+
+        highStakesLabel=new JLabel("High Stakes");
+        highStakesLabel.setForeground(Color.WHITE);
+        highStakesLabel.setFont(font);
+
+        chooseAmountLabel=new JLabel("Select your betting amount");
+        chooseAmountLabel.setForeground(Color.WHITE);
+        chooseAmountLabel.setFont(font);
+
+        amountLabel=new JLabel("Amounts available");
+        amountLabel.setFont(font);
+        amountLabel.setForeground(Color.WHITE);
+
+        topPanel.add(highStakesLabel);
+        topPanel.add(Box.createRigidArea(new Dimension(0,70)));
+        topPanel.add(chooseAmountLabel);
+        topPanel.add(Box.createRigidArea(new Dimension(0,20)));
+        topPanel.add(amountLabel);
+
+        bettingPanel.add(topPanel,BorderLayout.NORTH);
+        backgroundImageLabel.add(bettingPanel);
+    }
+
     private void setUpButtonListeners() {
     }
-
-    private void setComponentsPanel() {
-    }
-
     private void setUpBackGround() {
         this.backgroundImageLabel = new JLabel();
         this.add(backgroundImageLabel,BorderLayout.CENTER);
