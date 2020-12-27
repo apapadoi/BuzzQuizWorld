@@ -1,6 +1,7 @@
 package view.gui;
 
 import controller.ButtonSoundListener;
+import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
@@ -76,14 +77,10 @@ public class OnePlayerFrame extends JFrame implements GUI{
         answersPanel.setOpaque(false);
         answersPanel.setLayout(new BoxLayout(answersPanel,BoxLayout.Y_AXIS));
         answersPanel.setBorder(BorderFactory.createEmptyBorder(50,300,170,100));
-        answersButton1=new JButton("Spain");
-        answersButton1.setFont(UtilGUI.getCustomFont());
-        answersButton2=new JButton("France");
-        answersButton2.setFont(UtilGUI.getCustomFont());
-        answersButton3=new JButton("Fiji");
-        answersButton3.setFont(UtilGUI.getCustomFont());
-        answersButton4=new JButton("Finland");
-        answersButton4.setFont(UtilGUI.getCustomFont());
+        answersButton1= UtilGUI.getButtonInstance("Spain");
+        answersButton2= UtilGUI.getButtonInstance("France");
+        answersButton3= UtilGUI.getButtonInstance("Fiji");
+        answersButton4= UtilGUI.getButtonInstance("Finland");
 
 
         answersButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
@@ -125,8 +122,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
         bottomPanel.setOpaque(false);
 
-        exitButton=new JButton("Exit");
-        exitButton.setFont(UtilGUI.getCustomFont());
+        exitButton= UtilGUI.getButtonInstance("Exit");
         exitButton.setPreferredSize(new Dimension(175,5));
 
         exitPanel=new JPanel();
@@ -167,27 +163,20 @@ public class OnePlayerFrame extends JFrame implements GUI{
 
     public OnePlayerFrame(OnePlayerSelectionFrame onePlayerSelectionFrame){
         this.onePlayerSelectionFrame=onePlayerSelectionFrame;
-        this.setUpJFrameProperties();
-        this.setUpBackGround();
+        UtilGUI.setUpJFrameProperties(this);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
         this.setVisible(true);
     }
 
     private void setUpButtonListeners() {
-        exitButton.addActionListener(ButtonSoundListener.getInstance());
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createExitButtonFrame();
             }
         });
-
-        answersButton1.addActionListener(ButtonSoundListener.getInstance());
-        answersButton2.addActionListener(ButtonSoundListener.getInstance());
-        answersButton3.addActionListener(ButtonSoundListener.getInstance());
-        answersButton4.addActionListener(ButtonSoundListener.getInstance());
-
     }
     private void createExitButtonFrame(){
         JFrame exitFrame=new JFrame();
@@ -199,13 +188,10 @@ public class OnePlayerFrame extends JFrame implements GUI{
         exitFrame.setLocationRelativeTo(null);
         JPanel exitPanel=new JPanel();
         JLabel exitLabel=new JLabel("Are you sure you want to exit?");
-        JButton yesButton=new JButton("Yes");
-        JButton noButton=new JButton("No");
+        JButton yesButton= UtilGUI.getButtonInstance("Yes");
+        JButton noButton= UtilGUI.getButtonInstance("No");
         JPanel buttonsPanel=new JPanel();
         JPanel labelsPanel=new JPanel();
-
-        yesButton.setFont(UtilGUI.getCustomFont());
-        noButton.setFont(UtilGUI.getCustomFont());
 
         exitLabel.setFont(UtilGUI.getCustomFont());
         exitLabel.setForeground(Color.BLACK);
@@ -231,12 +217,8 @@ public class OnePlayerFrame extends JFrame implements GUI{
         exitPanel.add(buttonsPanel,BorderLayout.CENTER);
         exitPanel.add(labelsPanel,BorderLayout.PAGE_START);
 
-
         exitFrame.add(exitPanel);
         exitFrame.setVisible(true);
-
-        yesButton.addActionListener(ButtonSoundListener.getInstance());
-        noButton.addActionListener(ButtonSoundListener.getInstance());
 
         yesButton.addActionListener(new ActionListener() {
             @Override
@@ -253,26 +235,5 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 exitFrame.setVisible(false);
             }
         });
-    }
-    private void setUpBackGround() {
-        this.backgroundImageLabel = new JLabel();
-        this.add(backgroundImageLabel,BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
-        this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
-        this.backgroundImageLabel.setLayout(new BorderLayout());
-    }
-
-    private void setUpJFrameProperties() {
-        // set properties of JFrame
-        this.setTitle("Buzz! Quiz World Remastered");
-        this.setIconImage(ImageFactory.createImage(resources.images.Image.APP_ICON).getImage());
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // only this for full size but not full screen
-        //this.setUndecorated(true); //add this for full screen
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch(Exception ignored){}
-        this.setLayout(new BorderLayout());
     }
 }

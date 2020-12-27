@@ -23,11 +23,10 @@ public class PlayFrame extends JFrame implements GUI{
     private JLabel gamemodesLabel;
     private JPanel labelPanel;
 
-
     public PlayFrame(IntroFrame introFrame){
         this.introFrame=introFrame;
-        this.setUpJFrameProperties();
-        this.setUpBackGround();
+        UtilGUI.setUpJFrameProperties(this);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.PLAY_PAGE_BACKGROUND_IMG);
         this.setUpButtonsPanel();
         this.setUpButtonListeners();
         this.setVisible(true);
@@ -40,15 +39,8 @@ public class PlayFrame extends JFrame implements GUI{
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.625*UtilGUI.getScreenHeight()),(int)(0.140*UtilGUI.getScreenWidth()),
                 (int)(0.106*UtilGUI.getScreenHeight()),(int)(0.098*UtilGUI.getScreenWidth())));
 
-        onePlayerButton=new JButton("One Player");
-        onePlayerButton.setFont(UtilGUI.getCustomFont());
-        onePlayerButton.setBorderPainted(false);
-        onePlayerButton.setFocusPainted(false);
-
-        twoPlayersButton=new JButton("Two Players");
-        twoPlayersButton.setFont(UtilGUI.getCustomFont());
-        twoPlayersButton.setBorderPainted(false);
-        twoPlayersButton.setFocusPainted(false);
+        onePlayerButton= UtilGUI.getButtonInstance("One Player");
+        twoPlayersButton= UtilGUI.getButtonInstance("Two Players");
 
         buttonsPanel.add(twoPlayersButton);
         buttonsPanel.add(onePlayerButton);
@@ -58,10 +50,7 @@ public class PlayFrame extends JFrame implements GUI{
         backPanel.setOpaque(false);
 
 
-        backButton=new JButton("Back");
-        backButton.setFont(UtilGUI.getCustomFont());
-        backButton.setBorderPainted(false);
-        backButton.setFocusPainted(false);
+        backButton= UtilGUI.getButtonInstance("Back");
         backButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.037*UtilGUI.getScreenHeight())));
         backPanel.add(backButton,BorderLayout.LINE_END);
         backPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.013*UtilGUI.getScreenHeight()),(int)(0.007*UtilGUI.getScreenWidth())));
@@ -88,33 +77,7 @@ public class PlayFrame extends JFrame implements GUI{
         backgroundImageLabel.add(playPanel);
     }
 
-
-    private void setUpBackGround() {
-        this.backgroundImageLabel = new JLabel();
-        this.add(backgroundImageLabel,BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(Image.PLAY_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
-        this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
-        this.backgroundImageLabel.setLayout(new BorderLayout());
-    }
-
-    private void setUpJFrameProperties() {
-        // set properties of JFrame
-        this.setTitle("Buzz! Quiz World Remastered");
-        this.setIconImage(ImageFactory.createImage(Image.APP_ICON).getImage());
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // only this for full size but not full screen
-        //this.setUndecorated(true); //add this for full screen
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch(Exception ignored){}
-        this.setLayout(new BorderLayout());
-    }
-
     private void setUpButtonListeners(){
-        onePlayerButton.addActionListener(ButtonSoundListener.getInstance());
-        twoPlayersButton.addActionListener(ButtonSoundListener.getInstance());
-        backButton.addActionListener(ButtonSoundListener.getInstance());
         onePlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

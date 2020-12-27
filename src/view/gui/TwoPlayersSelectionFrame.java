@@ -1,6 +1,7 @@
 package view.gui;
 
 import controller.ButtonSoundListener;
+import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
@@ -60,11 +61,7 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
         topComponentsPanel.add(Box.createRigidArea(new Dimension(300,0)));
         topComponentsPanel.add(usernameField2);
 
-        confirmButton=new JButton("Confirm");
-        confirmButton.setFont(UtilGUI.getCustomFont());
-        confirmButton.setFocusPainted(false);
-        confirmButton.setBorderPainted(false);
-
+        confirmButton= UtilGUI.getButtonInstance("Confirm");
         confirmButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         confirmButton.setPreferredSize(new Dimension(175,50));
 
@@ -75,10 +72,7 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
         confirmButtonPanel.add(confirmButton);
 
         backPanel=new JPanel();
-        backButton=new JButton("Back");
-        backButton.setFont(UtilGUI.getCustomFont());
-        backButton.setBorderPainted(false);
-        backButton.setFocusPainted(false);
+        backButton= UtilGUI.getButtonInstance("Back");
         backButton.setPreferredSize(new Dimension(175,40));
         backPanel.add(backButton,BorderLayout.LINE_END);
         backPanel.setOpaque(false);
@@ -93,16 +87,14 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
 
     public TwoPlayersSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
-        this.setUpJFrameProperties();
-        this.setUpBackGround();
+        UtilGUI.setUpJFrameProperties(this);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
         this.setVisible(true);
     }
 
     private void setUpButtonListeners() {
-        backButton.addActionListener(ButtonSoundListener.getInstance());
-        confirmButton.addActionListener(ButtonSoundListener.getInstance());
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,7 +146,7 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
                 if (!(usernameField1.getText().equals("") || usernameField1.getText().equals("Enter username:")
                 || usernameField2.getText().equals("") || usernameField2.getText().equals("Enter username:")))
                         if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
-                            LoadingScreenFrame loadingScreenFrame=new LoadingScreenFrame(TwoPlayersSelectionFrame.this);
+                            LoadingScreenFrame loadingScreenFrame=new LoadingScreenFrame();
                             TwoPlayersSelectionFrame.this.setVisible(false);
                             Timer timer=new Timer();
                             TimerTask timerTask=new TimerTask() {
@@ -168,27 +160,5 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
                         }
             }
         });
-    }
-
-    private void setUpBackGround() {
-        this.backgroundImageLabel = new JLabel();
-        this.add(backgroundImageLabel,BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
-        this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
-        this.backgroundImageLabel.setLayout(new BorderLayout());
-    }
-
-    private void setUpJFrameProperties() {
-        // set properties of JFrame
-        this.setTitle("Buzz! Quiz World Remastered");
-        this.setIconImage(ImageFactory.createImage(resources.images.Image.APP_ICON).getImage());
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // only this for full size but not full screen
-        //this.setUndecorated(true); //add this for full screen
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch(Exception ignored){}
-        this.setLayout(new BorderLayout());
     }
 }

@@ -2,6 +2,7 @@ package view.gui;
 
 import controller.ButtonSoundListener;
 import model.player.Player;
+import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
@@ -29,9 +30,9 @@ public class ScoresFrame extends JFrame implements GUI{
         this.players = new ArrayList<>();
         this.scoresLabels = new ArrayList<>();
         this.introFrame = introFrame;
-        this.setUpJFrameProperties();
+        UtilGUI.setUpJFrameProperties(this);
         this.loadData();
-        this.setUpBackGround();
+        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.SCORES_PAGE_BACKGROUND_IMG);
         this.setUpScoresTextPanel();
         this.setUpScoresPanel();
         this.setUpCentralPanel();
@@ -85,17 +86,11 @@ public class ScoresFrame extends JFrame implements GUI{
         this.sortButtonsPanel.setOpaque(false);
         this.sortButtonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
 
-        this.onePlayerSortButton = new JButton("High Score");
-        onePlayerSortButton.setFont(UtilGUI.getCustomFont());
-        onePlayerSortButton.setBorderPainted(false);
-        onePlayerSortButton.setFocusPainted(false);
+        this.onePlayerSortButton = UtilGUI.getButtonInstance("High Score");
         this.onePlayerSortButton.setPreferredSize(new Dimension( (int)(this.introFrame.getWidth()*0.135),
                 (int)(this.introFrame.getHeight()*0.04) ));
 
-        this.twoPlayersSortButton = new JButton("1-1 Wins");
-        twoPlayersSortButton.setFont(UtilGUI.getCustomFont());
-        twoPlayersSortButton.setBorderPainted(false);
-        twoPlayersSortButton.setFocusPainted(false);
+        this.twoPlayersSortButton = UtilGUI.getButtonInstance("1-1 Wins");
         this.twoPlayersSortButton.setPreferredSize(new Dimension( (int)(this.introFrame.getWidth()*0.135),
                 (int)(this.introFrame.getHeight()*0.04) ));
 
@@ -179,41 +174,15 @@ public class ScoresFrame extends JFrame implements GUI{
         this.backgroundImageLabel.setBorder(BorderFactory.createEmptyBorder(0,0,
                 UtilGUI.getScreenHeight()/25,UtilGUI.getScreenWidth()/25));
 
-        this.backButton = new JButton("Back");
-        backButton.setFont(UtilGUI.getCustomFont());
-        backButton.setBorderPainted(false);
-        backButton.setFocusPainted(false);
+        this.backButton = UtilGUI.getButtonInstance("Back");
         this.backButton.setPreferredSize(new Dimension( (int)(this.introFrame.getWidth()*0.135),
                 (int)(this.introFrame.getHeight()*0.04) ));
 
         this.backButtonPanel.add(this.backButton, BorderLayout.LINE_END);
-
         this.backgroundImageLabel.add(backButtonPanel,BorderLayout.PAGE_END);
     }
 
-    private void setUpJFrameProperties() {
-        // set properties of JFrame
-        this.setTitle("Buzz! Quiz World Remastered");
-        this.setIconImage(ImageFactory.createImage(resources.images.Image.APP_ICON).getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setLayout(new BorderLayout());
-    }
-
-    private void setUpBackGround() {
-        this.backgroundImageLabel = new JLabel();
-        this.add(backgroundImageLabel, BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.SCORES_PAGE_BACKGROUND_IMG).
-                getImage().getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(),
-                java.awt.Image.SCALE_DEFAULT);
-        this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
-        this.backgroundImageLabel.setLayout(new BorderLayout());
-    }
-
     private void setUpButtonListeners() {
-        onePlayerSortButton.addActionListener(ButtonSoundListener.getInstance());
-        twoPlayersSortButton.addActionListener(ButtonSoundListener.getInstance());
-        backButton.addActionListener(ButtonSoundListener.getInstance());
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

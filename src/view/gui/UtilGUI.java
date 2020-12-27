@@ -1,17 +1,19 @@
 package view.gui;
 
+import controller.ButtonSoundListener;
 import resources.images.Constants;
 import resources.images.Image;
 import resources.images.ImageFactory;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
 public class UtilGUI {
     private static Font font;
-    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final Dimension screenSize;
 
     static {
         try {
@@ -23,6 +25,7 @@ public class UtilGUI {
             //Handle exception
             font = new Font("Serif",Font.BOLD,12);
         }
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     }
 
     public static Font getCustomFont() {
@@ -46,5 +49,32 @@ public class UtilGUI {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch(Exception ignored){}
         frame.setLayout(new BorderLayout());
+    }
+
+    public static JLabel setUpBackGround(JFrame frame,Image image) {
+        JLabel label = new JLabel();
+        frame.add(label,BorderLayout.CENTER);
+        java.awt.Image resizedImage = ImageFactory.createImage(image).getImage().
+                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
+        label.setIcon(new ImageIcon(resizedImage));
+        label.setLayout(new BorderLayout());
+        return label;
+    }
+
+    public static JButton getButtonInstance(String buttonText) {
+        JButton button = new JButton(buttonText);
+        button.setFont(UtilGUI.getCustomFont());
+        button.setFocusPainted(false);
+        button.setBackground(new Color(54,54,55,255));
+        button.setForeground(new Color(156,156,156,255));
+        button.setBorder(new LineBorder(Color.BLACK));
+        button.addActionListener(ButtonSoundListener.getInstance());
+        return button;
+    }
+
+    public static JButton getButtonInstance(String buttonText,float fontSize) {
+        JButton button = getButtonInstance(buttonText);
+        button.setFont(UtilGUI.getCustomFont().deriveFont(fontSize));
+        return button;
     }
 }
