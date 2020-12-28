@@ -172,11 +172,30 @@ public class TwoPlayersBettingFrame extends JFrame {
         amountLabel.setFont(font);
         amountLabel.setForeground(Color.WHITE);
 
-        topPanel.add(highStakesLabel);
-        topPanel.add(Box.createRigidArea(new Dimension(0,70)));
-        topPanel.add(chooseAmountLabel);
-        topPanel.add(Box.createRigidArea(new Dimension(0,20)));
-        topPanel.add(amountLabel);
+        JPanel top=new JPanel();
+        JPanel center=new JPanel();
+        JPanel bottom=new JPanel();
+
+        top.setLayout(new BorderLayout());
+        center.setLayout(new BorderLayout());
+        bottom.setLayout(new BorderLayout());
+
+        top.setBorder(BorderFactory.createEmptyBorder(10,100,0,0));
+        top.setOpaque(false);
+        center.setBorder(BorderFactory.createEmptyBorder(0,30,0,0));
+        center.setOpaque(false);
+        bottom.setBorder(BorderFactory.createEmptyBorder(0,70,0,0));
+        bottom.setOpaque(false);
+
+        top.add(highStakesLabel,BorderLayout.CENTER);
+        center.add(chooseAmountLabel,BorderLayout.CENTER);
+        bottom.add(amountLabel,BorderLayout.CENTER);
+
+        topPanel.add(top);
+        topPanel.add(Box.createRigidArea(new Dimension(0,50)));
+        topPanel.add(center);
+        topPanel.add(Box.createRigidArea(new Dimension(0,60)));
+        topPanel.add(bottom);
 
         bettingPanel.add(topPanel,BorderLayout.NORTH);
         backgroundImageLabel.add(bettingPanel);
