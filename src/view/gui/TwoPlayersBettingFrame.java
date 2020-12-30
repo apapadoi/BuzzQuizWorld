@@ -1,6 +1,8 @@
 package view.gui;
 
 import resources.images.Image;
+import resources.images.ImageFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -8,7 +10,6 @@ import java.io.IOException;
 
 public class TwoPlayersBettingFrame extends JFrame {
     private JLabel backgroundImageLabel;
-    private Font font;
     private TwoPlayersSelectionFrame twoPlayersSelectionFrame;
     private static final int iconMultiplier = 30;
     private JLabel wKey;
@@ -38,21 +39,19 @@ public class TwoPlayersBettingFrame extends JFrame {
         bettingPanel=new JPanel();
         bettingPanel.setLayout(new BorderLayout());
         bettingPanel.setOpaque(false);
-        this.loadFont();
-        this.setUpJFrameProperties();
-        this.setUpBackGround();
+        UtilGUI.setUpJFrameProperties(this);
+        this.backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
         this.setUpTopPanel();
         this.setUpAmountPanel();
         this.setUpRightSideIcons();
         this.setUpLeftSideIcons();
-        this.setUpButtonListeners();
         this.setVisible(true);
     }
 
     private void setUpAmountPanel() {
         amountPanel = new JPanel();
-        amountPanel.setLayout(new GridLayout(4,1,(int)(0.007*twoPlayersSelectionFrame.getScreenWidth()),
-                (int)(0.013*twoPlayersSelectionFrame.getScreenHeight())));
+        amountPanel.setLayout(new GridLayout(4,1,(int)(0.007*UtilGUI.getScreenWidth()),
+                (int)(0.013*UtilGUI.getScreenHeight())));
         amountPanel.setOpaque(false);
         amountPanel.setBorder(BorderFactory.createEmptyBorder(0,
                 0,0,0));
@@ -91,7 +90,7 @@ public class TwoPlayersBettingFrame extends JFrame {
         rightPanel.setOpaque(false);
         rightPanel.setLayout(new GridLayout(4,1,0,0));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(0,
-                0,0,(int)(0.364*twoPlayersSelectionFrame.getScreenWidth())));
+                0,0,(int)(0.364*UtilGUI.getScreenWidth())));
 
         upKey = new JLabel();
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.UP_KEY_IMG).getImage().
@@ -126,7 +125,7 @@ public class TwoPlayersBettingFrame extends JFrame {
         leftPanel.setLayout(new GridLayout(4,1,0,0));
 
         leftPanel.setBorder(BorderFactory.createEmptyBorder(0,
-                (int)(0.364*twoPlayersSelectionFrame.getScreenWidth()),0,0));
+                (int)(0.364*UtilGUI.getScreenWidth()),0,0));
         wKey = new JLabel();
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.W_KEY_IMG).getImage().
                 getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
@@ -158,18 +157,18 @@ public class TwoPlayersBettingFrame extends JFrame {
         topPanel=new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.Y_AXIS));
         topPanel.setOpaque(false);
-        topPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.416*twoPlayersSelectionFrame.getScreenWidth()),0,0));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.416*UtilGUI.getScreenWidth()),0,0));
 
         highStakesLabel=new JLabel("High Stakes");
         highStakesLabel.setForeground(Color.WHITE);
-        highStakesLabel.setFont(font);
+        highStakesLabel.setFont(UtilGUI.getCustomFont());
 
         chooseAmountLabel=new JLabel("Select your betting amount");
         chooseAmountLabel.setForeground(Color.WHITE);
-        chooseAmountLabel.setFont(font);
+        chooseAmountLabel.setFont(UtilGUI.getCustomFont());
 
         amountLabel=new JLabel("Amounts available");
-        amountLabel.setFont(font);
+        amountLabel.setFont(UtilGUI.getCustomFont());
         amountLabel.setForeground(Color.WHITE);
 
         JPanel top=new JPanel();
@@ -180,12 +179,12 @@ public class TwoPlayersBettingFrame extends JFrame {
         center.setLayout(new BorderLayout());
         bottom.setLayout(new BorderLayout());
 
-        top.setBorder(BorderFactory.createEmptyBorder((int)(0.009*twoPlayersSelectionFrame.getScreenHeight()),
-                (int)(0.052*twoPlayersSelectionFrame.getScreenWidth()),0,0));
+        top.setBorder(BorderFactory.createEmptyBorder((int)(0.009*UtilGUI.getScreenHeight()),
+                (int)(0.052*UtilGUI.getScreenWidth()),0,0));
         top.setOpaque(false);
-        center.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.015*twoPlayersSelectionFrame.getScreenWidth()),0,0));
+        center.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.015*UtilGUI.getScreenWidth()),0,0));
         center.setOpaque(false);
-        bottom.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.036*twoPlayersSelectionFrame.getScreenWidth()),0,0));
+        bottom.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.036*UtilGUI.getScreenWidth()),0,0));
         bottom.setOpaque(false);
 
         top.add(highStakesLabel,BorderLayout.CENTER);
@@ -193,9 +192,9 @@ public class TwoPlayersBettingFrame extends JFrame {
         bottom.add(amountLabel,BorderLayout.CENTER);
 
         topPanel.add(top);
-        topPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.046*twoPlayersSelectionFrame.getScreenHeight()))));
+        topPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.046*UtilGUI.getScreenHeight()))));
         topPanel.add(center);
-        topPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.055*twoPlayersSelectionFrame.getScreenHeight()))));
+        topPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.055*UtilGUI.getScreenHeight()))));
         topPanel.add(bottom);
 
         bettingPanel.add(topPanel,BorderLayout.NORTH);

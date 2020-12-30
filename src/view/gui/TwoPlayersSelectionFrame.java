@@ -44,32 +44,32 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
 
         topComponentsPanel=new JPanel();
         topComponentsPanel.setLayout(new BoxLayout(topComponentsPanel,BoxLayout.X_AXIS));
-        topComponentsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*playFrame.getScreenHeight()),(int)(0.052*playFrame.getScreenWidth()),
-                0,(int)(0.052*playFrame.getScreenWidth())));
+        topComponentsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),(int)(0.052*UtilGUI.getScreenWidth()),
+                0,(int)(0.052*UtilGUI.getScreenWidth())));
         topComponentsPanel.setOpaque(false);
 
         usernameField1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         usernameField2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         roundSelectionBox.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
 
-        usernameField1.setPreferredSize(new Dimension((int)(0.052*playFrame.getScreenWidth()),(int)(0.046*playFrame.getScreenHeight())));
-        usernameField2.setPreferredSize(new Dimension((int)(0.052*playFrame.getScreenWidth()),(int)(0.046*playFrame.getScreenHeight())));
-        roundSelectionBox.setPreferredSize(new Dimension((int)(0.052*playFrame.getScreenWidth()),(int)(0.046*playFrame.getScreenHeight())));
+        usernameField1.setPreferredSize(new Dimension((int)(0.052*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
+        usernameField2.setPreferredSize(new Dimension((int)(0.052*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
+        roundSelectionBox.setPreferredSize(new Dimension((int)(0.052*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
 
         topComponentsPanel.add(usernameField1);
-        topComponentsPanel.add(Box.createRigidArea(new Dimension((int)(0.156*playFrame.getScreenWidth()),0)));
+        topComponentsPanel.add(Box.createRigidArea(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),0)));
         topComponentsPanel.add(roundSelectionBox);
-        topComponentsPanel.add(Box.createRigidArea(new Dimension((int)(0.156*playFrame.getScreenWidth()),0)));
+        topComponentsPanel.add(Box.createRigidArea(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),0)));
         topComponentsPanel.add(usernameField2);
 
         confirmButton= UtilGUI.getButtonInstance("Confirm");
         confirmButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
-        confirmButton.setPreferredSize(new Dimension((int)(0.091*playFrame.getScreenWidth()),(int)(0.046*playFrame.getScreenHeight())));
+        confirmButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
 
         confirmButtonPanel=new JPanel();
         confirmButtonPanel.setLayout(new BoxLayout(confirmButtonPanel,BoxLayout.X_AXIS));
-        confirmButtonPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*playFrame.getScreenHeight()),(int)(0.416*playFrame.getScreenWidth()),
-                (int)(0.416*playFrame.getScreenHeight()),(int)(0.416*playFrame.getScreenWidth())));
+        confirmButtonPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),(int)(0.416*UtilGUI.getScreenWidth()),
+                (int)(0.416*UtilGUI.getScreenHeight()),(int)(0.416*UtilGUI.getScreenWidth())));
         confirmButtonPanel.setOpaque(false);
         confirmButtonPanel.add(confirmButton);
 
@@ -78,12 +78,12 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
         backButton= UtilGUI.getButtonInstance("Back");
         backButton.setPreferredSize(new Dimension(175,40));
 
-        backButton.setPreferredSize(new Dimension((int)(0.091*playFrame.getScreenWidth()),(int)(0.037*playFrame.getScreenHeight())));
+        backButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.037*UtilGUI.getScreenHeight())));
 
         backPanel.add(backButton,BorderLayout.LINE_END);
         backPanel.setOpaque(false);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.894*playFrame.getScreenWidth()),
-                (int)(0.009*playFrame.getScreenHeight()),0));
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.894*UtilGUI.getScreenWidth()),
+                (int)(0.009*UtilGUI.getScreenHeight()),0));
 
 
         twoPlayersPanel.add(topComponentsPanel,BorderLayout.PAGE_START);

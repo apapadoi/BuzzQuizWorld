@@ -33,7 +33,6 @@ public class OnePlayerFrame extends JFrame implements GUI{
     private JLabel gamemodeLabel;
     private JLabel categoryLabel;
 
-
     private void setComponentsPanel() {
         onePlayerPanel=new JPanel();
         onePlayerPanel.setOpaque(false);
@@ -41,8 +40,8 @@ public class OnePlayerFrame extends JFrame implements GUI{
 
         questionsPanel=new JPanel();
         questionsPanel.setLayout(new BorderLayout());
-        questionsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*onePlayerSelectionFrame.getScreenHeight()),0,
-                (int)(0.027*onePlayerSelectionFrame.getScreenHeight()),0));
+        questionsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),0,
+                (int)(0.027*UtilGUI.getScreenHeight()),0));
         questionsPanel.setOpaque(false);
 
         questionsLabel =new JLabel("<html>What is the most visited country of<br/>all four given?</html>",SwingConstants.CENTER);
@@ -56,8 +55,8 @@ public class OnePlayerFrame extends JFrame implements GUI{
         roundPanel=new JPanel();
         roundPanel.setOpaque(false);
         roundPanel.setLayout(new BorderLayout());
-        roundPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.027*onePlayerSelectionFrame.getScreenHeight()),
-                (int)(0.111*onePlayerSelectionFrame.getScreenWidth())));
+        roundPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.027*UtilGUI.getScreenHeight()),
+                (int)(0.111*UtilGUI.getScreenWidth())));
 
         roundPanel.add(roundLabel);
 
@@ -68,8 +67,8 @@ public class OnePlayerFrame extends JFrame implements GUI{
         timerPanel=new JPanel();
         timerPanel.setOpaque(false);
         timerLabel.setLayout(new BorderLayout());
-        timerPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.111*onePlayerSelectionFrame.getScreenWidth()),
-                (int)(0.027*onePlayerSelectionFrame.getScreenHeight()),0));
+        timerPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.111*UtilGUI.getScreenWidth()),
+                (int)(0.027*UtilGUI.getScreenHeight()),0));
 
         timerPanel.add(timerLabel,BorderLayout.CENTER);
         questionsPanel.add(timerPanel,BorderLayout.LINE_START);
@@ -84,31 +83,31 @@ public class OnePlayerFrame extends JFrame implements GUI{
         answersButton3= UtilGUI.getButtonInstance("Fiji");
         answersButton4= UtilGUI.getButtonInstance("Finland");
 
-        answersPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*onePlayerSelectionFrame.getScreenHeight()),(int)(0.156*onePlayerSelectionFrame.getScreenWidth()),
-                (int)(0.157*onePlayerSelectionFrame.getScreenHeight()),(int)(0.052*onePlayerSelectionFrame.getScreenWidth())));
+        answersPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),(int)(0.156*UtilGUI.getScreenWidth()),
+                (int)(0.157*UtilGUI.getScreenHeight()),(int)(0.052*UtilGUI.getScreenWidth())));
 
 
         answersButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         answersButton2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         answersButton3.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         answersButton4.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
-        answersButton1.setPreferredSize(new Dimension((int)(0.156*onePlayerSelectionFrame.getScreenWidth()),(int)(0.055*onePlayerSelectionFrame.getScreenHeight())));
-        answersButton2.setPreferredSize(new Dimension((int)(0.156*onePlayerSelectionFrame.getScreenWidth()),(int)(0.055*onePlayerSelectionFrame.getScreenHeight())));
-        answersButton3.setPreferredSize(new Dimension((int)(0.156*onePlayerSelectionFrame.getScreenWidth()),(int)(0.055*onePlayerSelectionFrame.getScreenHeight())));
-        answersButton4.setPreferredSize(new Dimension((int)(0.156*onePlayerSelectionFrame.getScreenWidth()),(int)(0.055*onePlayerSelectionFrame.getScreenHeight())));
+        answersButton1.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
+        answersButton2.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
+        answersButton3.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
+        answersButton4.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
         answersPanel.add(answersButton1);
-        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*onePlayerSelectionFrame.getScreenHeight()))));
+        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*UtilGUI.getScreenHeight()))));
         answersPanel.add(answersButton2);
-        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*onePlayerSelectionFrame.getScreenHeight()))));
+        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*UtilGUI.getScreenHeight()))));
         answersPanel.add(answersButton3);
-        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*onePlayerSelectionFrame.getScreenHeight()))));
+        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*UtilGUI.getScreenHeight()))));
         answersPanel.add(answersButton4);
 
 
         usernamePanel=new JPanel();
         usernamePanel.setLayout(new BoxLayout(usernamePanel,BoxLayout.Y_AXIS));
-            usernamePanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*onePlayerSelectionFrame.getScreenWidth()),
-                    (int)(0.037*onePlayerSelectionFrame.getScreenHeight()),0));
+            usernamePanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*UtilGUI.getScreenWidth()),
+                    (int)(0.037*UtilGUI.getScreenHeight()),0));
         usernamePanel.setOpaque(false);
 
         usernameLabel=new JLabel("Username: papster");
@@ -120,32 +119,32 @@ public class OnePlayerFrame extends JFrame implements GUI{
         scoreLabel.setForeground(Color.WHITE);
 
         usernamePanel.add(usernameLabel);
-        usernamePanel.add(Box.createRigidArea(new Dimension(0,(int)(0.013*onePlayerSelectionFrame.getScreenHeight()))));
+        usernamePanel.add(Box.createRigidArea(new Dimension(0,(int)(0.013*UtilGUI.getScreenHeight()))));
         usernamePanel.add(scoreLabel);
 
         bottomPanel =new JPanel();
         bottomPanel.setLayout(new BorderLayout());
-        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*onePlayerSelectionFrame.getScreenWidth()),
-                0,(int)(0.010*onePlayerSelectionFrame.getScreenWidth())));
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*UtilGUI.getScreenWidth()),
+                0,(int)(0.010*UtilGUI.getScreenWidth())));
         bottomPanel.setOpaque(false);
 
 
         exitButton= UtilGUI.getButtonInstance("Exit");
-        exitButton.setPreferredSize(new Dimension((int)(0.091*onePlayerSelectionFrame.getScreenWidth()),(int)(0.004*onePlayerSelectionFrame.getScreenHeight())));
+        exitButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.004*UtilGUI.getScreenHeight())));
 
 
         exitPanel=new JPanel();
         exitPanel.setLayout(new BorderLayout());
         exitPanel.setOpaque(false);
-        exitPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.023*onePlayerSelectionFrame.getScreenHeight()),0,(int)(0.023*onePlayerSelectionFrame.getScreenHeight()),
-                (int)(0.010*onePlayerSelectionFrame.getScreenWidth())));
+        exitPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.023*UtilGUI.getScreenHeight()),0,(int)(0.023*UtilGUI.getScreenHeight()),
+                (int)(0.010*UtilGUI.getScreenWidth())));
 
         exitPanel.add(exitButton,BorderLayout.CENTER);
 
         leftPanel=new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
-        leftPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*onePlayerSelectionFrame.getScreenHeight()),
-                (int)(0.015*onePlayerSelectionFrame.getScreenWidth()),0,0));
+        leftPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),
+                (int)(0.015*UtilGUI.getScreenWidth()),0,0));
         leftPanel.setOpaque(false);
 
         gamemodeLabel=new JLabel("Gamemode: PointBuilder");
@@ -157,7 +156,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
         categoryLabel.setFont(UtilGUI.getCustomFont());
 
         leftPanel.add(gamemodeLabel);
-        leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*onePlayerSelectionFrame.getScreenHeight()))));
+        leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*UtilGUI.getScreenHeight()))));
         leftPanel.add(categoryLabel);
 
 
@@ -189,10 +188,11 @@ public class OnePlayerFrame extends JFrame implements GUI{
             }
         });
     }
+
     private void createExitButtonFrame(){
         JFrame exitFrame=new JFrame();
         exitFrame.setTitle("Exit");
-        exitFrame.setSize((int)(0.234*onePlayerSelectionFrame.getScreenWidth()),(int)(0.120*onePlayerSelectionFrame.getScreenHeight()));
+        exitFrame.setSize((int)(0.234*UtilGUI.getScreenWidth()),(int)(0.120*UtilGUI.getScreenHeight()));
         exitFrame.setIconImage(ImageFactory.createImage(resources.images.Image.APP_ICON).getImage());
         exitFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         exitFrame.setResizable(false);
@@ -210,20 +210,20 @@ public class OnePlayerFrame extends JFrame implements GUI{
         exitPanel.setLayout(new BorderLayout());
 
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel,BoxLayout.X_AXIS));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.013*onePlayerSelectionFrame.getScreenHeight()),
-                (int)(0.026*onePlayerSelectionFrame.getScreenWidth()),0,(int)(0.026*onePlayerSelectionFrame.getScreenWidth())));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.013*UtilGUI.getScreenHeight()),
+                (int)(0.026*UtilGUI.getScreenWidth()),0,(int)(0.026*UtilGUI.getScreenWidth())));
 
         labelsPanel.setLayout(new BorderLayout());
-        labelsPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.036*onePlayerSelectionFrame.getScreenWidth()),0,0));
+        labelsPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.036*UtilGUI.getScreenWidth()),0,0));
         labelsPanel.add(exitLabel,BorderLayout.CENTER);
 
         yesButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,yesButton.getMinimumSize().height));
         noButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,noButton.getMinimumSize().height));
 
-        yesButton.setPreferredSize(new Dimension((int)(0.002*onePlayerSelectionFrame.getScreenWidth()),(int)(0.004*onePlayerSelectionFrame.getScreenHeight())));
-        noButton.setPreferredSize(new Dimension((int)(0.002*onePlayerSelectionFrame.getScreenWidth()),(int)(0.004*onePlayerSelectionFrame.getScreenHeight())));
+        yesButton.setPreferredSize(new Dimension((int)(0.002*UtilGUI.getScreenWidth()),(int)(0.004*UtilGUI.getScreenHeight())));
+        noButton.setPreferredSize(new Dimension((int)(0.002*UtilGUI.getScreenWidth()),(int)(0.004*UtilGUI.getScreenHeight())));
         buttonsPanel.add(yesButton);
-        buttonsPanel.add(Box.createRigidArea(new Dimension((int)(0.015*onePlayerSelectionFrame.getScreenWidth()),0)));
+        buttonsPanel.add(Box.createRigidArea(new Dimension((int)(0.015*UtilGUI.getScreenWidth()),0)));
         buttonsPanel.add(noButton);
 
         exitPanel.add(buttonsPanel,BorderLayout.CENTER);
