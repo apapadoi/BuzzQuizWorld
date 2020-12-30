@@ -5,6 +5,7 @@ import resources.images.ImageFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -37,6 +38,10 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
     }
 
     private void setUpButtonListeners() {
+        bettingAmountButton1.addActionListener(this.getButtonSoundListener());
+        bettingAmountButton2.addActionListener(this.getButtonSoundListener());
+        bettingAmountButton3.addActionListener(this.getButtonSoundListener());
+        bettingAmountButton4.addActionListener(this.getButtonSoundListener());
     }
 
     private void setComponentsPanel() {
@@ -60,21 +65,24 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         labelsPanel=new JPanel();
         labelsPanel.setOpaque(false);
         labelsPanel.setLayout(new BoxLayout(labelsPanel,BoxLayout.Y_AXIS));
-        labelsPanel.setBorder(BorderFactory.createEmptyBorder(7,800,0,0));
+        labelsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.006*onePlayerSelectionFrame.getScreenHeight()),(int)(0.416*onePlayerSelectionFrame.getScreenWidth()),
+                0,0));
 
         labelsPanel.add(bettingPhaseLabel);
-        labelsPanel.add(Box.createRigidArea(new Dimension(0,70)));
+        labelsPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.064*onePlayerSelectionFrame.getScreenHeight()))));
         labelsPanel.add(bettingLabel);
 
         bettingPhasePanel.add(labelsPanel,BorderLayout.CENTER);
 
         centerPanel=new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel,BoxLayout.Y_AXIS));
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(150,0,0,220));
+        centerPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.138*onePlayerSelectionFrame.getScreenHeight()),0,
+                0,(int)(0.114*onePlayerSelectionFrame.getScreenWidth())));
         centerPanel.setOpaque(false);
         buttonsPanel=new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel,BoxLayout.X_AXIS));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,200,530,0));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.104*onePlayerSelectionFrame.getScreenWidth()),
+                (int)(0.490*onePlayerSelectionFrame.getScreenHeight()),0));
         buttonsPanel.setOpaque(false);
         bettingAmountButton1= UtilGUI.getButtonInstance("250");
         bettingAmountButton2= UtilGUI.getButtonInstance("500");
@@ -89,20 +97,20 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         bettingAmountButton2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         bettingAmountButton3.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         bettingAmountButton4.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
-        bettingAmountButton1.setPreferredSize(new Dimension(100,60));
-        bettingAmountButton2.setPreferredSize(new Dimension(100,60));
-        bettingAmountButton3.setPreferredSize(new Dimension(100,60));
-        bettingAmountButton4.setPreferredSize(new Dimension(100,60));
+        bettingAmountButton1.setPreferredSize(new Dimension((int)(0.052*onePlayerSelectionFrame.getScreenWidth()),(int)(0.055*onePlayerSelectionFrame.getScreenHeight())));
+        bettingAmountButton2.setPreferredSize(new Dimension((int)(0.052*onePlayerSelectionFrame.getScreenWidth()),(int)(0.055*onePlayerSelectionFrame.getScreenHeight())));
+        bettingAmountButton3.setPreferredSize(new Dimension((int)(0.052*onePlayerSelectionFrame.getScreenWidth()),(int)(0.055*onePlayerSelectionFrame.getScreenHeight())));
+        bettingAmountButton4.setPreferredSize(new Dimension((int)(0.052*onePlayerSelectionFrame.getScreenWidth()),(int)(0.055*onePlayerSelectionFrame.getScreenHeight())));
         buttonsPanel.add(bettingAmountButton1);
-        buttonsPanel.add(Box.createRigidArea(new Dimension(50,0)));
+        buttonsPanel.add(Box.createRigidArea(new Dimension((int)(0.026*onePlayerSelectionFrame.getScreenWidth()),0)));
         buttonsPanel.add(bettingAmountButton2);
-        buttonsPanel.add(Box.createRigidArea(new Dimension(50,0)));
+        buttonsPanel.add(Box.createRigidArea(new Dimension((int)(0.026*onePlayerSelectionFrame.getScreenWidth()),0)));
         buttonsPanel.add(bettingAmountButton3);
-        buttonsPanel.add(Box.createRigidArea(new Dimension(50,0)));
+        buttonsPanel.add(Box.createRigidArea(new Dimension((int)(0.026*onePlayerSelectionFrame.getScreenWidth()),0)));
         buttonsPanel.add(bettingAmountButton4);
 
         centerPanel.add(amountAvailableLabel);
-        centerPanel.add(Box.createRigidArea(new Dimension(0,130)));
+        centerPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.120*onePlayerSelectionFrame.getScreenHeight()))));
         centerPanel.add(buttonsPanel);
 
         bettingPanel.add(centerPanel,BorderLayout.CENTER);

@@ -44,39 +44,46 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
 
         topComponentsPanel=new JPanel();
         topComponentsPanel.setLayout(new BoxLayout(topComponentsPanel,BoxLayout.X_AXIS));
-        topComponentsPanel.setBorder(BorderFactory.createEmptyBorder(200,100,0,100));
+        topComponentsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*playFrame.getScreenHeight()),(int)(0.052*playFrame.getScreenWidth()),
+                0,(int)(0.052*playFrame.getScreenWidth())));
         topComponentsPanel.setOpaque(false);
 
         usernameField1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         usernameField2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         roundSelectionBox.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
 
-        usernameField1.setPreferredSize(new Dimension(100,50));
-        usernameField2.setPreferredSize(new Dimension(100,50));
-        roundSelectionBox.setPreferredSize(new Dimension(100,50));
+        usernameField1.setPreferredSize(new Dimension((int)(0.052*playFrame.getScreenWidth()),(int)(0.046*playFrame.getScreenHeight())));
+        usernameField2.setPreferredSize(new Dimension((int)(0.052*playFrame.getScreenWidth()),(int)(0.046*playFrame.getScreenHeight())));
+        roundSelectionBox.setPreferredSize(new Dimension((int)(0.052*playFrame.getScreenWidth()),(int)(0.046*playFrame.getScreenHeight())));
 
         topComponentsPanel.add(usernameField1);
-        topComponentsPanel.add(Box.createRigidArea(new Dimension(300,0)));
+        topComponentsPanel.add(Box.createRigidArea(new Dimension((int)(0.156*playFrame.getScreenWidth()),0)));
         topComponentsPanel.add(roundSelectionBox);
-        topComponentsPanel.add(Box.createRigidArea(new Dimension(300,0)));
+        topComponentsPanel.add(Box.createRigidArea(new Dimension((int)(0.156*playFrame.getScreenWidth()),0)));
         topComponentsPanel.add(usernameField2);
 
         confirmButton= UtilGUI.getButtonInstance("Confirm");
         confirmButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
-        confirmButton.setPreferredSize(new Dimension(175,50));
+        confirmButton.setPreferredSize(new Dimension((int)(0.091*playFrame.getScreenWidth()),(int)(0.046*playFrame.getScreenHeight())));
 
         confirmButtonPanel=new JPanel();
         confirmButtonPanel.setLayout(new BoxLayout(confirmButtonPanel,BoxLayout.X_AXIS));
-        confirmButtonPanel.setBorder(BorderFactory.createEmptyBorder(200,800,450,800));
+        confirmButtonPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*playFrame.getScreenHeight()),(int)(0.416*playFrame.getScreenWidth()),
+                (int)(0.416*playFrame.getScreenHeight()),(int)(0.416*playFrame.getScreenWidth())));
         confirmButtonPanel.setOpaque(false);
         confirmButtonPanel.add(confirmButton);
 
         backPanel=new JPanel();
+
         backButton= UtilGUI.getButtonInstance("Back");
         backButton.setPreferredSize(new Dimension(175,40));
+
+        backButton.setPreferredSize(new Dimension((int)(0.091*playFrame.getScreenWidth()),(int)(0.037*playFrame.getScreenHeight())));
+
         backPanel.add(backButton,BorderLayout.LINE_END);
         backPanel.setOpaque(false);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,1717,10,0));
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.894*playFrame.getScreenWidth()),
+                (int)(0.009*playFrame.getScreenHeight()),0));
 
 
         twoPlayersPanel.add(topComponentsPanel,BorderLayout.PAGE_START);
@@ -153,7 +160,8 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
                                 @Override
                                 public void run() {
                                     loadingScreenFrame.setVisible(false);
-                                    TwoPlayersGamemodeFrame twoPlayersGamemodeFrame=new TwoPlayersGamemodeFrame();
+                                    //TwoPlayersGamemodeFrame twoPlayersGamemodeFrame=new TwoPlayersGamemodeFrame();
+                                    TwoPlayersBettingFrame twoPlayersBettingFrame=new TwoPlayersBettingFrame(TwoPlayersSelectionFrame.this);
                                 }
                             };
                             timer.schedule(timerTask,1000);
