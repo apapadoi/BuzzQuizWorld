@@ -52,7 +52,8 @@ public class TwoPlayersBettingFrame extends JFrame {
 
     private void setUpAmountPanel() {
         amountPanel = new JPanel();
-        amountPanel.setLayout(new GridLayout(4,1,15,15));
+        amountPanel.setLayout(new GridLayout(4,1,(int)(0.007*twoPlayersSelectionFrame.getScreenWidth()),
+                (int)(0.013*twoPlayersSelectionFrame.getScreenHeight())));
         amountPanel.setOpaque(false);
         amountPanel.setBorder(BorderFactory.createEmptyBorder(0,
                 0,0,0));
@@ -91,7 +92,7 @@ public class TwoPlayersBettingFrame extends JFrame {
         rightPanel.setOpaque(false);
         rightPanel.setLayout(new GridLayout(4,1,0,0));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(0,
-                0,0,700));
+                0,0,(int)(0.364*twoPlayersSelectionFrame.getScreenWidth())));
 
         upKey = new JLabel();
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.UP_KEY_IMG).getImage().
@@ -126,7 +127,7 @@ public class TwoPlayersBettingFrame extends JFrame {
         leftPanel.setLayout(new GridLayout(4,1,0,0));
 
         leftPanel.setBorder(BorderFactory.createEmptyBorder(0,
-                700,0,0));
+                (int)(0.364*twoPlayersSelectionFrame.getScreenWidth()),0,0));
         wKey = new JLabel();
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.W_KEY_IMG).getImage().
                 getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
@@ -158,7 +159,7 @@ public class TwoPlayersBettingFrame extends JFrame {
         topPanel=new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.Y_AXIS));
         topPanel.setOpaque(false);
-        topPanel.setBorder(BorderFactory.createEmptyBorder(0,800,0,0));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.416*twoPlayersSelectionFrame.getScreenWidth()),0,0));
 
         highStakesLabel=new JLabel("High Stakes");
         highStakesLabel.setForeground(Color.WHITE);
@@ -180,11 +181,12 @@ public class TwoPlayersBettingFrame extends JFrame {
         center.setLayout(new BorderLayout());
         bottom.setLayout(new BorderLayout());
 
-        top.setBorder(BorderFactory.createEmptyBorder(10,100,0,0));
+        top.setBorder(BorderFactory.createEmptyBorder((int)(0.009*twoPlayersSelectionFrame.getScreenHeight()),
+                (int)(0.052*twoPlayersSelectionFrame.getScreenWidth()),0,0));
         top.setOpaque(false);
-        center.setBorder(BorderFactory.createEmptyBorder(0,30,0,0));
+        center.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.015*twoPlayersSelectionFrame.getScreenWidth()),0,0));
         center.setOpaque(false);
-        bottom.setBorder(BorderFactory.createEmptyBorder(0,70,0,0));
+        bottom.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.036*twoPlayersSelectionFrame.getScreenWidth()),0,0));
         bottom.setOpaque(false);
 
         top.add(highStakesLabel,BorderLayout.CENTER);
@@ -192,9 +194,9 @@ public class TwoPlayersBettingFrame extends JFrame {
         bottom.add(amountLabel,BorderLayout.CENTER);
 
         topPanel.add(top);
-        topPanel.add(Box.createRigidArea(new Dimension(0,50)));
+        topPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.046*twoPlayersSelectionFrame.getScreenHeight()))));
         topPanel.add(center);
-        topPanel.add(Box.createRigidArea(new Dimension(0,60)));
+        topPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.055*twoPlayersSelectionFrame.getScreenHeight()))));
         topPanel.add(bottom);
 
         bettingPanel.add(topPanel,BorderLayout.NORTH);
