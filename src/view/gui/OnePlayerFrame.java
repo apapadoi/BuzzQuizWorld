@@ -1,12 +1,16 @@
 package view.gui;
 
 import controller.ButtonSoundListener;
+import controller.FrontController;
+import model.player.Player;
+import model.questions.Category;
 import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class OnePlayerFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
@@ -171,12 +175,12 @@ public class OnePlayerFrame extends JFrame implements GUI{
         backgroundImageLabel.add(onePlayerPanel);
     }
 
-    public OnePlayerFrame(OnePlayerSelectionFrame onePlayerSelectionFrame){
-        this.onePlayerSelectionFrame=onePlayerSelectionFrame;
+    public OnePlayerFrame(){
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
+        FrontController.getInstance().setView(this);
         this.setVisible(true);
     }
 
@@ -185,6 +189,13 @@ public class OnePlayerFrame extends JFrame implements GUI{
             @Override
             public void actionPerformed(ActionEvent e) {
                 createExitButtonFrame();
+            }
+        });
+
+        answersButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FrontController.getInstance().dispatchRequest("updateData");
             }
         });
     }
@@ -247,5 +258,38 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 exitFrame.setVisible(false);
             }
         });
+    }
+
+    @Override
+    public void updateAnswers(List<String> answers) {
+        answersButton1.setText(answers.get(0));
+        answersButton2.setText(answers.get(1));
+        answersButton3.setText(answers.get(2));
+        answersButton4.setText(answers.get(3));
+    }
+
+    @Override
+    public void updateScore(List<Player> players) {
+        scoreLabel.setText(String.valueOf(players.get(0).getScore()));
+    }
+
+    @Override
+    public void updateGamemode(String gamemodeName) {
+        gamemodeLabel.setText(gamemodeName);
+    }
+
+    @Override
+    public void updateQuestion(String question) {
+        questionsLabel.setText(question);
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        categoryLabel.setText(category.toString());
+    }
+
+    @Override
+    public void updateRoundId(String id) {
+        roundLabel.setText(id);
     }
 }

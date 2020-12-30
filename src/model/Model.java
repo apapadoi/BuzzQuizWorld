@@ -14,7 +14,7 @@ import java.util.*;
  * @version 29.11.2020
  */
 public class Model{
-    private final Player player;
+    private final List<Player> players;
     private List<Round> rounds;
     private final List<String> validAnswers;
 
@@ -23,7 +23,11 @@ public class Model{
      * */
     public Model() {
         this.validAnswers = new ArrayList<>(List.of("1","2","3","4"));
-        player = new Player();
+        players = new ArrayList<>();
+    }
+
+    public List<Player> getPlayers() {
+        return this.players;
     }
 
     /**
@@ -39,8 +43,8 @@ public class Model{
      * @param username the new username of the player
      * @see Player
      */
-    public void setUsername(String username) {
-        player.setUsername(username);
+    public void setUsername(String username,int index) {
+        players.get(index).setUsername(username);
     }
 
     /**
@@ -85,16 +89,16 @@ public class Model{
      * Returns the player's name
      * @return the player's name as {@code String}.
      */
-    public String getUsername() {
-        return this.player.getUsername();
+    public String getUsername(int index) {
+        return this.players.get(index).getUsername();
     }
 
     /**
      * Returns the player's score
      * @return the player's score as {@code int}}
      */
-    public int getScore() {
-        return this.player.getScore();
+    public int getScore(int index) {
+        return this.players.get(index).getScore();
     }
 
     /**
@@ -111,7 +115,21 @@ public class Model{
      * No checking is done on the {@code amount} parameter's value.
      * @param amount The amount we want to add to the player's score.
      */
-    public void updateScore(int amount) {
-        this.player.addScore(amount);
+    public void updateScore(int amount,int index) {
+        this.players.get(index).addScore(amount);
+    }
+
+    @Deprecated
+    public void updateScore(int amount) { }
+
+    @Deprecated
+    public int getScore() { return 0; }
+
+    @Deprecated
+    public String getUsername() { return null; }
+
+    public void setUsernames(List<String> usernames) {
+        for(String username : usernames)
+            this.players.add(new Player(username,0,0));
     }
 }

@@ -60,7 +60,8 @@ public class Controller implements Runnable {
 
         // Asking from player to type his username.
         view.printStringWithoutLineSeparator("Type your username: ");
-        model.setUsername(Util.readStringInput()); // and then store his username in the model component
+        // TODO
+        //model.setUsername(Util.readStringInput()); // and then store his username in the model component
 
         // Asking from the user to choose the number of rounds he wants to play.
         this.readNumOfRoundsChoice();
@@ -75,7 +76,7 @@ public class Controller implements Runnable {
         // Clearing the screen after the gameplay has ended and then printing the finish screen which contains the username of the current player
         // and his score.
         view.clearScreen();
-        view.printFinishPage(model.getUsername(), model.getScore());
+        //view.printFinishPage(model.getUsername(), model.getScore());
     }
 
     /**

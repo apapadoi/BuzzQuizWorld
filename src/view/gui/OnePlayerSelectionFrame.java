@@ -1,6 +1,7 @@
 package view.gui;
 
 import controller.ButtonSoundListener;
+import controller.FrontController;
 import resources.images.Image;
 import resources.images.ImageFactory;
 
@@ -12,6 +13,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -33,6 +36,7 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
+        FrontController.getInstance().setView(this);
         this.setVisible(true);
     }
 
@@ -78,6 +82,19 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
         backgroundImageLabel.add(onePlayerSelectionPanel);
     }
 
+    @Override
+    public List<String> getUsernames() {
+        List<String> usernames = new ArrayList<>();
+        usernames.add(usernameField.getText());
+        return usernames;
+    }
+
+    @Override
+    public int getNumOfRoundsChoice() {
+        System.out.println("get num of rounds choice=" + Integer.parseInt((String)roundSelectionBox.getSelectedItem()));
+        return Integer.parseInt((String)roundSelectionBox.getSelectedItem());
+    }
+
     private void setUpButtonListeners() {
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -109,19 +126,14 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
            @Override
            public void actionPerformed(ActionEvent e) {
                if (!(usernameField.getText().equals("") || usernameField.getText().equals("Enter username:")))
-                   if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
-                       LoadingScreenFrame loadingScreenFrame=new LoadingScreenFrame();
-                       OnePlayerSelectionFrame.this.setVisible(false);
-                       Timer timer=new Timer();
-                       TimerTask timerTask=new TimerTask() {
-                           @Override
-                           public void run() {
-                               loadingScreenFrame.setVisible(false);
-                               OnePlayerFrame onePlayerFrame=new OnePlayerFrame(OnePlayerSelectionFrame.this);
-                               //OnePlayerBettingFrame bettingFrame=new OnePlayerBettingFrame(OnePlayerSelectionFrame.this);
-                           }
-                       };
-                       timer.schedule(timerTask,1000);
+                    if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
+                        LoadingScreenFrame loadingScreenFrame=  new LoadingScreenFrame();
+                        OnePlayerSelectionFrame.this.setVisible(false);
+                        FrontController.getInstance().dispatchRequest("load");
+                        FrontController.getInstance().dispatchRequest("addUsernames");
+                        FrontController.getInstance().dispatchRequest("addNumOfRounds");
+                        new OnePlayerFrame();
+                        loadingScreenFrame.dispose();
                    }
            }
        });
