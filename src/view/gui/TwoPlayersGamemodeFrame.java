@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class TwoPlayersGamemodeFrame extends JFrame {
+public class TwoPlayersGamemodeFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
     private JPanel buttonsPanel;
     private JPanel leftSideIconsPanel;
@@ -22,14 +22,16 @@ public class TwoPlayersGamemodeFrame extends JFrame {
     private java.util.List<JLabel> topPanelLabels;
     private JPanel answersPanel;
 
+    // TODO Initialize JFXPanel
     public TwoPlayersGamemodeFrame() {
+        new JFXPanel();
         answersPanel = new JPanel();
         answersPanel.setOpaque(false);
         answersPanel.setLayout(new BorderLayout());
         answersPanel.setBorder(BorderFactory.createEmptyBorder(0,UtilGUI.getScreenWidth()*175/1368,
                 UtilGUI.getScreenHeight()*50/768,0));
-        this.setUpJFrameProperties();
-        this.setUpBackGround();
+        UtilGUI.setUpJFrameProperties(this);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.TWO_PLAYERS_GAMEMODE_BACKGROUND_IMG);
         this.setUpButtonsPanel();
         this.setUpLeftSideIcons();
         this.setUpRightSideIcons();
@@ -238,28 +240,6 @@ public class TwoPlayersGamemodeFrame extends JFrame {
 
         this.backgroundImageLabel.add(answersPanel,BorderLayout.WEST);
         this.answersPanel.add(buttonsPanel,BorderLayout.CENTER);
-    }
-
-    private void setUpJFrameProperties() {
-        // set properties of JFrame
-        this.setTitle("Buzz! Quiz World Remastered");
-        this.setIconImage(ImageFactory.createImage(Image.APP_ICON).getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // only this for full size but not full screen
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch(Exception ignored){}
-        this.setLayout(new BorderLayout());
-        new JFXPanel();
-    }
-
-    private void setUpBackGround() {
-        this.backgroundImageLabel = new JLabel();
-        this.add(backgroundImageLabel,BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(Image.TWO_PLAYERS_GAMEMODE_BACKGROUND_IMG).getImage().
-                getScaledInstance(UtilGUI.getScreenWidth(),UtilGUI.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
-        this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
-        this.backgroundImageLabel.setLayout(new BorderLayout());
     }
 
     public static void main(String[] args) {

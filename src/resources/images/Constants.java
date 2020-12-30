@@ -26,4 +26,5 @@ public class Constants {
     public static final String FINISH_PAGE_BACKGROUND_IMG_URL = "src/resources/images/finishPageBackground.png";
     public static final String ONE_PLAYER_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerFrame.gif";
     public static final String ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerBettingFrameBackground.jpg";
+    public static final String FONT_FILE_URL = "src/resources/fonts/Minecraft.ttf";
 }

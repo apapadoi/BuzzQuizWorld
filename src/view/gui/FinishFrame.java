@@ -3,13 +3,11 @@ package view.gui;
 import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class FinishFrame extends JFrame{
+public class FinishFrame extends JFrame implements GUI{
     private final TwoPlayersGamemodeFrame gamemodeFrame;
     private JPanel textPanel;
-    private final JPanel centralPanel;
     private JPanel buttonsPanel;
 
     public FinishFrame(TwoPlayersGamemodeFrame gamemodeFrame){
@@ -17,7 +15,7 @@ public class FinishFrame extends JFrame{
         this.setUndecorated(true);
         this.setUpJFrameProperties();
         setBackground(new Color(0,0,0,0));
-        centralPanel = new JPanel() {
+        JPanel centralPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 final int R = 79;
@@ -30,8 +28,6 @@ public class FinishFrame extends JFrame{
                     Graphics2D g2d = (Graphics2D)g;
                     g2d.setPaint(p);
                     g2d.fillRect(0, 0, getWidth(), getHeight());
-                   // //g.setColor(new Color(79, 45, 90, 215));
-                    //g.fillRect(0, 0, getWidth(), getHeight());
                 }
             }
         };
@@ -49,20 +45,9 @@ public class FinishFrame extends JFrame{
         this.buttonsPanel.setLayout(new GridLayout(2,1,0,30));
         this.buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,UtilGUI.getScreenWidth()*375/1130,
                 UtilGUI.getScreenHeight()*125/527,UtilGUI.getScreenWidth()*380/1130));
-        JButton button = new JButton("Respawn");
-        button.setBackground(new Color(54,54,55,255));
-        button.setForeground(new Color(156,156,156,255));
-        button.setBorder(new LineBorder(Color.BLACK));
-        button.setFont(UtilGUI.getCustomFont().deriveFont((float)25.0));
-        button.setFocusPainted(false);
-        this.buttonsPanel.add(button);
-        button = new JButton("Title Screen");
-        button.setBackground(new Color(54,54,55,255));
-        button.setForeground(new Color(156,156,156,255));
-        button.setBorder(new LineBorder(Color.BLACK));
-        button.setFont(UtilGUI.getCustomFont().deriveFont((float)25.0));
-        button.setFocusPainted(false);
-        this.buttonsPanel.add(button);
+
+        this.buttonsPanel.add(UtilGUI.getButtonInstance("Respawn",(float)25.0));
+        this.buttonsPanel.add(UtilGUI.getButtonInstance("Title Screen",(float)25.0));
     }
 
     private void setUpTextPanel() {

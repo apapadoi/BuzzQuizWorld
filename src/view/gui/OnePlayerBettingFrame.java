@@ -1,5 +1,6 @@
 package view.gui;
 
+import resources.images.Image;
 import resources.images.ImageFactory;
 
 import javax.swing.*;
@@ -8,8 +9,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-public class OnePlayerBettingFrame extends JFrame {
-    private Font font;
+import static resources.images.Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG;
+
+public class OnePlayerBettingFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
     private OnePlayerFrame onePlayerFrame;
     private OnePlayerSelectionFrame onePlayerSelectionFrame;
@@ -26,13 +28,10 @@ public class OnePlayerBettingFrame extends JFrame {
     private JButton bettingAmountButton3;
     private JButton bettingAmountButton4;
 
-
-
     public OnePlayerBettingFrame(OnePlayerSelectionFrame onePlayerSelectionFrame){
         this.onePlayerSelectionFrame=onePlayerSelectionFrame;
-        this.loadFont();
-        this.setUpJFrameProperties();
-        this.setUpBackGround();
+        UtilGUI.setUpJFrameProperties(this);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
         this.setVisible(true);
@@ -56,11 +55,11 @@ public class OnePlayerBettingFrame extends JFrame {
         bettingPhasePanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 
         bettingPhaseLabel=new JLabel("             High Stakes");
-        bettingPhaseLabel.setFont(font);
+        bettingPhaseLabel.setFont(UtilGUI.getCustomFont());
         bettingPhaseLabel.setForeground(Color.WHITE);
 
         bettingLabel=new JLabel("Select your betting amount");
-        bettingLabel.setFont(font);
+        bettingLabel.setFont(UtilGUI.getCustomFont());
         bettingLabel.setForeground(Color.WHITE);
 
         labelsPanel=new JPanel();
@@ -75,7 +74,6 @@ public class OnePlayerBettingFrame extends JFrame {
 
         bettingPhasePanel.add(labelsPanel,BorderLayout.CENTER);
 
-
         centerPanel=new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel,BoxLayout.Y_AXIS));
         centerPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.138*onePlayerSelectionFrame.getScreenHeight()),0,
@@ -86,18 +84,14 @@ public class OnePlayerBettingFrame extends JFrame {
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.104*onePlayerSelectionFrame.getScreenWidth()),
                 (int)(0.490*onePlayerSelectionFrame.getScreenHeight()),0));
         buttonsPanel.setOpaque(false);
-        bettingAmountButton1=new JButton("250");
-        bettingAmountButton1.setFont(font);
-        bettingAmountButton2=new JButton("500");
-        bettingAmountButton2.setFont(font);
-        bettingAmountButton3=new JButton("750");
-        bettingAmountButton3.setFont(font);
-        bettingAmountButton4=new JButton("1000");
-        bettingAmountButton4.setFont(font);
+        bettingAmountButton1= UtilGUI.getButtonInstance("250");
+        bettingAmountButton2= UtilGUI.getButtonInstance("500");
+        bettingAmountButton3= UtilGUI.getButtonInstance("750");
+        bettingAmountButton4= UtilGUI.getButtonInstance("1000");
 
         amountAvailableLabel=new JLabel("Amounts Available");
         amountAvailableLabel.setForeground(Color.WHITE);
-        amountAvailableLabel.setFont(font);
+        amountAvailableLabel.setFont(UtilGUI.getCustomFont());
 
         bettingAmountButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         bettingAmountButton2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
@@ -123,41 +117,4 @@ public class OnePlayerBettingFrame extends JFrame {
         bettingPanel.add(bettingPhasePanel,BorderLayout.PAGE_START);
         backgroundImageLabel.add(bettingPanel);
     }
-
-    private void setUpBackGround() {
-        this.backgroundImageLabel = new JLabel();
-        this.add(backgroundImageLabel,BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(onePlayerSelectionFrame.getScreenWidth(),onePlayerSelectionFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
-        this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
-        this.backgroundImageLabel.setLayout(new BorderLayout());
-    }
-
-    private void setUpJFrameProperties() {
-        // set properties of JFrame
-        this.setTitle("Buzz! Quiz World Remastered");
-        this.setIconImage(ImageFactory.createImage(resources.images.Image.APP_ICON).getImage());
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // only this for full size but not full screen
-        //this.setUndecorated(true); //add this for full screen
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch(Exception ignored){}
-        this.setLayout(new BorderLayout());
-    }
-
-    private void loadFont() {
-        // create the custom font
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/fonts/Minecraft.ttf")).deriveFont(20f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-            font = customFont;
-        } catch (IOException |FontFormatException e) {
-            //Handle exception
-            font = new Font("Serif",Font.BOLD,12);
-        }
-    }
-
-    public ActionListener getButtonSoundListener() { return onePlayerSelectionFrame.getButtonSoundListener(); }
 }

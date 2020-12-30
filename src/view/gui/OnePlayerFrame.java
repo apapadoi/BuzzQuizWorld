@@ -1,16 +1,14 @@
 package view.gui;
 
+import controller.ButtonSoundListener;
+import resources.images.Image;
 import resources.images.ImageFactory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
-public class OnePlayerFrame extends JFrame {
-    private Font font;
+public class OnePlayerFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
     private OnePlayerSelectionFrame onePlayerSelectionFrame;
     private JPanel onePlayerPanel;
@@ -48,11 +46,11 @@ public class OnePlayerFrame extends JFrame {
         questionsPanel.setOpaque(false);
 
         questionsLabel =new JLabel("<html>What is the most visited country of<br/>all four given?</html>",SwingConstants.CENTER);
-        questionsLabel.setFont(font.deriveFont(100));
+        questionsLabel.setFont(UtilGUI.getCustomFont().deriveFont(100));
         questionsLabel.setForeground(Color.WHITE);
 
         roundLabel=new JLabel("Round 1");
-        roundLabel.setFont(font);
+        roundLabel.setFont(UtilGUI.getCustomFont());
         roundLabel.setForeground(Color.WHITE);
 
         roundPanel=new JPanel();
@@ -64,7 +62,7 @@ public class OnePlayerFrame extends JFrame {
         roundPanel.add(roundLabel);
 
         timerLabel=new JLabel("30 seconds");
-        timerLabel.setFont(font);
+        timerLabel.setFont(UtilGUI.getCustomFont());
         timerLabel.setForeground(Color.WHITE);
 
         timerPanel=new JPanel();
@@ -81,16 +79,13 @@ public class OnePlayerFrame extends JFrame {
         answersPanel=new JPanel();
         answersPanel.setOpaque(false);
         answersPanel.setLayout(new BoxLayout(answersPanel,BoxLayout.Y_AXIS));
+        answersButton1= UtilGUI.getButtonInstance("Spain");
+        answersButton2= UtilGUI.getButtonInstance("France");
+        answersButton3= UtilGUI.getButtonInstance("Fiji");
+        answersButton4= UtilGUI.getButtonInstance("Finland");
+
         answersPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*onePlayerSelectionFrame.getScreenHeight()),(int)(0.156*onePlayerSelectionFrame.getScreenWidth()),
                 (int)(0.157*onePlayerSelectionFrame.getScreenHeight()),(int)(0.052*onePlayerSelectionFrame.getScreenWidth())));
-        answersButton1=new JButton("Spain");
-        answersButton1.setFont(font);
-        answersButton2=new JButton("France");
-        answersButton2.setFont(font);
-        answersButton3=new JButton("Fiji");
-        answersButton3.setFont(font);
-        answersButton4=new JButton("Finland");
-        answersButton4.setFont(font);
 
 
         answersButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
@@ -117,11 +112,11 @@ public class OnePlayerFrame extends JFrame {
         usernamePanel.setOpaque(false);
 
         usernameLabel=new JLabel("Username: papster");
-        usernameLabel.setFont(font);
+        usernameLabel.setFont(UtilGUI.getCustomFont());
         usernameLabel.setForeground(Color.WHITE);
 
         scoreLabel=new JLabel("Score: 1000");
-        scoreLabel.setFont(font);
+        scoreLabel.setFont(UtilGUI.getCustomFont());
         scoreLabel.setForeground(Color.WHITE);
 
         usernamePanel.add(usernameLabel);
@@ -134,9 +129,10 @@ public class OnePlayerFrame extends JFrame {
                 0,(int)(0.010*onePlayerSelectionFrame.getScreenWidth())));
         bottomPanel.setOpaque(false);
 
-        exitButton=new JButton("Exit");
-        exitButton.setFont(font);
+
+        exitButton= UtilGUI.getButtonInstance("Exit");
         exitButton.setPreferredSize(new Dimension((int)(0.091*onePlayerSelectionFrame.getScreenWidth()),(int)(0.004*onePlayerSelectionFrame.getScreenHeight())));
+
 
         exitPanel=new JPanel();
         exitPanel.setLayout(new BorderLayout());
@@ -154,11 +150,11 @@ public class OnePlayerFrame extends JFrame {
 
         gamemodeLabel=new JLabel("Gamemode: PointBuilder");
         gamemodeLabel.setForeground(Color.WHITE);
-        gamemodeLabel.setFont(font.deriveFont(35));
+        gamemodeLabel.setFont(UtilGUI.getCustomFont().deriveFont(35));
 
         categoryLabel=new JLabel("Category: Sports");
         categoryLabel.setForeground(Color.WHITE);
-        categoryLabel.setFont(font);
+        categoryLabel.setFont(UtilGUI.getCustomFont());
 
         leftPanel.add(gamemodeLabel);
         leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*onePlayerSelectionFrame.getScreenHeight()))));
@@ -176,31 +172,22 @@ public class OnePlayerFrame extends JFrame {
         backgroundImageLabel.add(onePlayerPanel);
     }
 
-
     public OnePlayerFrame(OnePlayerSelectionFrame onePlayerSelectionFrame){
         this.onePlayerSelectionFrame=onePlayerSelectionFrame;
-        this.loadFont();
-        this.setUpJFrameProperties();
-        this.setUpBackGround();
+        UtilGUI.setUpJFrameProperties(this);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
         this.setVisible(true);
     }
 
     private void setUpButtonListeners() {
-        exitButton.addActionListener(this.getButtonSoundListener());
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createExitButtonFrame();
             }
         });
-
-        answersButton1.addActionListener(this.getButtonSoundListener());
-        answersButton2.addActionListener(this.getButtonSoundListener());
-        answersButton3.addActionListener(this.getButtonSoundListener());
-        answersButton4.addActionListener(this.getButtonSoundListener());
-
     }
     private void createExitButtonFrame(){
         JFrame exitFrame=new JFrame();
@@ -212,15 +199,12 @@ public class OnePlayerFrame extends JFrame {
         exitFrame.setLocationRelativeTo(null);
         JPanel exitPanel=new JPanel();
         JLabel exitLabel=new JLabel("Are you sure you want to exit?");
-        JButton yesButton=new JButton("Yes");
-        JButton noButton=new JButton("No");
+        JButton yesButton= UtilGUI.getButtonInstance("Yes");
+        JButton noButton= UtilGUI.getButtonInstance("No");
         JPanel buttonsPanel=new JPanel();
         JPanel labelsPanel=new JPanel();
 
-        yesButton.setFont(font);
-        noButton.setFont(font);
-
-        exitLabel.setFont(font);
+        exitLabel.setFont(UtilGUI.getCustomFont());
         exitLabel.setForeground(Color.BLACK);
 
         exitPanel.setLayout(new BorderLayout());
@@ -245,12 +229,8 @@ public class OnePlayerFrame extends JFrame {
         exitPanel.add(buttonsPanel,BorderLayout.CENTER);
         exitPanel.add(labelsPanel,BorderLayout.PAGE_START);
 
-
         exitFrame.add(exitPanel);
         exitFrame.setVisible(true);
-
-        yesButton.addActionListener(this.getButtonSoundListener());
-        noButton.addActionListener(this.getButtonSoundListener());
 
         yesButton.addActionListener(new ActionListener() {
             @Override
@@ -268,49 +248,4 @@ public class OnePlayerFrame extends JFrame {
             }
         });
     }
-    private void setUpBackGround() {
-        this.backgroundImageLabel = new JLabel();
-        this.add(backgroundImageLabel,BorderLayout.CENTER);
-        java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.ONE_PLAYER_PAGE_BACKGROUND_IMG).getImage().
-                getScaledInstance(onePlayerSelectionFrame.getScreenWidth(),onePlayerSelectionFrame.getScreenHeight(), java.awt.Image.SCALE_DEFAULT);
-        this.backgroundImageLabel.setIcon(new ImageIcon(resizedImage));
-        this.backgroundImageLabel.setLayout(new BorderLayout());
-    }
-
-    private void setUpJFrameProperties() {
-        // set properties of JFrame
-        this.setTitle("Buzz! Quiz World Remastered");
-        this.setIconImage(ImageFactory.createImage(resources.images.Image.APP_ICON).getImage());
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // only this for full size but not full screen
-        //this.setUndecorated(true); //add this for full screen
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch(Exception ignored){}
-        this.setLayout(new BorderLayout());
-    }
-
-    private void loadFont() {
-        // create the custom font
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/fonts/Minecraft.ttf")).deriveFont(20f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-            font = customFont;
-        } catch (IOException |FontFormatException e) {
-            //Handle exception
-            font = new Font("Serif",Font.BOLD,12);
-        }
-    }
-
-    public int getScreenWidth(){
-        return onePlayerSelectionFrame.getScreenWidth();
-    }
-
-    public int getScreenHeight(){
-        return onePlayerSelectionFrame.getScreenHeight();
-    }
-
-    public ActionListener getButtonSoundListener() { return onePlayerSelectionFrame.getButtonSoundListener(); }
-
 }
