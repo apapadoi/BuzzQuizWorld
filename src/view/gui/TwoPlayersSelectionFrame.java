@@ -169,7 +169,8 @@ public class TwoPlayersSelectionFrame extends JFrame {
                                 @Override
                                 public void run() {
                                     loadingScreenFrame.setVisible(false);
-                                    TwoPlayersGamemodeFrame twoPlayersGamemodeFrame=new TwoPlayersGamemodeFrame();
+                                    //TwoPlayersGamemodeFrame twoPlayersGamemodeFrame=new TwoPlayersGamemodeFrame();
+                                    TwoPlayersBettingFrame twoPlayersBettingFrame=new TwoPlayersBettingFrame(TwoPlayersSelectionFrame.this);
                                 }
                             };
                             timer.schedule(timerTask,1000);
