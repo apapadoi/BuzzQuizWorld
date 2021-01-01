@@ -1,22 +1,18 @@
 package view.gui;
 
-import controller.ButtonSoundListener;
 import controller.FrontController;
+import controller.requests.AddNumOfRoundsRequest;
+import controller.requests.AddUsernamesRequest;
+import controller.requests.LoadRequest;
 import resources.images.Image;
-import resources.images.ImageFactory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class OnePlayerSelectionFrame extends JFrame implements GUI{
     private PlayFrame playFrame;
@@ -54,7 +50,6 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
         backPanel.add(backButton,BorderLayout.LINE_END);
         backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*UtilGUI.getScreenWidth()),(int)(0.013*UtilGUI.getScreenHeight()),
                 (int)(0.007*UtilGUI.getScreenWidth())));
-
 
         componentsPanel=new JPanel();
         componentsPanel.setLayout(new GridLayout(3,1,0,(int)(0.231*UtilGUI.getScreenHeight())));
@@ -113,6 +108,7 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
            }
        });
 
+       // TODO add focus lost listener
        backgroundImageLabel.addMouseListener(new MouseAdapter() {
            @Override
            public void mouseClicked(MouseEvent e) {
@@ -129,9 +125,9 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
                     if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
                         LoadingScreenFrame loadingScreenFrame=  new LoadingScreenFrame();
                         OnePlayerSelectionFrame.this.setVisible(false);
-                        FrontController.getInstance().dispatchRequest("load");
-                        FrontController.getInstance().dispatchRequest("addUsernames");
-                        FrontController.getInstance().dispatchRequest("addNumOfRounds");
+                        FrontController.getInstance().dispatchRequest(new LoadRequest());
+                        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+                        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
                         new OnePlayerFrame();
                         loadingScreenFrame.dispose();
                    }

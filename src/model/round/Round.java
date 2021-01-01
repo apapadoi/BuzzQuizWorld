@@ -3,9 +3,10 @@ package model.round;
 import model.fileHandler.FileHandler;
 import model.Model;
 import model.gamemodes.Gamemodable;
-import model.gamemodes.NumerablePlayersGamemode;
+import model.gamemodes.GamemodeFactory;
 import model.questions.Question;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,15 +19,29 @@ import java.util.List;
 public class Round {
     private final List<Question> questions;
     private final Gamemodable gamemode;
+    private int questionIndex;
+
     /**
      * Create a round with a random gamemode from the {@code NumerablePlayersGamemode} object provided and load 5 questions
      * using the {@code fileHandler}  provided.
-     * @param gamemodesForCurrentNumOfPlayers an object of a class implementing {@code NumerablePlayersGamemode} interface that will provide a random gamemode for the current number of players
      * @param fileHandler the file handler that loaded the questions from the data txt file.
      * */
-    public Round(NumerablePlayersGamemode gamemodesForCurrentNumOfPlayers,FileHandler fileHandler) {
+    public Round(FileHandler fileHandler) {
         this.questions = fileHandler.getNextQuestions();
-        this.gamemode = gamemodesForCurrentNumOfPlayers.getRandomGamemode();
+        this.gamemode = GamemodeFactory.getRandomGamemode();
+        this.questionIndex = 0;
+    }
+
+    // TODO null object pattern when there are no more questions for this round
+    @Deprecated
+    public Question getNextQuestion() {
+        Question question;
+        if(questionIndex == this.questions.size() )
+            question = null;
+        else
+            question = this.questions.get(questionIndex++);
+
+        return question;
     }
 
     /**
@@ -68,6 +83,7 @@ public class Round {
      * @param roundId the round's id with offset 0
      * @return the question format for the current gamemode as {@code String}
      */
+    @Deprecated
     public String getQuestionFormat(Model model,Question currentQuestion, int roundId) {
         return gamemode.getQuestionFormat(model,currentQuestion,roundId);
     }

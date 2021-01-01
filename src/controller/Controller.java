@@ -4,11 +4,8 @@ import model.fileHandler.FileHandler;
 import model.Model;
 import model.questions.Question;
 import model.round.Round;
-import model.util.UserAnswerTimer;
 import model.util.Util;
 import view.cli.Cli;
-
-import java.io.IOException;
 import java.util.InputMismatchException;
 
 /**
@@ -44,32 +41,7 @@ public class Controller implements Runnable {
      */
     @Override
     public void run() {
-        // Printing the intro page
-        view.printIntroPage(model.getVersion());
-
-        // Reading the questions from the file using the fileHandler attribute
-        try{
-            fileHandler.readQuestions();
-        } catch (IOException exception) {
-            view.printStringWithoutLineSeparator("Could not find text file containing the questions.");
-            return;
-        }
-
-        // Printing the available number of players that can play the game.
-        view.printStringWithoutLineSeparator("The game in the current version can be played from one player only."+System.lineSeparator());
-
-        // Asking from player to type his username.
-        view.printStringWithoutLineSeparator("Type your username: ");
         // TODO
-        //model.setUsername(Util.readStringInput()); // and then store his username in the model component
-
-        // Asking from the user to choose the number of rounds he wants to play.
-        this.readNumOfRoundsChoice();
-
-        // Stopping the execution to create a "loading" effect and then clearing the screen.
-        Util.stopExecution(2L);
-        view.clearScreen();
-
         // Starting the gameplay.
         this.startGameplay();
 
@@ -77,19 +49,6 @@ public class Controller implements Runnable {
         // and his score.
         view.clearScreen();
         //view.printFinishPage(model.getUsername(), model.getScore());
-    }
-
-    /**
-     * Reads the player's choice about the number of rounds using the {@code readValidIntInput} method of this class and stores the choice to the
-     * model component.
-     */
-    private void readNumOfRoundsChoice() {
-        int choice = this.readValidIntInput(1,10,
-                "Not a number!"+System.lineSeparator(),
-                "Choose the number of rounds you want to play from[1-10]: ",
-                "There is no such number of rounds!"+System.lineSeparator());
-
-        model.setNumOfRoundsChoice(choice,this.fileHandler);
     }
 
     /**
@@ -108,6 +67,7 @@ public class Controller implements Runnable {
      * @param currentQuestion The current question that will be shown
      * @param currentRound The current round
      */
+    @Deprecated
     private void actionsPreQuestionPhase(Question currentQuestion, Round currentRound) {
         if (currentRound.hasPreQuestionFormat()) { // if any action needs to be performed before the question is shown
                                                     // e.g High Stakes betting phase has to be shown before the question will be controlled by this method
@@ -177,9 +137,9 @@ public class Controller implements Runnable {
             boolean validInput = false;
             while (!validInput) {
                 try {
-                    this.showQuestionFormat(currentQuestion, model.getRound(i), i); // show the current question depending the gamemode
-                    String choice = this.readAnswer(); // read user's choice
-                    validInput = this.processAnswer(choice, currentQuestion, model.getRound(i)); // and then process it
+                 // TODO CHECK  // this.showQuestionFormat(currentQuestion, model.getRound(i), i); // show the current question depending the gamemode
+                // TODO CHECK   // String choice = this.readAnswer(); // read user's choice
+                // TODO CHECK   // validInput = this.processAnswer(choice, currentQuestion, model.getRound(i)); // and then process it
                 } catch (NumberFormatException exception) { // if the user did not type a valid answer then
                     // print the corresponding message of the exception processAnswer method has thrown
                     view.printStringWithoutLineSeparator(exception.getMessage());
@@ -188,95 +148,5 @@ public class Controller implements Runnable {
                 view.clearScreen();
             }
         }
-    }
-
-    /**
-     * Prints the current question and additional information needed depending the type of current gamemode using the {@code view} component
-     * @param currentQuestion The current question
-     * @param currentRound The current round
-     * @param roundId The current round id with offset 0
-     */
-    private void showQuestionFormat(Question currentQuestion,Round currentRound,int roundId) {
-        view.printStringWithoutLineSeparator(currentRound.getQuestionFormat(this.model,currentQuestion,roundId));
-    }
-
-    /**
-     * Reads the player's answer and also counts how many seconds took him to answer using {@code UserAnswerTimer} class from {@code util}
-     * package.
-     * @return The player's answer as {@code String}
-     */
-    private String readAnswer() {
-        UserAnswerTimer timer = new UserAnswerTimer();
-        Thread timerThread = new Thread(timer);
-        timerThread.start();
-        String choice = Util.readStringInput();
-        secondsTookToAnswer = timer.getSecondsCounted();
-        timerThread.interrupt();
-        return choice;
-    }
-
-    /**
-     * Processes the player's answer and does the corresponding actions depending if the user answer on time, answered correct or answered wrong.
-     * @param choice The player's answer
-     * @param currentQuestion The current question
-     * @param currentRound The current round
-     * @return If the user typed a VALID answer as {@code boolean}
-     * @throws NumberFormatException if the user did not type a valid answer
-     */
-    private boolean processAnswer(String choice,Question currentQuestion,Round currentRound) throws NumberFormatException{
-        if(!model.getValidAnswers().contains(choice)) // if the player did not type a valid answer throw an exception
-            throw new NumberFormatException("Not a valid answer!");
-
-        if( secondsTookToAnswer > currentRound.getAvailableTime() ) { // if the player did not answer on time
-            view.printStringWithoutLineSeparator("Unfortunately, available time has ended!"+System.lineSeparator()+"Correct answer: "+currentQuestion.getCorrectAnswer());
-            Util.stopExecution(2L);
-            currentRound.actionIfWrongAnswer(this.model);
-            return true;
-        }else if(this.userAnsweredCorrect(choice,currentQuestion)) { // if the player answered correct
-            currentRound.actionIfCorrectAnswer(this.model);
-            view.printStringWithoutLineSeparator("Correct Answer!");
-            Util.stopExecution(1L);
-            return true;
-        } else { // if the player answered wrong
-            view.printStringWithoutLineSeparator("Unfortunately, your answer was not correct!"+System.lineSeparator()+"Correct answer: "+currentQuestion.getCorrectAnswer());
-            Util.stopExecution(2L);
-            currentRound.actionIfWrongAnswer(this.model);
-            return true;
-        }
-    }
-
-    /**
-     * Reads an int input from the player that is considered valid if the interval [{@code lowValidValue},{@code maxValidValue}] contains this int
-     * @param lowValidValue the low value of the valid interval
-     * @param maxValidValue the max value of the valid interval
-     * @param numberFormatExceptionMessage the message that is shown when the player does not type an integer
-     * @param askInputMessage the message that is shown to the player before the answer request
-     * @param notANumberFromTheListMessage the message that is shown to the player if he typed an integer but not from the valid interval
-     * @return the int choice of the player as {@code int}
-     */
-    private int readValidIntInput(int lowValidValue, int maxValidValue, String numberFormatExceptionMessage, String askInputMessage,
-                                 String notANumberFromTheListMessage) {
-        boolean validInput = false;
-        int choice =0;
-
-        // iterate while the player does not type a valid input
-        while (!validInput) {
-            try {
-                // ask from the user to type an integer
-                view.printStringWithoutLineSeparator(askInputMessage);
-                choice = Util.readIntInput();
-
-                // check if the choice is inside the valid interval and print the corresponding message
-                if (Util.isInsideLimits(choice, lowValidValue, maxValidValue))
-                    validInput = true;
-                else
-                    view.printStringWithoutLineSeparator(notANumberFromTheListMessage);
-            } catch (NumberFormatException exception) { // if the user did not type an integer at all, method Util.readIntInput throws an exception
-                                                        // and this catch block handles the exception with printing the corresponding message
-                view.printStringWithoutLineSeparator(numberFormatExceptionMessage);
-            }
-
-        }
-        return choice;
     }
 }

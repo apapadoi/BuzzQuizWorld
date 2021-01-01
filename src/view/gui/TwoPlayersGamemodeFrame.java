@@ -40,6 +40,7 @@ public class TwoPlayersGamemodeFrame extends JFrame implements GUI{
         this.setVisible(true);
         Util.stopExecution(2L);
         FinishFrame finishFrame = new  FinishFrame(this);
+        // TODO remove this
         finishFrame.setVisible(true);
     }
 

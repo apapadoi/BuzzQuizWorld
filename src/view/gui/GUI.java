@@ -3,6 +3,7 @@ package view.gui;
 import model.player.Player;
 import model.questions.Category;
 
+import java.awt.*;
 import java.util.List;
 
 public interface GUI {
@@ -16,4 +17,5 @@ public interface GUI {
     default void updateQuestion(String question) {}
     default void updateCategory(Category category) {}
     default void updateRoundId(String id) {}
+    default Dimension getSize() { return null; }
 }

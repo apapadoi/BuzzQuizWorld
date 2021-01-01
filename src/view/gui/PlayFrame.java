@@ -1,27 +1,15 @@
 package view.gui;
 
-import controller.ButtonSoundListener;
 import resources.images.Image;
-import resources.images.ImageFactory;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 public class PlayFrame extends JFrame implements GUI{
-    private IntroFrame introFrame;
+    private final IntroFrame introFrame;
     private JButton onePlayerButton;
     private JButton twoPlayersButton;
-    private JPanel buttonsPanel;
-    private JPanel backPanel;
-    private JPanel playPanel;
     private JButton backButton;
-    private JLabel backgroundImageLabel;
-    private JLabel gamemodesLabel;
-    private JPanel labelPanel;
+    private final JLabel backgroundImageLabel;
 
     public PlayFrame(IntroFrame introFrame){
         this.introFrame=introFrame;
@@ -33,7 +21,7 @@ public class PlayFrame extends JFrame implements GUI{
     }
 
     private void setUpButtonsPanel() {
-        buttonsPanel =new JPanel();
+        JPanel buttonsPanel =new JPanel();
         buttonsPanel.setOpaque(false);
         buttonsPanel.setLayout(new GridLayout(1,2,(int)(0.338*UtilGUI.getScreenWidth()),0));
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.625*UtilGUI.getScreenHeight()),(int)(0.140*UtilGUI.getScreenWidth()),
@@ -45,27 +33,26 @@ public class PlayFrame extends JFrame implements GUI{
         buttonsPanel.add(twoPlayersButton);
         buttonsPanel.add(onePlayerButton);
 
-        backPanel=new JPanel();
+        JPanel backPanel=new JPanel();
         backPanel.setLayout(new BorderLayout());
         backPanel.setOpaque(false);
-
 
         backButton= UtilGUI.getButtonInstance("Back");
         backButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.037*UtilGUI.getScreenHeight())));
         backPanel.add(backButton,BorderLayout.LINE_END);
         backPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.013*UtilGUI.getScreenHeight()),(int)(0.007*UtilGUI.getScreenWidth())));
 
-        playPanel=new JPanel();
+        JPanel playPanel=new JPanel();
         playPanel.setLayout(new BorderLayout());
         playPanel.setOpaque(false);
 
-        labelPanel=new JPanel();
+        JPanel labelPanel=new JPanel();
         labelPanel.setLayout(new GridLayout(1,1));
         labelPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.074*UtilGUI.getScreenHeight()),(int)(0.468*UtilGUI.getScreenWidth()),
                 0,(int)(0.260*UtilGUI.getScreenWidth())));
         labelPanel.setOpaque(false);
 
-        gamemodesLabel=new JLabel("Select Gamemode");
+        JLabel gamemodesLabel=new JLabel("Select Gamemode");
         gamemodesLabel.setFont(UtilGUI.getCustomFont());
         gamemodesLabel.setForeground(Color.WHITE);
         labelPanel.add(gamemodesLabel);
@@ -78,28 +65,19 @@ public class PlayFrame extends JFrame implements GUI{
     }
 
     private void setUpButtonListeners(){
-        onePlayerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                OnePlayerSelectionFrame onePlayerFrame=new OnePlayerSelectionFrame(PlayFrame.this);
-                PlayFrame.this.setVisible(false);
-            }
+        onePlayerButton.addActionListener(e -> {
+            new OnePlayerSelectionFrame(PlayFrame.this);
+            PlayFrame.this.setVisible(false);
         });
 
-        twoPlayersButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TwoPlayersSelectionFrame twoPlayersFrame=new TwoPlayersSelectionFrame(PlayFrame.this);
-                PlayFrame.this.setVisible(false);
-            }
+        twoPlayersButton.addActionListener(e -> {
+            new TwoPlayersSelectionFrame(PlayFrame.this);
+            PlayFrame.this.setVisible(false);
         });
 
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                introFrame.setVisible(true);
-                PlayFrame.this.setVisible(false);
-            }
+        backButton.addActionListener(e -> {
+            introFrame.setVisible(true);
+            PlayFrame.this.setVisible(false);
         });
     }
 }

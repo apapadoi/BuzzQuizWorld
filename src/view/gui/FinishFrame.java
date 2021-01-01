@@ -6,11 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class FinishFrame extends JFrame implements GUI{
-    private final TwoPlayersGamemodeFrame gamemodeFrame;
+    private final GUI gamemodeFrame;
     private JPanel textPanel;
     private JPanel buttonsPanel;
 
-    public FinishFrame(TwoPlayersGamemodeFrame gamemodeFrame){
+    @Override
+    public Dimension getSize() {
+        return super.getSize();
+    }
+
+    public FinishFrame(GUI gamemodeFrame){
         this.gamemodeFrame = gamemodeFrame;
         this.setUndecorated(true);
         this.setUpJFrameProperties();
@@ -37,6 +42,7 @@ public class FinishFrame extends JFrame implements GUI{
         this.setUpButtonsPanel();
         centralPanel.add(buttonsPanel,BorderLayout.PAGE_END);
         this.setContentPane(centralPanel);
+        this.setVisible(true);
     }
 
     private void setUpButtonsPanel() {

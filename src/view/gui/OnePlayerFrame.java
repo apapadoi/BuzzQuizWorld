@@ -1,7 +1,8 @@
 package view.gui;
 
-import controller.ButtonSoundListener;
 import controller.FrontController;
+import controller.requests.PreQuestionRequest;
+import controller.requests.UpdateDataRequest;
 import model.player.Player;
 import model.questions.Category;
 import resources.images.Image;
@@ -14,7 +15,6 @@ import java.util.List;
 
 public class OnePlayerFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
-    private OnePlayerSelectionFrame onePlayerSelectionFrame;
     private JPanel onePlayerPanel;
     private JPanel questionsPanel;
     private JLabel questionsLabel;
@@ -48,11 +48,11 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 (int)(0.027*UtilGUI.getScreenHeight()),0));
         questionsPanel.setOpaque(false);
 
-        questionsLabel =new JLabel("<html>What is the most visited country of<br/>all four given?</html>",SwingConstants.CENTER);
+        questionsLabel =new JLabel("",SwingConstants.CENTER);
         questionsLabel.setFont(UtilGUI.getCustomFont().deriveFont(100));
         questionsLabel.setForeground(Color.WHITE);
 
-        roundLabel=new JLabel("Round 1");
+        roundLabel=new JLabel("");
         roundLabel.setFont(UtilGUI.getCustomFont());
         roundLabel.setForeground(Color.WHITE);
 
@@ -64,7 +64,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
 
         roundPanel.add(roundLabel);
 
-        timerLabel=new JLabel("30 seconds");
+        timerLabel=new JLabel("");
         timerLabel.setFont(UtilGUI.getCustomFont());
         timerLabel.setForeground(Color.WHITE);
 
@@ -82,10 +82,10 @@ public class OnePlayerFrame extends JFrame implements GUI{
         answersPanel=new JPanel();
         answersPanel.setOpaque(false);
         answersPanel.setLayout(new BoxLayout(answersPanel,BoxLayout.Y_AXIS));
-        answersButton1= UtilGUI.getButtonInstance("Spain");
-        answersButton2= UtilGUI.getButtonInstance("France");
-        answersButton3= UtilGUI.getButtonInstance("Fiji");
-        answersButton4= UtilGUI.getButtonInstance("Finland");
+        answersButton1= UtilGUI.getButtonInstance("");
+        answersButton2= UtilGUI.getButtonInstance("");
+        answersButton3= UtilGUI.getButtonInstance("");
+        answersButton4= UtilGUI.getButtonInstance("");
 
         answersPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),(int)(0.156*UtilGUI.getScreenWidth()),
                 (int)(0.157*UtilGUI.getScreenHeight()),(int)(0.052*UtilGUI.getScreenWidth())));
@@ -114,11 +114,11 @@ public class OnePlayerFrame extends JFrame implements GUI{
                     (int)(0.037*UtilGUI.getScreenHeight()),0));
         usernamePanel.setOpaque(false);
 
-        usernameLabel=new JLabel("Username: papster");
+        usernameLabel=new JLabel();
         usernameLabel.setFont(UtilGUI.getCustomFont());
         usernameLabel.setForeground(Color.WHITE);
 
-        scoreLabel=new JLabel("Score: 1000");
+        scoreLabel=new JLabel();
         scoreLabel.setFont(UtilGUI.getCustomFont());
         scoreLabel.setForeground(Color.WHITE);
 
@@ -151,11 +151,11 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 (int)(0.015*UtilGUI.getScreenWidth()),0,0));
         leftPanel.setOpaque(false);
 
-        gamemodeLabel=new JLabel("Gamemode: PointBuilder");
+        gamemodeLabel=new JLabel();
         gamemodeLabel.setForeground(Color.WHITE);
         gamemodeLabel.setFont(UtilGUI.getCustomFont().deriveFont(35));
 
-        categoryLabel=new JLabel("Category: Sports");
+        categoryLabel=new JLabel();
         categoryLabel.setForeground(Color.WHITE);
         categoryLabel.setFont(UtilGUI.getCustomFont());
 
@@ -181,6 +181,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
         this.setComponentsPanel();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(null));
         this.setVisible(true);
     }
 
@@ -191,13 +192,16 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 createExitButtonFrame();
             }
         });
-
-        answersButton1.addActionListener(new ActionListener() {
+        ActionListener updateListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FrontController.getInstance().dispatchRequest("updateData");
+                FrontController.getInstance().dispatchRequest(new UpdateDataRequest(e));
             }
-        });
+        };
+        answersButton1.addActionListener(updateListener);
+        answersButton2.addActionListener(updateListener);
+        answersButton3.addActionListener(updateListener);
+        answersButton4.addActionListener(updateListener);
     }
 
     private void createExitButtonFrame(){
@@ -270,26 +274,29 @@ public class OnePlayerFrame extends JFrame implements GUI{
 
     @Override
     public void updateScore(List<Player> players) {
-        scoreLabel.setText(String.valueOf(players.get(0).getScore()));
+        scoreLabel.setText("Score : "+String.valueOf(players.get(0).getScore()));
     }
 
     @Override
     public void updateGamemode(String gamemodeName) {
-        gamemodeLabel.setText(gamemodeName);
+        gamemodeLabel.setText("Gamemode : "+gamemodeName);
     }
 
     @Override
     public void updateQuestion(String question) {
-        questionsLabel.setText(question);
+        StringBuilder string = new StringBuilder("<html>");
+        string.append(question);
+        string.append("</html>");
+        questionsLabel.setText(string.toString());
     }
 
     @Override
     public void updateCategory(Category category) {
-        categoryLabel.setText(category.toString());
+        categoryLabel.setText("Category : "+category.toString());
     }
 
     @Override
     public void updateRoundId(String id) {
-        roundLabel.setText(id);
+        roundLabel.setText("Round : "+id);
     }
 }

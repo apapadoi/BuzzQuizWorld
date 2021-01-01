@@ -1,9 +1,8 @@
 package model;
 
 import model.fileHandler.FileHandler;
-import model.gamemodes.NumerablePlayersGamemode;
-import model.gamemodes.OnePlayerGamemodes;
 import model.player.Player;
+import model.questions.Question;
 import model.round.Round;
 import java.util.*;
 
@@ -63,18 +62,8 @@ public class Model{
     public void setNumOfRoundsChoice(int choice, FileHandler fileHandler) {
         rounds = new ArrayList<>(choice);
         for (int i = 0; i < choice; i++) {
-            rounds.add(new Round(this.chooseGamemodesForCurrentNumOfPlayers(),fileHandler));
+            rounds.add(new Round(fileHandler));
         }
-    }
-
-    /**
-     * Returns an object depending the number of players that can play the game. In this version the game can be player by one player only so
-     * an object of {@code OnePlayerGamemodes} is returned. If new number of players support needs to be added then this method must be updated
-     * with the new class implementing the {@code NumerablePlayersGamemode} interface.
-     * @return an object that will provide random gamemodes depending the number of player as {@code NumerablePlayersGamemode}
-     */
-    private NumerablePlayersGamemode chooseGamemodesForCurrentNumOfPlayers() {
-        return new OnePlayerGamemodes();
     }
 
     /**
@@ -119,8 +108,11 @@ public class Model{
         this.players.get(index).addScore(amount);
     }
 
-    @Deprecated
-    public void updateScore(int amount) { }
+
+    public void updateScore(int amount) {
+        System.out.println("update score");
+        this.players.get(0).addScore(amount);
+    }
 
     @Deprecated
     public int getScore() { return 0; }
