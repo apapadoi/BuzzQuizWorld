@@ -18,4 +18,6 @@ public interface GUI {
     default void updateCategory(Category category) {}
     default void updateRoundId(String id) {}
     default Dimension getSize() { return null; }
+    default void setVisible(boolean b) {}
+    default void updateExtraJLabel(String text) {}
 }

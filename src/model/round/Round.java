@@ -116,8 +116,13 @@ public class Round {
      * @throws NumberFormatException if the user did not type an integer at all
      * @throws InputMismatchException if the user typed a valid type of input but not a valid logical input
      */
+    @Deprecated // TODO ?
     public void actionsPreQuestionsPhase(Model model) throws NumberFormatException, InputMismatchException {
         this.gamemode.actionsPreQuestionsPhase(model);
+    }
+
+    public Gamemodable getGamemode() {
+        return gamemode;
     }
 
     /**

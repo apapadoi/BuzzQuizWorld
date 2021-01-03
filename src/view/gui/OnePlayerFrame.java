@@ -36,6 +36,11 @@ public class OnePlayerFrame extends JFrame implements GUI{
     private JPanel leftPanel;
     private JLabel gamemodeLabel;
     private JLabel categoryLabel;
+    private static final OnePlayerFrame instance;
+
+    static {
+        instance = new OnePlayerFrame();
+    }
 
     private void setComponentsPanel() {
         onePlayerPanel=new JPanel();
@@ -175,14 +180,18 @@ public class OnePlayerFrame extends JFrame implements GUI{
         backgroundImageLabel.add(onePlayerPanel);
     }
 
-    public OnePlayerFrame(){
+    private OnePlayerFrame(){
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(null));
-        this.setVisible(true);
+        // TODO this.setVisible(true);
+    }
+
+    public static OnePlayerFrame getInstance() {
+        return instance;
     }
 
     private void setUpButtonListeners() {
@@ -192,10 +201,13 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 createExitButtonFrame();
             }
         });
+
         ActionListener updateListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                OnePlayerFrame.this.setVisible(false);
                 FrontController.getInstance().dispatchRequest(new UpdateDataRequest(e));
+                FrontController.getInstance().dispatchRequest(new PreQuestionRequest(e));
             }
         };
         answersButton1.addActionListener(updateListener);
@@ -298,5 +310,10 @@ public class OnePlayerFrame extends JFrame implements GUI{
     @Override
     public void updateRoundId(String id) {
         roundLabel.setText("Round : "+id);
+    }
+
+    @Override
+    public void updateExtraJLabel(String text) {
+        this.timerLabel.setText(text);
     }
 }

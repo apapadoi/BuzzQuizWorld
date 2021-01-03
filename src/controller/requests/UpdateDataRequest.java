@@ -6,12 +6,13 @@ import model.questions.Question;
 import model.round.Round;
 import view.gui.FinishFrame;
 import view.gui.GUI;
+import view.gui.OnePlayerFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class UpdateDataRequest extends Request{
-    private ActionEvent e;
+    private final ActionEvent e;
 
     public UpdateDataRequest(ActionEvent e) {
         this.e = e;
@@ -34,14 +35,10 @@ public class UpdateDataRequest extends Request{
         Round currentRound = model.getRound(roundId);
         Question currentQuestion = currentRound.getQuestions().get(questionId);
         JButton buttonPressed = (JButton)e.getSource();
-        System.out.println(buttonPressed.getText());
-        System.out.println(currentQuestion.getCorrectAnswer());
-        if(buttonPressed.getText().equals(currentQuestion.getCorrectAnswer())) {
-            System.out.println("true answer");
+        if(buttonPressed.getText().equals(currentQuestion.getCorrectAnswer()))
             currentRound.actionIfCorrectAnswer(model);
-        } else {
+        else
             currentRound.actionIfWrongAnswer(model);
-        }
 
         questionId++;
         if(questionId==questionsPerRound) {
@@ -50,6 +47,7 @@ public class UpdateDataRequest extends Request{
         }
 
         if(roundId == model.getNumOfRounds()) {
+            view.setVisible(true);
             new FinishFrame(view);
             return;
         }

@@ -4,6 +4,7 @@ import controller.FrontController;
 import controller.requests.AddNumOfRoundsRequest;
 import controller.requests.AddUsernamesRequest;
 import controller.requests.LoadRequest;
+import controller.requests.PreQuestionRequest;
 import resources.images.Image;
 import javax.swing.*;
 import java.awt.*;
@@ -128,7 +129,8 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
                         FrontController.getInstance().dispatchRequest(new LoadRequest());
                         FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
                         FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
-                        new OnePlayerFrame();
+                        FrontController.getInstance().setView(OnePlayerFrame.getInstance());
+                        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(null));
                         loadingScreenFrame.dispose();
                    }
            }

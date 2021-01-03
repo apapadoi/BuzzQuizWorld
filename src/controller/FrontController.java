@@ -27,6 +27,11 @@ public class FrontController{
         dispatcher.setView(view);
     }
 
+    // TODO remove this
+    public Model getModel() {
+        return dispatcher.getModel();
+    }
+
     public static FrontController getInstance() {
         return instance;
     }

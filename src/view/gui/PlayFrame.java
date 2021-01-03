@@ -1,5 +1,6 @@
 package view.gui;
 
+import controller.FrontController;
 import resources.images.Image;
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ public class PlayFrame extends JFrame implements GUI{
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.PLAY_PAGE_BACKGROUND_IMG);
         this.setUpButtonsPanel();
         this.setUpButtonListeners();
+        FrontController.getInstance().setView(this);
         this.setVisible(true);
     }
 

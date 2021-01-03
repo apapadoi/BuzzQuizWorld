@@ -3,9 +3,7 @@ package model.gamemodes;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GamemodeFactory {
-    private static final Gamemodable[] gamemodes = {new PointBuilder(),
-            // TODO add new HighStakes(),
-    new PointBuilder(),new StopTheClock()};
+    private static final Gamemodable[] gamemodes = {new PointBuilder(), new HighStakes(), new StopTheClock()};
 
     public static Gamemodable getRandomGamemode() {
         int randomNumber = ThreadLocalRandom.current().nextInt(3);
