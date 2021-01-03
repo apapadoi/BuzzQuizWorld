@@ -20,4 +20,5 @@ public interface GUI {
     default Dimension getSize() { return null; }
     default void setVisible(boolean b) {}
     default void updateExtraJLabel(String text) {}
+    default void dispose() {}
 }

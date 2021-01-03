@@ -2,6 +2,7 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
+import model.questions.Category;
 import resources.images.Image;
 import resources.images.ImageFactory;
 
@@ -28,13 +29,14 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
     private JButton bettingAmountButton2;
     private JButton bettingAmountButton3;
     private JButton bettingAmountButton4;
+    private JLabel categoryLabel;
 
     public OnePlayerBettingFrame(){
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 
     private void setComponentsPanel() {
@@ -59,6 +61,9 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         JLabel scoreLabel = new JLabel("Score : "+FrontController.getInstance().getModel().getScore(0));
         scoreLabel.setFont(UtilGUI.getCustomFont());
         scoreLabel.setForeground(Color.WHITE);
+        categoryLabel = new JLabel("Category : ");
+        categoryLabel.setFont(UtilGUI.getCustomFont());
+        categoryLabel.setForeground(Color.WHITE);
 
         labelsPanel=new JPanel();
         labelsPanel.setOpaque(false);
@@ -70,6 +75,7 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         labelsPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.064*UtilGUI.getScreenHeight()))));
         labelsPanel.add(bettingLabel);
         labelsPanel.add(scoreLabel);
+        labelsPanel.add(categoryLabel);
 
         bettingPhasePanel.add(labelsPanel,BorderLayout.CENTER);
 
@@ -128,5 +134,10 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         this.bettingAmountButton2.addActionListener(listener);
         this.bettingAmountButton3.addActionListener(listener);
         this.bettingAmountButton4.addActionListener(listener);
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        this.categoryLabel.setText("Category : "+category.toString());
     }
 }

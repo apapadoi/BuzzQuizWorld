@@ -5,6 +5,8 @@ import model.Model;
 import model.gamemodes.Gamemodable;
 import model.gamemodes.GamemodeFactory;
 import model.questions.Question;
+import view.gui.OnePlayerFrame;
+
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
@@ -141,7 +143,8 @@ public class Round {
      * @param model an instance of {@code Model} class
      */
     public void actionIfCorrectAnswer(Model model) {
-        this.gamemode.actionIfCorrectAnswer(model);
+        // TODO remove OnePlayerFrame.getInstance().getCount()
+        this.gamemode.actionsIfCorrectAnswer(model, OnePlayerFrame.getInstance().getCount());
     }
 
     /**

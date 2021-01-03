@@ -90,7 +90,6 @@ public class IntroFrame extends JFrame implements GUI{
         quitButton.addActionListener(e -> System.exit(0));
         playButton.addActionListener(e -> {
             new PlayFrame(IntroFrame.this);
-            IntroFrame.this.setVisible(false);
         });
         quitButton.addActionListener(e -> System.exit(0));
     }

@@ -20,6 +20,7 @@ public class PlayFrame extends JFrame implements GUI{
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
         this.setVisible(true);
+        this.introFrame.setVisible(false);
     }
 
     private void setUpButtonsPanel() {

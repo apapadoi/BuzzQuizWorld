@@ -45,7 +45,9 @@ public abstract class Gamemode implements Gamemodable{
      * @see Gamemodable
      */
     @Override
-    public void actionsIfCorrectAnswer(Model model, int millis) { }
+    public void actionsIfCorrectAnswer(Model model, int millis) {
+        this.actionIfCorrectAnswer(model);
+    }
 
     /**
      * @see Gamemodable
@@ -149,4 +151,9 @@ public abstract class Gamemode implements Gamemodable{
      */
     @Override
     public String getPreQuestionFormat(Model model, Question currentQuestion) { return ""; }
+
+    @Override
+    public boolean hasTimer() {
+        return false;
+    }
 }

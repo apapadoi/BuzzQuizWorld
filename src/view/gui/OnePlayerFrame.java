@@ -37,10 +37,23 @@ public class OnePlayerFrame extends JFrame implements GUI{
     private JLabel gamemodeLabel;
     private JLabel categoryLabel;
     private static final OnePlayerFrame instance;
+    private final Timer timer;
+    private int count = 10000;
+    private boolean hasTimer = false;
 
     static {
         instance = new OnePlayerFrame();
     }
+
+    public void setHasTimer(boolean b) { this.hasTimer = b; }
+
+    public void restartCount() { this.count = 10000; }
+
+    public void stopTimer() { this.timer.stop(); }
+
+    public void startTimer() { this.timer.start(); }
+
+    public int getCount() { return this.count; }
 
     private void setComponentsPanel() {
         onePlayerPanel=new JPanel();
@@ -186,6 +199,20 @@ public class OnePlayerFrame extends JFrame implements GUI{
         this.setComponentsPanel();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
+        timer =  new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(count<=0) {
+                    ((Timer) e.getSource()).stop();
+                } else {
+                    count -= 100;
+                }
+                if(hasTimer)
+                    OnePlayerFrame.this.timerLabel.setText(Integer.toString(count));
+                else
+                    OnePlayerFrame.this.timerLabel.setText("");
+            }
+        });
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(null));
         // TODO this.setVisible(true);
     }
@@ -205,6 +232,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
         ActionListener updateListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                OnePlayerFrame.this.timer.stop();
                 OnePlayerFrame.this.setVisible(false);
                 FrontController.getInstance().dispatchRequest(new UpdateDataRequest(e));
                 FrontController.getInstance().dispatchRequest(new PreQuestionRequest(e));
