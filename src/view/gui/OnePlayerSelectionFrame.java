@@ -117,8 +117,8 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
                            @Override
                            public void run() {
                                loadingScreenFrame.setVisible(false);
-                               OnePlayerFrame onePlayerFrame=new OnePlayerFrame(OnePlayerSelectionFrame.this);
-                               //OnePlayerBettingFrame bettingFrame=new OnePlayerBettingFrame(OnePlayerSelectionFrame.this);
+                               //OnePlayerFrame onePlayerFrame=new OnePlayerFrame(OnePlayerSelectionFrame.this);
+                               OnePlayerBettingFrame bettingFrame=new OnePlayerBettingFrame(OnePlayerSelectionFrame.this);
                            }
                        };
                        timer.schedule(timerTask,1000);
