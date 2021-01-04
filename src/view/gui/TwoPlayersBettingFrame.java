@@ -1,10 +1,13 @@
 package view.gui;
 
+import javafx.scene.control.RadioButton;
 import resources.images.Image;
 import resources.images.ImageFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -32,6 +35,8 @@ public class TwoPlayersBettingFrame extends JFrame {
     private JLabel chooseAmountLabel;
     private JLabel amountLabel;
     private JLabel highStakesLabel;
+    private JPanel bottomPanel;
+    private JButton confirmButton;
 
 
     public TwoPlayersBettingFrame(TwoPlayersSelectionFrame twoPlayersSelectionFrame){
@@ -45,6 +50,9 @@ public class TwoPlayersBettingFrame extends JFrame {
         this.setUpAmountPanel();
         this.setUpRightSideIcons();
         this.setUpLeftSideIcons();
+        this.setUpBottomPanel();
+        this.setUpButtonListeners();
+        backgroundImageLabel.add(bettingPanel);
         this.setVisible(true);
     }
 
@@ -92,6 +100,7 @@ public class TwoPlayersBettingFrame extends JFrame {
         rightPanel.setBorder(BorderFactory.createEmptyBorder(0,
                 0,0,(int)(0.364*UtilGUI.getScreenWidth())));
 
+        /*
         upKey = new JLabel();
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.UP_KEY_IMG).getImage().
                 getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
@@ -115,6 +124,31 @@ public class TwoPlayersBettingFrame extends JFrame {
                 getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
         rightKey.setIcon(new ImageIcon(resizedImage));
         rightPanel.add(rightKey);
+        */
+
+        JRadioButton amount250=new JRadioButton("");
+        amount250.setSelected(true);
+        JRadioButton amount500=new JRadioButton("");
+        JRadioButton amount750=new JRadioButton("");
+        JRadioButton amount1000=new JRadioButton("");
+
+        ButtonGroup rightGroup=new ButtonGroup();
+
+
+        amount250.setOpaque(false);
+        amount500.setOpaque(false);
+        amount750.setOpaque(false);
+        amount1000.setOpaque(false);
+
+        rightGroup.add(amount250);
+        rightGroup.add(amount500);
+        rightGroup.add(amount750);
+        rightGroup.add(amount1000);
+
+        rightPanel.add(amount250);
+        rightPanel.add(amount500);
+        rightPanel.add(amount750);
+        rightPanel.add(amount1000);
 
         this.bettingPanel.add(rightPanel,BorderLayout.EAST);
     }
@@ -126,7 +160,7 @@ public class TwoPlayersBettingFrame extends JFrame {
 
         leftPanel.setBorder(BorderFactory.createEmptyBorder(0,
                 (int)(0.364*UtilGUI.getScreenWidth()),0,0));
-        wKey = new JLabel();
+       /* wKey = new JLabel();
         java.awt.Image resizedImage = ImageFactory.createImage(resources.images.Image.W_KEY_IMG).getImage().
                 getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
         wKey.setIcon(new ImageIcon(resizedImage));
@@ -149,6 +183,30 @@ public class TwoPlayersBettingFrame extends JFrame {
                 getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
         dKey.setIcon(new ImageIcon(resizedImage));
         leftPanel.add(dKey);
+        */
+        JRadioButton amount250=new JRadioButton("");
+        amount250.setSelected(true);
+        JRadioButton amount500=new JRadioButton("");
+        JRadioButton amount750=new JRadioButton("");
+        JRadioButton amount1000=new JRadioButton("");
+
+        ButtonGroup leftGroup=new ButtonGroup();
+
+
+        amount250.setOpaque(false);
+        amount500.setOpaque(false);
+        amount750.setOpaque(false);
+        amount1000.setOpaque(false);
+
+        leftGroup.add(amount250);
+        leftGroup.add(amount500);
+        leftGroup.add(amount750);
+        leftGroup.add(amount1000);
+
+        leftPanel.add(amount250);
+        leftPanel.add(amount500);
+        leftPanel.add(amount750);
+        leftPanel.add(amount1000);
 
         this.bettingPanel.add(leftPanel,BorderLayout.WEST);
     }
@@ -159,17 +217,11 @@ public class TwoPlayersBettingFrame extends JFrame {
         topPanel.setOpaque(false);
         topPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.416*UtilGUI.getScreenWidth()),0,0));
 
-        highStakesLabel=new JLabel("High Stakes");
-        highStakesLabel.setForeground(Color.WHITE);
-        highStakesLabel.setFont(UtilGUI.getCustomFont());
+        highStakesLabel=UtilGUI.getLabelInstance("High Stakes");
 
-        chooseAmountLabel=new JLabel("Select your betting amount");
-        chooseAmountLabel.setForeground(Color.WHITE);
-        chooseAmountLabel.setFont(UtilGUI.getCustomFont());
+        chooseAmountLabel=UtilGUI.getLabelInstance("Select your betting amount");
 
-        amountLabel=new JLabel("Amounts available");
-        amountLabel.setFont(UtilGUI.getCustomFont());
-        amountLabel.setForeground(Color.WHITE);
+        amountLabel=UtilGUI.getLabelInstance("Amounts available");
 
         JPanel top=new JPanel();
         JPanel center=new JPanel();
@@ -198,6 +250,28 @@ public class TwoPlayersBettingFrame extends JFrame {
         topPanel.add(bottom);
 
         bettingPanel.add(topPanel,BorderLayout.NORTH);
-        backgroundImageLabel.add(bettingPanel);
+    }
+
+    private void setUpBottomPanel() {
+        bottomPanel=new JPanel();
+        bottomPanel.setLayout(new BorderLayout());
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.092*UtilGUI.getScreenHeight()),(int)(0.052*UtilGUI.getScreenWidth())));
+        bottomPanel.setOpaque(false);
+        confirmButton=UtilGUI.getButtonInstance("Confirm");
+        confirmButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.037*UtilGUI.getScreenHeight())));
+
+        bottomPanel.add(confirmButton,BorderLayout.LINE_END);
+
+        bettingPanel.add(bottomPanel,BorderLayout.PAGE_END);
+    }
+
+    private void setUpButtonListeners(){
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TwoPlayersGamemodeFrame twoPlayersGamemodeFrame=new TwoPlayersGamemodeFrame();
+                TwoPlayersBettingFrame.this.setVisible(false);
+            }
+        });
     }
 }

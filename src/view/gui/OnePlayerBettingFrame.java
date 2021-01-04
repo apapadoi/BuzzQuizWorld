@@ -46,13 +46,9 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         bettingPhasePanel.setLayout(new BorderLayout());
         bettingPhasePanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 
-        bettingPhaseLabel=new JLabel("             High Stakes");
-        bettingPhaseLabel.setFont(UtilGUI.getCustomFont());
-        bettingPhaseLabel.setForeground(Color.WHITE);
+        bettingPhaseLabel=UtilGUI.getLabelInstance("             High Stakes");
 
-        bettingLabel=new JLabel("Select your betting amount");
-        bettingLabel.setFont(UtilGUI.getCustomFont());
-        bettingLabel.setForeground(Color.WHITE);
+        bettingLabel=UtilGUI.getLabelInstance("Select your betting amount");
 
         labelsPanel=new JPanel();
         labelsPanel.setOpaque(false);
@@ -81,9 +77,7 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         bettingAmountButton3= UtilGUI.getButtonInstance("750");
         bettingAmountButton4= UtilGUI.getButtonInstance("1000");
 
-        amountAvailableLabel=new JLabel("Amounts Available");
-        amountAvailableLabel.setForeground(Color.WHITE);
-        amountAvailableLabel.setFont(UtilGUI.getCustomFont());
+        amountAvailableLabel=UtilGUI.getLabelInstance("Amounts Available");
 
         bettingAmountButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         bettingAmountButton2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));

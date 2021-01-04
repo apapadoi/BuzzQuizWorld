@@ -44,13 +44,13 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 (int)(0.027*UtilGUI.getScreenHeight()),0));
         questionsPanel.setOpaque(false);
 
+
         questionsLabel =new JLabel("<html>What is the most visited country of<br/>all four given?</html>",SwingConstants.CENTER);
         questionsLabel.setFont(UtilGUI.getCustomFont().deriveFont(100));
         questionsLabel.setForeground(Color.WHITE);
 
-        roundLabel=new JLabel("Round 1");
-        roundLabel.setFont(UtilGUI.getCustomFont());
-        roundLabel.setForeground(Color.WHITE);
+        roundLabel=UtilGUI.getLabelInstance("Round 1");
+
 
         roundPanel=new JPanel();
         roundPanel.setOpaque(false);
@@ -60,9 +60,8 @@ public class OnePlayerFrame extends JFrame implements GUI{
 
         roundPanel.add(roundLabel);
 
-        timerLabel=new JLabel("30 seconds");
-        timerLabel.setFont(UtilGUI.getCustomFont());
-        timerLabel.setForeground(Color.WHITE);
+        timerLabel=UtilGUI.getLabelInstance("30 seconds");
+
 
         timerPanel=new JPanel();
         timerPanel.setOpaque(false);
@@ -110,13 +109,9 @@ public class OnePlayerFrame extends JFrame implements GUI{
                     (int)(0.037*UtilGUI.getScreenHeight()),0));
         usernamePanel.setOpaque(false);
 
-        usernameLabel=new JLabel("Username: papster");
-        usernameLabel.setFont(UtilGUI.getCustomFont());
-        usernameLabel.setForeground(Color.WHITE);
+        usernameLabel=UtilGUI.getLabelInstance("Username: papster");
 
-        scoreLabel=new JLabel("Score: 1000");
-        scoreLabel.setFont(UtilGUI.getCustomFont());
-        scoreLabel.setForeground(Color.WHITE);
+        scoreLabel=UtilGUI.getLabelInstance("Score 1000");
 
         usernamePanel.add(usernameLabel);
         usernamePanel.add(Box.createRigidArea(new Dimension(0,(int)(0.013*UtilGUI.getScreenHeight()))));
@@ -147,13 +142,9 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 (int)(0.015*UtilGUI.getScreenWidth()),0,0));
         leftPanel.setOpaque(false);
 
-        gamemodeLabel=new JLabel("Gamemode: PointBuilder");
-        gamemodeLabel.setForeground(Color.WHITE);
-        gamemodeLabel.setFont(UtilGUI.getCustomFont().deriveFont(35));
+        gamemodeLabel=UtilGUI.getLabelInstance("Gamemode: PointBuilder");
 
-        categoryLabel=new JLabel("Category: Sports");
-        categoryLabel.setForeground(Color.WHITE);
-        categoryLabel.setFont(UtilGUI.getCustomFont());
+        categoryLabel=UtilGUI.getLabelInstance("Category: Sports");
 
         leftPanel.add(gamemodeLabel);
         leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*UtilGUI.getScreenHeight()))));
@@ -198,14 +189,12 @@ public class OnePlayerFrame extends JFrame implements GUI{
         exitFrame.setResizable(false);
         exitFrame.setLocationRelativeTo(null);
         JPanel exitPanel=new JPanel();
-        JLabel exitLabel=new JLabel("Are you sure you want to exit?");
+        JLabel exitLabel=UtilGUI.getLabelInstance("Are you sure you want to exit?");
+        exitLabel.setForeground(Color.BLACK);
         JButton yesButton= UtilGUI.getButtonInstance("Yes");
         JButton noButton= UtilGUI.getButtonInstance("No");
         JPanel buttonsPanel=new JPanel();
         JPanel labelsPanel=new JPanel();
-
-        exitLabel.setFont(UtilGUI.getCustomFont());
-        exitLabel.setForeground(Color.BLACK);
 
         exitPanel.setLayout(new BorderLayout());
 

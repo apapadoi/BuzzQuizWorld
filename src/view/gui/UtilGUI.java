@@ -78,4 +78,19 @@ public class UtilGUI {
         button.setFont(UtilGUI.getCustomFont().deriveFont(fontSize));
         return button;
     }
+
+    public static JLabel getLabelInstance(String labelText) {
+        JLabel label=new JLabel(labelText);
+        label.setFont(UtilGUI.getCustomFont());
+        label.setForeground(Color.WHITE);
+
+        return label;
+    }
+
+    public static JLabel getLabelInstance(String labelText,float fontSize) {
+        JLabel label=getLabelInstance(labelText);
+        label.setFont(UtilGUI.getCustomFont().deriveFont(fontSize));
+
+        return label;
+    }
 }

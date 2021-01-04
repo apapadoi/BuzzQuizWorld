@@ -43,9 +43,7 @@ public class OptionsFrame extends JFrame implements GUI{
         this.optionsTextPanel = new JPanel();
         this.optionsTextPanel.setOpaque(false);
         this.optionsTextPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()/10,0,0,0));
-        this.optionsTextLabel = new JLabel("Options");
-        this.optionsTextLabel.setFont(UtilGUI.getCustomFont());
-        this.optionsTextLabel.setForeground(Color.WHITE);
+        this.optionsTextLabel=UtilGUI.getLabelInstance("Options");
         this.optionsTextPanel.add(optionsTextLabel,BorderLayout.CENTER);
         backgroundImageLabel.add(optionsTextPanel,BorderLayout.PAGE_START);
 
