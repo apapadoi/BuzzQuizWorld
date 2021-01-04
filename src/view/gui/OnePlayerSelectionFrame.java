@@ -1,19 +1,19 @@
 package view.gui;
 
-import controller.ButtonSoundListener;
+import controller.FrontController;
+import controller.requests.AddNumOfRoundsRequest;
+import controller.requests.AddUsernamesRequest;
+import controller.requests.LoadRequest;
+import controller.requests.PreQuestionRequest;
 import resources.images.Image;
-import resources.images.ImageFactory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OnePlayerSelectionFrame extends JFrame implements GUI{
     private PlayFrame playFrame;
@@ -33,6 +33,7 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
+        FrontController.getInstance().setView(this);
         this.setVisible(true);
     }
 
@@ -50,7 +51,6 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
         backPanel.add(backButton,BorderLayout.LINE_END);
         backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*UtilGUI.getScreenWidth()),(int)(0.013*UtilGUI.getScreenHeight()),
                 (int)(0.007*UtilGUI.getScreenWidth())));
-
 
         componentsPanel=new JPanel();
         componentsPanel.setLayout(new GridLayout(3,1,0,(int)(0.231*UtilGUI.getScreenHeight())));
@@ -78,6 +78,19 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
         backgroundImageLabel.add(onePlayerSelectionPanel);
     }
 
+    @Override
+    public List<String> getUsernames() {
+        List<String> usernames = new ArrayList<>();
+        usernames.add(usernameField.getText());
+        return usernames;
+    }
+
+    @Override
+    public int getNumOfRoundsChoice() {
+        System.out.println("get num of rounds choice=" + Integer.parseInt((String)roundSelectionBox.getSelectedItem()));
+        return Integer.parseInt((String)roundSelectionBox.getSelectedItem());
+    }
+
     private void setUpButtonListeners() {
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -96,6 +109,7 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
            }
        });
 
+       // TODO add focus lost listener
        backgroundImageLabel.addMouseListener(new MouseAdapter() {
            @Override
            public void mouseClicked(MouseEvent e) {
@@ -109,19 +123,15 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
            @Override
            public void actionPerformed(ActionEvent e) {
                if (!(usernameField.getText().equals("") || usernameField.getText().equals("Enter username:")))
-                   if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
-                       LoadingScreenFrame loadingScreenFrame=new LoadingScreenFrame();
-                       OnePlayerSelectionFrame.this.setVisible(false);
-                       Timer timer=new Timer();
-                       TimerTask timerTask=new TimerTask() {
-                           @Override
-                           public void run() {
-                               loadingScreenFrame.setVisible(false);
-                               //OnePlayerFrame onePlayerFrame=new OnePlayerFrame(OnePlayerSelectionFrame.this);
-                               OnePlayerBettingFrame bettingFrame=new OnePlayerBettingFrame(OnePlayerSelectionFrame.this);
-                           }
-                       };
-                       timer.schedule(timerTask,1000);
+                    if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
+                        LoadingScreenFrame loadingScreenFrame=  new LoadingScreenFrame();
+                        OnePlayerSelectionFrame.this.setVisible(false);
+                        FrontController.getInstance().dispatchRequest(new LoadRequest());
+                        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+                        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+                        FrontController.getInstance().setView(OnePlayerFrame.getInstance());
+                        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(null));
+                        loadingScreenFrame.dispose();
                    }
            }
        });

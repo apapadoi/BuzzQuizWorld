@@ -34,4 +34,6 @@ public class PointBuilder extends Gamemode {
     public void actionIfCorrectAnswer(Model model) {
         model.updateScore(1000);
     }
+
+
 }

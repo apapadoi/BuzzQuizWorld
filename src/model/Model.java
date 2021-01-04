@@ -1,9 +1,8 @@
 package model;
 
 import model.fileHandler.FileHandler;
-import model.gamemodes.NumerablePlayersGamemode;
-import model.gamemodes.OnePlayerGamemodes;
 import model.player.Player;
+import model.questions.Question;
 import model.round.Round;
 import java.util.*;
 
@@ -14,7 +13,7 @@ import java.util.*;
  * @version 29.11.2020
  */
 public class Model{
-    private final Player player;
+    private final List<Player> players;
     private List<Round> rounds;
     private final List<String> validAnswers;
 
@@ -23,7 +22,11 @@ public class Model{
      * */
     public Model() {
         this.validAnswers = new ArrayList<>(List.of("1","2","3","4"));
-        player = new Player();
+        players = new ArrayList<>();
+    }
+
+    public List<Player> getPlayers() {
+        return this.players;
     }
 
     /**
@@ -39,8 +42,8 @@ public class Model{
      * @param username the new username of the player
      * @see Player
      */
-    public void setUsername(String username) {
-        player.setUsername(username);
+    public void setUsername(String username,int index) {
+        players.get(index).setUsername(username);
     }
 
     /**
@@ -59,18 +62,8 @@ public class Model{
     public void setNumOfRoundsChoice(int choice, FileHandler fileHandler) {
         rounds = new ArrayList<>(choice);
         for (int i = 0; i < choice; i++) {
-            rounds.add(new Round(this.chooseGamemodesForCurrentNumOfPlayers(),fileHandler));
+            rounds.add(new Round(fileHandler));
         }
-    }
-
-    /**
-     * Returns an object depending the number of players that can play the game. In this version the game can be player by one player only so
-     * an object of {@code OnePlayerGamemodes} is returned. If new number of players support needs to be added then this method must be updated
-     * with the new class implementing the {@code NumerablePlayersGamemode} interface.
-     * @return an object that will provide random gamemodes depending the number of player as {@code NumerablePlayersGamemode}
-     */
-    private NumerablePlayersGamemode chooseGamemodesForCurrentNumOfPlayers() {
-        return new OnePlayerGamemodes();
     }
 
     /**
@@ -85,16 +78,16 @@ public class Model{
      * Returns the player's name
      * @return the player's name as {@code String}.
      */
-    public String getUsername() {
-        return this.player.getUsername();
+    public String getUsername(int index) {
+        return this.players.get(index).getUsername();
     }
 
     /**
      * Returns the player's score
      * @return the player's score as {@code int}}
      */
-    public int getScore() {
-        return this.player.getScore();
+    public int getScore(int index) {
+        return this.players.get(index).getScore();
     }
 
     /**
@@ -111,7 +104,24 @@ public class Model{
      * No checking is done on the {@code amount} parameter's value.
      * @param amount The amount we want to add to the player's score.
      */
+    public void updateScore(int amount,int index) {
+        this.players.get(index).addScore(amount);
+    }
+
+
     public void updateScore(int amount) {
-        this.player.addScore(amount);
+        System.out.println("update score");
+        this.players.get(0).addScore(amount);
+    }
+
+    @Deprecated
+    public int getScore() { return 0; }
+
+    @Deprecated
+    public String getUsername() { return null; }
+
+    public void setUsernames(List<String> usernames) {
+        for(String username : usernames)
+            this.players.add(new Player(username,0,0));
     }
 }

@@ -29,6 +29,11 @@ public class StopTheClock extends Gamemode{
 
     @Override
     public void actionsIfCorrectAnswer(Model model, int millis) {
-        model.updateScore((int)((this.availableTime*1000-millis)*0.2));
+        model.updateScore((int)(millis*0.2));
+    }
+
+    @Override
+    public boolean hasTimer() {
+        return true;
     }
 }

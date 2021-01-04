@@ -1,10 +1,14 @@
 package view.gui;
 
+import controller.FrontController;
+import controller.requests.SetBetAmountRequest;
+import model.questions.Category;
 import resources.images.Image;
 import resources.images.ImageFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +17,6 @@ import static resources.images.Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG;
 
 public class OnePlayerBettingFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
-    private OnePlayerFrame onePlayerFrame;
-    private OnePlayerSelectionFrame onePlayerSelectionFrame;
     private JPanel bettingPanel;
     private JLabel bettingLabel;
     private JPanel labelsPanel;
@@ -27,13 +29,14 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
     private JButton bettingAmountButton2;
     private JButton bettingAmountButton3;
     private JButton bettingAmountButton4;
+    private JLabel categoryLabel;
 
-    public OnePlayerBettingFrame(OnePlayerSelectionFrame onePlayerSelectionFrame){
-        this.onePlayerSelectionFrame=onePlayerSelectionFrame;
+    public OnePlayerBettingFrame(){
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
-        this.setVisible(true);
+        this.setUpButtonListeners();
+        //this.setVisible(true);
     }
 
     private void setComponentsPanel() {
@@ -50,6 +53,14 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
 
         bettingLabel=UtilGUI.getLabelInstance("Select your betting amount");
 
+        // TODO do it with Data Access Object design pattern
+        JLabel scoreLabel = new JLabel("Score : "+FrontController.getInstance().getModel().getScore(0));
+        scoreLabel.setFont(UtilGUI.getCustomFont());
+        scoreLabel.setForeground(Color.WHITE);
+        categoryLabel = new JLabel("Category : ");
+        categoryLabel.setFont(UtilGUI.getCustomFont());
+        categoryLabel.setForeground(Color.WHITE);
+
         labelsPanel=new JPanel();
         labelsPanel.setOpaque(false);
         labelsPanel.setLayout(new BoxLayout(labelsPanel,BoxLayout.Y_AXIS));
@@ -59,6 +70,8 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         labelsPanel.add(bettingPhaseLabel);
         labelsPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.064*UtilGUI.getScreenHeight()))));
         labelsPanel.add(bettingLabel);
+        labelsPanel.add(scoreLabel);
+        labelsPanel.add(categoryLabel);
 
         bettingPhasePanel.add(labelsPanel,BorderLayout.CENTER);
 
@@ -102,5 +115,23 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         bettingPanel.add(centerPanel,BorderLayout.CENTER);
         bettingPanel.add(bettingPhasePanel,BorderLayout.PAGE_START);
         backgroundImageLabel.add(bettingPanel);
+    }
+
+    private void setUpButtonListeners() {
+        ActionListener listener = e -> {
+            FrontController.getInstance().dispatchRequest(new SetBetAmountRequest(e));
+            OnePlayerFrame.getInstance().setVisible(true);
+            OnePlayerBettingFrame.this.dispose();
+        };
+
+        this.bettingAmountButton1.addActionListener(listener);
+        this.bettingAmountButton2.addActionListener(listener);
+        this.bettingAmountButton3.addActionListener(listener);
+        this.bettingAmountButton4.addActionListener(listener);
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        this.categoryLabel.setText("Category : "+category.toString());
     }
 }

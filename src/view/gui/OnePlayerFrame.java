@@ -1,16 +1,20 @@
 package view.gui;
 
-import controller.ButtonSoundListener;
+import controller.FrontController;
+import controller.requests.PreQuestionRequest;
+import controller.requests.UpdateDataRequest;
+import model.player.Player;
+import model.questions.Category;
 import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class OnePlayerFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
-    private OnePlayerSelectionFrame onePlayerSelectionFrame;
     private JPanel onePlayerPanel;
     private JPanel questionsPanel;
     private JLabel questionsLabel;
@@ -32,6 +36,24 @@ public class OnePlayerFrame extends JFrame implements GUI{
     private JPanel leftPanel;
     private JLabel gamemodeLabel;
     private JLabel categoryLabel;
+    private static final OnePlayerFrame instance;
+    private final Timer timer;
+    private int count = 10000;
+    private boolean hasTimer = false;
+
+    static {
+        instance = new OnePlayerFrame();
+    }
+
+    public void setHasTimer(boolean b) { this.hasTimer = b; }
+
+    public void restartCount() { this.count = 10000; }
+
+    public void stopTimer() { this.timer.stop(); }
+
+    public void startTimer() { this.timer.start(); }
+
+    public int getCount() { return this.count; }
 
     private void setComponentsPanel() {
         onePlayerPanel=new JPanel();
@@ -44,13 +66,13 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 (int)(0.027*UtilGUI.getScreenHeight()),0));
         questionsPanel.setOpaque(false);
 
-
-        questionsLabel =new JLabel("<html>What is the most visited country of<br/>all four given?</html>",SwingConstants.CENTER);
+        questionsLabel =new JLabel("",SwingConstants.CENTER);
         questionsLabel.setFont(UtilGUI.getCustomFont().deriveFont(100));
         questionsLabel.setForeground(Color.WHITE);
 
-        roundLabel=UtilGUI.getLabelInstance("Round 1");
-
+        roundLabel=new JLabel("");
+        roundLabel.setFont(UtilGUI.getCustomFont());
+        roundLabel.setForeground(Color.WHITE);
 
         roundPanel=new JPanel();
         roundPanel.setOpaque(false);
@@ -60,8 +82,9 @@ public class OnePlayerFrame extends JFrame implements GUI{
 
         roundPanel.add(roundLabel);
 
-        timerLabel=UtilGUI.getLabelInstance("30 seconds");
-
+        timerLabel=new JLabel("");
+        timerLabel.setFont(UtilGUI.getCustomFont());
+        timerLabel.setForeground(Color.WHITE);
 
         timerPanel=new JPanel();
         timerPanel.setOpaque(false);
@@ -77,10 +100,10 @@ public class OnePlayerFrame extends JFrame implements GUI{
         answersPanel=new JPanel();
         answersPanel.setOpaque(false);
         answersPanel.setLayout(new BoxLayout(answersPanel,BoxLayout.Y_AXIS));
-        answersButton1= UtilGUI.getButtonInstance("Spain");
-        answersButton2= UtilGUI.getButtonInstance("France");
-        answersButton3= UtilGUI.getButtonInstance("Fiji");
-        answersButton4= UtilGUI.getButtonInstance("Finland");
+        answersButton1= UtilGUI.getButtonInstance("");
+        answersButton2= UtilGUI.getButtonInstance("");
+        answersButton3= UtilGUI.getButtonInstance("");
+        answersButton4= UtilGUI.getButtonInstance("");
 
         answersPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),(int)(0.156*UtilGUI.getScreenWidth()),
                 (int)(0.157*UtilGUI.getScreenHeight()),(int)(0.052*UtilGUI.getScreenWidth())));
@@ -109,9 +132,13 @@ public class OnePlayerFrame extends JFrame implements GUI{
                     (int)(0.037*UtilGUI.getScreenHeight()),0));
         usernamePanel.setOpaque(false);
 
-        usernameLabel=UtilGUI.getLabelInstance("Username: papster");
+        usernameLabel=new JLabel();
+        usernameLabel.setFont(UtilGUI.getCustomFont());
+        usernameLabel.setForeground(Color.WHITE);
 
-        scoreLabel=UtilGUI.getLabelInstance("Score 1000");
+        scoreLabel=new JLabel();
+        scoreLabel.setFont(UtilGUI.getCustomFont());
+        scoreLabel.setForeground(Color.WHITE);
 
         usernamePanel.add(usernameLabel);
         usernamePanel.add(Box.createRigidArea(new Dimension(0,(int)(0.013*UtilGUI.getScreenHeight()))));
@@ -142,9 +169,13 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 (int)(0.015*UtilGUI.getScreenWidth()),0,0));
         leftPanel.setOpaque(false);
 
-        gamemodeLabel=UtilGUI.getLabelInstance("Gamemode: PointBuilder");
+        gamemodeLabel=new JLabel();
+        gamemodeLabel.setForeground(Color.WHITE);
+        gamemodeLabel.setFont(UtilGUI.getCustomFont().deriveFont(35));
 
-        categoryLabel=UtilGUI.getLabelInstance("Category: Sports");
+        categoryLabel=new JLabel();
+        categoryLabel.setForeground(Color.WHITE);
+        categoryLabel.setFont(UtilGUI.getCustomFont());
 
         leftPanel.add(gamemodeLabel);
         leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*UtilGUI.getScreenHeight()))));
@@ -162,13 +193,32 @@ public class OnePlayerFrame extends JFrame implements GUI{
         backgroundImageLabel.add(onePlayerPanel);
     }
 
-    public OnePlayerFrame(OnePlayerSelectionFrame onePlayerSelectionFrame){
-        this.onePlayerSelectionFrame=onePlayerSelectionFrame;
+    private OnePlayerFrame(){
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
-        this.setVisible(true);
+        FrontController.getInstance().setView(this);
+        timer =  new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(count<=0) {
+                    ((Timer) e.getSource()).stop();
+                } else {
+                    count -= 100;
+                }
+                if(hasTimer)
+                    OnePlayerFrame.this.timerLabel.setText(Integer.toString(count));
+                else
+                    OnePlayerFrame.this.timerLabel.setText("");
+            }
+        });
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(null));
+        // TODO this.setVisible(true);
+    }
+
+    public static OnePlayerFrame getInstance() {
+        return instance;
     }
 
     private void setUpButtonListeners() {
@@ -178,6 +228,20 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 createExitButtonFrame();
             }
         });
+
+        ActionListener updateListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OnePlayerFrame.this.timer.stop();
+                OnePlayerFrame.this.setVisible(false);
+                FrontController.getInstance().dispatchRequest(new UpdateDataRequest(e));
+                FrontController.getInstance().dispatchRequest(new PreQuestionRequest(e));
+            }
+        };
+        answersButton1.addActionListener(updateListener);
+        answersButton2.addActionListener(updateListener);
+        answersButton3.addActionListener(updateListener);
+        answersButton4.addActionListener(updateListener);
     }
 
     private void createExitButtonFrame(){
@@ -236,5 +300,46 @@ public class OnePlayerFrame extends JFrame implements GUI{
                 exitFrame.setVisible(false);
             }
         });
+    }
+
+    @Override
+    public void updateAnswers(List<String> answers) {
+        answersButton1.setText(answers.get(0));
+        answersButton2.setText(answers.get(1));
+        answersButton3.setText(answers.get(2));
+        answersButton4.setText(answers.get(3));
+    }
+
+    @Override
+    public void updateScore(List<Player> players) {
+        scoreLabel.setText("Score : "+String.valueOf(players.get(0).getScore()));
+    }
+
+    @Override
+    public void updateGamemode(String gamemodeName) {
+        gamemodeLabel.setText("Gamemode : "+gamemodeName);
+    }
+
+    @Override
+    public void updateQuestion(String question) {
+        StringBuilder string = new StringBuilder("<html>");
+        string.append(question);
+        string.append("</html>");
+        questionsLabel.setText(string.toString());
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        categoryLabel.setText("Category : "+category.toString());
+    }
+
+    @Override
+    public void updateRoundId(String id) {
+        roundLabel.setText("Round : "+id);
+    }
+
+    @Override
+    public void updateExtraJLabel(String text) {
+        this.timerLabel.setText(text);
     }
 }

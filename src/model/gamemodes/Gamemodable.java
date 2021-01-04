@@ -88,4 +88,6 @@ public interface Gamemodable {
      * @return the current gamemode as {@code String}
      * */
     String toString();
+
+    boolean hasTimer();
 }

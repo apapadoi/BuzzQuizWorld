@@ -1,16 +1,26 @@
 package view.gui;
 
+import controller.FrontController;
 import resources.images.Image;
 import resources.images.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FinishFrame extends JFrame implements GUI{
-    private final TwoPlayersGamemodeFrame gamemodeFrame;
+    private final GUI gamemodeFrame;
     private JPanel textPanel;
     private JPanel buttonsPanel;
+    private static final JButton respawnButton = UtilGUI.getButtonInstance("Respawn",(float)25.0);
+    private static final JButton titleScreenButton = UtilGUI.getButtonInstance("Title Screen",(float)25.0);
 
-    public FinishFrame(TwoPlayersGamemodeFrame gamemodeFrame){
+    @Override
+    public Dimension getSize() {
+        return super.getSize();
+    }
+
+    public FinishFrame(GUI gamemodeFrame){
         this.gamemodeFrame = gamemodeFrame;
         this.setUndecorated(true);
         this.setUpJFrameProperties();
@@ -37,6 +47,8 @@ public class FinishFrame extends JFrame implements GUI{
         this.setUpButtonsPanel();
         centralPanel.add(buttonsPanel,BorderLayout.PAGE_END);
         this.setContentPane(centralPanel);
+        this.setUpButtonListeners();
+        this.setVisible(true);
     }
 
     private void setUpButtonsPanel() {
@@ -46,8 +58,8 @@ public class FinishFrame extends JFrame implements GUI{
         this.buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,UtilGUI.getScreenWidth()*375/1130,
                 UtilGUI.getScreenHeight()*125/527,UtilGUI.getScreenWidth()*380/1130));
 
-        this.buttonsPanel.add(UtilGUI.getButtonInstance("Respawn",(float)25.0));
-        this.buttonsPanel.add(UtilGUI.getButtonInstance("Title Screen",(float)25.0));
+        this.buttonsPanel.add(respawnButton);
+        this.buttonsPanel.add(titleScreenButton);
     }
 
     private void setUpTextPanel() {
@@ -58,9 +70,11 @@ public class FinishFrame extends JFrame implements GUI{
                 0,0));
         JLabel label = TwoPlayersGamemodeFrame.constructCustomJLabel("You died!",(float)70.0);
         textPanel.add(label);
-        label = TwoPlayersGamemodeFrame.constructCustomJLabel("testUsername couldn't even score above 500 points",(float)25.0);
+        int playerScore = FrontController.getInstance().getModel().getScore(0);
+        label = TwoPlayersGamemodeFrame.constructCustomJLabel(FrontController.getInstance().getModel().
+                getUsername(0)+ " couldn't even score above " + (playerScore+500) + " points",(float)25.0);
         textPanel.add(label);
-        label = TwoPlayersGamemodeFrame.constructCustomJLabel("Score : 100",(float)25.0);
+        label = TwoPlayersGamemodeFrame.constructCustomJLabel("Score : "+playerScore,(float)25.0);
         textPanel.add(label);
     }
 
@@ -74,5 +88,25 @@ public class FinishFrame extends JFrame implements GUI{
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch(Exception ignored){}
         this.setLayout(new BorderLayout());
+    }
+
+    private void setUpButtonListeners() {
+        respawnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PlayFrame(new IntroFrame());
+                FinishFrame.this.gamemodeFrame.dispose();
+                FinishFrame.this.dispose();
+            }
+        });
+
+        titleScreenButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new IntroFrame();
+                FinishFrame.this.gamemodeFrame.dispose();
+                FinishFrame.this.dispose();
+            }
+        });
     }
 }

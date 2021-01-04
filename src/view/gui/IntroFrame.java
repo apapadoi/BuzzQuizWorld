@@ -1,5 +1,6 @@
 package view.gui;
 
+import controller.FrontController;
 import javafx.embed.swing.JFXPanel;
 import resources.images.Image;
 import resources.images.ImageFactory;
@@ -21,6 +22,7 @@ public class IntroFrame extends JFrame implements GUI{
         this.setUpIconPanel();
         this.setUpButtonsPanel();
         this.setUpButtonListeners();
+        FrontController.getInstance().setView(this);
         this.setVisible(true);
     }
 
@@ -88,7 +90,6 @@ public class IntroFrame extends JFrame implements GUI{
         quitButton.addActionListener(e -> System.exit(0));
         playButton.addActionListener(e -> {
             new PlayFrame(IntroFrame.this);
-            IntroFrame.this.setVisible(false);
         });
         quitButton.addActionListener(e -> System.exit(0));
     }

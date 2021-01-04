@@ -38,6 +38,10 @@ public class HighStakes extends Gamemode {
     @Override
     public String toString() { return "High Stakes";}
 
+    public int getMinBet() {
+        return Collections.min(availableBets);
+    }
+
     /**
      * If the players answers correct update his score using the model component.
      * @see Gamemode
@@ -84,8 +88,8 @@ public class HighStakes extends Gamemode {
      * Checks if player has 0 score and if he has, adds 250 points so he can bet.
      * @param model instance of {@code Model} class
      */
-    private void checkZeroScoreAndUpdate(Model model) {
-        if (model.getScore()==0) {
+    public void checkZeroScoreAndUpdate(Model model) {
+        if (model.getScore(0)==0) {
             model.updateScore(250);
         }
     }
@@ -120,7 +124,6 @@ public class HighStakes extends Gamemode {
             throw new NumberFormatException("Not a number!");
         }
     }
-
     /**
      * Returns the available bets and an ask message for the player.
      * @see Gamemode
