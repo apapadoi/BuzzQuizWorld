@@ -32,13 +32,11 @@ public class OptionsFrame extends JFrame implements GUI{
         buttonsPanel.setOpaque(false);
         buttonsPanel.setLayout(new GridLayout(1,1));
 
-        JPanel optionsTextPanel = new JPanel();
-        optionsTextPanel.setOpaque(false);
-        optionsTextPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()/10,0,0,0));
-        JLabel optionsTextLabel = new JLabel("Options");
-        optionsTextLabel.setFont(UtilGUI.getCustomFont());
-        optionsTextLabel.setForeground(Color.WHITE);
-        optionsTextPanel.add(optionsTextLabel,BorderLayout.CENTER);
+        this.optionsTextPanel = new JPanel();
+        this.optionsTextPanel.setOpaque(false);
+        this.optionsTextPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()/10,0,0,0));
+        this.optionsTextLabel=UtilGUI.getLabelInstance("Options");
+        this.optionsTextPanel.add(optionsTextLabel,BorderLayout.CENTER);
         backgroundImageLabel.add(optionsTextPanel,BorderLayout.PAGE_START);
 
         JPanel languageFullScreenPanel = new JPanel();

@@ -253,14 +253,12 @@ public class OnePlayerFrame extends JFrame implements GUI{
         exitFrame.setResizable(false);
         exitFrame.setLocationRelativeTo(null);
         JPanel exitPanel=new JPanel();
-        JLabel exitLabel=new JLabel("Are you sure you want to exit?");
+        JLabel exitLabel=UtilGUI.getLabelInstance("Are you sure you want to exit?");
+        exitLabel.setForeground(Color.BLACK);
         JButton yesButton= UtilGUI.getButtonInstance("Yes");
         JButton noButton= UtilGUI.getButtonInstance("No");
         JPanel buttonsPanel=new JPanel();
         JPanel labelsPanel=new JPanel();
-
-        exitLabel.setFont(UtilGUI.getCustomFont());
-        exitLabel.setForeground(Color.BLACK);
 
         exitPanel.setLayout(new BorderLayout());
 
