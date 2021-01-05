@@ -2,7 +2,6 @@ package view.gui;
 
 import model.player.Player;
 import model.questions.Category;
-
 import java.awt.*;
 import java.util.List;
 
@@ -19,6 +18,12 @@ public interface GUI {
     default void updateRoundId(String id) {}
     default Dimension getSize() { return null; }
     default void setVisible(boolean b) {}
-    default void updateExtraJLabel(String text) {}
+    default void updateTimerLabel(String text) {}
     default void dispose() {}
+    default void setHasTimer(boolean b) {}
+    default void restartCount() {}
+    default void stopTimer() {}
+    default void startTimer() {}
+    default int getCount() { return 0; }
+    default GUI getPreQuestionFrame() { return null; }
 }

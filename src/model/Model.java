@@ -2,7 +2,6 @@ package model;
 
 import model.fileHandler.FileHandler;
 import model.player.Player;
-import model.questions.Question;
 import model.round.Round;
 import java.util.*;
 
@@ -15,26 +14,16 @@ import java.util.*;
 public class Model{
     private final List<Player> players;
     private List<Round> rounds;
-    private final List<String> validAnswers;
 
     /**
      * Default constructor.
      * */
     public Model() {
-        this.validAnswers = new ArrayList<>(List.of("1","2","3","4"));
         players = new ArrayList<>();
     }
 
     public List<Player> getPlayers() {
         return this.players;
-    }
-
-    /**
-     * Returns the valid answers that the player can type.
-     * @return the valid answers that the player can type as {@code List<String>}
-     */
-    public List<String> getValidAnswers() {
-        return this.validAnswers;
     }
 
     /**
@@ -46,13 +35,6 @@ public class Model{
         players.get(index).setUsername(username);
     }
 
-    /**
-     * Returns the version of the game as {@code String}.
-     * @return String
-     */
-    public String getVersion() {
-        return "6.12.2020";
-    }
 
     /**
      * Initializes as many as number of rounds the player chose.
@@ -107,18 +89,6 @@ public class Model{
     public void updateScore(int amount,int index) {
         this.players.get(index).addScore(amount);
     }
-
-
-    public void updateScore(int amount) {
-        System.out.println("update score");
-        this.players.get(0).addScore(amount);
-    }
-
-    @Deprecated
-    public int getScore() { return 0; }
-
-    @Deprecated
-    public String getUsername() { return null; }
 
     public void setUsernames(List<String> usernames) {
         for(String username : usernames)

@@ -6,14 +6,14 @@ import model.Model;
  * This class represents the gamemode Point Builder. If the player answers correct he earns 1000 points.
  *
  * @author Tasos Papadopoulos
- * @version 5.12.2020
+ * @version 4.1.2021
  */
 public class PointBuilder extends Gamemode {
     /**
      * Default Constructor.
      */
     public PointBuilder() {
-        super("Each player that answers correctly earns 1000 points.",15);
+        super("Each player that answers correctly earns 1000 points.");
     }
 
     /**
@@ -31,9 +31,7 @@ public class PointBuilder extends Gamemode {
      * @param model instance of {@code Model} class
      */
     @Override
-    public void actionIfCorrectAnswer(Model model) {
-        model.updateScore(1000);
+    public void actionIfCorrectAnswer(Model model, int playerIndex) {
+        model.updateScore(1000, playerIndex);
     }
-
-
 }

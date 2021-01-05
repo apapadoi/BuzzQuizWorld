@@ -88,13 +88,7 @@ public class IntroFrame extends JFrame implements GUI{
         optionsButton.addActionListener(e -> new OptionsFrame(IntroFrame.this));
         scoresButton.addActionListener(e -> new ScoresFrame(IntroFrame.this));
         quitButton.addActionListener(e -> System.exit(0));
-        playButton.addActionListener(e -> {
-            new PlayFrame(IntroFrame.this);
-        });
+        playButton.addActionListener(e -> new PlayFrame(IntroFrame.this));
         quitButton.addActionListener(e -> System.exit(0));
-    }
-
-    public static void main(String[] args) {
-        new IntroFrame();
     }
 }

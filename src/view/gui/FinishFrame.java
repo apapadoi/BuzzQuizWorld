@@ -68,13 +68,13 @@ public class FinishFrame extends JFrame implements GUI{
         this.textPanel.setLayout(new GridLayout(3,1,0,0));
         this.textPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()*95/527,0,
                 0,0));
-        JLabel label = TwoPlayersGamemodeFrame.constructCustomJLabel("You died!",(float)70.0);
+        JLabel label = UtilGUI.getLabelInstance("You died!",(float)70.0);
         textPanel.add(label);
         int playerScore = FrontController.getInstance().getModel().getScore(0);
-        label = TwoPlayersGamemodeFrame.constructCustomJLabel(FrontController.getInstance().getModel().
+        label = UtilGUI.getLabelInstance(FrontController.getInstance().getModel().
                 getUsername(0)+ " couldn't even score above " + (playerScore+500) + " points",(float)25.0);
         textPanel.add(label);
-        label = TwoPlayersGamemodeFrame.constructCustomJLabel("Score : "+playerScore,(float)25.0);
+        label = UtilGUI.getLabelInstance("Score : "+playerScore,(float)25.0);
         textPanel.add(label);
     }
 

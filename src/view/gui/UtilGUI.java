@@ -81,6 +81,7 @@ public class UtilGUI {
 
     public static JLabel getLabelInstance(String labelText) {
         JLabel label=new JLabel(labelText);
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(UtilGUI.getCustomFont());
         label.setForeground(Color.WHITE);
 
@@ -89,7 +90,9 @@ public class UtilGUI {
 
     public static JLabel getLabelInstance(String labelText,float fontSize) {
         JLabel label=getLabelInstance(labelText);
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(UtilGUI.getCustomFont().deriveFont(fontSize));
+        label.setForeground(Color.WHITE);
 
         return label;
     }

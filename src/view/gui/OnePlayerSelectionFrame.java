@@ -87,7 +87,6 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
 
     @Override
     public int getNumOfRoundsChoice() {
-        System.out.println("get num of rounds choice=" + Integer.parseInt((String)roundSelectionBox.getSelectedItem()));
         return Integer.parseInt((String)roundSelectionBox.getSelectedItem());
     }
 
@@ -130,7 +129,8 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
                         FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
                         FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
                         FrontController.getInstance().setView(OnePlayerFrame.getInstance());
-                        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(null));
+                        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
+                                OnePlayerFrame.getInstance()));
                         loadingScreenFrame.dispose();
                    }
            }

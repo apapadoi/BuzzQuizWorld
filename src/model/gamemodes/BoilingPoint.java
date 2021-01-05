@@ -24,7 +24,7 @@ public class BoilingPoint extends Gamemode{
 
 
     @Override
-    public void actionsIfCorrectAnswer(Model model, int millis) {
+    public void actionIfCorrectAnswer(Model model, int millis, int playerIndex) {
 
     }
 }
