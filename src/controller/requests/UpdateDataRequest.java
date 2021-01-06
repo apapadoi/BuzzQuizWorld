@@ -6,23 +6,24 @@ import model.questions.Question;
 import model.round.Round;
 import view.gui.FinishFrame;
 import view.gui.GUI;
-import view.gui.OnePlayerFrame;
+import view.gui.TwoPlayersFrame;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
+import java.util.HashMap;
 
 public class UpdateDataRequest extends Request{
-    private final ActionEvent e;
+    private final int answerIndex;
 
-    public UpdateDataRequest(ActionEvent e) {
-        this.e = e;
+    public UpdateDataRequest(int playerIndex, int answerIndex, int msLeft) {
+        super(playerIndex);
+        this.answerIndex = answerIndex;
+        Model.getInstance().putResponseTime(playerIndex, msLeft);
     }
 
     @Override
     public void execute(Dispatcher dispatcher) {
         Model model = dispatcher.getModel();
         GUI view = dispatcher.getView();
-        if(this.e==null) {
+        if(answerIndex==-1 || playerIndex==-1) {
             view.updateAnswers(model.getRound(0).getQuestions().get(0).getAnswers());
             view.updateCategory(model.getRound(0).getQuestions().get(0).getCategory());
             view.updateGamemode(model.getRound(0).getGamemodeString());
@@ -32,13 +33,33 @@ public class UpdateDataRequest extends Request{
             return;
         }
 
+        HashMap<Integer, Boolean> playersAnswered = Model.getInstance().getPlayersAnswered();
+        int maxPlayers = Model.getInstance().getMaxPlayers();
+        HashMap<Integer, Integer> responseTimes = Model.getInstance().getResponseTimes();
+
+        if(playersAnswered.get(playerIndex).equals(true))
+            return;
+
+        playersAnswered.put(playerIndex, true);
         Round currentRound = model.getRound(roundId);
         Question currentQuestion = currentRound.getQuestions().get(questionId);
-        JButton buttonPressed = (JButton)e.getSource();
-        if(buttonPressed.getText().equals(currentQuestion.getCorrectAnswer()))
-            currentRound.actionIfCorrectAnswer(model);
+        if(currentQuestion.getAnswers().get(answerIndex).equals(currentQuestion.getCorrectAnswer()))
+            currentRound.actionIfCorrectAnswer(model, this.playerIndex);
         else
-            currentRound.actionIfWrongAnswer(model);
+            currentRound.actionIfWrongAnswer(model, this.playerIndex);
+
+        if(playersAnswered.values().stream().distinct().count()<=1) {
+            if(playersAnswered.get(0).equals(true)) {
+                for(int i=0;i<maxPlayers;i++)
+                    playersAnswered.put(i, false);
+                for(int i=0;i<maxPlayers;i++)
+                    responseTimes.put(i, 0);
+            } else {
+                return;
+            }
+        } else {
+            return;
+        }
 
         questionId++;
         if(questionId==questionsPerRound) {
@@ -60,6 +81,5 @@ public class UpdateDataRequest extends Request{
         view.updateQuestion(currentQuestion.getQuestionText());
         view.updateScore(model.getPlayers());
         view.updateRoundId(String.valueOf(roundId + 1));
-
     }
 }

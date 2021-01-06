@@ -1,50 +1,50 @@
 package controller.requests;
 
 import controller.Dispatcher;
-import controller.FrontController;
 import model.Model;
-import model.gamemodes.HighStakes;
+import model.gamemodes.Gamemodable;
 import model.round.Round;
-import view.gui.OnePlayerBettingFrame;
-import view.gui.OnePlayerFrame;
-import java.awt.event.ActionEvent;
+import view.gui.GUI;
 
+/**
+ * This class represents a request for pre question actions e.g. betting phase for High Stakes gamemode.
+ * @author Tasos Papadopoulos
+ * @version 5.1.2021
+ */
 public class PreQuestionRequest extends Request{
-    private final ActionEvent e;
+    private final GUI gamemodeFrame;
 
-    public PreQuestionRequest(ActionEvent e) {
-        this.e = e;
+    public PreQuestionRequest(GUI gamemodeFrame) {
+        this.gamemodeFrame = gamemodeFrame;
     }
 
     @Override
     public void execute(Dispatcher dispatcher) {
-        Model model = dispatcher.getModel();
+        Model model = Model.getInstance();
 
+        // if rounds are over
         if(roundId == model.getNumOfRounds())
             return;
 
         Round currentRound = model.getRound(Request.roundId);
-        if(currentRound.getGamemode().hasTimer())
-            OnePlayerFrame.getInstance().setHasTimer(true);
-        else
-            OnePlayerFrame.getInstance().setHasTimer(false);
+        gamemodeFrame.setHasTimer(currentRound.getGamemode().hasTimer());
+
+        // if there are no pre-question actions
         if(!currentRound.hasPreQuestionFormat()) {
-            // TODO ADD IF HAS TIMER METHOD FOR GAMEMODES
-            OnePlayerFrame.getInstance().restartCount();
-            // TODO probably not needed
-            dispatcher.getView().updateExtraJLabel(String.valueOf(OnePlayerFrame.getInstance().getCount()/1000.0) + "seconds" );
-            OnePlayerFrame.getInstance().startTimer();
-            OnePlayerFrame.getInstance().setVisible(true);
+            gamemodeFrame.restartCount();
+            gamemodeFrame.startTimer();
+            gamemodeFrame.setVisible(true);
             return;
         }
-        HighStakes currentGamemode = (HighStakes)currentRound.getGamemode();
-        currentGamemode.checkZeroScoreAndUpdate(model);
-        OnePlayerBettingFrame betFrame = new OnePlayerBettingFrame();
-        FrontController.getInstance().setView(betFrame);
-        dispatcher.getView().updateCategory(currentRound.getQuestions().get(questionId).getCategory());
-        FrontController.getInstance().setView(OnePlayerFrame.getInstance());
-        betFrame.setVisible(true);
-        // TODO THE PRE QUESTION ACTIONS
 
+        // otherwise there are pre question actions
+        Gamemodable currentGamemode = currentRound.getGamemode();
+        for(int i=0;i<dispatcher.getModel().getPlayers().size();i++)
+            currentGamemode.checkZeroScoreAndUpdate(model, i);
+
+        GUI preQuestionFrame = gamemodeFrame.getPreQuestionFrame();
+        preQuestionFrame.updateCategory(currentRound.getQuestions().get(questionId).getCategory());
+        preQuestionFrame.updateScore(Model.getInstance().getPlayers());
+        preQuestionFrame.setVisible(true);
     }
 }

@@ -2,20 +2,18 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
+import model.Model;
+import model.player.Player;
 import model.questions.Category;
-import resources.images.Image;
-import resources.images.ImageFactory;
-
+import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-
-import static resources.images.Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OnePlayerBettingFrame extends JFrame implements GUI{
+    private static final OnePlayerBettingFrame instance = new OnePlayerBettingFrame();
     private JLabel backgroundImageLabel;
     private JPanel bettingPanel;
     private JLabel bettingLabel;
@@ -30,8 +28,13 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
     private JButton bettingAmountButton3;
     private JButton bettingAmountButton4;
     private JLabel categoryLabel;
+    private JLabel scoreLabel;
 
-    public OnePlayerBettingFrame(){
+    public static OnePlayerBettingFrame getInstance() {
+        return instance;
+    }
+
+    private OnePlayerBettingFrame(){
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
@@ -53,8 +56,8 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
 
         bettingLabel=UtilGUI.getLabelInstance("Select your betting amount");
 
-        // TODO do it with Data Access Object design pattern
-        JLabel scoreLabel = new JLabel("Score : "+FrontController.getInstance().getModel().getScore(0));
+
+        scoreLabel = new JLabel("Score : "+ Model.getInstance().getScore(0));
         scoreLabel.setFont(UtilGUI.getCustomFont());
         scoreLabel.setForeground(Color.WHITE);
         categoryLabel = new JLabel("Category : ");
@@ -116,10 +119,12 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         bettingPanel.add(bettingPhasePanel,BorderLayout.PAGE_START);
         backgroundImageLabel.add(bettingPanel);
     }
-
+    // TODO SET ACTION COMMANDS IN ALL BUTTONS
     private void setUpButtonListeners() {
         ActionListener listener = e -> {
-            FrontController.getInstance().dispatchRequest(new SetBetAmountRequest(e));
+            List<Integer> betsSelected = new ArrayList<>();
+            betsSelected.add(Integer.parseInt(e.getActionCommand()));
+            FrontController.getInstance().dispatchRequest(new SetBetAmountRequest(betsSelected));
             OnePlayerFrame.getInstance().setVisible(true);
             OnePlayerBettingFrame.this.dispose();
         };
@@ -133,5 +138,10 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
     @Override
     public void updateCategory(Category category) {
         this.categoryLabel.setText("Category : "+category.toString());
+    }
+
+    @Override
+    public void updateScore(List<Player> players) {
+        instance.scoreLabel.setText("Score : "+ players.get(0).getScore());
     }
 }

@@ -1,8 +1,8 @@
 package model;
 
 import model.fileHandler.FileHandler;
+import model.gamemodes.factories.GamemodeFactory;
 import model.player.Player;
-import model.questions.Question;
 import model.round.Round;
 import java.util.*;
 
@@ -13,28 +13,41 @@ import java.util.*;
  * @version 29.11.2020
  */
 public class Model{
+    private static final Model instance = new Model();
     private final List<Player> players;
+    private final HashMap<Integer,Boolean> playersAnswered;
+    private final HashMap<Integer, Integer> responseTimes;
+    private int maxPlayers = 2;
     private List<Round> rounds;
-    private final List<String> validAnswers;
+    private GamemodeFactory gamemodeFactory;
 
     /**
      * Default constructor.
      * */
-    public Model() {
-        this.validAnswers = new ArrayList<>(List.of("1","2","3","4"));
+    private Model() {
         players = new ArrayList<>();
+        playersAnswered = new HashMap<>(maxPlayers);
+        for(int i=0;i<maxPlayers;i++)
+            playersAnswered.put(i, false);
+        responseTimes = new HashMap<>(maxPlayers);
+        for(int i=0;i<maxPlayers;i++)
+            responseTimes.put(i, 0);
+    }
+
+    public void setGamemodeFactory(GamemodeFactory gamemodeFactory) {
+        this.gamemodeFactory = gamemodeFactory;
+    }
+
+    public GamemodeFactory getGamemodeFactory() {
+        return gamemodeFactory;
+    }
+
+    public static Model getInstance() {
+        return instance;
     }
 
     public List<Player> getPlayers() {
         return this.players;
-    }
-
-    /**
-     * Returns the valid answers that the player can type.
-     * @return the valid answers that the player can type as {@code List<String>}
-     */
-    public List<String> getValidAnswers() {
-        return this.validAnswers;
     }
 
     /**
@@ -46,13 +59,6 @@ public class Model{
         players.get(index).setUsername(username);
     }
 
-    /**
-     * Returns the version of the game as {@code String}.
-     * @return String
-     */
-    public String getVersion() {
-        return "6.12.2020";
-    }
 
     /**
      * Initializes as many as number of rounds the player chose.
@@ -108,20 +114,38 @@ public class Model{
         this.players.get(index).addScore(amount);
     }
 
-
-    public void updateScore(int amount) {
-        System.out.println("update score");
-        this.players.get(0).addScore(amount);
-    }
-
-    @Deprecated
-    public int getScore() { return 0; }
-
-    @Deprecated
-    public String getUsername() { return null; }
-
     public void setUsernames(List<String> usernames) {
         for(String username : usernames)
             this.players.add(new Player(username,0,0));
+    }
+
+    public void setMaxPlayers(int newMaxPlayers) {
+        maxPlayers = newMaxPlayers;
+        for(int i=maxPlayers;i<playersAnswered.size();i++)
+            playersAnswered.put(i, true);
+    }
+
+    public void putResponseTime(int playerIndex, int msLeft) {
+        responseTimes.put(playerIndex, msLeft);
+    }
+
+    public boolean allAnswered() {
+        return playersAnswered.values().stream().distinct().count()<=1;
+    }
+
+    public int getMsLeft(int playerIndex) {
+        return responseTimes.get(playerIndex);
+    }
+
+    public HashMap<Integer, Boolean> getPlayersAnswered() {
+        return playersAnswered;
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public HashMap<Integer, Integer> getResponseTimes() {
+        return responseTimes;
     }
 }

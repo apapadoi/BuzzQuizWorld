@@ -28,8 +28,8 @@ public class StopTheClock extends Gamemode{
     }
 
     @Override
-    public void actionsIfCorrectAnswer(Model model, int millis) {
-        model.updateScore((int)(millis*0.2));
+    public void actionIfCorrectAnswer(Model model, int millis, int playerIndex) {
+        model.updateScore((int)(millis*0.2), playerIndex);
     }
 
     @Override

@@ -3,12 +3,7 @@ package model.round;
 import model.fileHandler.FileHandler;
 import model.Model;
 import model.gamemodes.Gamemodable;
-import model.gamemodes.GamemodeFactory;
 import model.questions.Question;
-import view.gui.OnePlayerFrame;
-
-import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -16,7 +11,7 @@ import java.util.List;
  *
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
- * @version 29.11.2020
+ * @version 6.1.2021
  */
 public class Round {
     private final List<Question> questions;
@@ -30,7 +25,7 @@ public class Round {
      * */
     public Round(FileHandler fileHandler) {
         this.questions = fileHandler.getNextQuestions();
-        this.gamemode = GamemodeFactory.getRandomGamemode();
+        this.gamemode = Model.getInstance().getGamemodeFactory().getRandomGamemode();
         this.questionIndex = 0;
     }
 
@@ -79,48 +74,12 @@ public class Round {
 
     /**
      * Calls the corresponding method of round's current gamemode.
-     * @see Gamemodable
-     * @param model an instance of {@code Model} class
-     * @param currentQuestion the current question
-     * @param roundId the round's id with offset 0
-     * @return the question format for the current gamemode as {@code String}
-     */
-    @Deprecated
-    public String getQuestionFormat(Model model,Question currentQuestion, int roundId) {
-        return gamemode.getQuestionFormat(model,currentQuestion,roundId);
-    }
-
-    /**
-     * Calls the corresponding method of round's current gamemode.
      * Returns whether or not the current gamemode has pre question phase.
      * @see Gamemodable
      * @return whether or not the current gamemode has pre question phase as {@code boolean}
      */
     public boolean hasPreQuestionFormat() {
-        return this.gamemode.hasPreQuestionFormat();
-    }
-
-    /**
-     * Calls the corresponding method of round's current gamemode.
-     * @see Gamemodable
-     * @param model an instance of {@code Model} class
-     * @param currentQuestion the current question
-     * @return the pre-question format for the current gamemode as {@code String}
-     */
-    public String getPreQuestionFormat(Model model, Question currentQuestion) {
-        return this.gamemode.getPreQuestionFormat(model,currentQuestion);
-    }
-
-    /**
-     * Calls the corresponding method of round's current gamemode.
-     * @see Gamemodable
-     * @param model an instance of {@code Model} class
-     * @throws NumberFormatException if the user did not type an integer at all
-     * @throws InputMismatchException if the user typed a valid type of input but not a valid logical input
-     */
-    @Deprecated // TODO ?
-    public void actionsPreQuestionsPhase(Model model) throws NumberFormatException, InputMismatchException {
-        this.gamemode.actionsPreQuestionsPhase(model);
+        return this.gamemode.hasPreQuestionPhase();
     }
 
     public Gamemodable getGamemode() {
@@ -129,12 +88,11 @@ public class Round {
 
     /**
      * Calls the corresponding method of round's current gamemode.
-     * Returns the pre-question message that will be shown before an input request is asked to the user.
      * @see Gamemodable
-     * @return the pre-question message for the current gamemode as {@code String}
+     * @param model an instance of {@code Model} class
      */
-    public String getPreQuestionAskMessage() {
-        return this.gamemode.getPreQuestionAskMessage();
+    public void actionIfCorrectAnswer(Model model, int playerIndex) {
+        this.gamemode.actionIfCorrectAnswer(model, Model.getInstance().getMsLeft(playerIndex), playerIndex);
     }
 
     /**
@@ -142,17 +100,7 @@ public class Round {
      * @see Gamemodable
      * @param model an instance of {@code Model} class
      */
-    public void actionIfCorrectAnswer(Model model) {
-        // TODO remove OnePlayerFrame.getInstance().getCount()
-        this.gamemode.actionsIfCorrectAnswer(model, OnePlayerFrame.getInstance().getCount());
-    }
-
-    /**
-     * Calls the corresponding method of round's current gamemode.
-     * @see Gamemodable
-     * @param model an instance of {@code Model} class
-     */
-    public void actionIfWrongAnswer(Model model) {
-        this.gamemode.actionIfWrongAnswer(model);
+    public void actionIfWrongAnswer(Model model, int playerIndex) {
+        this.gamemode.actionIfWrongAnswer(model, playerIndex);
     }
 }

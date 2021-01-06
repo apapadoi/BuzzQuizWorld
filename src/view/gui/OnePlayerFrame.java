@@ -3,14 +3,17 @@ package view.gui;
 import controller.FrontController;
 import controller.requests.PreQuestionRequest;
 import controller.requests.UpdateDataRequest;
+import model.Model;
+import model.gamemodes.factories.OnePlayerGamemodeFactory;
 import model.player.Player;
 import model.questions.Category;
-import resources.images.Image;
-import resources.images.ImageFactory;
+import resources.utilResources.Image;
+import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
 
 public class OnePlayerFrame extends JFrame implements GUI{
@@ -44,16 +47,6 @@ public class OnePlayerFrame extends JFrame implements GUI{
     static {
         instance = new OnePlayerFrame();
     }
-
-    public void setHasTimer(boolean b) { this.hasTimer = b; }
-
-    public void restartCount() { this.count = 10000; }
-
-    public void stopTimer() { this.timer.stop(); }
-
-    public void startTimer() { this.timer.start(); }
-
-    public int getCount() { return this.count; }
 
     private void setComponentsPanel() {
         onePlayerPanel=new JPanel();
@@ -208,13 +201,14 @@ public class OnePlayerFrame extends JFrame implements GUI{
                     count -= 100;
                 }
                 if(hasTimer)
-                    OnePlayerFrame.this.timerLabel.setText(Integer.toString(count));
+                    OnePlayerFrame.this.timerLabel.setText((count/1000.0)+" seconds");
                 else
                     OnePlayerFrame.this.timerLabel.setText("");
             }
         });
-        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(null));
-        // TODO this.setVisible(true);
+        // TODO add set max players to one selection frame
+        Model.getInstance().setMaxPlayers(1);
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
     }
 
     public static OnePlayerFrame getInstance() {
@@ -233,9 +227,21 @@ public class OnePlayerFrame extends JFrame implements GUI{
             @Override
             public void actionPerformed(ActionEvent e) {
                 OnePlayerFrame.this.timer.stop();
+                int answerIndex = -1;
+                JButton buttonPressed = (JButton)e.getSource();
+                if(buttonPressed.equals(answersButton1))
+                    answerIndex = 0;
+                else if(buttonPressed.equals(answersButton2))
+                        answerIndex = 1;
+                else if(buttonPressed.equals(answersButton3))
+                    answerIndex = 2;
+                else
+                    answerIndex = 3;
                 OnePlayerFrame.this.setVisible(false);
-                FrontController.getInstance().dispatchRequest(new UpdateDataRequest(e));
-                FrontController.getInstance().dispatchRequest(new PreQuestionRequest(e));
+                FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, answerIndex,
+                        count));
+                FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
+                        OnePlayerFrame.this));
             }
         };
         answersButton1.addActionListener(updateListener);
@@ -244,11 +250,16 @@ public class OnePlayerFrame extends JFrame implements GUI{
         answersButton4.addActionListener(updateListener);
     }
 
+    @Override
+    public GUI getPreQuestionFrame() {
+        return (GUI)OnePlayerBettingFrame.getInstance();
+    }
+
     private void createExitButtonFrame(){
         JFrame exitFrame=new JFrame();
         exitFrame.setTitle("Exit");
         exitFrame.setSize((int)(0.234*UtilGUI.getScreenWidth()),(int)(0.120*UtilGUI.getScreenHeight()));
-        exitFrame.setIconImage(ImageFactory.createImage(resources.images.Image.APP_ICON).getImage());
+        exitFrame.setIconImage(ImageFactory.createImage(Image.APP_ICON).getImage());
         exitFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         exitFrame.setResizable(false);
         exitFrame.setLocationRelativeTo(null);
@@ -339,7 +350,19 @@ public class OnePlayerFrame extends JFrame implements GUI{
     }
 
     @Override
-    public void updateExtraJLabel(String text) {
-        this.timerLabel.setText(text);
+    public void setHasTimer(boolean b) { this.hasTimer = b; }
+
+    @Override
+    public void restartCount() { this.count = 10000; }
+
+    @Override
+    public void stopTimer() { this.timer.stop(); }
+
+    @Override
+    public void startTimer() { this.timer.start(); }
+
+    @Override
+    public boolean hasMoreThanTwoPlayers() {
+        return false;
     }
 }

@@ -1,16 +1,22 @@
 package view.gui;
 
-import controller.ButtonSoundListener;
-import resources.images.Image;
-import resources.images.ImageFactory;
+import controller.FrontController;
+import controller.requests.AddNumOfRoundsRequest;
+import controller.requests.AddUsernamesRequest;
+import controller.requests.LoadRequest;
+import controller.requests.PreQuestionRequest;
+import model.Model;
+import model.gamemodes.factories.TwoPlayersGamemodeFactory;
+import resources.utilResources.Image;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TwoPlayersSelectionFrame extends JFrame implements GUI{
     private PlayFrame playFrame;
@@ -98,7 +104,21 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
         this.setUpButtonListeners();
+        FrontController.getInstance().setView(this);
         this.setVisible(true);
+    }
+
+    @Override
+    public List<String> getUsernames() {
+        List<String> usernames = new ArrayList<>();
+        usernames.add(usernameField1.getText());
+        usernames.add(usernameField2.getText());
+        return usernames;
+    }
+
+    @Override
+    public int getNumOfRoundsChoice() {
+        return Integer.parseInt((String)roundSelectionBox.getSelectedItem());
     }
 
     private void setUpButtonListeners() {
@@ -154,17 +174,15 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
                 || usernameField2.getText().equals("") || usernameField2.getText().equals("Enter username:")))
                         if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
                             LoadingScreenFrame loadingScreenFrame=new LoadingScreenFrame();
+                            Model.getInstance().setGamemodeFactory(TwoPlayersGamemodeFactory.getInstance());
                             TwoPlayersSelectionFrame.this.setVisible(false);
-                            Timer timer=new Timer();
-                            TimerTask timerTask=new TimerTask() {
-                                @Override
-                                public void run() {
-                                    loadingScreenFrame.setVisible(false);
-                                    //TwoPlayersGamemodeFrame twoPlayersGamemodeFrame=new TwoPlayersGamemodeFrame();
-                                    TwoPlayersBettingFrame twoPlayersBettingFrame=new TwoPlayersBettingFrame(TwoPlayersSelectionFrame.this);
-                                }
-                            };
-                            timer.schedule(timerTask,1000);
+                            FrontController.getInstance().dispatchRequest(new LoadRequest());
+                            FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+                            FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+                            FrontController.getInstance().setView(TwoPlayersFrame.getInstance());
+                            FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
+                                    TwoPlayersFrame.getInstance()));
+                            loadingScreenFrame.dispose();
                         }
             }
         });

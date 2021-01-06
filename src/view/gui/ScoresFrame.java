@@ -1,15 +1,17 @@
 package view.gui;
 
-import controller.ButtonSoundListener;
+import controller.FrontController;
+import controller.requests.LoadScoresRequest;
 import model.player.Player;
-import resources.images.Image;
-import resources.images.ImageFactory;
+import resources.utilResources.Image;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class ScoresFrame extends JFrame implements GUI{
     private JLabel backgroundImageLabel;
@@ -31,7 +33,7 @@ public class ScoresFrame extends JFrame implements GUI{
         this.scoresLabels = new ArrayList<>();
         this.introFrame = introFrame;
         UtilGUI.setUpJFrameProperties(this);
-        this.loadData();
+        FrontController.getInstance().dispatchRequest(new LoadScoresRequest(this));
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.SCORES_PAGE_BACKGROUND_IMG);
         this.setUpScoresTextPanel();
         this.setUpScoresPanel();
@@ -123,12 +125,12 @@ public class ScoresFrame extends JFrame implements GUI{
         this.scoresTextPanel.add(scoresTextLabel,BorderLayout.CENTER);
     }
 
-    private void loadData() {
-        this.players.add(new Player("Papster",500,2));
-        this.players.add(new Player("tasos",45,10));
-        this.players.add(new Player("petros",32,15));
-        this.players.add(new Player("rafa",18,5));
-        this.players.add(new Player("thodwris",0,8));
+    @Override
+    public void updatePlayers(List<Player> players) {
+        if(players==null) {
+            return;
+        }
+        this.players = players;
         this.players.sort(new Comparator<Player>() {
             @Override
             public int compare(Player o1, Player o2) {
@@ -158,6 +160,7 @@ public class ScoresFrame extends JFrame implements GUI{
         }
     }
 
+    // TODO remove this
     private JLabel constructCustomJLabel(String text) {
         JLabel label = new JLabel(text);
         label.setHorizontalAlignment(JLabel.CENTER);

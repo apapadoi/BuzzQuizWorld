@@ -1,6 +1,7 @@
 package controller.requests;
 
 import controller.Dispatcher;
+import model.Model;
 import java.util.List;
 
 public class AddUsernamesRequest extends Request{
@@ -9,6 +10,6 @@ public class AddUsernamesRequest extends Request{
         List<String> usernames = dispatcher.getView().getUsernames();
         if(usernames==null)
             return;
-        dispatcher.getModel().setUsernames(usernames);
+        Model.getInstance().setUsernames(usernames);
     }
 }

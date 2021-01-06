@@ -1,5 +1,8 @@
 package model.player;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
  * This class represents a player with his username,his points and the number of rounds he chosen.
  *
@@ -7,7 +10,8 @@ package model.player;
  * @author Tasos Papadopoulos
  * @version 17.11.2020
  */
-public class Player {
+public class Player implements Serializable {
+    private static final long serialVersionUID = 1148183335575561098L;
     private String username;
     private int score; // one player gamemodes high score
     private int wins; // two players gamemodes wins
@@ -88,5 +92,37 @@ public class Player {
      */
     public int getWins() {
         return this.wins;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return getScore() == player.getScore() &&
+                getWins() == player.getWins() &&
+                Objects.equals(getUsername(), player.getUsername());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUsername(), getScore(), getWins());
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "username='" + username + '\'' +
+                ", score=" + score +
+                ", wins=" + wins +
+                '}';
     }
 }

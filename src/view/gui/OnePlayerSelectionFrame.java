@@ -5,7 +5,9 @@ import controller.requests.AddNumOfRoundsRequest;
 import controller.requests.AddUsernamesRequest;
 import controller.requests.LoadRequest;
 import controller.requests.PreQuestionRequest;
-import resources.images.Image;
+import model.Model;
+import model.gamemodes.factories.OnePlayerGamemodeFactory;
+import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -87,7 +89,6 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
 
     @Override
     public int getNumOfRoundsChoice() {
-        System.out.println("get num of rounds choice=" + Integer.parseInt((String)roundSelectionBox.getSelectedItem()));
         return Integer.parseInt((String)roundSelectionBox.getSelectedItem());
     }
 
@@ -125,12 +126,14 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
                if (!(usernameField.getText().equals("") || usernameField.getText().equals("Enter username:")))
                     if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
                         LoadingScreenFrame loadingScreenFrame=  new LoadingScreenFrame();
+                        Model.getInstance().setGamemodeFactory(OnePlayerGamemodeFactory.getInstance());
                         OnePlayerSelectionFrame.this.setVisible(false);
                         FrontController.getInstance().dispatchRequest(new LoadRequest());
                         FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
                         FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
                         FrontController.getInstance().setView(OnePlayerFrame.getInstance());
-                        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(null));
+                        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
+                                OnePlayerFrame.getInstance()));
                         loadingScreenFrame.dispose();
                    }
            }

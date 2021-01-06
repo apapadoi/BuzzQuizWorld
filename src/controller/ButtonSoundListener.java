@@ -2,7 +2,7 @@ package controller;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import resources.images.Constants;
+import resources.utilResources.Constants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
