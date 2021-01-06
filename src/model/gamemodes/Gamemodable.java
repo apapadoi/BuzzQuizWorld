@@ -30,6 +30,7 @@ public interface Gamemodable {
      *
      * @param model instance of {@code Model} class
      */
+    // TODO REMOVE model reference
     void actionIfCorrectAnswer(Model model, int playerIndex);
 
     /**

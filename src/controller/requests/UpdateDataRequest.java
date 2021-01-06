@@ -6,43 +6,17 @@ import model.questions.Question;
 import model.round.Round;
 import view.gui.FinishFrame;
 import view.gui.GUI;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
+import view.gui.TwoPlayersFrame;
+
 import java.util.HashMap;
 
 public class UpdateDataRequest extends Request{
     private final int answerIndex;
-    private static final HashMap<Integer,Boolean> playersAnswered;
-    private static final HashMap<Integer, Integer> responseTimes;
-    private static int maxPlayers = 2;
-
-    static {
-        playersAnswered = new HashMap<>(maxPlayers);
-        for(int i=0;i<maxPlayers;i++)
-            playersAnswered.put(i, false);
-        responseTimes = new HashMap<>(maxPlayers);
-        for(int i=0;i<maxPlayers;i++)
-            responseTimes.put(i, 0);
-    }
 
     public UpdateDataRequest(int playerIndex, int answerIndex, int msLeft) {
         super(playerIndex);
         this.answerIndex = answerIndex;
-        responseTimes.put(playerIndex, msLeft);
-    }
-
-    public static void setMaxPlayers(int newMaxPlayers) {
-        maxPlayers = newMaxPlayers;
-        for(int i=maxPlayers;i<playersAnswered.size();i++)
-            playersAnswered.put(i, true);
-    }
-
-    public static boolean allAnswered() {
-        return playersAnswered.values().stream().distinct().count()<=1;
-    }
-
-    public static int getMsLeft(int playerIndex) {
-        return responseTimes.get(playerIndex);
+        Model.getInstance().putResponseTime(playerIndex, msLeft);
     }
 
     @Override
@@ -58,6 +32,10 @@ public class UpdateDataRequest extends Request{
             view.updateRoundId(String.valueOf(1));
             return;
         }
+
+        HashMap<Integer, Boolean> playersAnswered = Model.getInstance().getPlayersAnswered();
+        int maxPlayers = Model.getInstance().getMaxPlayers();
+        HashMap<Integer, Integer> responseTimes = Model.getInstance().getResponseTimes();
 
         if(playersAnswered.get(playerIndex).equals(true))
             return;
@@ -76,7 +54,7 @@ public class UpdateDataRequest extends Request{
                     playersAnswered.put(i, false);
                 for(int i=0;i<maxPlayers;i++)
                     responseTimes.put(i, 0);
-            } else { // TODO remove this
+            } else {
                 return;
             }
         } else {

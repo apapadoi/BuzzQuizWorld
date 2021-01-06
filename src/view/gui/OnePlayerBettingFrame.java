@@ -2,9 +2,10 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
+import model.Model;
 import model.player.Player;
 import model.questions.Category;
-import resources.images.Image;
+import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -56,7 +57,7 @@ public class OnePlayerBettingFrame extends JFrame implements GUI{
         bettingLabel=UtilGUI.getLabelInstance("Select your betting amount");
 
 
-        scoreLabel = new JLabel("Score : "+FrontController.getInstance().getModel().getScore(0));
+        scoreLabel = new JLabel("Score : "+ Model.getInstance().getScore(0));
         scoreLabel.setFont(UtilGUI.getCustomFont());
         scoreLabel.setForeground(Color.WHITE);
         categoryLabel = new JLabel("Category : ");

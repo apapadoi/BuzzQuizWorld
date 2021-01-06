@@ -1,9 +1,9 @@
 package view.gui;
 
 import controller.ButtonSoundListener;
-import resources.images.Constants;
-import resources.images.Image;
-import resources.images.ImageFactory;
+import resources.utilResources.Constants;
+import resources.utilResources.Image;
+import resources.utilResources.ImageFactory;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -69,7 +69,7 @@ public class UtilGUI {
         button.setForeground(new Color(156,156,156,255));
         button.setBorder(new LineBorder(Color.BLACK));
         button.addActionListener(ButtonSoundListener.getInstance());
-        button.setMultiClickThreshhold(2000L);
+        button.setMultiClickThreshhold(500L);
         return button;
     }
 

@@ -1,14 +1,17 @@
 package view.gui;
 
 import controller.FrontController;
+import controller.requests.NextQuestionRequest;
 import controller.requests.PreQuestionRequest;
 import controller.requests.UpdateDataRequest;
 import javafx.embed.swing.JFXPanel;
+import model.Model;
+import model.gamemodes.factories.TwoPlayersGamemodeFactory;
 import model.player.Player;
 import model.questions.Category;
 import model.questions.Difficulty;
-import resources.images.Image;
-import resources.images.ImageFactory;
+import resources.utilResources.Image;
+import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -52,6 +55,7 @@ public class TwoPlayersFrame extends JFrame implements GUI{
     }
 
     private TwoPlayersFrame() {
+        // TODO remove this
         new JFXPanel();
         answersPanel = new JPanel();
         answersPanel.setOpaque(false);
@@ -77,13 +81,13 @@ public class TwoPlayersFrame extends JFrame implements GUI{
                     count -= 100;
                 }
                 if(hasTimer)
-                    TwoPlayersFrame.this.timerLabel.setText(Integer.toString(count));
+                    TwoPlayersFrame.this.timerLabel.setText((count / 1000.0) +" seconds");
                 else
                     TwoPlayersFrame.this.timerLabel.setText("");
             }
         });
-        // TODO remove 0 index and add as a private attribute
-        UpdateDataRequest.setMaxPlayers(2);
+        // TODO remove 0 index and add as a private attribute and add set max players to selection frame
+        Model.getInstance().setMaxPlayers(2);
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
     }
 
@@ -102,10 +106,10 @@ public class TwoPlayersFrame extends JFrame implements GUI{
         roundIdLabel = UtilGUI.getLabelInstance("");
         topPanelLabels.add(roundIdLabel);
 
-        username1 = UtilGUI.getLabelInstance(FrontController.getInstance().getModel().getUsername(0));
+        username1 = UtilGUI.getLabelInstance(Model.getInstance().getUsername(0));
         topPanelLabels.add(username1);
 
-        score1 = UtilGUI.getLabelInstance(String.valueOf(FrontController.getInstance().getModel().getScore(0)));
+        score1 = UtilGUI.getLabelInstance(String.valueOf(Model.getInstance().getScore(0)));
         topPanelLabels.add(score1);
 
         gamemode = UtilGUI.getLabelInstance("");
@@ -117,10 +121,10 @@ public class TwoPlayersFrame extends JFrame implements GUI{
         category = UtilGUI.getLabelInstance("");
         topPanelLabels.add(category);
 
-        username2 = UtilGUI.getLabelInstance(FrontController.getInstance().getModel().getUsername(1));
+        username2 = UtilGUI.getLabelInstance(Model.getInstance().getUsername(1));
         topPanelLabels.add(username2);
 
-        score2 = UtilGUI.getLabelInstance(String.valueOf(FrontController.getInstance().getModel().getScore(1)));
+        score2 = UtilGUI.getLabelInstance(String.valueOf(Model.getInstance().getScore(1)));
         topPanelLabels.add(score2);
 
         JPanel firstHalfPanel = new JPanel();
@@ -208,11 +212,8 @@ public class TwoPlayersFrame extends JFrame implements GUI{
                 }
                 FrontController.getInstance().dispatchRequest(new UpdateDataRequest(playerIndex,
                             answerChosenIndex, countWhenPress));
-                if(UpdateDataRequest.allAnswered()) {
-                    TwoPlayersFrame.instance.setVisible(false);
-                    FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
-                            TwoPlayersFrame.this));
-                }
+                FrontController.getInstance().dispatchRequest(new NextQuestionRequest(
+                        TwoPlayersFrame.getInstance()));
             }
         });
     }
@@ -348,7 +349,7 @@ public class TwoPlayersFrame extends JFrame implements GUI{
 
     @Override
     public void updateQuestion(String question) {
-        this.questionTextLabel.setText(question);
+        this.questionTextLabel.setText("<html>"+question+"</html>");
     }
 
     @Override
@@ -359,11 +360,6 @@ public class TwoPlayersFrame extends JFrame implements GUI{
     @Override
     public void updateRoundId(String id) {
         this.roundIdLabel.setText("Round : " + id);
-    }
-
-    @Override
-    public void updateTimerLabel(String text) {
-        this.timerLabel.setText(text);
     }
 
     @Override
@@ -389,5 +385,15 @@ public class TwoPlayersFrame extends JFrame implements GUI{
     @Override
     public int getCount() {
         return this.count;
+    }
+
+    @Override
+    public boolean hasMoreThanTwoPlayers() {
+        return true;
+    }
+
+    @Override
+    public void updateDifficulty(Difficulty difficulty) {
+        this.difficulty.setText(difficulty.toString());
     }
 }

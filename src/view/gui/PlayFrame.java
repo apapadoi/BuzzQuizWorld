@@ -1,7 +1,7 @@
 package view.gui;
 
 import controller.FrontController;
-import resources.images.Image;
+import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 

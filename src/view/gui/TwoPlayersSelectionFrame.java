@@ -5,7 +5,9 @@ import controller.requests.AddNumOfRoundsRequest;
 import controller.requests.AddUsernamesRequest;
 import controller.requests.LoadRequest;
 import controller.requests.PreQuestionRequest;
-import resources.images.Image;
+import model.Model;
+import model.gamemodes.factories.TwoPlayersGamemodeFactory;
+import resources.utilResources.Image;
 
 import javax.swing.*;
 import java.awt.*;
@@ -172,6 +174,7 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
                 || usernameField2.getText().equals("") || usernameField2.getText().equals("Enter username:")))
                         if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
                             LoadingScreenFrame loadingScreenFrame=new LoadingScreenFrame();
+                            Model.getInstance().setGamemodeFactory(TwoPlayersGamemodeFactory.getInstance());
                             TwoPlayersSelectionFrame.this.setVisible(false);
                             FrontController.getInstance().dispatchRequest(new LoadRequest());
                             FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());

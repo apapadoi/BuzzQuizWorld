@@ -1,12 +1,13 @@
 package view.gui;
 
 import controller.FrontController;
-import resources.images.Image;
-import resources.images.ImageFactory;
+import controller.requests.SaveScoresRequest;
+import model.Model;
+import model.player.Player;
+import resources.utilResources.Image;
+import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class FinishFrame extends JFrame implements GUI{
     private final GUI gamemodeFrame;
@@ -48,6 +49,7 @@ public class FinishFrame extends JFrame implements GUI{
         centralPanel.add(buttonsPanel,BorderLayout.PAGE_END);
         this.setContentPane(centralPanel);
         this.setUpButtonListeners();
+        FrontController.getInstance().dispatchRequest(new SaveScoresRequest(gamemodeFrame));
         this.setVisible(true);
     }
 
@@ -70,12 +72,15 @@ public class FinishFrame extends JFrame implements GUI{
                 0,0));
         JLabel label = UtilGUI.getLabelInstance("You died!",(float)70.0);
         textPanel.add(label);
-        int playerScore = FrontController.getInstance().getModel().getScore(0);
-        label = UtilGUI.getLabelInstance(FrontController.getInstance().getModel().
-                getUsername(0)+ " couldn't even score above " + (playerScore+500) + " points",(float)25.0);
-        textPanel.add(label);
-        label = UtilGUI.getLabelInstance("Score : "+playerScore,(float)25.0);
-        textPanel.add(label);
+        // TODO REMOVE MODEL REFERENCE
+        for(Player player:Model.getInstance().getPlayers()) {
+            int playerScore = player.getScore();
+            label = UtilGUI.getLabelInstance(player.getUsername() + " couldn't even score above "
+                    + (playerScore + 500) + " points", (float) 25.0);
+            textPanel.add(label);
+            label = UtilGUI.getLabelInstance("Score : " + playerScore, (float) 25.0);
+            textPanel.add(label);
+        }
     }
 
     private void setUpJFrameProperties() {
@@ -91,22 +96,16 @@ public class FinishFrame extends JFrame implements GUI{
     }
 
     private void setUpButtonListeners() {
-        respawnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new PlayFrame(new IntroFrame());
-                FinishFrame.this.gamemodeFrame.dispose();
-                FinishFrame.this.dispose();
-            }
+        respawnButton.addActionListener(e -> {
+            new PlayFrame(new IntroFrame());
+            FinishFrame.this.gamemodeFrame.dispose();
+            FinishFrame.this.dispose();
         });
 
-        titleScreenButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new IntroFrame();
-                FinishFrame.this.gamemodeFrame.dispose();
-                FinishFrame.this.dispose();
-            }
+        titleScreenButton.addActionListener(e -> {
+            new IntroFrame();
+            FinishFrame.this.gamemodeFrame.dispose();
+            FinishFrame.this.dispose();
         });
     }
 }

@@ -3,7 +3,7 @@ package controller;
 import controller.requests.Request;
 import model.Model;
 import model.fileHandler.FileHandler;
-import resources.images.Constants;
+import resources.utilResources.Constants;
 import view.gui.GUI;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class FrontController{
     private static final FrontController instance = new FrontController();
 
     static {
-        dispatcher = new Dispatcher(new Model(), new FileHandler(new ArrayList<>(),
+        dispatcher = new Dispatcher(Model.getInstance(), new FileHandler(new ArrayList<>(),
                 Paths.get(Constants.QUESTIONS_FILE_URL)));
     }
 
@@ -25,11 +25,6 @@ public class FrontController{
 
     public void setView(GUI view) {
         dispatcher.setView(view);
-    }
-
-    // TODO remove this
-    public Model getModel() {
-        return dispatcher.getModel();
     }
 
     public static FrontController getInstance() {

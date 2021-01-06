@@ -3,10 +3,12 @@ package view.gui;
 import controller.FrontController;
 import controller.requests.PreQuestionRequest;
 import controller.requests.UpdateDataRequest;
+import model.Model;
+import model.gamemodes.factories.OnePlayerGamemodeFactory;
 import model.player.Player;
 import model.questions.Category;
-import resources.images.Image;
-import resources.images.ImageFactory;
+import resources.utilResources.Image;
+import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -41,7 +43,6 @@ public class OnePlayerFrame extends JFrame implements GUI{
     private final Timer timer;
     private int count = 10000;
     private boolean hasTimer = false;
-    private HashMap<Integer, Integer> playersResponseTimes;
 
     static {
         instance = new OnePlayerFrame();
@@ -186,7 +187,6 @@ public class OnePlayerFrame extends JFrame implements GUI{
     }
 
     private OnePlayerFrame(){
-        playersResponseTimes = new HashMap<>(2);
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
         this.setComponentsPanel();
@@ -201,12 +201,13 @@ public class OnePlayerFrame extends JFrame implements GUI{
                     count -= 100;
                 }
                 if(hasTimer)
-                    OnePlayerFrame.this.timerLabel.setText(Integer.toString(count));
+                    OnePlayerFrame.this.timerLabel.setText((count/1000.0)+" seconds");
                 else
                     OnePlayerFrame.this.timerLabel.setText("");
             }
         });
-        UpdateDataRequest.setMaxPlayers(1);
+        // TODO add set max players to one selection frame
+        Model.getInstance().setMaxPlayers(1);
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
     }
 
@@ -258,7 +259,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
         JFrame exitFrame=new JFrame();
         exitFrame.setTitle("Exit");
         exitFrame.setSize((int)(0.234*UtilGUI.getScreenWidth()),(int)(0.120*UtilGUI.getScreenHeight()));
-        exitFrame.setIconImage(ImageFactory.createImage(resources.images.Image.APP_ICON).getImage());
+        exitFrame.setIconImage(ImageFactory.createImage(Image.APP_ICON).getImage());
         exitFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         exitFrame.setResizable(false);
         exitFrame.setLocationRelativeTo(null);
@@ -349,11 +350,6 @@ public class OnePlayerFrame extends JFrame implements GUI{
     }
 
     @Override
-    public void updateTimerLabel(String text) {
-        this.timerLabel.setText(text);
-    }
-
-    @Override
     public void setHasTimer(boolean b) { this.hasTimer = b; }
 
     @Override
@@ -365,4 +361,8 @@ public class OnePlayerFrame extends JFrame implements GUI{
     @Override
     public void startTimer() { this.timer.start(); }
 
+    @Override
+    public boolean hasMoreThanTwoPlayers() {
+        return false;
+    }
 }

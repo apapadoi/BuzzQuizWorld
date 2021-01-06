@@ -1,7 +1,6 @@
 package controller.requests;
 
 import controller.Dispatcher;
-import controller.FrontController;
 import model.Model;
 import model.gamemodes.Gamemodable;
 import model.round.Round;
@@ -21,7 +20,7 @@ public class PreQuestionRequest extends Request{
 
     @Override
     public void execute(Dispatcher dispatcher) {
-        Model model = dispatcher.getModel();
+        Model model = Model.getInstance();
 
         // if rounds are over
         if(roundId == model.getNumOfRounds())
@@ -45,7 +44,7 @@ public class PreQuestionRequest extends Request{
 
         GUI preQuestionFrame = gamemodeFrame.getPreQuestionFrame();
         preQuestionFrame.updateCategory(currentRound.getQuestions().get(questionId).getCategory());
-        preQuestionFrame.updateScore(FrontController.getInstance().getModel().getPlayers());
+        preQuestionFrame.updateScore(Model.getInstance().getPlayers());
         preQuestionFrame.setVisible(true);
     }
 }

@@ -18,15 +18,14 @@ public class HighStakes extends Gamemode {
     /**
      * Default constructor.
      */
-    HighStakes() {
+    public HighStakes() {
         super("At first the category of the question is shown.\nEach player places his bet.\n" +
                 "Then, the question is shown, each player answers and if he answered correctly\n" +
                 "he earns his bet, otherwise he loses his bet.\n" +
                 "Available bets: 250,500,750,1000\n" +
                 "If player's points get under 250 automatically the game bets all of his points.\n",15);
         this.bets = new HashMap<>(2);
-        // TODO remove 2
-        for(int i=0;i<2;i++)
+        for(int i=0;i<Model.getInstance().getMaxPlayers();i++)
             bets.put(i, 250);
     }
 

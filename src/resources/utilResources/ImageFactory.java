@@ -1,4 +1,4 @@
-package resources.images;
+package resources.utilResources;
 
 import javax.swing.*;
 

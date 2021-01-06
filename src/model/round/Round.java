@@ -1,13 +1,9 @@
 package model.round;
 
-import controller.requests.UpdateDataRequest;
 import model.fileHandler.FileHandler;
 import model.Model;
 import model.gamemodes.Gamemodable;
-import model.gamemodes.GamemodeFactory;
 import model.questions.Question;
-import view.gui.OnePlayerFrame;
-import java.util.InputMismatchException;
 import java.util.List;
 
 /**
@@ -15,7 +11,7 @@ import java.util.List;
  *
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
- * @version 4.1.2021
+ * @version 6.1.2021
  */
 public class Round {
     private final List<Question> questions;
@@ -29,7 +25,7 @@ public class Round {
      * */
     public Round(FileHandler fileHandler) {
         this.questions = fileHandler.getNextQuestions();
-        this.gamemode = GamemodeFactory.getRandomGamemode();
+        this.gamemode = Model.getInstance().getGamemodeFactory().getRandomGamemode();
         this.questionIndex = 0;
     }
 
@@ -86,19 +82,6 @@ public class Round {
         return this.gamemode.hasPreQuestionPhase();
     }
 
-
-    /**
-     * Calls the corresponding method of round's current gamemode.
-     * @see Gamemodable
-     * @param model an instance of {@code Model} class
-     * @throws NumberFormatException if the user did not type an integer at all
-     * @throws InputMismatchException if the user typed a valid type of input but not a valid logical input
-     */
-    @Deprecated // TODO ?
-    public void actionsPreQuestionsPhase(Model model) throws NumberFormatException, InputMismatchException {
-        this.gamemode.actionPreQuestionsPhase(model);
-    }
-
     public Gamemodable getGamemode() {
         return gamemode;
     }
@@ -109,8 +92,7 @@ public class Round {
      * @param model an instance of {@code Model} class
      */
     public void actionIfCorrectAnswer(Model model, int playerIndex) {
-        // TODO remove OnePlayerFrame.getInstance().getCount()
-        this.gamemode.actionIfCorrectAnswer(model, UpdateDataRequest.getMsLeft(playerIndex), playerIndex);
+        this.gamemode.actionIfCorrectAnswer(model, Model.getInstance().getMsLeft(playerIndex), playerIndex);
     }
 
     /**

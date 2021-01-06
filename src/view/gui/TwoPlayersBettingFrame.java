@@ -3,7 +3,7 @@ package view.gui;
 import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
 import model.questions.Category;
-import resources.images.Image;
+import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

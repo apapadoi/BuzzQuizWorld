@@ -5,7 +5,9 @@ import controller.requests.AddNumOfRoundsRequest;
 import controller.requests.AddUsernamesRequest;
 import controller.requests.LoadRequest;
 import controller.requests.PreQuestionRequest;
-import resources.images.Image;
+import model.Model;
+import model.gamemodes.factories.OnePlayerGamemodeFactory;
+import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -124,6 +126,7 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
                if (!(usernameField.getText().equals("") || usernameField.getText().equals("Enter username:")))
                     if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
                         LoadingScreenFrame loadingScreenFrame=  new LoadingScreenFrame();
+                        Model.getInstance().setGamemodeFactory(OnePlayerGamemodeFactory.getInstance());
                         OnePlayerSelectionFrame.this.setVisible(false);
                         FrontController.getInstance().dispatchRequest(new LoadRequest());
                         FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());

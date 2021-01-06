@@ -1,4 +1,4 @@
-package resources.images;
+package resources.utilResources;
 
 public class Constants {
     public static final String APP_ICON_IMG_URL = "src/resources/images/appIcon.png";
@@ -28,4 +28,5 @@ public class Constants {
     public static final String ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerBettingFrameBackground.jpg";
     public static final String FONT_FILE_URL = "src/resources/fonts/Minecraft.ttf";
     public static final String QUESTIONS_FILE_URL = "src/resources/data/questions/textQuestions/textQuestions.txt";
+    public static final String DB_FILE_URL = "src/resources/db/scores.bin";
 }

@@ -2,6 +2,8 @@ package view.gui;
 
 import model.player.Player;
 import model.questions.Category;
+import model.questions.Difficulty;
+
 import java.awt.*;
 import java.util.List;
 
@@ -16,9 +18,9 @@ public interface GUI {
     default void updateQuestion(String question) {}
     default void updateCategory(Category category) {}
     default void updateRoundId(String id) {}
+    default void updateDifficulty(Difficulty difficulty) {}
     default Dimension getSize() { return null; }
     default void setVisible(boolean b) {}
-    default void updateTimerLabel(String text) {}
     default void dispose() {}
     default void setHasTimer(boolean b) {}
     default void restartCount() {}
@@ -26,4 +28,6 @@ public interface GUI {
     default void startTimer() {}
     default int getCount() { return 0; }
     default GUI getPreQuestionFrame() { return null; }
+    default void updatePlayers(List<Player> players) {}
+    default boolean hasMoreThanTwoPlayers() { return false; }
 }

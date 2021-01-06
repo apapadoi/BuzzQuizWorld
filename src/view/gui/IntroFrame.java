@@ -2,8 +2,8 @@ package view.gui;
 
 import controller.FrontController;
 import javafx.embed.swing.JFXPanel;
-import resources.images.Image;
-import resources.images.ImageFactory;
+import resources.utilResources.Image;
+import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 
