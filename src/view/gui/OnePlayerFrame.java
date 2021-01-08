@@ -179,7 +179,6 @@ public class OnePlayerFrame extends JFrame implements UI {
                 OnePlayerFrame.this.timerLabel.setText("");
         });
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
-        //Model.getInstance().setMaxPlayers(1);
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
     }
 

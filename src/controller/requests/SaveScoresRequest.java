@@ -7,10 +7,11 @@ import model.player.Player;
 import view.gui.UI;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SaveScoresRequest extends Request{
-    private UI gamemodeFrame;
+    private final UI gamemodeFrame;
 
     public SaveScoresRequest(UI gamemodeFrame) {
         this.gamemodeFrame = gamemodeFrame;
@@ -18,6 +19,11 @@ public class SaveScoresRequest extends Request{
 
     @Override
     public void execute(Dispatcher dispatcher) {
+        List<Integer> scores = new ArrayList<>();
+        Model.getInstance().getPlayers().forEach(e-> scores.add(e.getScore()));
+        if(scores.stream().distinct().count()<=1) // draw
+            return;
+
         if(gamemodeFrame.hasMoreThanTwoPlayers()) {
             List<Player> players = Model.getInstance().getPlayers();
             Player maxPlayer = players.get(0);
