@@ -1,7 +1,6 @@
 package controller.requests;
 
 import controller.Dispatcher;
-import model.Model;
 import model.fileHandler.FileHandler;
 import model.player.Player;
 import view.gui.UI;
@@ -20,12 +19,12 @@ public class SaveScoresRequest extends Request{
     @Override
     public void execute(Dispatcher dispatcher) {
         List<Integer> scores = new ArrayList<>();
-        Model.getInstance().getPlayers().forEach(e-> scores.add(e.getScore()));
+        model.getPlayers().forEach(e-> scores.add(e.getScore()));
         if(scores.stream().distinct().count()<=1) // draw
             return;
 
         if(gamemodeFrame.hasMoreThanTwoPlayers()) {
-            List<Player> players = Model.getInstance().getPlayers();
+            List<Player> players = model.getPlayers();
             Player maxPlayer = players.get(0);
             for(int i=1;i< players.size();i++) {
                 if(players.get(i).getScore() > maxPlayer.getScore())
@@ -42,7 +41,7 @@ public class SaveScoresRequest extends Request{
                 }
             }
         } else {
-            Model.getInstance().getPlayers().get(0).setWins(0);
+            model.getPlayers().get(0).setWins(0);
         }
 
         FileHandler fileHandler = dispatcher.getFileHandler();

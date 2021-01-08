@@ -1,7 +1,6 @@
 package controller.requests;
 
 import controller.Dispatcher;
-import model.Model;
 import model.gamemodes.factories.GamemodeFactory;
 
 public class SetGamemodeFactoryRequest extends Request{
@@ -13,6 +12,6 @@ public class SetGamemodeFactoryRequest extends Request{
 
     @Override
     public void execute(Dispatcher dispatcher) {
-        Model.getInstance().setGamemodeFactory(gamemodeFactory);
+        model.setGamemodeFactory(gamemodeFactory);
     }
 }

@@ -1,7 +1,6 @@
 package controller.requests;
 
 import controller.Dispatcher;
-import model.Model;
 import model.questions.Question;
 import model.round.Round;
 import view.gui.FinishFrame;
@@ -14,12 +13,11 @@ public class UpdateDataRequest extends Request{
     public UpdateDataRequest(int playerIndex, int answerIndex, int msLeft) {
         super(playerIndex);
         this.answerIndex = answerIndex;
-        Model.getInstance().putResponseTime(playerIndex, msLeft);
+        model.putResponseTime(playerIndex, msLeft);
     }
 
     @Override
     public void execute(Dispatcher dispatcher) {
-        Model model = dispatcher.getModel();
         UI view = dispatcher.getView();
         if(answerIndex==-1 || playerIndex==-1) {
             view.updateAnswers(model.getRound(0).getQuestions().get(0).getAnswers());
@@ -33,9 +31,9 @@ public class UpdateDataRequest extends Request{
             return;
         }
 
-        HashMap<Integer, Boolean> playersAnswered = Model.getInstance().getPlayersAnswered();
-        int maxPlayers = Model.getInstance().getMaxPlayers();
-        HashMap<Integer, Integer> responseTimes = Model.getInstance().getResponseTimes();
+        HashMap<Integer, Boolean> playersAnswered = model.getPlayersAnswered();
+        int maxPlayers = model.getMaxPlayers();
+        HashMap<Integer, Integer> responseTimes = model.getResponseTimes();
 
         if(playersAnswered.get(playerIndex).equals(true))
             return;
@@ -44,9 +42,9 @@ public class UpdateDataRequest extends Request{
         Round currentRound = model.getRound(roundId);
         Question currentQuestion = currentRound.getQuestions().get(questionId);
         if(currentQuestion.getAnswers().get(answerIndex).equals(currentQuestion.getCorrectAnswer()))
-            currentRound.actionIfCorrectAnswer(model, this.playerIndex);
+            currentRound.actionIfCorrectAnswer(this.playerIndex);
         else
-            currentRound.actionIfWrongAnswer(model, this.playerIndex);
+            currentRound.actionIfWrongAnswer(this.playerIndex);
 
         if(playersAnswered.values().stream().distinct().count()<=1) {
             if(playersAnswered.get(0).equals(true)) {

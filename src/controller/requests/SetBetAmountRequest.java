@@ -1,7 +1,6 @@
 package controller.requests;
 
 import controller.Dispatcher;
-import model.Model;
 import model.gamemodes.Gamemodable;
 import model.player.Player;
 import model.round.Round;
@@ -15,7 +14,6 @@ public class SetBetAmountRequest extends Request{
 
     @Override
     public void execute(Dispatcher dispatcher) {
-        Model model = dispatcher.getModel();
         Round currentRound = model.getRound(Request.roundId);
         Player currentPlayer = model.getPlayers().get(0);
         Gamemodable currentGamemode = currentRound.getGamemode();

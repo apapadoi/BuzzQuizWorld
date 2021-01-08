@@ -1,7 +1,6 @@
 package controller.requests;
 
 import controller.Dispatcher;
-import model.Model;
 
 public class SetMaximumPlayersRequest extends Request{
     private final int maxPlayers;
@@ -12,6 +11,6 @@ public class SetMaximumPlayersRequest extends Request{
 
     @Override
     public void execute(Dispatcher dispatcher) {
-        Model.getInstance().setMaxPlayers(this.maxPlayers);
+        model.setMaxPlayers(this.maxPlayers);
     }
 }

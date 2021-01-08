@@ -1,7 +1,6 @@
 package controller.requests;
 
 import controller.Dispatcher;
-import model.Model;
 import model.player.Player;
 import view.gui.UI;
 
@@ -17,7 +16,7 @@ public class ShowPlayerScoresRequest extends Request{
 
     @Override
     public void execute(Dispatcher dispatcher) {
-        List<Player> players = new ArrayList<>(Model.getInstance().getPlayers());
+        List<Player> players = new ArrayList<>(model.getPlayers());
         finishFrame.updateScores(players);
     }
 }
