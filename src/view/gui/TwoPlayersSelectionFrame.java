@@ -32,11 +32,40 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
     private JTextField usernameField2;
     private String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
 
-    private void setComponentsPanel() {
+
+    public TwoPlayersSelectionFrame(PlayFrame playFrame){
+        this.playFrame=playFrame;
+        UtilGUI.setUpJFrameProperties(this);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
         twoPlayersPanel=new JPanel();
         twoPlayersPanel.setLayout(new BorderLayout());
         twoPlayersPanel.setOpaque(false);
+        this.setUpTopPanel();
+        this.setUpCenterPanel();
+        this.setUpBottomPanel();
+        this.connectPanels();
+        this.setUpButtonListeners();
+        FrontController.getInstance().setView(this);
+        this.setVisible(true);
+    }
 
+    private void setUpTopPanel(){
+        topComponentsPanel=new JPanel();
+        topComponentsPanel.setLayout(new BoxLayout(topComponentsPanel,BoxLayout.X_AXIS));
+        topComponentsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),(int)(0.052*UtilGUI.getScreenWidth()),
+                0,(int)(0.052*UtilGUI.getScreenWidth())));
+        topComponentsPanel.setOpaque(false);
+
+        this.setUpTopComponents();
+
+        topComponentsPanel.add(usernameField1);
+        topComponentsPanel.add(Box.createRigidArea(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),0)));
+        topComponentsPanel.add(roundSelectionBox);
+        topComponentsPanel.add(Box.createRigidArea(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),0)));
+        topComponentsPanel.add(usernameField2);
+    }
+
+    private void setUpTopComponents(){
         usernameField1=new JTextField("Enter username:");
         usernameField1.setFont(UtilGUI.getCustomFont());
         usernameField1.setHorizontalAlignment(JTextField.CENTER);
@@ -48,12 +77,6 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
         roundSelectionBox.setSelectedIndex(0);
         roundSelectionBox.setFont(UtilGUI.getCustomFont());
 
-        topComponentsPanel=new JPanel();
-        topComponentsPanel.setLayout(new BoxLayout(topComponentsPanel,BoxLayout.X_AXIS));
-        topComponentsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),(int)(0.052*UtilGUI.getScreenWidth()),
-                0,(int)(0.052*UtilGUI.getScreenWidth())));
-        topComponentsPanel.setOpaque(false);
-
         usernameField1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         usernameField2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         roundSelectionBox.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
@@ -61,13 +84,9 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
         usernameField1.setPreferredSize(new Dimension((int)(0.052*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
         usernameField2.setPreferredSize(new Dimension((int)(0.052*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
         roundSelectionBox.setPreferredSize(new Dimension((int)(0.052*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
+    }
 
-        topComponentsPanel.add(usernameField1);
-        topComponentsPanel.add(Box.createRigidArea(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),0)));
-        topComponentsPanel.add(roundSelectionBox);
-        topComponentsPanel.add(Box.createRigidArea(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),0)));
-        topComponentsPanel.add(usernameField2);
-
+    private void setUpCenterPanel(){
         confirmButton= UtilGUI.getButtonInstance("Confirm");
         confirmButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         confirmButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
@@ -78,7 +97,9 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
                 (int)(0.416*UtilGUI.getScreenHeight()),(int)(0.416*UtilGUI.getScreenWidth())));
         confirmButtonPanel.setOpaque(false);
         confirmButtonPanel.add(confirmButton);
+    }
 
+    private void setUpBottomPanel(){
         backPanel=new JPanel();
 
         backButton= UtilGUI.getButtonInstance("Back");
@@ -90,22 +111,12 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
         backPanel.setOpaque(false);
         backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.894*UtilGUI.getScreenWidth()),
                 (int)(0.009*UtilGUI.getScreenHeight()),0));
-
-
+    }
+    private void connectPanels() {
         twoPlayersPanel.add(topComponentsPanel,BorderLayout.PAGE_START);
         twoPlayersPanel.add(backPanel,BorderLayout.PAGE_END);
         twoPlayersPanel.add(confirmButtonPanel,BorderLayout.CENTER);
         backgroundImageLabel.add(twoPlayersPanel);
-    }
-
-    public TwoPlayersSelectionFrame(PlayFrame playFrame){
-        this.playFrame=playFrame;
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
-        this.setComponentsPanel();
-        this.setUpButtonListeners();
-        FrontController.getInstance().setView(this);
-        this.setVisible(true);
     }
 
     @Override
