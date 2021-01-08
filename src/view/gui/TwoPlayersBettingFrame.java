@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TwoPlayersBettingFrame extends JFrame implements GUI{
+public class TwoPlayersBettingFrame extends JFrame implements UI {
     private static final TwoPlayersBettingFrame instance = new TwoPlayersBettingFrame();
     private final JPanel bettingPanel;
     private JButton confirmButton;

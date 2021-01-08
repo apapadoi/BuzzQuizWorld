@@ -4,14 +4,15 @@ import controller.Dispatcher;
 import model.Model;
 import model.fileHandler.FileHandler;
 import model.player.Player;
-import view.gui.GUI;
+import view.gui.UI;
+
 import java.io.IOException;
 import java.util.List;
 
 public class SaveScoresRequest extends Request{
-    private GUI gamemodeFrame;
+    private UI gamemodeFrame;
 
-    public SaveScoresRequest(GUI gamemodeFrame) {
+    public SaveScoresRequest(UI gamemodeFrame) {
         this.gamemodeFrame = gamemodeFrame;
     }
 

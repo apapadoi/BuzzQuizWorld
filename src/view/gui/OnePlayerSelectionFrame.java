@@ -1,33 +1,25 @@
 package view.gui;
 
 import controller.FrontController;
-import controller.requests.AddNumOfRoundsRequest;
-import controller.requests.AddUsernamesRequest;
-import controller.requests.LoadRequest;
-import controller.requests.PreQuestionRequest;
-import model.Model;
+import controller.requests.*;
 import model.gamemodes.factories.OnePlayerGamemodeFactory;
 import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OnePlayerSelectionFrame extends JFrame implements GUI{
-    private PlayFrame playFrame;
-    private JLabel backgroundImageLabel;
-    private JPanel onePlayerSelectionPanel;
-    private JPanel backPanel;
+public class OnePlayerSelectionFrame extends JFrame implements UI {
+    private final PlayFrame playFrame;
+    private final JLabel backgroundImageLabel;
     private JButton backButton;
-    private JPanel componentsPanel;
     private JButton confirmButton;
+    // TODO ADD PARAMETRIZED JCOMBOBOX
     private JComboBox roundSelectionBox;
     private JTextField usernameField;
-    private String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
+    private final String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
 
     public OnePlayerSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
@@ -40,11 +32,11 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
     }
 
     private void setComponentsPanel() {
-        onePlayerSelectionPanel =new JPanel();
+        JPanel onePlayerSelectionPanel = new JPanel();
         onePlayerSelectionPanel.setLayout(new BorderLayout());
         onePlayerSelectionPanel.setOpaque(false);
 
-        backPanel=new JPanel();
+        JPanel backPanel = new JPanel();
         backPanel.setLayout(new BorderLayout());
         backPanel.setOpaque(false);
 
@@ -54,7 +46,7 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
         backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*UtilGUI.getScreenWidth()),(int)(0.013*UtilGUI.getScreenHeight()),
                 (int)(0.007*UtilGUI.getScreenWidth())));
 
-        componentsPanel=new JPanel();
+        JPanel componentsPanel = new JPanel();
         componentsPanel.setLayout(new GridLayout(3,1,0,(int)(0.231*UtilGUI.getScreenHeight())));
         componentsPanel.setOpaque(false);
         componentsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.138*UtilGUI.getScreenHeight()),(int)(0.078*UtilGUI.getScreenWidth()),
@@ -93,12 +85,9 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
     }
 
     private void setUpButtonListeners() {
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                playFrame.setVisible(true);
-                OnePlayerSelectionFrame.this.setVisible(false);
-            }
+        backButton.addActionListener(e -> {
+            playFrame.setVisible(true);
+            OnePlayerSelectionFrame.this.setVisible(false);
         });
 
        usernameField.addMouseListener(new MouseAdapter() {
@@ -120,30 +109,24 @@ public class OnePlayerSelectionFrame extends JFrame implements GUI{
            }
        });
 
-       confirmButton.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-               if (!(usernameField.getText().equals("") || usernameField.getText().equals("Enter username:")))
-                    if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
-                        LoadingScreenFrame loadingScreenFrame=  new LoadingScreenFrame();
-                        Model.getInstance().setGamemodeFactory(OnePlayerGamemodeFactory.getInstance());
-                        OnePlayerSelectionFrame.this.setVisible(false);
-                        FrontController.getInstance().dispatchRequest(new LoadRequest());
-                        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-                        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
-                        FrontController.getInstance().setView(OnePlayerFrame.getInstance());
-                        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
-                                OnePlayerFrame.getInstance()));
-                        loadingScreenFrame.dispose();
-                   }
-           }
+       confirmButton.addActionListener(e -> {
+           if (!(usernameField.getText().equals("") || usernameField.getText().equals("Enter username:")))
+                if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
+                    LoadingScreenFrame loadingScreenFrame=  new LoadingScreenFrame();
+                    FrontController.getInstance().dispatchRequest(new SetGamemodeFactoryRequest(
+                            OnePlayerGamemodeFactory.getInstance()
+                    ));
+                    OnePlayerSelectionFrame.this.setVisible(false);
+                    FrontController.getInstance().dispatchRequest(new LoadRequest());
+                    FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+                    FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+                    FrontController.getInstance().setView(OnePlayerFrame.getInstance());
+                    FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
+                            OnePlayerFrame.getInstance()));
+                    loadingScreenFrame.dispose();
+               }
        });
 
-       roundSelectionBox.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-               roundSelectionBox.removeItem("Select rounds:");
-           }
-       });
+       roundSelectionBox.addActionListener(e -> roundSelectionBox.removeItem("Select rounds:"));
     }
 }

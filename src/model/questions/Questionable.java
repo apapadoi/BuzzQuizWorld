@@ -46,7 +46,7 @@ public interface Questionable {
     boolean hasContent();
 
     /**
-     * This method shows the question's content e.g with GUI or CLI depending the interface's client
+     * This method shows the question's content e.g with UI or CLI depending the interface's client
      * */
     void showContent();
 }

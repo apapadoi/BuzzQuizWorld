@@ -5,9 +5,7 @@ import model.Model;
 import model.questions.Question;
 import model.round.Round;
 import view.gui.FinishFrame;
-import view.gui.GUI;
-import view.gui.TwoPlayersFrame;
-
+import view.gui.UI;
 import java.util.HashMap;
 
 public class UpdateDataRequest extends Request{
@@ -22,14 +20,16 @@ public class UpdateDataRequest extends Request{
     @Override
     public void execute(Dispatcher dispatcher) {
         Model model = dispatcher.getModel();
-        GUI view = dispatcher.getView();
+        UI view = dispatcher.getView();
         if(answerIndex==-1 || playerIndex==-1) {
             view.updateAnswers(model.getRound(0).getQuestions().get(0).getAnswers());
             view.updateCategory(model.getRound(0).getQuestions().get(0).getCategory());
             view.updateGamemode(model.getRound(0).getGamemodeString());
             view.updateQuestion(model.getRound(0).getQuestions().get(0).getQuestionText());
-            view.updateScore(model.getPlayers());
+            view.updateScores(model.getPlayers());
             view.updateRoundId(String.valueOf(1));
+            view.updateDifficulty(model.getRound(0).getQuestions().get(0).getDifficulty());
+            view.updateUsernames(model.getPlayers());
             return;
         }
 
@@ -79,7 +79,9 @@ public class UpdateDataRequest extends Request{
         view.updateCategory(currentQuestion.getCategory());
         view.updateGamemode(model.getRound(roundId).getGamemodeString());
         view.updateQuestion(currentQuestion.getQuestionText());
-        view.updateScore(model.getPlayers());
+        view.updateScores(model.getPlayers());
         view.updateRoundId(String.valueOf(roundId + 1));
+        view.updateDifficulty(currentQuestion.getDifficulty());
+        view.updateUsernames(model.getPlayers());
     }
 }

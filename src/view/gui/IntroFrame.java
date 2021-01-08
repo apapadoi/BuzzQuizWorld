@@ -7,7 +7,7 @@ import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 
-public class IntroFrame extends JFrame implements GUI{
+public class IntroFrame extends JFrame implements UI {
     private final JLabel backgroundImageLabel;
     private JButton playButton;
     private JButton scoresButton;

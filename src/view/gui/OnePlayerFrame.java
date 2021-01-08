@@ -2,58 +2,42 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.PreQuestionRequest;
+import controller.requests.SetMaximumPlayersRequest;
 import controller.requests.UpdateDataRequest;
-import model.Model;
-import model.gamemodes.factories.OnePlayerGamemodeFactory;
 import model.player.Player;
 import model.questions.Category;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.List;
 
-public class OnePlayerFrame extends JFrame implements GUI{
-    private JLabel backgroundImageLabel;
-    private JPanel onePlayerPanel;
-    private JPanel questionsPanel;
+public class OnePlayerFrame extends JFrame implements UI {
+    private final JLabel backgroundImageLabel;
     private JLabel questionsLabel;
     private JLabel roundLabel;
-    private JPanel roundPanel;
     private JLabel timerLabel;
-    private JPanel timerPanel;
-    private JPanel answersPanel;
     private JButton answersButton1;
     private JButton answersButton2;
     private JButton answersButton3;
     private JButton answersButton4;
     private JLabel usernameLabel;
-    private JPanel usernamePanel;
     private JLabel scoreLabel;
-    private JPanel bottomPanel;
-    private JPanel exitPanel;
     private JButton exitButton;
-    private JPanel leftPanel;
     private JLabel gamemodeLabel;
     private JLabel categoryLabel;
-    private static final OnePlayerFrame instance;
+    private static final OnePlayerFrame instance = new OnePlayerFrame();
     private final Timer timer;
     private int count = 10000;
     private boolean hasTimer = false;
 
-    static {
-        instance = new OnePlayerFrame();
-    }
-
     private void setComponentsPanel() {
-        onePlayerPanel=new JPanel();
+        JPanel onePlayerPanel = new JPanel();
         onePlayerPanel.setOpaque(false);
         onePlayerPanel.setLayout(new BorderLayout());
 
-        questionsPanel=new JPanel();
+        JPanel questionsPanel = new JPanel();
         questionsPanel.setLayout(new BorderLayout());
         questionsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),0,
                 (int)(0.027*UtilGUI.getScreenHeight()),0));
@@ -67,7 +51,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
         roundLabel.setFont(UtilGUI.getCustomFont());
         roundLabel.setForeground(Color.WHITE);
 
-        roundPanel=new JPanel();
+        JPanel roundPanel = new JPanel();
         roundPanel.setOpaque(false);
         roundPanel.setLayout(new BorderLayout());
         roundPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.027*UtilGUI.getScreenHeight()),
@@ -79,7 +63,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
         timerLabel.setFont(UtilGUI.getCustomFont());
         timerLabel.setForeground(Color.WHITE);
 
-        timerPanel=new JPanel();
+        JPanel timerPanel = new JPanel();
         timerPanel.setOpaque(false);
         timerLabel.setLayout(new BorderLayout());
         timerPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.111*UtilGUI.getScreenWidth()),
@@ -90,7 +74,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
         questionsPanel.add(questionsLabel,BorderLayout.CENTER);
         questionsPanel.add(roundPanel,BorderLayout.LINE_END);
 
-        answersPanel=new JPanel();
+        JPanel answersPanel = new JPanel();
         answersPanel.setOpaque(false);
         answersPanel.setLayout(new BoxLayout(answersPanel,BoxLayout.Y_AXIS));
         answersButton1= UtilGUI.getButtonInstance("");
@@ -100,7 +84,6 @@ public class OnePlayerFrame extends JFrame implements GUI{
 
         answersPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),(int)(0.156*UtilGUI.getScreenWidth()),
                 (int)(0.157*UtilGUI.getScreenHeight()),(int)(0.052*UtilGUI.getScreenWidth())));
-
 
         answersButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         answersButton2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
@@ -118,17 +101,13 @@ public class OnePlayerFrame extends JFrame implements GUI{
         answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*UtilGUI.getScreenHeight()))));
         answersPanel.add(answersButton4);
 
-
-        usernamePanel=new JPanel();
+        JPanel usernamePanel = new JPanel();
         usernamePanel.setLayout(new BoxLayout(usernamePanel,BoxLayout.Y_AXIS));
             usernamePanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*UtilGUI.getScreenWidth()),
                     (int)(0.037*UtilGUI.getScreenHeight()),0));
         usernamePanel.setOpaque(false);
 
-        usernameLabel=new JLabel();
-        usernameLabel.setFont(UtilGUI.getCustomFont());
-        usernameLabel.setForeground(Color.WHITE);
-
+        usernameLabel = UtilGUI.getLabelInstance("");
         scoreLabel=new JLabel();
         scoreLabel.setFont(UtilGUI.getCustomFont());
         scoreLabel.setForeground(Color.WHITE);
@@ -137,18 +116,16 @@ public class OnePlayerFrame extends JFrame implements GUI{
         usernamePanel.add(Box.createRigidArea(new Dimension(0,(int)(0.013*UtilGUI.getScreenHeight()))));
         usernamePanel.add(scoreLabel);
 
-        bottomPanel =new JPanel();
+        JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BorderLayout());
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*UtilGUI.getScreenWidth()),
                 0,(int)(0.010*UtilGUI.getScreenWidth())));
         bottomPanel.setOpaque(false);
 
-
         exitButton= UtilGUI.getButtonInstance("Exit");
         exitButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.004*UtilGUI.getScreenHeight())));
 
-
-        exitPanel=new JPanel();
+        JPanel exitPanel = new JPanel();
         exitPanel.setLayout(new BorderLayout());
         exitPanel.setOpaque(false);
         exitPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.023*UtilGUI.getScreenHeight()),0,(int)(0.023*UtilGUI.getScreenHeight()),
@@ -156,7 +133,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
 
         exitPanel.add(exitButton,BorderLayout.CENTER);
 
-        leftPanel=new JPanel();
+        JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
         leftPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),
                 (int)(0.015*UtilGUI.getScreenWidth()),0,0));
@@ -174,10 +151,8 @@ public class OnePlayerFrame extends JFrame implements GUI{
         leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*UtilGUI.getScreenHeight()))));
         leftPanel.add(categoryLabel);
 
-
         bottomPanel.add(exitPanel,BorderLayout.LINE_END);
         bottomPanel.add(usernamePanel,BorderLayout.LINE_START);
-
 
         onePlayerPanel.add(leftPanel,BorderLayout.LINE_START);
         onePlayerPanel.add(bottomPanel,BorderLayout.PAGE_END);
@@ -192,22 +167,19 @@ public class OnePlayerFrame extends JFrame implements GUI{
         this.setComponentsPanel();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
-        timer =  new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(count<=0) {
-                    ((Timer) e.getSource()).stop();
-                } else {
-                    count -= 100;
-                }
-                if(hasTimer)
-                    OnePlayerFrame.this.timerLabel.setText((count/1000.0)+" seconds");
-                else
-                    OnePlayerFrame.this.timerLabel.setText("");
+        timer =  new Timer(100, e -> {
+            if(count<=0) {
+                ((Timer) e.getSource()).stop();
+            } else {
+                count -= 100;
             }
+            if(hasTimer)
+                OnePlayerFrame.this.timerLabel.setText((count/1000.0)+" seconds");
+            else
+                OnePlayerFrame.this.timerLabel.setText("");
         });
-        // TODO add set max players to one selection frame
-        Model.getInstance().setMaxPlayers(1);
+        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
+        //Model.getInstance().setMaxPlayers(1);
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
     }
 
@@ -216,33 +188,25 @@ public class OnePlayerFrame extends JFrame implements GUI{
     }
 
     private void setUpButtonListeners() {
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createExitButtonFrame();
-            }
-        });
+        exitButton.addActionListener(e -> createExitButtonFrame());
 
-        ActionListener updateListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                OnePlayerFrame.this.timer.stop();
-                int answerIndex = -1;
-                JButton buttonPressed = (JButton)e.getSource();
-                if(buttonPressed.equals(answersButton1))
-                    answerIndex = 0;
-                else if(buttonPressed.equals(answersButton2))
-                        answerIndex = 1;
-                else if(buttonPressed.equals(answersButton3))
-                    answerIndex = 2;
-                else
-                    answerIndex = 3;
-                OnePlayerFrame.this.setVisible(false);
-                FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, answerIndex,
-                        count));
-                FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
-                        OnePlayerFrame.this));
-            }
+        ActionListener updateListener = e -> {
+            OnePlayerFrame.this.timer.stop();
+            int answerIndex;
+            JButton buttonPressed = (JButton)e.getSource();
+            if(buttonPressed.equals(answersButton1))
+                answerIndex = 0;
+            else if(buttonPressed.equals(answersButton2))
+                    answerIndex = 1;
+            else if(buttonPressed.equals(answersButton3))
+                answerIndex = 2;
+            else
+                answerIndex = 3;
+            OnePlayerFrame.this.setVisible(false);
+            FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, answerIndex,
+                    count));
+            FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
+                    OnePlayerFrame.this));
         };
         answersButton1.addActionListener(updateListener);
         answersButton2.addActionListener(updateListener);
@@ -251,8 +215,8 @@ public class OnePlayerFrame extends JFrame implements GUI{
     }
 
     @Override
-    public GUI getPreQuestionFrame() {
-        return (GUI)OnePlayerBettingFrame.getInstance();
+    public UI getPreQuestionFrame() {
+        return OnePlayerBettingFrame.getInstance();
     }
 
     private void createExitButtonFrame(){
@@ -296,21 +260,18 @@ public class OnePlayerFrame extends JFrame implements GUI{
         exitFrame.add(exitPanel);
         exitFrame.setVisible(true);
 
-        yesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                IntroFrame introFrame=new IntroFrame();
-                exitFrame.setVisible(false);
-                OnePlayerFrame.this.setVisible(false);
-            }
+        yesButton.addActionListener(e -> {
+            new IntroFrame();
+            exitFrame.setVisible(false);
+            OnePlayerFrame.this.setVisible(false);
         });
 
-        noButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exitFrame.setVisible(false);
-            }
-        });
+        noButton.addActionListener(e -> exitFrame.setVisible(false));
+    }
+
+    @Override
+    public void updateUsernames(List<Player> players) {
+        usernameLabel.setText(players.get(0).getUsername());
     }
 
     @Override
@@ -322,8 +283,8 @@ public class OnePlayerFrame extends JFrame implements GUI{
     }
 
     @Override
-    public void updateScore(List<Player> players) {
-        scoreLabel.setText("Score : "+String.valueOf(players.get(0).getScore()));
+    public void updateScores(List<Player> players) {
+        scoreLabel.setText("Score : "+ players.get(0).getScore());
     }
 
     @Override
@@ -333,10 +294,9 @@ public class OnePlayerFrame extends JFrame implements GUI{
 
     @Override
     public void updateQuestion(String question) {
-        StringBuilder string = new StringBuilder("<html>");
-        string.append(question);
-        string.append("</html>");
-        questionsLabel.setText(string.toString());
+        String string = "<html>" + question +
+                "</html>";
+        questionsLabel.setText(string);
     }
 
     @Override

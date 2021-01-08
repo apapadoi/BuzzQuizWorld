@@ -18,7 +18,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TwoPlayersSelectionFrame extends JFrame implements GUI{
+public class TwoPlayersSelectionFrame extends JFrame implements UI {
     private PlayFrame playFrame;
     private JLabel backgroundImageLabel;
     private JPanel twoPlayersPanel;

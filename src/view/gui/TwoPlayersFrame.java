@@ -2,11 +2,9 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.NextQuestionRequest;
-import controller.requests.PreQuestionRequest;
 import controller.requests.UpdateDataRequest;
 import javafx.embed.swing.JFXPanel;
 import model.Model;
-import model.gamemodes.factories.TwoPlayersGamemodeFactory;
 import model.player.Player;
 import model.questions.Category;
 import model.questions.Difficulty;
@@ -21,7 +19,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TwoPlayersFrame extends JFrame implements GUI{
+public class TwoPlayersFrame extends JFrame implements UI {
     private static final TwoPlayersFrame instance = new TwoPlayersFrame();
     private JLabel backgroundImageLabel;
     private JPanel buttonsPanel;
@@ -219,8 +217,8 @@ public class TwoPlayersFrame extends JFrame implements GUI{
     }
 
     @Override
-    public GUI getPreQuestionFrame() {
-        return (GUI)TwoPlayersBettingFrame.getInstance();
+    public UI getPreQuestionFrame() {
+        return (UI)TwoPlayersBettingFrame.getInstance();
     }
 
     private void setUpQuestionsImage() {
@@ -337,7 +335,7 @@ public class TwoPlayersFrame extends JFrame implements GUI{
     }
 
     @Override
-    public void updateScore(List<Player> players) {
+    public void updateScores(List<Player> players) {
         this.score1.setText(String.valueOf(players.get(0).getScore()));
         this.score2.setText(String.valueOf(players.get(1).getScore()));
     }

@@ -2,15 +2,14 @@ package controller.requests;
 
 import controller.Dispatcher;
 import model.player.Player;
-import view.gui.GUI;
-
+import view.gui.UI;
 import java.io.IOException;
 import java.util.List;
 
 public class LoadScoresRequest extends Request{
-    private GUI scoresFrame;
+    private final UI scoresFrame;
 
-    public LoadScoresRequest(GUI scoresFrame) {
+    public LoadScoresRequest(UI scoresFrame) {
         this.scoresFrame = scoresFrame;
     }
 

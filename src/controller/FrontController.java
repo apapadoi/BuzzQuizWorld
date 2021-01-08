@@ -4,7 +4,8 @@ import controller.requests.Request;
 import model.Model;
 import model.fileHandler.FileHandler;
 import resources.utilResources.Constants;
-import view.gui.GUI;
+import view.gui.UI;
+
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class FrontController{
         dispatcher.dispatch(request);
     }
 
-    public void setView(GUI view) {
+    public void setView(UI view) {
         dispatcher.setView(view);
     }
 

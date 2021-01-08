@@ -2,12 +2,12 @@ package controller.requests;
 
 import controller.Dispatcher;
 import model.Model;
-import view.gui.GUI;
+import view.gui.UI;
 
 public class NextQuestionRequest extends Request{
-    private final GUI gamemodeFrame;
+    private final UI gamemodeFrame;
 
-    public NextQuestionRequest(GUI gamemodeFrame) {
+    public NextQuestionRequest(UI gamemodeFrame) {
         this.gamemodeFrame = gamemodeFrame;
     }
 

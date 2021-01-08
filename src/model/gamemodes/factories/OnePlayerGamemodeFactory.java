@@ -4,7 +4,6 @@ import model.gamemodes.Gamemodable;
 import model.gamemodes.HighStakes;
 import model.gamemodes.PointBuilder;
 import model.gamemodes.StopTheClock;
-
 import java.util.concurrent.ThreadLocalRandom;
 
 public class OnePlayerGamemodeFactory implements GamemodeFactory {

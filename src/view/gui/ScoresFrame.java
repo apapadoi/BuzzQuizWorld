@@ -4,29 +4,21 @@ import controller.FrontController;
 import controller.requests.LoadScoresRequest;
 import model.player.Player;
 import resources.utilResources.Image;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-public class ScoresFrame extends JFrame implements GUI{
-    private JLabel backgroundImageLabel;
+public class ScoresFrame extends JFrame implements UI {
+    private final JLabel backgroundImageLabel;
     private final IntroFrame introFrame;
     private JPanel scoresPanel;
-    private JLabel scoresTextLabel;
     private JPanel scoresTextPanel;
-    private JPanel centralPanel;
-    private JPanel backButtonPanel;
     private JButton backButton;
-    private JPanel sortButtonsPanel;
     private JButton onePlayerSortButton;
     private JButton twoPlayersSortButton;
     private java.util.List<Player> players;
-    private java.util.List<JLabel> scoresLabels;
+    private final java.util.List<JLabel> scoresLabels;
 
     public ScoresFrame(IntroFrame introFrame) {
         this.players = new ArrayList<>();
@@ -47,32 +39,14 @@ public class ScoresFrame extends JFrame implements GUI{
     }
 
     private void setUpSortButtonsListeners() {
-        this.onePlayerSortButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                players.sort(new Comparator<Player>() {
-                    @Override
-                    public int compare(Player o1, Player o2) {
-                        return -1*Integer.compare(o1.getScore(),o2.getScore());
-                    }
-                });
-                updatedScoreLabels();
-            }
+        this.onePlayerSortButton.addActionListener(e -> {
+            players.sort((o1, o2) -> -1*Integer.compare(o1.getScore(),o2.getScore()));
+            updatedScoreLabels();
         });
-
-        this.twoPlayersSortButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                players.sort(new Comparator<Player>() {
-                    @Override
-                    public int compare(Player o1, Player o2) {
-                        return -1*Integer.compare(o1.getWins(),o2.getWins());
-                    }
-                });
-                updatedScoreLabels();
-            }
+        this.twoPlayersSortButton.addActionListener(e -> {
+            players.sort((o1, o2) -> -1*Integer.compare(o1.getWins(),o2.getWins()));
+            updatedScoreLabels();
         });
-
     }
 
     private void updatedScoreLabels() {
@@ -84,9 +58,9 @@ public class ScoresFrame extends JFrame implements GUI{
     }
 
     private void setUpSortButtonsPanel() {
-        this.sortButtonsPanel = new JPanel();
-        this.sortButtonsPanel.setOpaque(false);
-        this.sortButtonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
+        JPanel sortButtonsPanel = new JPanel();
+        sortButtonsPanel.setOpaque(false);
+        sortButtonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
 
         this.onePlayerSortButton = UtilGUI.getButtonInstance("High Score");
         this.onePlayerSortButton.setPreferredSize(new Dimension( (int)(this.introFrame.getWidth()*0.135),
@@ -96,20 +70,20 @@ public class ScoresFrame extends JFrame implements GUI{
         this.twoPlayersSortButton.setPreferredSize(new Dimension( (int)(this.introFrame.getWidth()*0.135),
                 (int)(this.introFrame.getHeight()*0.04) ));
 
-        this.sortButtonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(this.introFrame.getHeight()*0.04),
+        sortButtonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(this.introFrame.getHeight()*0.04),
                 (int)(this.introFrame.getWidth()*0.038), 0,0));
-        this.sortButtonsPanel.add(onePlayerSortButton);
-        this.sortButtonsPanel.add(twoPlayersSortButton);
+        sortButtonsPanel.add(onePlayerSortButton);
+        sortButtonsPanel.add(twoPlayersSortButton);
         this.backgroundImageLabel.add(sortButtonsPanel, BorderLayout.WEST);
     }
 
     private void setUpCentralPanel() {
-        this.centralPanel = new JPanel();
-        this.centralPanel.setOpaque(false);
-        this.centralPanel.setLayout(new BorderLayout());
-        this.centralPanel.add(this.scoresTextPanel,BorderLayout.PAGE_START);
-        this.centralPanel.add(this.scoresPanel,BorderLayout.CENTER);
-        this.backgroundImageLabel.add(this.centralPanel,BorderLayout.CENTER);
+        JPanel centralPanel = new JPanel();
+        centralPanel.setOpaque(false);
+        centralPanel.setLayout(new BorderLayout());
+        centralPanel.add(this.scoresTextPanel,BorderLayout.PAGE_START);
+        centralPanel.add(this.scoresPanel,BorderLayout.CENTER);
+        this.backgroundImageLabel.add(centralPanel,BorderLayout.CENTER);
     }
 
     private void setUpScoresTextPanel() {
@@ -117,26 +91,20 @@ public class ScoresFrame extends JFrame implements GUI{
         this.scoresTextPanel.setLayout(new BorderLayout());
         this.scoresTextPanel.setOpaque(false);
         this.scoresTextPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()/10,0,0,0));
-        this.scoresTextLabel = new JLabel("Scoreboard");
-        this.scoresTextLabel.setHorizontalAlignment(JLabel.CENTER);
-        this.scoresTextLabel.setOpaque(false);
-        this.scoresTextLabel.setFont(UtilGUI.getCustomFont());
-        this.scoresTextLabel.setForeground(Color.WHITE);
+        JLabel scoresTextLabel = new JLabel("Scoreboard");
+        scoresTextLabel.setHorizontalAlignment(JLabel.CENTER);
+        scoresTextLabel.setOpaque(false);
+        scoresTextLabel.setFont(UtilGUI.getCustomFont());
+        scoresTextLabel.setForeground(Color.WHITE);
         this.scoresTextPanel.add(scoresTextLabel,BorderLayout.CENTER);
     }
 
     @Override
     public void updatePlayers(List<Player> players) {
-        if(players==null) {
+        if(players==null)
             return;
-        }
         this.players = players;
-        this.players.sort(new Comparator<Player>() {
-            @Override
-            public int compare(Player o1, Player o2) {
-                return -1*Integer.compare(o1.getScore(),o2.getScore());
-            }
-        });
+        this.players.sort((o1, o2) -> -1*Integer.compare(o1.getScore(),o2.getScore()));
     }
 
     private void setUpScoresPanel() {
@@ -144,36 +112,26 @@ public class ScoresFrame extends JFrame implements GUI{
         this.scoresPanel = new JPanel();
         this.scoresPanel.setOpaque(false);
         this.scoresPanel.setLayout(new GridLayout(players.size()+1,3,0,0));
-        this.scoresPanel.add(constructCustomJLabel("Username"));
-        this.scoresPanel.add(constructCustomJLabel("High Score"));
-        this.scoresPanel.add(constructCustomJLabel("1-1 Wins"));
+        this.scoresPanel.add(UtilGUI.getLabelInstance("Username"));
+        this.scoresPanel.add(UtilGUI.getLabelInstance("High Score"));
+        this.scoresPanel.add(UtilGUI.getLabelInstance("1-1 Wins"));
         for(Player player : this.players) {
-            label = constructCustomJLabel(player.getUsername());
+            label = UtilGUI.getLabelInstance(player.getUsername());
             this.scoresPanel.add(label);
             this.scoresLabels.add(label);
-            label = constructCustomJLabel(String.valueOf(player.getScore()));
+            label = UtilGUI.getLabelInstance(String.valueOf(player.getScore()));
             this.scoresPanel.add(label);
             this.scoresLabels.add(label);
-            label = constructCustomJLabel(String.valueOf(player.getWins()));
+            label = UtilGUI.getLabelInstance(String.valueOf(player.getWins()));
             this.scoresPanel.add(label);
             this.scoresLabels.add(label);
         }
     }
-
-    // TODO remove this
-    private JLabel constructCustomJLabel(String text) {
-        JLabel label = new JLabel(text);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setFont(UtilGUI.getCustomFont());
-        label.setForeground(Color.WHITE);
-
-        return label;
-    }
-
+    // TODO REMOVE THIS
     private void setUpBackButton() {
-        this.backButtonPanel = new JPanel();
-        this.backButtonPanel.setLayout(new BorderLayout());
-        this.backButtonPanel.setBackground(new Color(0,0,0,0));
+        JPanel backButtonPanel = new JPanel();
+        backButtonPanel.setLayout(new BorderLayout());
+        backButtonPanel.setBackground(new Color(0,0,0,0));
         this.backgroundImageLabel.setBorder(BorderFactory.createEmptyBorder(0,0,
                 UtilGUI.getScreenHeight()/25,UtilGUI.getScreenWidth()/25));
 
@@ -181,17 +139,14 @@ public class ScoresFrame extends JFrame implements GUI{
         this.backButton.setPreferredSize(new Dimension( (int)(this.introFrame.getWidth()*0.135),
                 (int)(this.introFrame.getHeight()*0.04) ));
 
-        this.backButtonPanel.add(this.backButton, BorderLayout.LINE_END);
+        backButtonPanel.add(this.backButton, BorderLayout.LINE_END);
         this.backgroundImageLabel.add(backButtonPanel,BorderLayout.PAGE_END);
     }
 
     private void setUpButtonListeners() {
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ScoresFrame.this.introFrame.setVisible(true);
-                ScoresFrame.this.dispose();
-            }
+        backButton.addActionListener(e -> {
+            ScoresFrame.this.introFrame.setVisible(true);
+            ScoresFrame.this.dispose();
         });
     }
 }

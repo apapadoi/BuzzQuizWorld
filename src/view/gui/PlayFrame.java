@@ -5,7 +5,7 @@ import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 
-public class PlayFrame extends JFrame implements GUI{
+public class PlayFrame extends JFrame implements UI {
     private final IntroFrame introFrame;
     private JButton onePlayerButton;
     private JButton twoPlayersButton;
