@@ -6,8 +6,6 @@ import controller.requests.SetMaximumPlayersRequest;
 import controller.requests.UpdateDataRequest;
 import javafx.embed.swing.JFXPanel;
 import model.player.Player;
-import model.questions.Category;
-import model.questions.Difficulty;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
@@ -17,29 +15,20 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TwoPlayersFrame extends JFrame implements UI {
+public class TwoPlayersFrame extends GameplayFrame {
     private static final TwoPlayersFrame instance = new TwoPlayersFrame();
     private final JLabel backgroundImageLabel;
     private static final int iconMultiplier = 30;
     private JLabel questionsImageLabel;
     private final JPanel answersPanel;
-    private JLabel timerLabel;
-    private JLabel questionTextLabel;
-    private JLabel roundIdLabel;
     private JLabel username1;
     private JLabel score1;
-    private JLabel gamemode;
-    private JLabel difficulty;
-    private JLabel category;
     private JLabel username2;
     private JLabel score2;
     private JLabel answer4;
     private JLabel answer1;
     private JLabel answer2;
     private JLabel answer3;
-    private boolean hasTimer;
-    private final Timer timer;
-    private int count = 10000;
 
     public static TwoPlayersFrame getInstance() {
         return instance;
@@ -63,17 +52,6 @@ public class TwoPlayersFrame extends JFrame implements UI {
         this.setUpQuestionsImage();
         this.setUpDataPanel();
         this.setUpKeyListeners();
-        timer =  new Timer(100, e -> {
-            if(count<=0) {
-                ((Timer) e.getSource()).stop();
-            } else {
-                count -= 100;
-            }
-            if(hasTimer)
-                TwoPlayersFrame.this.timerLabel.setText((count / 1000.0) +" seconds");
-            else
-                TwoPlayersFrame.this.timerLabel.setText("");
-        });
         // TODO remove 0 index and add as a private attribute
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
@@ -86,14 +64,11 @@ public class TwoPlayersFrame extends JFrame implements UI {
         topPanel.setOpaque(false);
         topPanel.setLayout(new BorderLayout());
 
-        this.timerLabel = UtilGUI.getLabelInstance("");
         topPanelLabels.add(timerLabel);
 
-        questionTextLabel = UtilGUI.getLabelInstance("");
         topPanelLabels.add(questionTextLabel);
 
-        roundIdLabel = UtilGUI.getLabelInstance("");
-        topPanelLabels.add(roundIdLabel);
+        topPanelLabels.add(roundLabel);
 
         username1 = UtilGUI.getLabelInstance("");
         topPanelLabels.add(username1);
@@ -101,14 +76,11 @@ public class TwoPlayersFrame extends JFrame implements UI {
         score1 = UtilGUI.getLabelInstance("");
         topPanelLabels.add(score1);
 
-        gamemode = UtilGUI.getLabelInstance("");
         topPanelLabels.add(gamemode);
 
-        difficulty = UtilGUI.getLabelInstance("");
-        topPanelLabels.add(difficulty);
+        topPanelLabels.add(difficultyLabel);
 
-        category = UtilGUI.getLabelInstance("");
-        topPanelLabels.add(category);
+        topPanelLabels.add(categoryLabel);
 
         username2 = UtilGUI.getLabelInstance("");
         topPanelLabels.add(username2);
@@ -123,7 +95,7 @@ public class TwoPlayersFrame extends JFrame implements UI {
         firstHalfPanel.setOpaque(false);
         firstHalfPanel.add(timerLabel);
         firstHalfPanel.add(questionTextLabel);
-        firstHalfPanel.add(roundIdLabel);
+        firstHalfPanel.add(roundLabel);
         topPanel.add(firstHalfPanel,BorderLayout.PAGE_START);
 
 
@@ -142,8 +114,8 @@ public class TwoPlayersFrame extends JFrame implements UI {
         secondHalfPanel.add(username1);
         secondHalfPanel.add(score1);
         secondHalfPanel.add(gamemode);
-        secondHalfPanel.add(difficulty);
-        secondHalfPanel.add(category);
+        secondHalfPanel.add(difficultyLabel);
+        secondHalfPanel.add(categoryLabel);
         secondHalfPanel.add(score2);
         secondHalfPanel.add(username2);
         topPanel.add(secondHalfPanel,BorderLayout.PAGE_END);
@@ -320,6 +292,12 @@ public class TwoPlayersFrame extends JFrame implements UI {
     }
 
     @Override
+    public void updateUsernames(List<Player> players) {
+        username1.setText(players.get(0).getUsername());
+        username2.setText(players.get(1).getUsername());
+    }
+
+    @Override
     public void updateAnswers(List<String> answers) {
         answer1.setText(answers.get(0));
         answer2.setText(answers.get(1));
@@ -334,63 +312,7 @@ public class TwoPlayersFrame extends JFrame implements UI {
     }
 
     @Override
-    public void updateGamemode(String gamemodeName) {
-        this.gamemode.setText(gamemodeName);
-    }
-
-    @Override
-    public void updateQuestion(String question) {
-        this.questionTextLabel.setText("<html>"+question+"</html>");
-    }
-
-    @Override
-    public void updateCategory(Category category) {
-        this.category.setText(category.toString());
-    }
-
-    @Override
-    public void updateRoundId(String id) {
-        this.roundIdLabel.setText("Round : " + id);
-    }
-
-    @Override
-    public void setHasTimer(boolean b) {
-        this.hasTimer = b;
-    }
-
-    @Override
-    public void restartCount() {
-        this.count = 10000;
-    }
-
-    @Override
-    public void stopTimer() {
-        this.timer.stop();
-    }
-
-    @Override
-    public void startTimer() {
-        this.timer.start();
-    }
-
-    @Override
-    public int getCount() {
-        return this.count;
-    }
-
-    @Override
     public boolean hasMoreThanTwoPlayers() {
         return true;
-    }
-
-    @Override
-    public void updateDifficulty(Difficulty difficulty) {
-        this.difficulty.setText(difficulty.toString());
-    }
-
-    @Override
-    public void updateUsernames(List<Player> players) {
-        username1.setText(players.get(0).getUsername());
-        username2.setText(players.get(1).getUsername());
     }
 }

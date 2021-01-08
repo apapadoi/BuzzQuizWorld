@@ -5,7 +5,6 @@ import controller.requests.PreQuestionRequest;
 import controller.requests.SetMaximumPlayersRequest;
 import controller.requests.UpdateDataRequest;
 import model.player.Player;
-import model.questions.Category;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
@@ -13,11 +12,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class OnePlayerFrame extends JFrame implements UI {
+public class OnePlayerFrame extends GameplayFrame {
     private final JLabel backgroundImageLabel;
-    private JLabel questionsLabel;
-    private JLabel roundLabel;
-    private JLabel timerLabel;
     private JButton answersButton1;
     private JButton answersButton2;
     private JButton answersButton3;
@@ -25,12 +21,7 @@ public class OnePlayerFrame extends JFrame implements UI {
     private JLabel usernameLabel;
     private JLabel scoreLabel;
     private JButton exitButton;
-    private JLabel gamemodeLabel;
-    private JLabel categoryLabel;
     private static final OnePlayerFrame instance = new OnePlayerFrame();
-    private final Timer timer;
-    private int count = 10000;
-    private boolean hasTimer = false;
 
     private void setComponentsPanel() {
         JPanel onePlayerPanel = new JPanel();
@@ -43,13 +34,7 @@ public class OnePlayerFrame extends JFrame implements UI {
                 (int)(0.027*UtilGUI.getScreenHeight()),0));
         questionsPanel.setOpaque(false);
 
-        questionsLabel =new JLabel("",SwingConstants.CENTER);
-        questionsLabel.setFont(UtilGUI.getCustomFont().deriveFont(100));
-        questionsLabel.setForeground(Color.WHITE);
-
-        roundLabel=new JLabel("");
-        roundLabel.setFont(UtilGUI.getCustomFont());
-        roundLabel.setForeground(Color.WHITE);
+        questionTextLabel.setFont(UtilGUI.getCustomFont().deriveFont(100));
 
         JPanel roundPanel = new JPanel();
         roundPanel.setOpaque(false);
@@ -59,10 +44,6 @@ public class OnePlayerFrame extends JFrame implements UI {
 
         roundPanel.add(roundLabel);
 
-        timerLabel=new JLabel("");
-        timerLabel.setFont(UtilGUI.getCustomFont());
-        timerLabel.setForeground(Color.WHITE);
-
         JPanel timerPanel = new JPanel();
         timerPanel.setOpaque(false);
         timerLabel.setLayout(new BorderLayout());
@@ -71,7 +52,7 @@ public class OnePlayerFrame extends JFrame implements UI {
 
         timerPanel.add(timerLabel,BorderLayout.CENTER);
         questionsPanel.add(timerPanel,BorderLayout.LINE_START);
-        questionsPanel.add(questionsLabel,BorderLayout.CENTER);
+        questionsPanel.add(questionTextLabel,BorderLayout.CENTER);
         questionsPanel.add(roundPanel,BorderLayout.LINE_END);
 
         JPanel answersPanel = new JPanel();
@@ -139,15 +120,9 @@ public class OnePlayerFrame extends JFrame implements UI {
                 (int)(0.015*UtilGUI.getScreenWidth()),0,0));
         leftPanel.setOpaque(false);
 
-        gamemodeLabel=new JLabel();
-        gamemodeLabel.setForeground(Color.WHITE);
-        gamemodeLabel.setFont(UtilGUI.getCustomFont().deriveFont(35));
+        gamemode.setFont(UtilGUI.getCustomFont().deriveFont(35));
 
-        categoryLabel=new JLabel();
-        categoryLabel.setForeground(Color.WHITE);
-        categoryLabel.setFont(UtilGUI.getCustomFont());
-
-        leftPanel.add(gamemodeLabel);
+        leftPanel.add(gamemode);
         leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*UtilGUI.getScreenHeight()))));
         leftPanel.add(categoryLabel);
 
@@ -167,17 +142,7 @@ public class OnePlayerFrame extends JFrame implements UI {
         this.setComponentsPanel();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
-        timer =  new Timer(100, e -> {
-            if(count<=0) {
-                ((Timer) e.getSource()).stop();
-            } else {
-                count -= 100;
-            }
-            if(hasTimer)
-                OnePlayerFrame.this.timerLabel.setText((count/1000.0)+" seconds");
-            else
-                OnePlayerFrame.this.timerLabel.setText("");
-        });
+
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
     }
@@ -285,40 +250,6 @@ public class OnePlayerFrame extends JFrame implements UI {
     public void updateScores(List<Player> players) {
         scoreLabel.setText("Score : "+ players.get(0).getScore());
     }
-
-    @Override
-    public void updateGamemode(String gamemodeName) {
-        gamemodeLabel.setText("Gamemode : "+gamemodeName);
-    }
-
-    @Override
-    public void updateQuestion(String question) {
-        String string = "<html>" + question +
-                "</html>";
-        questionsLabel.setText(string);
-    }
-
-    @Override
-    public void updateCategory(Category category) {
-        categoryLabel.setText("Category : "+category.toString());
-    }
-
-    @Override
-    public void updateRoundId(String id) {
-        roundLabel.setText("Round : "+id);
-    }
-
-    @Override
-    public void setHasTimer(boolean b) { this.hasTimer = b; }
-
-    @Override
-    public void restartCount() { this.count = 10000; }
-
-    @Override
-    public void stopTimer() { this.timer.stop(); }
-
-    @Override
-    public void startTimer() { this.timer.start(); }
 
     @Override
     public boolean hasMoreThanTwoPlayers() {

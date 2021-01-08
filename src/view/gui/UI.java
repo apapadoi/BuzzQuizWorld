@@ -26,7 +26,6 @@ public interface UI {
     default void restartCount() {}
     default void stopTimer() {}
     default void startTimer() {}
-    default int getCount() { return 0; }
     default UI getPreQuestionFrame() { return null; }
     default void updatePlayers(List<Player> players) {}
     default boolean hasMoreThanTwoPlayers() { return false; }
