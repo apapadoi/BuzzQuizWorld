@@ -20,7 +20,7 @@ public class SaveScoresRequest extends Request{
     public void execute(Dispatcher dispatcher) {
         List<Integer> scores = new ArrayList<>();
         model.getPlayers().forEach(e-> scores.add(e.getScore()));
-        if(scores.stream().distinct().count()<=1) // draw
+        if(scores.stream().distinct().count()<=1 && model.getPlayers().size()>1) // draw and more than one player
             return;
 
         if(gamemodeFrame.hasMoreThanTwoPlayers()) {

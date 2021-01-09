@@ -29,4 +29,5 @@ public class Constants {
     public static final String FONT_FILE_URL = "src/resources/fonts/Minecraft.ttf";
     public static final String QUESTIONS_FILE_URL = "src/resources/data/questions/textQuestions/textQuestions.txt";
     public static final String DB_FILE_URL = "src/resources/db/scores.bin";
+    public static final String IMAGED_QUESTIONS_FILE_URL = "src/resources/data/questions/imagedQuestions/imagedQuestions.txt";
 }

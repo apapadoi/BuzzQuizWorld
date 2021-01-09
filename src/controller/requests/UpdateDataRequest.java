@@ -28,6 +28,10 @@ public class UpdateDataRequest extends Request{
             view.updateRoundId(String.valueOf(1));
             view.updateDifficulty(model.getRound(0).getQuestions().get(0).getDifficulty());
             view.updateUsernames(model.getPlayers());
+            if(model.getRound(0).getQuestions().get(0).hasContent())
+                view.updateQuestionsImage(model.getRound(0).getQuestions().get(0).getContent());
+            else // TODO NULL OBJECT DESIGN PATTERN
+                view.updateQuestionsImage(null);
             return;
         }
 
@@ -81,5 +85,9 @@ public class UpdateDataRequest extends Request{
         view.updateRoundId(String.valueOf(roundId + 1));
         view.updateDifficulty(currentQuestion.getDifficulty());
         view.updateUsernames(model.getPlayers());
+        if(currentQuestion.hasContent())
+            view.updateQuestionsImage(currentQuestion.getContent());
+        else
+            view.updateQuestionsImage(null);
     }
 }

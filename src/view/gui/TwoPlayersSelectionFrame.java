@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TwoPlayersSelectionFrame extends JFrame implements UI {
     private final PlayFrame playFrame;
-    private final JLabel backgroundImageLabel;
+    private JLabel backgroundImageLabel;
     private JButton backButton;
     private JButton confirmButton;
     private JComboBox roundSelectionBox;
@@ -146,17 +146,15 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
             if (!(usernameField1.getText().equals("") || usernameField1.getText().equals("Enter username:")
             || usernameField2.getText().equals("") || usernameField2.getText().equals("Enter username:")))
                     if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
-                        LoadingScreenFrame loadingScreenFrame=new LoadingScreenFrame();
                         FrontController.getInstance().dispatchRequest(new
                                 SetGamemodeFactoryRequest(TwoPlayersGamemodeFactory.getInstance()));
-                        TwoPlayersSelectionFrame.this.setVisible(false);
                         FrontController.getInstance().dispatchRequest(new LoadRequest());
                         FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
                         FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
                         FrontController.getInstance().setView(TwoPlayersFrame.getInstance());
                         FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
                                 TwoPlayersFrame.getInstance()));
-                        loadingScreenFrame.dispose();
+                        TwoPlayersSelectionFrame.this.setVisible(false);
                     }
         });
     }

@@ -8,10 +8,14 @@ import java.util.List;
  * a category and a difficulty. In the current version there are no question associated with images. This class will be used
  * in the next version.
  * @author Tasos Papadopoulos
- * @version 10.11.2020
+ * @version 9.1.2021
  * */
 public class ImagedQuestion extends Question {
     private final ImageIcon image;
+
+    public ImagedQuestion(String imagePath) {
+        this.image = new ImageIcon(imagePath);
+    }
 
     /**
      * Create a new question with the information given.
@@ -37,12 +41,8 @@ public class ImagedQuestion extends Question {
         return true;
     }
 
-    /**
-     * Shows the image's description.
-     * @see Questionable
-     * */
     @Override
-    public void showContent() {
-        System.out.println(image.getDescription());
+    public ImageIcon getContent() {
+        return this.image;
     }
 }

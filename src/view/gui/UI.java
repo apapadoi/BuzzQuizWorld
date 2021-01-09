@@ -3,6 +3,8 @@ package view.gui;
 import model.player.Player;
 import model.questions.Category;
 import model.questions.Difficulty;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
@@ -29,4 +31,5 @@ public interface UI {
     default UI getPreQuestionFrame() { return null; }
     default void updatePlayers(List<Player> players) {}
     default boolean hasMoreThanTwoPlayers() { return false; }
+    default void updateQuestionsImage(ImageIcon imageIcon) {}
 }

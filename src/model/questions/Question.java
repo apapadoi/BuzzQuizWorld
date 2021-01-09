@@ -1,5 +1,6 @@
 package model.questions;
 
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -136,10 +137,8 @@ public class Question implements Questionable {
         return false;
     }
 
-    /**
-     * @see Questionable
-     * */
     @Override
-    public void showContent() {
+    public ImageIcon getContent() {
+        return null;
     }
 }

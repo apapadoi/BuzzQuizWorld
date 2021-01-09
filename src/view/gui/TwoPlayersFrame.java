@@ -19,7 +19,6 @@ public class TwoPlayersFrame extends GameplayFrame {
     private static final TwoPlayersFrame instance = new TwoPlayersFrame();
     private final JLabel backgroundImageLabel;
     private static final int iconMultiplier = 30;
-    private JLabel questionsImageLabel;
     private final JPanel answersPanel;
     private JLabel username1;
     private JLabel score1;
@@ -59,6 +58,7 @@ public class TwoPlayersFrame extends GameplayFrame {
     }
 
     private void setUpDataPanel() {
+        // TODO remove topPanelLabels
         List<JLabel> topPanelLabels = new ArrayList<>();
         JPanel topPanel = new JPanel();
         topPanel.setOpaque(false);
@@ -185,17 +185,12 @@ public class TwoPlayersFrame extends GameplayFrame {
     }
 
     private void setUpQuestionsImage() {
-        this.questionsImageLabel = new JLabel();
         JPanel panel = new JPanel();
         panel.setOpaque(false);
         panel.setLayout(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()*50/768,
                 UtilGUI.getScreenWidth()*175/1368,
                 UtilGUI.getScreenHeight()*125/768,UtilGUI.getScreenWidth()*50/1368));
-        java.awt.Image resizedImage = ImageFactory.createImage(Image.QUESTION_IMG_TEST_IMG).getImage().
-                getScaledInstance((UtilGUI.getScreenWidth()*550/1368),UtilGUI.getScreenHeight()*300/768,
-                        java.awt.Image.SCALE_DEFAULT);
-        this.questionsImageLabel.setIcon(new ImageIcon(resizedImage));
         panel.add(questionsImageLabel,JLabel.CENTER);
         this.backgroundImageLabel.add(panel,BorderLayout.EAST);
     }

@@ -134,6 +134,7 @@ public class OnePlayerFrame extends GameplayFrame {
         onePlayerPanel.add(questionsPanel,BorderLayout.PAGE_START);
         onePlayerPanel.add(answersPanel,BorderLayout.LINE_END);
         backgroundImageLabel.add(onePlayerPanel);
+        onePlayerPanel.add(questionsImageLabel,BorderLayout.CENTER);
     }
 
     private OnePlayerFrame(){

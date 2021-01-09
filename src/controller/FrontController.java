@@ -13,7 +13,7 @@ public class FrontController{
 
     static {
         dispatcher = new Dispatcher(new FileHandler(new ArrayList<>(),
-                Paths.get(Constants.QUESTIONS_FILE_URL)));
+                Paths.get(Constants.QUESTIONS_FILE_URL), Paths.get(Constants.IMAGED_QUESTIONS_FILE_URL)));
     }
 
     private FrontController() { }

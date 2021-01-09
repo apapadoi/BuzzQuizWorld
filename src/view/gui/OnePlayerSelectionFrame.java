@@ -13,7 +13,7 @@ import java.util.List;
 
 public class OnePlayerSelectionFrame extends JFrame implements UI {
     private final PlayFrame playFrame;
-    private final JLabel backgroundImageLabel;
+    private JLabel backgroundImageLabel;
     private JButton backButton;
     private JButton confirmButton;
     // TODO ADD PARAMETRIZED JCOMBOBOX
@@ -112,18 +112,16 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
        confirmButton.addActionListener(e -> {
            if (!(usernameField.getText().equals("") || usernameField.getText().equals("Enter username:")))
                 if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
-                    LoadingScreenFrame loadingScreenFrame=  new LoadingScreenFrame();
                     FrontController.getInstance().dispatchRequest(new SetGamemodeFactoryRequest(
                             OnePlayerGamemodeFactory.getInstance()
                     ));
-                    OnePlayerSelectionFrame.this.setVisible(false);
                     FrontController.getInstance().dispatchRequest(new LoadRequest());
                     FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
                     FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
                     FrontController.getInstance().setView(OnePlayerFrame.getInstance());
                     FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
                             OnePlayerFrame.getInstance()));
-                    loadingScreenFrame.dispose();
+                    OnePlayerSelectionFrame.this.setVisible(false);
                }
        });
 

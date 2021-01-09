@@ -3,6 +3,7 @@ package view.gui;
 import model.questions.Category;
 import model.questions.Difficulty;
 import javax.swing.*;
+import java.awt.*;
 
 public abstract class GameplayFrame extends JFrame implements UI {
     protected JLabel gamemode;
@@ -14,6 +15,7 @@ public abstract class GameplayFrame extends JFrame implements UI {
     protected final Timer timer;
     protected JLabel timerLabel;
     protected JLabel difficultyLabel;
+    protected JLabel questionsImageLabel;
 
     public GameplayFrame() /*throws HeadlessException*/ {
         gamemode = UtilGUI.getLabelInstance("");
@@ -23,6 +25,7 @@ public abstract class GameplayFrame extends JFrame implements UI {
         hasTimer = false;
         timerLabel = UtilGUI.getLabelInstance("");
         difficultyLabel = UtilGUI.getLabelInstance("");
+        questionsImageLabel = UtilGUI.getLabelInstance("");
         timer =  new Timer(100, e -> {
             if(count<=0) {
                 ((Timer) e.getSource()).stop();
@@ -75,5 +78,20 @@ public abstract class GameplayFrame extends JFrame implements UI {
     @Override
     public void updateDifficulty(Difficulty difficulty) {
         this.difficultyLabel.setText(difficulty.toString());
+    }
+
+    @Override
+    public void updateQuestionsImage(ImageIcon imageIcon) {
+        if(imageIcon==null) {
+            this.questionsImageLabel.setVisible(false);
+            return;
+        }
+
+        Image resizedImage = imageIcon.getImage().getScaledInstance(UtilGUI.getScreenWidth()*550/1368,
+                UtilGUI.getScreenHeight()*300/768,
+                    java.awt.Image.SCALE_DEFAULT
+        );
+        this.questionsImageLabel.setIcon(new ImageIcon(resizedImage));
+        this.questionsImageLabel.setVisible(true);
     }
 }
