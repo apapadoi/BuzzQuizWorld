@@ -1,5 +1,6 @@
 package view.gui;
 
+import com.sun.webkit.network.Util;
 import controller.FrontController;
 import controller.requests.PreQuestionRequest;
 import controller.requests.UpdateDataRequest;
@@ -43,6 +44,7 @@ public class OnePlayerFrame extends JFrame implements GUI{
     private final Timer timer;
     private int count = 10000;
     private boolean hasTimer = false;
+    private JLabel difficultyLabel;
 
     static {
         instance = new OnePlayerFrame();
@@ -141,9 +143,15 @@ public class OnePlayerFrame extends JFrame implements GUI{
         categoryLabel.setForeground(Color.WHITE);
         categoryLabel.setFont(UtilGUI.getCustomFont());
 
+        difficultyLabel=new JLabel();
+        difficultyLabel.setForeground(Color.WHITE);
+        difficultyLabel.setFont(UtilGUI.getCustomFont());
+
         leftPanel.add(gamemodeLabel);
         leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*UtilGUI.getScreenHeight()))));
         leftPanel.add(categoryLabel);
+        leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*UtilGUI.getScreenHeight()))));
+        leftPanel.add(difficultyLabel);
     }
 
     private void setUpBottomPanel(){

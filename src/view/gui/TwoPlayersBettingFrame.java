@@ -1,7 +1,9 @@
 package view.gui;
 
+import com.sun.javafx.css.StyleCache;
 import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
+import javafx.scene.layout.Border;
 import model.questions.Category;
 import resources.utilResources.Image;
 import javax.swing.*;
@@ -149,11 +151,16 @@ public class TwoPlayersBettingFrame extends JFrame implements GUI{
     }
 
     private void setUpTopPanel() {
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel,BoxLayout.Y_AXIS));
+        JPanel topPanel=new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        topPanel.setBorder(BorderFactory.createEmptyBorder(0,150,0,150));
         topPanel.setOpaque(false);
-        topPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.05*UtilGUI.getScreenHeight()),
-                (int)(0.37*UtilGUI.getScreenWidth()),0, (int)(0.39*UtilGUI.getScreenWidth())));
+
+
+        JPanel topCenterPanel = new JPanel();
+        topCenterPanel.setLayout(new BoxLayout(topCenterPanel,BoxLayout.Y_AXIS));
+        topCenterPanel.setOpaque(false);
+        topCenterPanel.setBorder(BorderFactory.createEmptyBorder());
 
         categoryLabel =UtilGUI.getLabelInstance("");
 
@@ -181,11 +188,31 @@ public class TwoPlayersBettingFrame extends JFrame implements GUI{
         center.add(chooseAmountLabel,BorderLayout.CENTER);
         bottom.add(amountLabel,BorderLayout.CENTER);
 
-        topPanel.add(top);
-        topPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.046*UtilGUI.getScreenHeight()))));
-        topPanel.add(center);
-        topPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.055*UtilGUI.getScreenHeight()))));
-        topPanel.add(bottom);
+        topCenterPanel.add(top);
+        topCenterPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.046*UtilGUI.getScreenHeight()))));
+        topCenterPanel.add(center);
+        topCenterPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.055*UtilGUI.getScreenHeight()))));
+        topCenterPanel.add(bottom);
+
+        JPanel topLeftPanel=new JPanel();
+        topLeftPanel.setLayout(new BorderLayout());
+        topLeftPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        topLeftPanel.setOpaque(false);
+
+        JPanel topRightPanel=new JPanel();
+        topRightPanel.setLayout(new BorderLayout());
+        topRightPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        topRightPanel.setOpaque(false);
+
+        JLabel username1=UtilGUI.getLabelInstance("Player1: Alvanoss");
+        JLabel username2=UtilGUI.getLabelInstance("Player2: Xristosss");
+
+        topLeftPanel.add(username1);
+        topRightPanel.add(username2);
+
+        topPanel.add(topLeftPanel,BorderLayout.WEST);
+        topPanel.add(topCenterPanel,BorderLayout.CENTER);
+        topPanel.add(topRightPanel,BorderLayout.EAST);
 
         bettingPanel.add(topPanel,BorderLayout.NORTH);
     }
