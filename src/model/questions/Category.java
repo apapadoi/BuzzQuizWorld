@@ -6,11 +6,30 @@ package model.questions;
  * the same way as the other categories are saved.If the category consists of many words, {@code toString} method
  * must be overridden.
  * @author Tasos Papadopoulos
- * @version 10.11.2020
+ * @version 9.1.2021
  * */
 public enum Category {
     Food,
     Technology,
     Films,
-    Science
+    Science,
+    HipHopArtists {
+        @Override
+        public String toString() {
+            return "Hip Hop Artists";
+        }
+    },
+    HipHopGroups {
+        @Override
+        public String toString() {
+            return "Hip Hop Groups";
+        }
+    },
+    Cars,
+    Formula1 {
+        @Override
+        public String toString() {
+            return "Formula 1";
+        }
+    }
 }

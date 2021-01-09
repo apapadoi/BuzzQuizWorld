@@ -14,6 +14,7 @@ import java.util.List;
  * @version 6.1.2021
  */
 public class Round {
+    private static final Model model = Model.getInstance();
     private final List<Question> questions;
     private final Gamemodable gamemode;
     private int questionIndex;
@@ -25,7 +26,7 @@ public class Round {
      * */
     public Round(FileHandler fileHandler) {
         this.questions = fileHandler.getNextQuestions();
-        this.gamemode = Model.getInstance().getGamemodeFactory().getRandomGamemode();
+        this.gamemode = model.getGamemodeFactory().getRandomGamemode();
         this.questionIndex = 0;
     }
 
@@ -89,18 +90,16 @@ public class Round {
     /**
      * Calls the corresponding method of round's current gamemode.
      * @see Gamemodable
-     * @param model an instance of {@code Model} class
      */
-    public void actionIfCorrectAnswer(Model model, int playerIndex) {
-        this.gamemode.actionIfCorrectAnswer(model, Model.getInstance().getMsLeft(playerIndex), playerIndex);
+    public void actionIfCorrectAnswer(int playerIndex) {
+        this.gamemode.actionIfCorrectAnswer(model, model.getMsLeft(playerIndex), playerIndex);
     }
 
     /**
      * Calls the corresponding method of round's current gamemode.
      * @see Gamemodable
-     * @param model an instance of {@code Model} class
      */
-    public void actionIfWrongAnswer(Model model, int playerIndex) {
+    public void actionIfWrongAnswer(int playerIndex) {
         this.gamemode.actionIfWrongAnswer(model, playerIndex);
     }
 }

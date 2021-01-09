@@ -5,7 +5,7 @@ import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 
-public class PlayFrame extends JFrame implements GUI{
+public class PlayFrame extends JFrame implements UI {
     private final IntroFrame introFrame;
     private JButton onePlayerButton;
     private JButton twoPlayersButton;
@@ -51,7 +51,7 @@ public class PlayFrame extends JFrame implements GUI{
 
         JPanel labelPanel=new JPanel();
         labelPanel.setLayout(new GridLayout(1,1));
-        labelPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.074*UtilGUI.getScreenHeight()),(int)(0.468*UtilGUI.getScreenWidth()),
+        labelPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.074*UtilGUI.getScreenHeight()),(int)(0.270*UtilGUI.getScreenWidth()),
                 0,(int)(0.260*UtilGUI.getScreenWidth())));
         labelPanel.setOpaque(false);
 

@@ -2,53 +2,32 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.NextQuestionRequest;
-import controller.requests.PreQuestionRequest;
+import controller.requests.SetMaximumPlayersRequest;
 import controller.requests.UpdateDataRequest;
 import javafx.embed.swing.JFXPanel;
-import model.Model;
-import model.gamemodes.factories.TwoPlayersGamemodeFactory;
 import model.player.Player;
-import model.questions.Category;
-import model.questions.Difficulty;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TwoPlayersFrame extends JFrame implements GUI{
+public class TwoPlayersFrame extends GameplayFrame {
     private static final TwoPlayersFrame instance = new TwoPlayersFrame();
-    private JLabel backgroundImageLabel;
-    private JPanel buttonsPanel;
-    private JPanel leftSideIconsPanel;
-    private JPanel rightSideIconsPanel;
+    private final JLabel backgroundImageLabel;
     private static final int iconMultiplier = 30;
-    private JLabel questionsImageLabel;
-    private JPanel topPanel;
-    private java.util.List<JLabel> topPanelLabels;
-    private JPanel answersPanel;
-    private JLabel timerLabel;
-    private JLabel questionTextLabel;
-    private JLabel roundIdLabel;
+    private final JPanel answersPanel;
     private JLabel username1;
     private JLabel score1;
-    private JLabel gamemode;
-    private JLabel difficulty;
-    private JLabel category;
     private JLabel username2;
     private JLabel score2;
     private JLabel answer4;
     private JLabel answer1;
     private JLabel answer2;
     private JLabel answer3;
-    private boolean hasTimer;
-    private final Timer timer;
-    private int count = 10000;
 
     public static TwoPlayersFrame getInstance() {
         return instance;
@@ -72,59 +51,41 @@ public class TwoPlayersFrame extends JFrame implements GUI{
         this.setUpQuestionsImage();
         this.setUpDataPanel();
         this.setUpKeyListeners();
-        timer =  new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(count<=0) {
-                    ((Timer) e.getSource()).stop();
-                } else {
-                    count -= 100;
-                }
-                if(hasTimer)
-                    TwoPlayersFrame.this.timerLabel.setText((count / 1000.0) +" seconds");
-                else
-                    TwoPlayersFrame.this.timerLabel.setText("");
-            }
-        });
-        // TODO remove 0 index and add as a private attribute and add set max players to selection frame
-        Model.getInstance().setMaxPlayers(2);
-        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
+        // TODO remove 0 index and add as a private attribute
+        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                -1, 0));
     }
 
     private void setUpDataPanel() {
-        this.topPanelLabels = new ArrayList<>();
-        this.topPanel = new JPanel();
-        this.topPanel.setOpaque(false);
-        this.topPanel.setLayout(new BorderLayout());
+        // TODO remove topPanelLabels
+        List<JLabel> topPanelLabels = new ArrayList<>();
+        JPanel topPanel = new JPanel();
+        topPanel.setOpaque(false);
+        topPanel.setLayout(new BorderLayout());
 
-        this.timerLabel = UtilGUI.getLabelInstance("");
         topPanelLabels.add(timerLabel);
 
-        questionTextLabel = UtilGUI.getLabelInstance("");
         topPanelLabels.add(questionTextLabel);
 
-        roundIdLabel = UtilGUI.getLabelInstance("");
-        topPanelLabels.add(roundIdLabel);
+        topPanelLabels.add(roundLabel);
 
-        username1 = UtilGUI.getLabelInstance(Model.getInstance().getUsername(0));
+        username1 = UtilGUI.getLabelInstance("");
         topPanelLabels.add(username1);
 
-        score1 = UtilGUI.getLabelInstance(String.valueOf(Model.getInstance().getScore(0)));
+        score1 = UtilGUI.getLabelInstance("");
         topPanelLabels.add(score1);
 
-        gamemode = UtilGUI.getLabelInstance("");
         topPanelLabels.add(gamemode);
 
-        difficulty = UtilGUI.getLabelInstance("");
-        topPanelLabels.add(difficulty);
+        topPanelLabels.add(difficultyLabel);
 
-        category = UtilGUI.getLabelInstance("");
-        topPanelLabels.add(category);
+        topPanelLabels.add(categoryLabel);
 
-        username2 = UtilGUI.getLabelInstance(Model.getInstance().getUsername(1));
+        username2 = UtilGUI.getLabelInstance("");
         topPanelLabels.add(username2);
 
-        score2 = UtilGUI.getLabelInstance(String.valueOf(Model.getInstance().getScore(1)));
+        score2 = UtilGUI.getLabelInstance("");
         topPanelLabels.add(score2);
 
         JPanel firstHalfPanel = new JPanel();
@@ -134,8 +95,8 @@ public class TwoPlayersFrame extends JFrame implements GUI{
         firstHalfPanel.setOpaque(false);
         firstHalfPanel.add(timerLabel);
         firstHalfPanel.add(questionTextLabel);
-        firstHalfPanel.add(roundIdLabel);
-        this.topPanel.add(firstHalfPanel,BorderLayout.PAGE_START);
+        firstHalfPanel.add(roundLabel);
+        topPanel.add(firstHalfPanel,BorderLayout.PAGE_START);
 
 
         JPanel secondHalfPanel = new JPanel();
@@ -153,11 +114,11 @@ public class TwoPlayersFrame extends JFrame implements GUI{
         secondHalfPanel.add(username1);
         secondHalfPanel.add(score1);
         secondHalfPanel.add(gamemode);
-        secondHalfPanel.add(difficulty);
-        secondHalfPanel.add(category);
+        secondHalfPanel.add(difficultyLabel);
+        secondHalfPanel.add(categoryLabel);
         secondHalfPanel.add(score2);
         secondHalfPanel.add(username2);
-        this.topPanel.add(secondHalfPanel,BorderLayout.PAGE_END);
+        topPanel.add(secondHalfPanel,BorderLayout.PAGE_END);
         this.backgroundImageLabel.add(topPanel,BorderLayout.PAGE_START);
     }
 
@@ -219,26 +180,23 @@ public class TwoPlayersFrame extends JFrame implements GUI{
     }
 
     @Override
-    public GUI getPreQuestionFrame() {
-        return (GUI)TwoPlayersBettingFrame.getInstance();
+    public UI getPreQuestionFrame() {
+        return TwoPlayersBettingFrame.getInstance();
     }
 
     private void setUpQuestionsImage() {
-        this.questionsImageLabel = new JLabel();
         JPanel panel = new JPanel();
         panel.setOpaque(false);
         panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()*50/768,UtilGUI.getScreenWidth()*175/1368,
+        panel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()*50/768,
+                UtilGUI.getScreenWidth()*175/1368,
                 UtilGUI.getScreenHeight()*125/768,UtilGUI.getScreenWidth()*50/1368));
-        java.awt.Image resizedImage = ImageFactory.createImage(Image.QUESTION_IMG_TEST_IMG).getImage().
-                getScaledInstance((int)(UtilGUI.getScreenWidth()*550/1368),UtilGUI.getScreenHeight()*300/768,java.awt.Image.SCALE_DEFAULT);
-        this.questionsImageLabel.setIcon(new ImageIcon(resizedImage));
         panel.add(questionsImageLabel,JLabel.CENTER);
         this.backgroundImageLabel.add(panel,BorderLayout.EAST);
     }
 
     private void setUpRightSideIcons() {
-        rightSideIconsPanel = new JPanel();
+        JPanel rightSideIconsPanel = new JPanel();
         rightSideIconsPanel.setOpaque(false);
         rightSideIconsPanel.setLayout(new GridLayout(4,1,0,0));
         rightSideIconsPanel.setBorder(BorderFactory.createEmptyBorder(0,
@@ -272,7 +230,7 @@ public class TwoPlayersFrame extends JFrame implements GUI{
     }
 
     private void setUpLeftSideIcons() {
-        leftSideIconsPanel = new JPanel();
+        JPanel leftSideIconsPanel = new JPanel();
         leftSideIconsPanel.setOpaque(false);
         leftSideIconsPanel.setLayout(new GridLayout(4,1,0,0));
 
@@ -306,7 +264,7 @@ public class TwoPlayersFrame extends JFrame implements GUI{
     }
 
     private void setUpButtonsPanel() {
-        buttonsPanel = new JPanel();
+        JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new GridLayout(4,1,15,15));
         buttonsPanel.setOpaque(false);
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,
@@ -329,6 +287,12 @@ public class TwoPlayersFrame extends JFrame implements GUI{
     }
 
     @Override
+    public void updateUsernames(List<Player> players) {
+        username1.setText(players.get(0).getUsername());
+        username2.setText(players.get(1).getUsername());
+    }
+
+    @Override
     public void updateAnswers(List<String> answers) {
         answer1.setText(answers.get(0));
         answer2.setText(answers.get(1));
@@ -337,63 +301,13 @@ public class TwoPlayersFrame extends JFrame implements GUI{
     }
 
     @Override
-    public void updateScore(List<Player> players) {
+    public void updateScores(List<Player> players) {
         this.score1.setText(String.valueOf(players.get(0).getScore()));
         this.score2.setText(String.valueOf(players.get(1).getScore()));
     }
 
     @Override
-    public void updateGamemode(String gamemodeName) {
-        this.gamemode.setText(gamemodeName);
-    }
-
-    @Override
-    public void updateQuestion(String question) {
-        this.questionTextLabel.setText("<html>"+question+"</html>");
-    }
-
-    @Override
-    public void updateCategory(Category category) {
-        this.category.setText(category.toString());
-    }
-
-    @Override
-    public void updateRoundId(String id) {
-        this.roundIdLabel.setText("Round : " + id);
-    }
-
-    @Override
-    public void setHasTimer(boolean b) {
-        this.hasTimer = b;
-    }
-
-    @Override
-    public void restartCount() {
-        this.count = 10000;
-    }
-
-    @Override
-    public void stopTimer() {
-        this.timer.stop();
-    }
-
-    @Override
-    public void startTimer() {
-        this.timer.start();
-    }
-
-    @Override
-    public int getCount() {
-        return this.count;
-    }
-
-    @Override
     public boolean hasMoreThanTwoPlayers() {
         return true;
-    }
-
-    @Override
-    public void updateDifficulty(Difficulty difficulty) {
-        this.difficulty.setText(difficulty.toString());
     }
 }

@@ -1,36 +1,25 @@
 package view.gui;
 
 import controller.FrontController;
-import controller.requests.AddNumOfRoundsRequest;
-import controller.requests.AddUsernamesRequest;
-import controller.requests.LoadRequest;
-import controller.requests.PreQuestionRequest;
-import model.Model;
+import controller.requests.*;
 import model.gamemodes.factories.TwoPlayersGamemodeFactory;
 import resources.utilResources.Image;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TwoPlayersSelectionFrame extends JFrame implements GUI{
-    private PlayFrame playFrame;
+public class TwoPlayersSelectionFrame extends JFrame implements UI {
+    private final PlayFrame playFrame;
     private JLabel backgroundImageLabel;
-    private JPanel twoPlayersPanel;
-    private JPanel backPanel;
     private JButton backButton;
-    private JPanel confirmButtonPanel;
     private JButton confirmButton;
-    private JPanel topComponentsPanel;
     private JComboBox roundSelectionBox;
     private JTextField usernameField1;
     private JTextField usernameField2;
-    private String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
+    private final String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
 
 
     public TwoPlayersSelectionFrame(PlayFrame playFrame){
@@ -91,7 +80,7 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
         confirmButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         confirmButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
 
-        confirmButtonPanel=new JPanel();
+        JPanel confirmButtonPanel = new JPanel();
         confirmButtonPanel.setLayout(new BoxLayout(confirmButtonPanel,BoxLayout.X_AXIS));
         confirmButtonPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),(int)(0.416*UtilGUI.getScreenWidth()),
                 (int)(0.416*UtilGUI.getScreenHeight()),(int)(0.416*UtilGUI.getScreenWidth())));
@@ -133,14 +122,10 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
     }
 
     private void setUpButtonListeners() {
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                playFrame.setVisible(true);
-                TwoPlayersSelectionFrame.this.setVisible(false);
-            }
+        backButton.addActionListener(e -> {
+            playFrame.setVisible(true);
+            TwoPlayersSelectionFrame.this.setVisible(false);
         });
-
         usernameField1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -149,7 +134,6 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
                     usernameField1.setText("");
             }
         });
-
         backgroundImageLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -160,7 +144,6 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
                     usernameField2.setText("Enter username:");
             }
         });
-
         usernameField2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -170,32 +153,21 @@ public class TwoPlayersSelectionFrame extends JFrame implements GUI{
 
             }
         });
-
-        roundSelectionBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                roundSelectionBox.removeItem("Select rounds:");
-            }
-        });
-
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!(usernameField1.getText().equals("") || usernameField1.getText().equals("Enter username:")
-                || usernameField2.getText().equals("") || usernameField2.getText().equals("Enter username:")))
-                        if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
-                            LoadingScreenFrame loadingScreenFrame=new LoadingScreenFrame();
-                            Model.getInstance().setGamemodeFactory(TwoPlayersGamemodeFactory.getInstance());
-                            TwoPlayersSelectionFrame.this.setVisible(false);
-                            FrontController.getInstance().dispatchRequest(new LoadRequest());
-                            FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-                            FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
-                            FrontController.getInstance().setView(TwoPlayersFrame.getInstance());
-                            FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
-                                    TwoPlayersFrame.getInstance()));
-                            loadingScreenFrame.dispose();
-                        }
-            }
+        roundSelectionBox.addActionListener(e -> roundSelectionBox.removeItem("Select rounds:"));
+        confirmButton.addActionListener(e -> {
+            if (!(usernameField1.getText().equals("") || usernameField1.getText().equals("Enter username:")
+            || usernameField2.getText().equals("") || usernameField2.getText().equals("Enter username:")))
+                    if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
+                        FrontController.getInstance().dispatchRequest(new
+                                SetGamemodeFactoryRequest(TwoPlayersGamemodeFactory.getInstance()));
+                        FrontController.getInstance().dispatchRequest(new LoadRequest());
+                        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+                        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+                        FrontController.getInstance().setView(TwoPlayersFrame.getInstance());
+                        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
+                                TwoPlayersFrame.getInstance()));
+                        TwoPlayersSelectionFrame.this.setVisible(false);
+                    }
         });
     }
 }

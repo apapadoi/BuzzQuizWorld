@@ -4,7 +4,6 @@ import controller.ButtonSoundListener;
 import resources.utilResources.Constants;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

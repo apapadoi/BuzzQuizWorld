@@ -4,16 +4,18 @@ import model.player.Player;
 import model.questions.Category;
 import model.questions.Difficulty;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public interface GUI {
+public interface UI {
     default List<String> getUsernames() {
         return null;
     }
     default int getNumOfRoundsChoice() { return 0; }
+    default void updateUsernames(List<Player> players) {}
     default void updateAnswers(List<String> answers) {}
-    default void updateScore(List<Player> players) {}
+    default void updateScores(List<Player> players) {}
     default void updateGamemode(String gamemodeName) {}
     default void updateQuestion(String question) {}
     default void updateCategory(Category category) {}
@@ -26,8 +28,8 @@ public interface GUI {
     default void restartCount() {}
     default void stopTimer() {}
     default void startTimer() {}
-    default int getCount() { return 0; }
-    default GUI getPreQuestionFrame() { return null; }
+    default UI getPreQuestionFrame() { return null; }
     default void updatePlayers(List<Player> players) {}
     default boolean hasMoreThanTwoPlayers() { return false; }
+    default void updateQuestionsImage(ImageIcon imageIcon) {}
 }

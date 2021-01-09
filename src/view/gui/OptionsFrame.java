@@ -5,7 +5,7 @@ import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 
-public class OptionsFrame extends JFrame implements GUI{
+public class OptionsFrame extends JFrame implements UI {
     private JButton languageButton;
     private JButton fullscreenButton;
     private final IntroFrame introFrame;

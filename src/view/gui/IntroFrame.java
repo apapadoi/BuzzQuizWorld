@@ -7,7 +7,7 @@ import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 
-public class IntroFrame extends JFrame implements GUI{
+public class IntroFrame extends JFrame implements UI {
     private final JLabel backgroundImageLabel;
     private JButton playButton;
     private JButton scoresButton;
@@ -70,7 +70,7 @@ public class IntroFrame extends JFrame implements GUI{
         versionPanel.setLayout(new BorderLayout());
         versionPanel.setBackground(new Color(0,0,0,0));
 
-        JLabel versionLabel = new JLabel("Buzz! Quiz World 15.12.2020");
+        JLabel versionLabel = new JLabel("Buzz! Quiz World 6.1.2021");
         versionLabel.setForeground(Color.WHITE);
         versionLabel.setFont(UtilGUI.getCustomFont());
 

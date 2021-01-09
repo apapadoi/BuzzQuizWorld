@@ -1,13 +1,10 @@
 package controller.requests;
 
 import controller.Dispatcher;
-import model.Model;
 import model.questions.Question;
 import model.round.Round;
 import view.gui.FinishFrame;
-import view.gui.GUI;
-import view.gui.TwoPlayersFrame;
-
+import view.gui.UI;
 import java.util.HashMap;
 
 public class UpdateDataRequest extends Request{
@@ -16,26 +13,31 @@ public class UpdateDataRequest extends Request{
     public UpdateDataRequest(int playerIndex, int answerIndex, int msLeft) {
         super(playerIndex);
         this.answerIndex = answerIndex;
-        Model.getInstance().putResponseTime(playerIndex, msLeft);
+        model.putResponseTime(playerIndex, msLeft);
     }
 
     @Override
     public void execute(Dispatcher dispatcher) {
-        Model model = dispatcher.getModel();
-        GUI view = dispatcher.getView();
+        UI view = dispatcher.getView();
         if(answerIndex==-1 || playerIndex==-1) {
             view.updateAnswers(model.getRound(0).getQuestions().get(0).getAnswers());
             view.updateCategory(model.getRound(0).getQuestions().get(0).getCategory());
             view.updateGamemode(model.getRound(0).getGamemodeString());
             view.updateQuestion(model.getRound(0).getQuestions().get(0).getQuestionText());
-            view.updateScore(model.getPlayers());
+            view.updateScores(model.getPlayers());
             view.updateRoundId(String.valueOf(1));
+            view.updateDifficulty(model.getRound(0).getQuestions().get(0).getDifficulty());
+            view.updateUsernames(model.getPlayers());
+            if(model.getRound(0).getQuestions().get(0).hasContent())
+                view.updateQuestionsImage(model.getRound(0).getQuestions().get(0).getContent());
+            else // TODO NULL OBJECT DESIGN PATTERN
+                view.updateQuestionsImage(null);
             return;
         }
 
-        HashMap<Integer, Boolean> playersAnswered = Model.getInstance().getPlayersAnswered();
-        int maxPlayers = Model.getInstance().getMaxPlayers();
-        HashMap<Integer, Integer> responseTimes = Model.getInstance().getResponseTimes();
+        HashMap<Integer, Boolean> playersAnswered = model.getPlayersAnswered();
+        int maxPlayers = model.getMaxPlayers();
+        HashMap<Integer, Integer> responseTimes = model.getResponseTimes();
 
         if(playersAnswered.get(playerIndex).equals(true))
             return;
@@ -44,9 +46,9 @@ public class UpdateDataRequest extends Request{
         Round currentRound = model.getRound(roundId);
         Question currentQuestion = currentRound.getQuestions().get(questionId);
         if(currentQuestion.getAnswers().get(answerIndex).equals(currentQuestion.getCorrectAnswer()))
-            currentRound.actionIfCorrectAnswer(model, this.playerIndex);
+            currentRound.actionIfCorrectAnswer(this.playerIndex);
         else
-            currentRound.actionIfWrongAnswer(model, this.playerIndex);
+            currentRound.actionIfWrongAnswer(this.playerIndex);
 
         if(playersAnswered.values().stream().distinct().count()<=1) {
             if(playersAnswered.get(0).equals(true)) {
@@ -79,7 +81,13 @@ public class UpdateDataRequest extends Request{
         view.updateCategory(currentQuestion.getCategory());
         view.updateGamemode(model.getRound(roundId).getGamemodeString());
         view.updateQuestion(currentQuestion.getQuestionText());
-        view.updateScore(model.getPlayers());
+        view.updateScores(model.getPlayers());
         view.updateRoundId(String.valueOf(roundId + 1));
+        view.updateDifficulty(currentQuestion.getDifficulty());
+        view.updateUsernames(model.getPlayers());
+        if(currentQuestion.hasContent())
+            view.updateQuestionsImage(currentQuestion.getContent());
+        else
+            view.updateQuestionsImage(null);
     }
 }

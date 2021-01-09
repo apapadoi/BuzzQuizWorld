@@ -1,5 +1,6 @@
 package model.questions;
 
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -45,8 +46,5 @@ public interface Questionable {
      * */
     boolean hasContent();
 
-    /**
-     * This method shows the question's content e.g with GUI or CLI depending the interface's client
-     * */
-    void showContent();
+    ImageIcon getContent();
 }

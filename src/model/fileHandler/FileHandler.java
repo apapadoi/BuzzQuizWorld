@@ -4,6 +4,7 @@ import model.Model;
 import model.player.Player;
 import model.questions.Category;
 import model.questions.Difficulty;
+import model.questions.ImagedQuestion;
 import model.questions.Question;
 import resources.utilResources.Constants;
 import java.io.*;
@@ -17,22 +18,24 @@ import java.util.List;
 /**
  * This class represents a file handler which handles the files containing the data of the app.
  * @author Tasos Papadopoulos
- * @version 6.1.2021
+ * @version 9.1.2021
  * */
 public class FileHandler {
-    List<Question> questionList;
-    Path dataPath;
-    int questionsReturned;
+    private final List<Question> questionList;
+    private final Path textDataPath;
+    private int questionsReturned;
+    private final Path imagedDataPath;
 
     /**
      * Create a file handler using the given {@code List<Question>} and {@code Path} given.
-     * @param dataPath the path of the file that contains the questions
+     * @param textDataPath the path of the file that contains the questions
      * @param questionList the List that will be stored the questions from the file
      */
-    public FileHandler(List<Question> questionList,Path dataPath) {
+    public FileHandler(List<Question> questionList,Path textDataPath, Path imagedDataPath) {
         this.questionList = questionList;
-        this.dataPath = dataPath;
+        this.textDataPath = textDataPath;
         this.questionsReturned = 0;
+        this.imagedDataPath = imagedDataPath;
     }
 
     /**
@@ -40,25 +43,8 @@ public class FileHandler {
      * @throws IOException if the file was not found
      */
     public void readQuestions() throws IOException{
-        try (BufferedReader reader = Files.newBufferedReader(dataPath, StandardCharsets.UTF_8)) {
-            String line;
-            while(( line = reader.readLine() ) != null) {
-                String[] splitQuestion = line.split(";");
-                Question currentQuestion = new Question();
-                currentQuestion.setCategory(Category.valueOf(splitQuestion[0]));
-                currentQuestion.setQuestionText(splitQuestion[1]);
-                List<String> answers = new ArrayList<>( List.of(splitQuestion[2],
-                                                                splitQuestion[3],
-                                                                splitQuestion[4],
-                                                                splitQuestion[5]));
-                Collections.shuffle(answers);
-                currentQuestion.setAnswers(answers);
-                currentQuestion.setCorrectAnswer(splitQuestion[6]);
-                currentQuestion.setDifficulty(Difficulty.valueOf(splitQuestion[7]));
-                questionList.add(currentQuestion);
-            }
-            Collections.shuffle(this.questionList);
-        }
+        this.readTextQuestions();
+        this.readImagedQuestions();
     }
 
     /**
@@ -136,6 +122,50 @@ public class FileHandler {
         }
 
         return players;
+    }
+
+    private void readTextQuestions() throws IOException{
+        try (BufferedReader reader = Files.newBufferedReader(textDataPath, StandardCharsets.UTF_8)) {
+            String line;
+            while(( line = reader.readLine() ) != null) {
+                String[] splitQuestion = line.split(";");
+                Question currentQuestion = new Question();
+                currentQuestion.setCategory(Category.valueOf(splitQuestion[0]));
+                currentQuestion.setQuestionText(splitQuestion[1]);
+                List<String> answers = new ArrayList<>( List.of(splitQuestion[2],
+                        splitQuestion[3],
+                        splitQuestion[4],
+                        splitQuestion[5]));
+                Collections.shuffle(answers);
+                currentQuestion.setAnswers(answers);
+                currentQuestion.setCorrectAnswer(splitQuestion[6]);
+                currentQuestion.setDifficulty(Difficulty.valueOf(splitQuestion[7]));
+                questionList.add(currentQuestion);
+            }
+            Collections.shuffle(this.questionList);
+        }
+    }
+
+    private void readImagedQuestions() throws IOException{
+        try(BufferedReader reader = Files.newBufferedReader(imagedDataPath, StandardCharsets.UTF_8)) {
+            String line;
+            while(( line = reader.readLine() ) != null) {
+                String [] splitQuestion = line.split(";");
+                ImagedQuestion currentQuestion = new ImagedQuestion("src/resources/images/"+splitQuestion[8]);
+                currentQuestion.setCategory(Category.valueOf(splitQuestion[0]));
+                currentQuestion.setQuestionText(splitQuestion[1]);
+                List<String> answers = new ArrayList<>( List.of(splitQuestion[2],
+                        splitQuestion[3],
+                        splitQuestion[4],
+                        splitQuestion[5]));
+                Collections.shuffle(answers);
+                currentQuestion.setAnswers(answers);
+                currentQuestion.setCorrectAnswer(splitQuestion[6]);
+                currentQuestion.setDifficulty(Difficulty.valueOf(splitQuestion[7]));
+                questionList.add(currentQuestion);
+            }
+            Collections.shuffle(this.questionList);
+        }
     }
     /*
     public static void main(String[] args) {

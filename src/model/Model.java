@@ -10,7 +10,7 @@ import java.util.*;
  * This class represents the model of the app that groups the data of the app.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 29.11.2020
+ * @version 8.1.2020
  */
 public class Model{
     private static final Model instance = new Model();

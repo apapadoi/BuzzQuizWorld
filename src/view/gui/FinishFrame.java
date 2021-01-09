@@ -2,15 +2,16 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.SaveScoresRequest;
-import model.Model;
+import controller.requests.ShowPlayerScoresRequest;
 import model.player.Player;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
-public class FinishFrame extends JFrame implements GUI{
-    private final GUI gamemodeFrame;
+public class FinishFrame extends JFrame implements UI {
+    private final UI gamemodeFrame;
     private JPanel textPanel;
     private JPanel buttonsPanel;
     private static final JButton respawnButton = UtilGUI.getButtonInstance("Respawn",(float)25.0);
@@ -21,7 +22,7 @@ public class FinishFrame extends JFrame implements GUI{
         return super.getSize();
     }
 
-    public FinishFrame(GUI gamemodeFrame){
+    public FinishFrame(UI gamemodeFrame){
         this.gamemodeFrame = gamemodeFrame;
         this.setUndecorated(true);
         this.setUpJFrameProperties();
@@ -59,7 +60,6 @@ public class FinishFrame extends JFrame implements GUI{
         this.buttonsPanel.setLayout(new GridLayout(2,1,0,30));
         this.buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,UtilGUI.getScreenWidth()*375/1130,
                 UtilGUI.getScreenHeight()*125/527,UtilGUI.getScreenWidth()*380/1130));
-
         this.buttonsPanel.add(respawnButton);
         this.buttonsPanel.add(titleScreenButton);
     }
@@ -72,15 +72,8 @@ public class FinishFrame extends JFrame implements GUI{
                 0,0));
         JLabel label = UtilGUI.getLabelInstance("You died!",(float)70.0);
         textPanel.add(label);
-        // TODO REMOVE MODEL REFERENCE
-        for(Player player:Model.getInstance().getPlayers()) {
-            int playerScore = player.getScore();
-            label = UtilGUI.getLabelInstance(player.getUsername() + " couldn't even score above "
-                    + (playerScore + 500) + " points", (float) 25.0);
-            textPanel.add(label);
-            label = UtilGUI.getLabelInstance("Score : " + playerScore, (float) 25.0);
-            textPanel.add(label);
-        }
+
+        FrontController.getInstance().dispatchRequest(new ShowPlayerScoresRequest(this));
     }
 
     private void setUpJFrameProperties() {
@@ -101,11 +94,22 @@ public class FinishFrame extends JFrame implements GUI{
             FinishFrame.this.gamemodeFrame.dispose();
             FinishFrame.this.dispose();
         });
-
         titleScreenButton.addActionListener(e -> {
             new IntroFrame();
             FinishFrame.this.gamemodeFrame.dispose();
             FinishFrame.this.dispose();
         });
+    }
+
+    @Override
+    public void updateScores(List<Player> players) {
+        for(Player player:players) {
+            int playerScore = player.getScore();
+            JLabel label = UtilGUI.getLabelInstance(player.getUsername() + " couldn't even score above "
+                    + (playerScore + 500) + " points", (float) 25.0);
+            textPanel.add(label);
+            label = UtilGUI.getLabelInstance("Score : " + playerScore, (float) 25.0);
+            textPanel.add(label);
+        }
     }
 }
