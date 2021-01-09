@@ -1,5 +1,6 @@
 package view.gui;
 
+import com.sun.webkit.network.Util;
 import controller.FrontController;
 import controller.requests.PreQuestionRequest;
 import controller.requests.SetMaximumPlayersRequest;
@@ -58,6 +59,21 @@ public class OnePlayerFrame extends GameplayFrame {
         JPanel answersPanel = new JPanel();
         answersPanel.setOpaque(false);
         answersPanel.setLayout(new BoxLayout(answersPanel,BoxLayout.Y_AXIS));
+        answersPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),(int)(0.156*UtilGUI.getScreenWidth()),
+                (int)(0.157*UtilGUI.getScreenHeight()),(int)(0.052*UtilGUI.getScreenWidth())));
+
+        this.setUpAnswersPanelData();
+
+        answersPanel.add(answersButton1);
+        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*UtilGUI.getScreenHeight()))));
+        answersPanel.add(answersButton2);
+        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*UtilGUI.getScreenHeight()))));
+        answersPanel.add(answersButton3);
+        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*UtilGUI.getScreenHeight()))));
+        answersPanel.add(answersButton4);
+    }
+
+    private void setUpAnswersPanelData(){
         answersButton1= UtilGUI.getButtonInstance("");
         answersButton2= UtilGUI.getButtonInstance("");
         answersButton3= UtilGUI.getButtonInstance("");
@@ -70,22 +86,17 @@ public class OnePlayerFrame extends GameplayFrame {
         answersButton2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         answersButton3.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         answersButton4.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+
         answersButton1.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
         answersButton2.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
         answersButton3.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
         answersButton4.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
-        answersPanel.add(answersButton1);
-        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*UtilGUI.getScreenHeight()))));
-        answersPanel.add(answersButton2);
-        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*UtilGUI.getScreenHeight()))));
-        answersPanel.add(answersButton3);
-        answersPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.092*UtilGUI.getScreenHeight()))));
-        answersPanel.add(answersButton4);
+    }
 
         JPanel usernamePanel = new JPanel();
         usernamePanel.setLayout(new BoxLayout(usernamePanel,BoxLayout.Y_AXIS));
-            usernamePanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*UtilGUI.getScreenWidth()),
-                    (int)(0.037*UtilGUI.getScreenHeight()),0));
+        usernamePanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*UtilGUI.getScreenWidth()),
+                (int)(0.037*UtilGUI.getScreenHeight()),0));
         usernamePanel.setOpaque(false);
 
         usernameLabel = UtilGUI.getLabelInstance("");
@@ -140,7 +151,14 @@ public class OnePlayerFrame extends GameplayFrame {
     private OnePlayerFrame(){
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
-        this.setComponentsPanel();
+        onePlayerPanel=new JPanel();
+        onePlayerPanel.setOpaque(false);
+        onePlayerPanel.setLayout(new BorderLayout());
+        this.setUpQuestionsPanel();
+        this.setUpAnswersPanel();
+        this.setUpLeftPanel();
+        this.setUpBottomPanel();
+        this.connectPanels();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
 

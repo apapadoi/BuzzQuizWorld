@@ -25,33 +25,32 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
         this.playFrame=playFrame;
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
-        this.setComponentsPanel();
+        onePlayerSelectionPanel =new JPanel();
+        onePlayerSelectionPanel.setLayout(new BorderLayout());
+        onePlayerSelectionPanel.setOpaque(false);
+        this.setUpLeftPanel();
+        this.setUpBackPanel();
+        this.connectPanels();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
         this.setVisible(true);
     }
 
-    private void setComponentsPanel() {
-        JPanel onePlayerSelectionPanel = new JPanel();
-        onePlayerSelectionPanel.setLayout(new BorderLayout());
-        onePlayerSelectionPanel.setOpaque(false);
-
-        JPanel backPanel = new JPanel();
-        backPanel.setLayout(new BorderLayout());
-        backPanel.setOpaque(false);
-
-        backButton= UtilGUI.getButtonInstance("Back");
-        backButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.037*UtilGUI.getScreenHeight())));
-        backPanel.add(backButton,BorderLayout.LINE_END);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*UtilGUI.getScreenWidth()),(int)(0.013*UtilGUI.getScreenHeight()),
-                (int)(0.007*UtilGUI.getScreenWidth())));
-
-        JPanel componentsPanel = new JPanel();
+    private void setUpLeftPanel(){
+        componentsPanel=new JPanel();
         componentsPanel.setLayout(new GridLayout(3,1,0,(int)(0.231*UtilGUI.getScreenHeight())));
         componentsPanel.setOpaque(false);
         componentsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.138*UtilGUI.getScreenHeight()),(int)(0.078*UtilGUI.getScreenWidth()),
                 (int)(0.138*UtilGUI.getScreenHeight()),(int)(0.781*UtilGUI.getScreenWidth())));
 
+        this.setUpLeftComponents();
+
+        componentsPanel.add(usernameField);
+        componentsPanel.add(roundSelectionBox);
+        componentsPanel.add(confirmButton);
+    }
+
+    private void setUpLeftComponents(){
         usernameField =new JTextField("Enter username:");
         usernameField.setHorizontalAlignment(JTextField.CENTER);
         usernameField.setFont(UtilGUI.getCustomFont());
@@ -62,11 +61,20 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
         roundSelectionBox.setFont(UtilGUI.getCustomFont());
 
         confirmButton= UtilGUI.getButtonInstance("Confirm");
+    }
 
-        componentsPanel.add(usernameField);
-        componentsPanel.add(roundSelectionBox);
-        componentsPanel.add(confirmButton);
+    private void setUpBackPanel(){
+        backPanel=new JPanel();
+        backPanel.setLayout(new BorderLayout());
+        backPanel.setOpaque(false);
 
+        backButton= UtilGUI.getButtonInstance("Back");
+        backButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.037*UtilGUI.getScreenHeight())));
+        backPanel.add(backButton,BorderLayout.LINE_END);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*UtilGUI.getScreenWidth()),(int)(0.013*UtilGUI.getScreenHeight()),
+                (int)(0.007*UtilGUI.getScreenWidth())));
+    }
+    private void connectPanels() {
         onePlayerSelectionPanel.add(backPanel,BorderLayout.PAGE_END);
         onePlayerSelectionPanel.add(componentsPanel,BorderLayout.CENTER);
         backgroundImageLabel.add(onePlayerSelectionPanel);
