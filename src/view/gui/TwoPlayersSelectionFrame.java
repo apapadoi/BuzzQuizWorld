@@ -20,7 +20,10 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
     private JTextField usernameField1;
     private JTextField usernameField2;
     private final String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
-
+    private JPanel twoPlayersPanel;
+    private JPanel topComponentsPanel;
+    private JPanel backPanel;
+    private JPanel confirmButtonPanel;
 
     public TwoPlayersSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
@@ -80,7 +83,7 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
         confirmButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         confirmButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
 
-        JPanel confirmButtonPanel = new JPanel();
+        confirmButtonPanel = new JPanel();
         confirmButtonPanel.setLayout(new BoxLayout(confirmButtonPanel,BoxLayout.X_AXIS));
         confirmButtonPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),(int)(0.416*UtilGUI.getScreenWidth()),
                 (int)(0.416*UtilGUI.getScreenHeight()),(int)(0.416*UtilGUI.getScreenWidth())));

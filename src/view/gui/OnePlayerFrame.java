@@ -22,41 +22,45 @@ public class OnePlayerFrame extends GameplayFrame {
     private JLabel usernameLabel;
     private JLabel scoreLabel;
     private JButton exitButton;
+    private JPanel questionsPanel;
+    private JPanel roundPanel;
+    private JPanel timerPanel;
+    private JPanel answersPanel;
+    private JPanel onePlayerPanel;
+    private JPanel leftPanel;
+    private JPanel bottomPanel;
+    private JPanel usernamePanel;
+    private JPanel exitPanel;
     private static final OnePlayerFrame instance = new OnePlayerFrame();
 
-    private void setComponentsPanel() {
-        JPanel onePlayerPanel = new JPanel();
-        onePlayerPanel.setOpaque(false);
-        onePlayerPanel.setLayout(new BorderLayout());
+    private void setUpLeftPanel(){
+        leftPanel=new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
+        leftPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),
+                (int)(0.015*UtilGUI.getScreenWidth()),0,0));
+        leftPanel.setOpaque(false);
 
-        JPanel questionsPanel = new JPanel();
-        questionsPanel.setLayout(new BorderLayout());
-        questionsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),0,
-                (int)(0.027*UtilGUI.getScreenHeight()),0));
-        questionsPanel.setOpaque(false);
+        gamemode=new JLabel();
+        gamemode.setForeground(Color.WHITE);
+        gamemode.setFont(UtilGUI.getCustomFont().deriveFont(35));
 
-        questionTextLabel.setFont(UtilGUI.getCustomFont().deriveFont(100));
+        categoryLabel=new JLabel();
+        categoryLabel.setForeground(Color.WHITE);
+        categoryLabel.setFont(UtilGUI.getCustomFont());
 
-        JPanel roundPanel = new JPanel();
-        roundPanel.setOpaque(false);
-        roundPanel.setLayout(new BorderLayout());
-        roundPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.027*UtilGUI.getScreenHeight()),
-                (int)(0.111*UtilGUI.getScreenWidth())));
+        difficultyLabel=new JLabel();
+        difficultyLabel.setForeground(Color.WHITE);
+        difficultyLabel.setFont(UtilGUI.getCustomFont());
 
-        roundPanel.add(roundLabel);
+        leftPanel.add(gamemode);
+        leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*UtilGUI.getScreenHeight()))));
+        leftPanel.add(categoryLabel);
+        leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*UtilGUI.getScreenHeight()))));
+        leftPanel.add(difficultyLabel);
+    }
 
-        JPanel timerPanel = new JPanel();
-        timerPanel.setOpaque(false);
-        timerLabel.setLayout(new BorderLayout());
-        timerPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.111*UtilGUI.getScreenWidth()),
-                (int)(0.027*UtilGUI.getScreenHeight()),0));
-
-        timerPanel.add(timerLabel,BorderLayout.CENTER);
-        questionsPanel.add(timerPanel,BorderLayout.LINE_START);
-        questionsPanel.add(questionTextLabel,BorderLayout.CENTER);
-        questionsPanel.add(roundPanel,BorderLayout.LINE_END);
-
-        JPanel answersPanel = new JPanel();
+    private void setUpAnswersPanel(){
+        answersPanel=new JPanel();
         answersPanel.setOpaque(false);
         answersPanel.setLayout(new BoxLayout(answersPanel,BoxLayout.Y_AXIS));
         answersPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),(int)(0.156*UtilGUI.getScreenWidth()),
@@ -73,80 +77,26 @@ public class OnePlayerFrame extends GameplayFrame {
         answersPanel.add(answersButton4);
     }
 
-    private void setUpAnswersPanelData(){
-        answersButton1= UtilGUI.getButtonInstance("");
-        answersButton2= UtilGUI.getButtonInstance("");
-        answersButton3= UtilGUI.getButtonInstance("");
-        answersButton4= UtilGUI.getButtonInstance("");
+    private void setUpAnswersPanelData() {
+        answersButton1 = UtilGUI.getButtonInstance("");
+        answersButton2 = UtilGUI.getButtonInstance("");
+        answersButton3 = UtilGUI.getButtonInstance("");
+        answersButton4 = UtilGUI.getButtonInstance("");
 
-        answersPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),(int)(0.156*UtilGUI.getScreenWidth()),
-                (int)(0.157*UtilGUI.getScreenHeight()),(int)(0.052*UtilGUI.getScreenWidth())));
+        answersPanel.setBorder(BorderFactory.createEmptyBorder((int) (0.046 * UtilGUI.getScreenHeight()), (int) (0.156 * UtilGUI.getScreenWidth()),
+                (int) (0.157 * UtilGUI.getScreenHeight()), (int) (0.052 * UtilGUI.getScreenWidth())));
 
-        answersButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
-        answersButton2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
-        answersButton3.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
-        answersButton4.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        answersButton1.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+        answersButton2.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+        answersButton3.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+        answersButton4.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
 
-        answersButton1.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
-        answersButton2.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
-        answersButton3.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
-        answersButton4.setPreferredSize(new Dimension((int)(0.156*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
+        answersButton1.setPreferredSize(new Dimension((int) (0.156 * UtilGUI.getScreenWidth()), (int) (0.055 * UtilGUI.getScreenHeight())));
+        answersButton2.setPreferredSize(new Dimension((int) (0.156 * UtilGUI.getScreenWidth()), (int) (0.055 * UtilGUI.getScreenHeight())));
+        answersButton3.setPreferredSize(new Dimension((int) (0.156 * UtilGUI.getScreenWidth()), (int) (0.055 * UtilGUI.getScreenHeight())));
+        answersButton4.setPreferredSize(new Dimension((int) (0.156 * UtilGUI.getScreenWidth()), (int) (0.055 * UtilGUI.getScreenHeight())));
     }
 
-        JPanel usernamePanel = new JPanel();
-        usernamePanel.setLayout(new BoxLayout(usernamePanel,BoxLayout.Y_AXIS));
-        usernamePanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*UtilGUI.getScreenWidth()),
-                (int)(0.037*UtilGUI.getScreenHeight()),0));
-        usernamePanel.setOpaque(false);
-
-        usernameLabel = UtilGUI.getLabelInstance("");
-        scoreLabel=new JLabel();
-        scoreLabel.setFont(UtilGUI.getCustomFont());
-        scoreLabel.setForeground(Color.WHITE);
-
-        usernamePanel.add(usernameLabel);
-        usernamePanel.add(Box.createRigidArea(new Dimension(0,(int)(0.013*UtilGUI.getScreenHeight()))));
-        usernamePanel.add(scoreLabel);
-
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BorderLayout());
-        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*UtilGUI.getScreenWidth()),
-                0,(int)(0.010*UtilGUI.getScreenWidth())));
-        bottomPanel.setOpaque(false);
-
-        exitButton= UtilGUI.getButtonInstance("Exit");
-        exitButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.004*UtilGUI.getScreenHeight())));
-
-        JPanel exitPanel = new JPanel();
-        exitPanel.setLayout(new BorderLayout());
-        exitPanel.setOpaque(false);
-        exitPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.023*UtilGUI.getScreenHeight()),0,(int)(0.023*UtilGUI.getScreenHeight()),
-                (int)(0.010*UtilGUI.getScreenWidth())));
-
-        exitPanel.add(exitButton,BorderLayout.CENTER);
-
-        JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
-        leftPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),
-                (int)(0.015*UtilGUI.getScreenWidth()),0,0));
-        leftPanel.setOpaque(false);
-
-        gamemode.setFont(UtilGUI.getCustomFont().deriveFont(35));
-
-        leftPanel.add(gamemode);
-        leftPanel.add(Box.createRigidArea(new Dimension(0,(int)(0.037*UtilGUI.getScreenHeight()))));
-        leftPanel.add(categoryLabel);
-
-        bottomPanel.add(exitPanel,BorderLayout.LINE_END);
-        bottomPanel.add(usernamePanel,BorderLayout.LINE_START);
-
-        onePlayerPanel.add(leftPanel,BorderLayout.LINE_START);
-        onePlayerPanel.add(bottomPanel,BorderLayout.PAGE_END);
-        onePlayerPanel.add(questionsPanel,BorderLayout.PAGE_START);
-        onePlayerPanel.add(answersPanel,BorderLayout.LINE_END);
-        backgroundImageLabel.add(onePlayerPanel);
-        onePlayerPanel.add(questionsImageLabel,BorderLayout.CENTER);
-    }
 
     private OnePlayerFrame(){
         UtilGUI.setUpJFrameProperties(this);
@@ -166,6 +116,102 @@ public class OnePlayerFrame extends GameplayFrame {
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
     }
 
+    private void connectPanels() {
+        onePlayerPanel.add(leftPanel,BorderLayout.LINE_START);
+        onePlayerPanel.add(bottomPanel,BorderLayout.PAGE_END);
+        onePlayerPanel.add(questionsPanel,BorderLayout.PAGE_START);
+        onePlayerPanel.add(answersPanel,BorderLayout.LINE_END);
+        onePlayerPanel.add(questionsImageLabel,BorderLayout.CENTER);
+        backgroundImageLabel.add(onePlayerPanel);
+    }
+
+    private void setUpBottomPanel(){
+        bottomPanel =new JPanel();
+        bottomPanel.setLayout(new BorderLayout());
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*UtilGUI.getScreenWidth()),
+                0,(int)(0.010*UtilGUI.getScreenWidth())));
+        bottomPanel.setOpaque(false);
+
+        this.setUpBottomPanelData();
+
+        bottomPanel.add(exitPanel,BorderLayout.LINE_END);
+        bottomPanel.add(usernamePanel,BorderLayout.LINE_START);
+    }
+
+    private void setUpBottomPanelData(){
+        usernamePanel=new JPanel();
+        usernamePanel.setLayout(new BoxLayout(usernamePanel,BoxLayout.Y_AXIS));
+        usernamePanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.010*UtilGUI.getScreenWidth()),
+                (int)(0.037*UtilGUI.getScreenHeight()),0));
+        usernamePanel.setOpaque(false);
+
+        usernameLabel=new JLabel();
+        usernameLabel.setFont(UtilGUI.getCustomFont());
+        usernameLabel.setForeground(Color.WHITE);
+
+        scoreLabel=new JLabel();
+        scoreLabel.setFont(UtilGUI.getCustomFont());
+        scoreLabel.setForeground(Color.WHITE);
+
+        usernamePanel.add(usernameLabel);
+        usernamePanel.add(Box.createRigidArea(new Dimension(0,(int)(0.013*UtilGUI.getScreenHeight()))));
+        usernamePanel.add(scoreLabel);
+
+        exitButton= UtilGUI.getButtonInstance("Exit");
+        exitButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.004*UtilGUI.getScreenHeight())));
+
+
+        exitPanel=new JPanel();
+        exitPanel.setLayout(new BorderLayout());
+        exitPanel.setOpaque(false);
+        exitPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.023*UtilGUI.getScreenHeight()),0,(int)(0.023*UtilGUI.getScreenHeight()),
+                (int)(0.010*UtilGUI.getScreenWidth())));
+
+        exitPanel.add(exitButton,BorderLayout.CENTER);
+    }
+
+    private void setUpQuestionsPanel(){
+        questionsPanel=new JPanel();
+        questionsPanel.setLayout(new BorderLayout());
+        questionsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.046*UtilGUI.getScreenHeight()),0,
+                (int)(0.027*UtilGUI.getScreenHeight()),0));
+        questionsPanel.setOpaque(false);
+
+        this.setUpQuestionsPanelData();
+
+        questionsPanel.add(timerPanel,BorderLayout.LINE_START);
+        questionsPanel.add(questionTextLabel,BorderLayout.CENTER);
+        questionsPanel.add(roundPanel,BorderLayout.LINE_END);
+    }
+
+    private void setUpQuestionsPanelData(){
+        questionTextLabel.setFont(UtilGUI.getCustomFont().deriveFont(100));
+        questionTextLabel.setForeground(Color.WHITE);
+
+        roundLabel=new JLabel("");
+        roundLabel.setFont(UtilGUI.getCustomFont());
+        roundLabel.setForeground(Color.WHITE);
+
+        roundPanel=new JPanel();
+        roundPanel.setOpaque(false);
+        roundPanel.setLayout(new BorderLayout());
+        roundPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.027*UtilGUI.getScreenHeight()),
+                (int)(0.111*UtilGUI.getScreenWidth())));
+
+        roundPanel.add(roundLabel);
+
+        timerLabel=new JLabel("");
+        timerLabel.setFont(UtilGUI.getCustomFont());
+        timerLabel.setForeground(Color.WHITE);
+
+        timerPanel=new JPanel();
+        timerPanel.setOpaque(false);
+        timerLabel.setLayout(new BorderLayout());
+        timerPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.111*UtilGUI.getScreenWidth()),
+                (int)(0.027*UtilGUI.getScreenHeight()),0));
+
+        timerPanel.add(timerLabel,BorderLayout.CENTER);
+    }
     public static OnePlayerFrame getInstance() {
         return instance;
     }

@@ -20,7 +20,9 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
     private JComboBox roundSelectionBox;
     private JTextField usernameField;
     private final String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
-
+    private JPanel onePlayerSelectionPanel;
+    private JPanel backPanel;
+    private JPanel componentsPanel;
     public OnePlayerSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
         UtilGUI.setUpJFrameProperties(this);
