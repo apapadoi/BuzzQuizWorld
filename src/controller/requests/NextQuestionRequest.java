@@ -12,10 +12,13 @@ public class NextQuestionRequest extends Request{
 
     @Override
     public void execute(Dispatcher dispatcher) {
-        // TODO probably remove all answered method from model
-        if(model.allAnswered() && roundId!=model.getNumOfRounds()) {
-            gamemodeFrame.setVisible(false);
-            dispatcher.dispatch(new PreQuestionRequest(gamemodeFrame));
-        }
+        if(model.getPlayersAnswered().values().stream().distinct().count()>1)
+            return;
+
+        if(roundId==model.getNumOfRounds())
+            return;
+
+        gamemodeFrame.setVisible(false);
+        dispatcher.dispatch(new PreQuestionRequest(gamemodeFrame));
     }
 }
