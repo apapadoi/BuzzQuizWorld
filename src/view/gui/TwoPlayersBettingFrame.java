@@ -204,8 +204,8 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         topRightPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
         topRightPanel.setOpaque(false);
 
-        JLabel username1=UtilGUI.getLabelInstance("Player1: Alvanoss");
-        JLabel username2=UtilGUI.getLabelInstance("Player2: Xristosss");
+        JLabel username1=UtilGUI.getLabelInstance("<html>Player1:alvanoss <br><br>Score:1000</html>");
+        JLabel username2=UtilGUI.getLabelInstance("<html>Player2:xristoss <br><br>Score:5500</html>");
 
         topLeftPanel.add(username1);
         topRightPanel.add(username2);
