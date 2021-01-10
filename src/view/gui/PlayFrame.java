@@ -55,7 +55,7 @@ public class PlayFrame extends JFrame implements UI {
                 0,(int)(0.260*UtilGUI.getScreenWidth())));
         labelPanel.setOpaque(false);
 
-        JLabel gamemodesLabel=UtilGUI.getLabelInstance("Select gamemode");
+        JLabel gamemodesLabel=UtilGUI.getLabelInstance("Select gamemode",30);
         labelPanel.add(gamemodesLabel);
 
         playPanel.add(labelPanel,BorderLayout.PAGE_START);
