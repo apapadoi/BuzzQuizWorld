@@ -11,6 +11,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the betting phase frame (while in High Stakes gamemode) for one player.
+ * @author Thodwrhs Myridis
+ * @author Tasos Papadopoulos
+ */
 public class OnePlayerBettingFrame extends JFrame implements UI {
     private static final OnePlayerBettingFrame instance = new OnePlayerBettingFrame();
     private final JLabel backgroundImageLabel;
@@ -31,6 +36,9 @@ public class OnePlayerBettingFrame extends JFrame implements UI {
         return instance;
     }
 
+    /**
+     * Default constructor.
+     */
     private OnePlayerBettingFrame(){
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
@@ -43,6 +51,9 @@ public class OnePlayerBettingFrame extends JFrame implements UI {
         this.setUpButtonListeners();
     }
 
+    /**
+     * This method creates the top panel for betting frame.
+     */
     private void setUpTopPanel(){
         bettingPhasePanel = new JPanel();
         bettingPhasePanel.setOpaque(false);
@@ -54,7 +65,9 @@ public class OnePlayerBettingFrame extends JFrame implements UI {
         bettingPhasePanel.add(labelsPanel,BorderLayout.CENTER);
     }
 
-
+    /**
+     * This method constructs all necessary components for top panel.
+     */
     private void setUpTopPanelData(){
         gamemodeLabel = UtilGUI.getLabelInstance("");
         // TODO ADD PRE QUESTION MESSAGE TO GAMEMODABLE
@@ -75,6 +88,9 @@ public class OnePlayerBettingFrame extends JFrame implements UI {
         labelsPanel.add(categoryLabel);
     }
 
+    /**
+     * This method creates the center panel for the frame.
+     */
     private void setUpCenterPanel(){
         centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel,BoxLayout.Y_AXIS));
@@ -89,6 +105,9 @@ public class OnePlayerBettingFrame extends JFrame implements UI {
         centerPanel.add(buttonsPanel);
     }
 
+    /**
+     * This method creates the buttons panel to be adjusted in center panel.
+     */
     private void setUpButtonsPanel(){
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel,BoxLayout.X_AXIS));
@@ -107,6 +126,9 @@ public class OnePlayerBettingFrame extends JFrame implements UI {
         buttonsPanel.add(bettingAmountButton4);
     }
 
+    /**
+     * This method constructs all necessary components for the button panel.
+     */
     private void setUpButtonPanelData(){
         bettingAmountButton1= UtilGUI.getButtonInstance("250");
         bettingAmountButton2= UtilGUI.getButtonInstance("500");
@@ -125,11 +147,18 @@ public class OnePlayerBettingFrame extends JFrame implements UI {
         bettingAmountButton4.setPreferredSize(new Dimension((int)(0.052*UtilGUI.getScreenWidth()),(int)(0.055*UtilGUI.getScreenHeight())));
     }
 
+    /**
+     * This method connects all available panels.
+     */
     private void connectPanels(){
         bettingPanel.add(centerPanel,BorderLayout.CENTER);
         bettingPanel.add(bettingPhasePanel,BorderLayout.PAGE_START);
         backgroundImageLabel.add(bettingPanel);
     }
+
+    /**
+     * This method sets button listeners for all available betting buttons.
+     */
     // TODO SET ACTION COMMANDS IN ALL BUTTONS
     private void setUpButtonListeners() {
         ActionListener listener = e -> {
@@ -146,16 +175,28 @@ public class OnePlayerBettingFrame extends JFrame implements UI {
         this.bettingAmountButton4.addActionListener(listener);
     }
 
+    /**
+     * @see UI
+     * @param category
+     */
     @Override
     public void updateCategory(Category category) {
         this.categoryLabel.setText("Category : "+category.toString());
     }
 
+    /**
+     * @see UI
+     * @param players
+     */
     @Override
     public void updateScores(List<Player> players) {
         instance.scoreLabel.setText("Score : "+ players.get(0).getScore());
     }
 
+    /**
+     * @see UI
+     * @param gamemodeName
+     */
     @Override
     public void updateGamemode(String gamemodeName) {
         instance.gamemodeLabel.setText(gamemodeName);

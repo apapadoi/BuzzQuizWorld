@@ -11,6 +11,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the frame when the player is going to type his username and choose how many rounds he wants to play.
+ * @author Thodwrhs Myridis
+ * @author Tasos Papadopoulos
+ */
 public class OnePlayerSelectionFrame extends JFrame implements UI {
     private final PlayFrame playFrame;
     private JLabel backgroundImageLabel;
@@ -23,6 +28,11 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
     private JPanel onePlayerSelectionPanel;
     private JPanel backPanel;
     private JPanel componentsPanel;
+
+    /**
+     * Default constructor
+     * @param playFrame
+     */
     public OnePlayerSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
         UtilGUI.setUpJFrameProperties(this);
@@ -38,6 +48,9 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
         this.setVisible(true);
     }
 
+    /**
+     * This method creates left panel of the frame.
+     */
     private void setUpLeftPanel(){
         componentsPanel=new JPanel();
         componentsPanel.setLayout(new GridLayout(3,1,0,(int)(0.231*UtilGUI.getScreenHeight())));
@@ -52,6 +65,9 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
         componentsPanel.add(confirmButton);
     }
 
+    /**
+     * This method constructs necessary components for the left panel.
+     */
     private void setUpLeftComponents(){
         usernameField =new JTextField("Enter username:");
         usernameField.setHorizontalAlignment(JTextField.CENTER);
@@ -65,6 +81,9 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
         confirmButton= UtilGUI.getButtonInstance("Confirm");
     }
 
+    /**
+     * This method creates the back panel (bottom panel) where the back button is going to be.
+     */
     private void setUpBackPanel(){
         backPanel=new JPanel();
         backPanel.setLayout(new BorderLayout());
@@ -76,12 +95,20 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
         backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*UtilGUI.getScreenWidth()),(int)(0.013*UtilGUI.getScreenHeight()),
                 (int)(0.007*UtilGUI.getScreenWidth())));
     }
+
+    /**
+     * This method connects all available panels.
+     */
     private void connectPanels() {
         onePlayerSelectionPanel.add(backPanel,BorderLayout.PAGE_END);
         onePlayerSelectionPanel.add(componentsPanel,BorderLayout.CENTER);
         backgroundImageLabel.add(onePlayerSelectionPanel);
     }
 
+    /**
+     * @see UI
+     * @return
+     */
     @Override
     public List<String> getUsernames() {
         List<String> usernames = new ArrayList<>();
@@ -89,11 +116,18 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
         return usernames;
     }
 
+    /**
+     * @see UI
+     * @return
+     */
     @Override
     public int getNumOfRoundsChoice() {
         return Integer.parseInt((String)roundSelectionBox.getSelectedItem());
     }
 
+    /**
+     * This method sets all button listeners.
+     */
     private void setUpButtonListeners() {
         backButton.addActionListener(e -> {
             playFrame.setVisible(true);

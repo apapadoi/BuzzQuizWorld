@@ -15,6 +15,11 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the frame for two players gameplay.
+ * @author Tasos Papadopoulos
+ * @author Thodwrhs Myridis
+ */
 public class TwoPlayersFrame extends GameplayFrame {
     private static final TwoPlayersFrame instance = new TwoPlayersFrame();
     private final JLabel backgroundImageLabel;
@@ -33,6 +38,9 @@ public class TwoPlayersFrame extends GameplayFrame {
         return instance;
     }
 
+    /**
+     * Default constructor.
+     */
     private TwoPlayersFrame() {
         // TODO remove this
         new JFXPanel();

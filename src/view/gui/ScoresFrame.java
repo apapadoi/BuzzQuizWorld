@@ -9,6 +9,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the frame where the high scores will appear. The high scores can be sorted in one versus one wins and single player wins.
+ * @author Tasos Papadopoulos
+ * @author Thodwrhs Myridis
+ */
 public class ScoresFrame extends JFrame implements UI {
     private final JLabel backgroundImageLabel;
     private final IntroFrame introFrame;
@@ -20,6 +25,10 @@ public class ScoresFrame extends JFrame implements UI {
     private java.util.List<Player> players;
     private final java.util.List<JLabel> scoresLabels;
 
+    /**
+     * Default constructor
+     * @param introFrame
+     */
     public ScoresFrame(IntroFrame introFrame) {
         this.players = new ArrayList<>();
         this.scoresLabels = new ArrayList<>();
@@ -38,6 +47,9 @@ public class ScoresFrame extends JFrame implements UI {
         this.introFrame.setVisible(false);
     }
 
+    /**
+     * This method set listeners for the buttons to sort the high scores to 1v1 wins or single player wins.
+     */
     private void setUpSortButtonsListeners() {
         this.onePlayerSortButton.addActionListener(e -> {
             players.sort((o1, o2) -> -1*Integer.compare(o1.getScore(),o2.getScore()));
@@ -49,6 +61,9 @@ public class ScoresFrame extends JFrame implements UI {
         });
     }
 
+    /**
+     * This method updates scores.
+     */
     private void updatedScoreLabels() {
         for(int i = 0; i< scoresLabels.size()/3; i++) {
             scoresLabels.get(3*i).setText(players.get(i).getUsername());
@@ -57,6 +72,9 @@ public class ScoresFrame extends JFrame implements UI {
         }
     }
 
+    /**
+     * This method creates the sorting buttons panel.
+     */
     private void setUpSortButtonsPanel() {
         JPanel sortButtonsPanel = new JPanel();
         sortButtonsPanel.setOpaque(false);
@@ -77,6 +95,9 @@ public class ScoresFrame extends JFrame implements UI {
         this.backgroundImageLabel.add(sortButtonsPanel, BorderLayout.WEST);
     }
 
+    /**
+     * This method creates center panel for the frame.
+     */
     private void setUpCentralPanel() {
         JPanel centralPanel = new JPanel();
         centralPanel.setOpaque(false);
@@ -86,6 +107,9 @@ public class ScoresFrame extends JFrame implements UI {
         this.backgroundImageLabel.add(centralPanel,BorderLayout.CENTER);
     }
 
+    /**
+     * This method creates the high scores text panel.
+     */
     private void setUpScoresTextPanel() {
         this.scoresTextPanel = new JPanel();
         this.scoresTextPanel.setLayout(new BorderLayout());
@@ -99,6 +123,10 @@ public class ScoresFrame extends JFrame implements UI {
         this.scoresTextPanel.add(scoresTextLabel,BorderLayout.CENTER);
     }
 
+    /**
+     * @see UI
+     * @param players
+     */
     @Override
     public void updatePlayers(List<Player> players) {
         if(players==null)
@@ -107,6 +135,9 @@ public class ScoresFrame extends JFrame implements UI {
         this.players.sort((o1, o2) -> -1*Integer.compare(o1.getScore(),o2.getScore()));
     }
 
+    /**
+     * This method creates scores panel.
+     */
     private void setUpScoresPanel() {
         JLabel label;
         this.scoresPanel = new JPanel();
@@ -127,6 +158,10 @@ public class ScoresFrame extends JFrame implements UI {
             this.scoresLabels.add(label);
         }
     }
+
+    /**
+     * This method creates the back button (bottom panel) panel.
+     */
     // TODO REMOVE THIS
     private void setUpBackButton() {
         JPanel backButtonPanel = new JPanel();
@@ -143,6 +178,9 @@ public class ScoresFrame extends JFrame implements UI {
         this.backgroundImageLabel.add(backButtonPanel,BorderLayout.PAGE_END);
     }
 
+    /**
+     * This method sets back button listener.
+     */
     private void setUpButtonListeners() {
         backButton.addActionListener(e -> {
             ScoresFrame.this.introFrame.setVisible(true);

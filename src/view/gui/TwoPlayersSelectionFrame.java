@@ -11,6 +11,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the frame when the players are going to type their usernames and choose how many rounds they want to play.
+ * @author Thodwrhs Myridis
+ * @author Tasos Papadopoulos
+ */
 public class TwoPlayersSelectionFrame extends JFrame implements UI {
     private final PlayFrame playFrame;
     private JLabel backgroundImageLabel;
@@ -25,6 +30,10 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
     private JPanel backPanel;
     private JPanel confirmButtonPanel;
 
+    /**
+     * Default constructor.
+     * @param playFrame
+     */
     public TwoPlayersSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
         UtilGUI.setUpJFrameProperties(this);
@@ -41,6 +50,9 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
         this.setVisible(true);
     }
 
+    /**
+     * This method creates the top panel for the frame.
+     */
     private void setUpTopPanel(){
         topComponentsPanel=new JPanel();
         topComponentsPanel.setLayout(new BoxLayout(topComponentsPanel,BoxLayout.X_AXIS));
@@ -57,6 +69,9 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
         topComponentsPanel.add(usernameField2);
     }
 
+    /**
+     * This method constructs necessary components for the top panel.
+     */
     private void setUpTopComponents(){
         usernameField1=new JTextField("Enter username:");
         usernameField1.setFont(UtilGUI.getCustomFont());
@@ -78,6 +93,9 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
         roundSelectionBox.setPreferredSize(new Dimension((int)(0.052*UtilGUI.getScreenWidth()),(int)(0.046*UtilGUI.getScreenHeight())));
     }
 
+    /**
+     * This method creates the center panel for the frame.
+     */
     private void setUpCenterPanel(){
         confirmButton= UtilGUI.getButtonInstance("Confirm");
         confirmButton.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
@@ -91,6 +109,9 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
         confirmButtonPanel.add(confirmButton);
     }
 
+    /**
+     * This method creates the bottom panel for the frame.
+     */
     private void setUpBottomPanel(){
         backPanel=new JPanel();
 
@@ -104,6 +125,10 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
         backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.894*UtilGUI.getScreenWidth()),
                 (int)(0.009*UtilGUI.getScreenHeight()),0));
     }
+
+    /**
+     * This method connects all available panels.
+     */
     private void connectPanels() {
         twoPlayersPanel.add(topComponentsPanel,BorderLayout.PAGE_START);
         twoPlayersPanel.add(backPanel,BorderLayout.PAGE_END);
@@ -111,6 +136,10 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
         backgroundImageLabel.add(twoPlayersPanel);
     }
 
+    /**
+     * @see UI
+     * @return
+     */
     @Override
     public List<String> getUsernames() {
         List<String> usernames = new ArrayList<>();
@@ -119,11 +148,18 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
         return usernames;
     }
 
+    /**
+     * @see UI
+     * @return
+     */
     @Override
     public int getNumOfRoundsChoice() {
         return Integer.parseInt((String)roundSelectionBox.getSelectedItem());
     }
 
+    /**
+     * This method sets all button listeners.
+     */
     private void setUpButtonListeners() {
         backButton.addActionListener(e -> {
             playFrame.setVisible(true);

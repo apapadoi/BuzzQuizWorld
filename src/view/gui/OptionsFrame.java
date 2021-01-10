@@ -5,6 +5,11 @@ import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class represents the options frame where the player can change language and set fullscreen on and off.
+ * @author Tasos Papadopoulos
+ * @author Thodwrhs Myridis
+ */
 public class OptionsFrame extends JFrame implements UI {
     private JButton languageButton;
     private JButton fullscreenButton;
@@ -14,6 +19,10 @@ public class OptionsFrame extends JFrame implements UI {
     private String fullscreenText;
     private boolean fullScreened;
 
+    /**
+     * Default constructor.
+     * @param introFrame
+     */
     public OptionsFrame(IntroFrame introFrame) {
         this.introFrame = introFrame;
         this.fullScreened = false;
@@ -27,6 +36,9 @@ public class OptionsFrame extends JFrame implements UI {
         this.introFrame.setVisible(false);
     }
 
+    /**
+     * This method creates buttons panel (option button and language button).
+     */
     private void setUpButtonsPanel() {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setOpaque(false);
@@ -72,6 +84,9 @@ public class OptionsFrame extends JFrame implements UI {
         System.out.println(languageButton.getSize());
     }
 
+    /**
+     * This method sets back button listener.
+     */
     private void setUpButtonListeners() {
         backButton.addActionListener(e -> {
             OptionsFrame.this.introFrame.setVisible(true);
@@ -79,6 +94,9 @@ public class OptionsFrame extends JFrame implements UI {
         });
     }
 
+    /**
+     * This method sets fullScreen button listener.
+     */
     private void setUpFullScreenListener() {
         this.fullscreenButton.addActionListener(e -> {
             fullScreened = !fullScreened;

@@ -7,6 +7,11 @@ import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class represents the starting frame of the game.
+ * @author Tasos Papadopoulos
+ * @author Thodwrhs Myridis
+ */
 public class IntroFrame extends JFrame implements UI {
     private final JLabel backgroundImageLabel;
     private JButton playButton;
@@ -14,6 +19,9 @@ public class IntroFrame extends JFrame implements UI {
     private JButton optionsButton;
     private JButton quitButton;
 
+    /**
+     * Default constructor.
+     */
     public IntroFrame() {
         new JFXPanel();
         UtilGUI.setUpJFrameProperties(this);
@@ -26,6 +34,9 @@ public class IntroFrame extends JFrame implements UI {
         this.setVisible(true);
     }
 
+    /**
+     * This method creates the top panel and adds the game logo to it.
+     */
     private void setUpIconPanel() {
         JPanel iconPanel = new JPanel();
         iconPanel.setBackground(new Color(0,0,0,0));
@@ -37,6 +48,9 @@ public class IntroFrame extends JFrame implements UI {
         backgroundImageLabel.add(iconPanel,BorderLayout.PAGE_START);
     }
 
+    /**
+     * This method creates the buttons panel and adds all available buttons to it.
+     */
     private void setUpButtonsPanel() {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setBackground(new Color(0,0,0,0));
@@ -65,6 +79,9 @@ public class IntroFrame extends JFrame implements UI {
         backgroundImageLabel.add(buttonsPanel,BorderLayout.CENTER);
     }
 
+    /**
+     * This method creates the versions panel where the version of the game and the name of the team will appear.
+     */
     private void setUpVersionPanel() {
         JPanel versionPanel = new JPanel();
         versionPanel.setLayout(new BorderLayout());
@@ -84,6 +101,9 @@ public class IntroFrame extends JFrame implements UI {
         backgroundImageLabel.add(versionPanel,BorderLayout.PAGE_END);
     }
 
+    /**
+     * This method sets button listeners for all available buttons.
+     */
     private void setUpButtonListeners() {
         optionsButton.addActionListener(e -> new OptionsFrame(IntroFrame.this));
         scoresButton.addActionListener(e -> new ScoresFrame(IntroFrame.this));

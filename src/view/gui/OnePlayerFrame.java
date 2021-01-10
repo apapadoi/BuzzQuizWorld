@@ -13,6 +13,13 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * This class represents the frame for one player gameplay.
+ * @author Thodwrhs Myridis
+ * @author Tasos Papadopoulos
+ * @version 10.1.2021
+ */
+
 public class OnePlayerFrame extends GameplayFrame {
     private final JLabel backgroundImageLabel;
     private JButton answersButton1;
@@ -33,6 +40,30 @@ public class OnePlayerFrame extends GameplayFrame {
     private JPanel exitPanel;
     private static final OnePlayerFrame instance = new OnePlayerFrame();
 
+    /**
+     * Default constructor.
+     */
+    private OnePlayerFrame(){
+        UtilGUI.setUpJFrameProperties(this);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
+        onePlayerPanel=new JPanel();
+        onePlayerPanel.setOpaque(false);
+        onePlayerPanel.setLayout(new BorderLayout());
+        this.setUpQuestionsPanel();
+        this.setUpAnswersPanel();
+        this.setUpLeftPanel();
+        this.setUpBottomPanel();
+        this.connectPanels();
+        this.setUpButtonListeners();
+        FrontController.getInstance().setView(this);
+
+        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
+    }
+
+    /**
+     * This method creates the left panel of the one player frame
+     */
     private void setUpLeftPanel(){
         leftPanel=new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
@@ -59,6 +90,9 @@ public class OnePlayerFrame extends GameplayFrame {
         leftPanel.add(difficultyLabel);
     }
 
+    /**
+     * This method creates the answers panel (right panel) where the player can choose between 4 answers.
+     */
     private void setUpAnswersPanel(){
         answersPanel=new JPanel();
         answersPanel.setOpaque(false);
@@ -77,6 +111,9 @@ public class OnePlayerFrame extends GameplayFrame {
         answersPanel.add(answersButton4);
     }
 
+    /**
+     * This method constructs necessary components for the answers panel.
+     */
     private void setUpAnswersPanelData() {
         answersButton1 = UtilGUI.getButtonInstance("");
         answersButton2 = UtilGUI.getButtonInstance("");
@@ -97,25 +134,9 @@ public class OnePlayerFrame extends GameplayFrame {
         answersButton4.setPreferredSize(new Dimension((int) (0.156 * UtilGUI.getScreenWidth()), (int) (0.055 * UtilGUI.getScreenHeight())));
     }
 
-
-    private OnePlayerFrame(){
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
-        onePlayerPanel=new JPanel();
-        onePlayerPanel.setOpaque(false);
-        onePlayerPanel.setLayout(new BorderLayout());
-        this.setUpQuestionsPanel();
-        this.setUpAnswersPanel();
-        this.setUpLeftPanel();
-        this.setUpBottomPanel();
-        this.connectPanels();
-        this.setUpButtonListeners();
-        FrontController.getInstance().setView(this);
-
-        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
-        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
-    }
-
+    /**
+     * This method connects all the available panels for the current frame.
+     */
     private void connectPanels() {
         onePlayerPanel.add(leftPanel,BorderLayout.LINE_START);
         onePlayerPanel.add(bottomPanel,BorderLayout.PAGE_END);
@@ -125,6 +146,9 @@ public class OnePlayerFrame extends GameplayFrame {
         backgroundImageLabel.add(onePlayerPanel);
     }
 
+    /**
+     * This method creates the bottom panel.
+     */
     private void setUpBottomPanel(){
         bottomPanel =new JPanel();
         bottomPanel.setLayout(new BorderLayout());
@@ -138,6 +162,9 @@ public class OnePlayerFrame extends GameplayFrame {
         bottomPanel.add(usernamePanel,BorderLayout.LINE_START);
     }
 
+    /**
+     * This method constructs all necessary components for the bottom panel.
+     */
     private void setUpBottomPanelData(){
         usernamePanel=new JPanel();
         usernamePanel.setLayout(new BoxLayout(usernamePanel,BoxLayout.Y_AXIS));
@@ -170,6 +197,9 @@ public class OnePlayerFrame extends GameplayFrame {
         exitPanel.add(exitButton,BorderLayout.CENTER);
     }
 
+    /**
+     * This method creates the questions panel where the questions will appear through the gameplay.
+     */
     private void setUpQuestionsPanel(){
         questionsPanel=new JPanel();
         questionsPanel.setLayout(new BorderLayout());
@@ -184,6 +214,9 @@ public class OnePlayerFrame extends GameplayFrame {
         questionsPanel.add(roundPanel,BorderLayout.LINE_END);
     }
 
+    /**
+     * This method constructs necessary components for the questions panel.
+     */
     private void setUpQuestionsPanelData(){
         questionTextLabel.setFont(UtilGUI.getCustomFont().deriveFont(100));
         questionTextLabel.setForeground(Color.WHITE);
@@ -216,6 +249,9 @@ public class OnePlayerFrame extends GameplayFrame {
         return instance;
     }
 
+    /**
+     * This method sets all button listeners for one player frame.
+     */
     private void setUpButtonListeners() {
         exitButton.addActionListener(e -> createExitButtonFrame());
 

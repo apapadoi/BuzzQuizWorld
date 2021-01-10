@@ -8,6 +8,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class represents the frame that will appear if any error occurs while the game is loading the questions.
+ * @author Thodwrhs Myridis
+ * @author Tasos Papadopoulos
+ */
 public class ErrorFrame extends JFrame implements UI{
     private JPanel topPanel;
     private JLabel errorText;
@@ -16,7 +21,9 @@ public class ErrorFrame extends JFrame implements UI{
     private JPanel errorPanel;
     private JLabel backgroundImageLabel;
 
-
+    /**
+     * Default constructor.
+     */
     public ErrorFrame() {
         UtilGUI.setUpJFrameProperties(this);
         backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ERROR_FRAME_BACKGROUND_IMG);
@@ -29,6 +36,9 @@ public class ErrorFrame extends JFrame implements UI{
         this.setVisible(true);
     }
 
+    /**
+     * This method creates the top panel for the frame.
+     */
     private void setUpTopPanel() {
         topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
@@ -40,6 +50,9 @@ public class ErrorFrame extends JFrame implements UI{
         topPanel.add(errorText, BorderLayout.CENTER);
     }
 
+    /**
+     * This method creates the exit panel for the frame.
+     */
     private void setUpExitPanel() {
         exitPanel = new JPanel();
         exitPanel.setLayout(new BorderLayout());
@@ -51,13 +64,18 @@ public class ErrorFrame extends JFrame implements UI{
         exitPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int) (0.013 * UtilGUI.getScreenHeight()), (int) (0.007 * UtilGUI.getScreenWidth())));
     }
 
-
+    /**
+     * This method connects all available panels.
+     */
     private void connectPanels() {
         errorPanel.add(topPanel, BorderLayout.NORTH);
         errorPanel.add(exitPanel, BorderLayout.PAGE_END);
         backgroundImageLabel.add(errorPanel);
     }
 
+    /**
+     * This method sets button listeners.
+     */
     private void setUpButtonListeners() {
         exitButton.addActionListener(new ActionListener() {
             @Override
