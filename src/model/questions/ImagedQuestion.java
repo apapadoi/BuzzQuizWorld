@@ -26,7 +26,8 @@ public class ImagedQuestion extends Question {
      * @param category the {@code Category} of the question
      * @param image the {@code ImageIcon} associated with the question's image
      * */
-    public ImagedQuestion(String questionText, String correctAnswer, List<String> answers, Difficulty difficulty, Category category, ImageIcon image) {
+    public ImagedQuestion(String questionText, String correctAnswer, List<String> answers, Difficulty difficulty,
+                          Category category, ImageIcon image) {
         super(questionText,correctAnswer,answers,difficulty,category);
         this.image = image;
     }

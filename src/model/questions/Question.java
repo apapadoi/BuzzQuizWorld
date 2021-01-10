@@ -2,6 +2,7 @@ package model.questions;
 
 import javax.swing.*;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class represents a question with only a correct answer, a difficulty, a category and 3 other wrong answers.
@@ -35,7 +36,8 @@ public class Question implements Questionable {
      * @param difficulty the {@code Difficulty} of the question
      * @param category the {@code Category} of the question
      * */
-    public Question(String questionText, String correctAnswer, List<String> answers, Difficulty difficulty, Category category) {
+    public Question(String questionText, String correctAnswer, List<String> answers, Difficulty difficulty,
+                    Category category) {
         this.questionText = questionText;
         this.correctAnswer = correctAnswer;
         this.answers = answers;
@@ -140,5 +142,21 @@ public class Question implements Questionable {
     @Override
     public ImageIcon getContent() {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Question)) return false;
+        Question question = (Question) o;
+        return Objects.equals(getQuestionText(), question.getQuestionText()) &&
+                Objects.equals(getCorrectAnswer(), question.getCorrectAnswer()) &&
+                getDifficulty() == question.getDifficulty() &&
+                getCategory() == question.getCategory();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getQuestionText(), getCorrectAnswer(), getAnswers(), getDifficulty(), getCategory());
     }
 }

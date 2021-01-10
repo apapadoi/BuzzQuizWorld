@@ -17,7 +17,6 @@ public class Round {
     private static final Model model = Model.getInstance();
     private final List<Question> questions;
     private final Gamemodable gamemode;
-    private int questionIndex;
 
     /**
      * Create a round with a random gamemode from the {@code NumerablePlayersGamemode} object provided and load 5 questions
@@ -27,19 +26,6 @@ public class Round {
     public Round(FileHandler fileHandler) {
         this.questions = fileHandler.getNextQuestions();
         this.gamemode = model.getGamemodeFactory().getRandomGamemode();
-        this.questionIndex = 0;
-    }
-
-    // TODO null object pattern when there are no more questions for this round
-    @Deprecated
-    public Question getNextQuestion() {
-        Question question;
-        if(questionIndex == this.questions.size() )
-            question = null;
-        else
-            question = this.questions.get(questionIndex++);
-
-        return question;
     }
 
     /**

@@ -1,0 +1,3 @@
+Food;Which nut is used to make dynamite?;Peanuts;Walnuts;Pine nuts;Almonds;Peanuts;Medium
+Food;What was the first cold breakfast cereal invented in 1863?;Granola;Corn flakes;Bran flakes;Cheerios;Granola;Hard
+Food;Who invented Coca-Cola?;John Pemberton;Asa Griggs Candler;Charles Elmer Hires;John Matthews;John Pemberton;Medium
