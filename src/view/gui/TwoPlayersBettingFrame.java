@@ -13,6 +13,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the betting phase frame (while in High Stakes gamemode) for two player.
+ * @author Thodwrhs Myridis
+ * @author Tasos Papadopoulos
+ */
 public class TwoPlayersBettingFrame extends JFrame implements UI {
     private static final TwoPlayersBettingFrame instance = new TwoPlayersBettingFrame();
     private final JPanel bettingPanel;
@@ -25,6 +30,9 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         return instance;
     }
 
+    /**
+     * Default constructor.
+     */
     private TwoPlayersBettingFrame(){
         bettingPanel=new JPanel();
         bettingPanel.setLayout(new BorderLayout());
@@ -41,6 +49,9 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         this.setVisible(true);
     }
 
+    /**
+     * This method creates amount panel for the frames.
+     */
     private void setUpAmountPanel() {
         JPanel amountPanel = new JPanel();
         amountPanel.setLayout(new GridLayout(4,1,(int)(0.007*UtilGUI.getScreenWidth()),
@@ -78,6 +89,9 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         bettingPanel.add(amountPanel,BorderLayout.CENTER);
     }
 
+    /**
+     * This method creates right side icons (buttons) for the second player.
+     */
     private void setUpRightSideIcons() {
         JPanel rightPanel = new JPanel();
         rightPanel.setOpaque(false);
@@ -112,6 +126,9 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         this.bettingPanel.add(rightPanel,BorderLayout.EAST);
     }
 
+    /**
+     * This method creates left side icons (buttons) for the first player.
+     */
     private void setUpLeftSideIcons() {
         JPanel leftPanel = new JPanel();
         leftPanel.setOpaque(false);
@@ -150,6 +167,9 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         this.bettingPanel.add(leftPanel,BorderLayout.WEST);
     }
 
+    /**
+     * This method creates top panel for the frame.
+     */
     private void setUpTopPanel() {
         JPanel topPanel=new JPanel();
         topPanel.setLayout(new BorderLayout());
@@ -217,6 +237,9 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         bettingPanel.add(topPanel,BorderLayout.NORTH);
     }
 
+    /**
+     * This method creates bottom panel for the frame.
+     */
     private void setUpBottomPanel() {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BorderLayout());
@@ -230,6 +253,9 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         bettingPanel.add(bottomPanel,BorderLayout.PAGE_END);
     }
 
+    /**
+     * This method sets button listeners.
+     */
     private void setUpButtonListeners(){
         confirmButton.addActionListener(new ActionListener() {
             @Override
@@ -244,6 +270,10 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         });
     }
 
+    /**
+     * @see UI
+     * @param category
+     */
     @Override
     public void updateCategory(Category category) {
         this.categoryLabel.setText("Category : "+category.toString());

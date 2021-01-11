@@ -9,8 +9,8 @@ public class Constants {
     public static final String ENGLISH_FLAG_IMG_URL = "src/resources/images/englishFlag.png";
     public static final String GREEK_FLAG_IMG_URL = "src/resources/images/greekFlag.png";
     public static final String SCORES_PAGE_IMG_URL = "src/resources/images/scoresPageBackground.png";
-    public static final String PLAY_PAGE_BACKGROUND_IMG_URL="src/resources/images/playFrameBackground.png";
-    public static final String ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerSelectionFrameBackground.png";
+    public static final String PLAY_PAGE_BACKGROUND_IMG_URL="src/resources/images/playFrameBackground.gif";
+    public static final String ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerSelectionFrameBackground.gif";
     public static final String LOADING_SCREEN_PAGE_IMG_URL="src/resources/images/loadingScreen.gif";
     public static final String TWO_PLAYERS_GAMEMODE_BACKGROUND_IMG_URL =
             "src/resources/images/twoPlayersGamemodeBackground.png";
@@ -30,4 +30,5 @@ public class Constants {
     public static final String QUESTIONS_FILE_URL = "src/resources/data/questions/textQuestions/textQuestions.txt";
     public static final String DB_FILE_URL = "src/resources/db/scores.bin";
     public static final String IMAGED_QUESTIONS_FILE_URL = "src/resources/data/questions/imagedQuestions/imagedQuestions.txt";
+    public static final String ERROR_FRAME_BACKGROUND_IMG_URL="src/resources/images/errorFrameBackground.gif";
 }

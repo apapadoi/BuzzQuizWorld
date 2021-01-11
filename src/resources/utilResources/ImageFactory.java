@@ -75,6 +75,9 @@ public class ImageFactory {
                 break;
             case ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG:
                 imageIcon=new ImageIcon(Constants.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG_URL);
+                break;
+            case ERROR_FRAME_BACKGROUND_IMG:
+                imageIcon=new ImageIcon(Constants.ERROR_FRAME_BACKGROUND_IMG_URL);
         }
         return imageIcon;
     }

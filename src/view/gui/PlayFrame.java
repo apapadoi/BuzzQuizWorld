@@ -5,6 +5,11 @@ import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class represents the frame where we can choose between single player or two players gameplay.
+ * @author Thodwrhs Myridis
+ * @author Tasos Papadopoulos
+ */
 public class PlayFrame extends JFrame implements UI {
     private final IntroFrame introFrame;
     private JButton onePlayerButton;
@@ -12,6 +17,10 @@ public class PlayFrame extends JFrame implements UI {
     private JButton backButton;
     private final JLabel backgroundImageLabel;
 
+    /**
+     * Default constructor.
+     * @param introFrame
+     */
     public PlayFrame(IntroFrame introFrame){
         this.introFrame=introFrame;
         UtilGUI.setUpJFrameProperties(this);
@@ -23,6 +32,9 @@ public class PlayFrame extends JFrame implements UI {
         this.introFrame.setVisible(false);
     }
 
+    /**
+     * This method creates buttons panel (one player - two players).
+     */
     private void setUpButtonsPanel() {
         JPanel buttonsPanel =new JPanel();
         buttonsPanel.setOpaque(false);
@@ -55,7 +67,7 @@ public class PlayFrame extends JFrame implements UI {
                 0,(int)(0.260*UtilGUI.getScreenWidth())));
         labelPanel.setOpaque(false);
 
-        JLabel gamemodesLabel=UtilGUI.getLabelInstance("Select gamemode");
+        JLabel gamemodesLabel=UtilGUI.getLabelInstance("Select gamemode",30);
         labelPanel.add(gamemodesLabel);
 
         playPanel.add(labelPanel,BorderLayout.PAGE_START);
@@ -65,6 +77,9 @@ public class PlayFrame extends JFrame implements UI {
         backgroundImageLabel.add(playPanel);
     }
 
+    /**
+     * This method sets all button listeners.
+     */
     private void setUpButtonListeners(){
         onePlayerButton.addActionListener(e -> {
             new OnePlayerSelectionFrame(PlayFrame.this);
