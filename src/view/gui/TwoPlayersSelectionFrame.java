@@ -3,8 +3,10 @@ package view.gui;
 import controller.FrontController;
 import controller.requests.*;
 import model.gamemodes.factories.TwoPlayersGamemodeFactory;
+import resources.utilResources.Constants;
 import resources.utilResources.Image;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -76,14 +78,23 @@ public class TwoPlayersSelectionFrame extends GUI {
         usernameField1=new JTextField("Enter username:");
         usernameField1.setFont(UtilGUI.getCustomFont());
         usernameField1.setHorizontalAlignment(JTextField.CENTER);
+        usernameField1.setBackground(new Color(54,54,55,255));
+        usernameField1.setForeground(Color.WHITE);
+        usernameField1.setBorder(new LineBorder(Color.BLACK));
         usernameField2=new JTextField("Enter username:");
         usernameField2.setFont(UtilGUI.getCustomFont());
         usernameField2.setHorizontalAlignment(JTextField.CENTER);
+        usernameField2.setBackground(new Color(54,54,55,255));
+        usernameField2.setForeground(Color.WHITE);
+        usernameField2.setBorder(new LineBorder(Color.BLACK));
         roundSelectionBox=new JComboBox(roundsList);
         roundSelectionBox.setAlignmentX(2);
         roundSelectionBox.setSelectedIndex(0);
         roundSelectionBox.setFont(UtilGUI.getCustomFont());
-
+        roundSelectionBox.setBackground(new Color(54,54,55,255));
+        roundSelectionBox.setForeground(Color.WHITE);
+        roundSelectionBox.setUI(new DarkComboBoxUI(roundSelectionBox).getBasicComboBoxUI());
+        roundSelectionBox.setBorder(new LineBorder(Color.BLACK));
         usernameField1.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         usernameField2.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
         roundSelectionBox.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
@@ -104,7 +115,7 @@ public class TwoPlayersSelectionFrame extends GUI {
         confirmButtonPanel = new JPanel();
         confirmButtonPanel.setLayout(new BoxLayout(confirmButtonPanel,BoxLayout.X_AXIS));
         confirmButtonPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.185*UtilGUI.getScreenHeight()),(int)(0.416*UtilGUI.getScreenWidth()),
-                (int)(0.416*UtilGUI.getScreenHeight()),(int)(0.416*UtilGUI.getScreenWidth())));
+                (int)(0.400*UtilGUI.getScreenHeight()),(int)(0.416*UtilGUI.getScreenWidth())));
         confirmButtonPanel.setOpaque(false);
         confirmButtonPanel.add(confirmButton);
     }
@@ -209,7 +220,9 @@ public class TwoPlayersSelectionFrame extends GUI {
                                 -1,0));
                         FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
                                 TwoPlayersFrame.getInstance()));
+                        FrontController.getInstance().dispatchRequest(new StopSoundRequest());
                         TwoPlayersSelectionFrame.this.setVisible(false);
+                        FrontController.getInstance().dispatchRequest(new PlaySoundRequest(Constants.GAMEPLAY_SOUND_URL));
                     }
         });
     }

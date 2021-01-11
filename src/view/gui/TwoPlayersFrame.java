@@ -2,9 +2,9 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.NextQuestionRequest;
-import controller.requests.SetMaximumPlayersRequest;
 import controller.requests.UpdateDataRequest;
 import model.player.Player;
+import model.questions.Category;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
@@ -77,6 +77,10 @@ public class TwoPlayersFrame extends GameplayFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 int countWhenPress = count;
+
+                if(keyEventListHashMap.get(e.getKeyCode())==null)
+                    return;
+
                 FrontController.getInstance().dispatchRequest(new UpdateDataRequest(
                         keyEventListHashMap.get(e.getKeyCode()).get(0),
                         keyEventListHashMap.get(e.getKeyCode()).get(1),
@@ -222,5 +226,10 @@ public class TwoPlayersFrame extends GameplayFrame {
     @Override
     public UI getPreQuestionFrame() {
         return TwoPlayersBettingFrame.getInstance();
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        this.categoryLabel.setText(category.toString());
     }
 }

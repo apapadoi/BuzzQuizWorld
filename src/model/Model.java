@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.media.MediaPlayer;
 import model.fileHandler.FileHandler;
 import model.gamemodes.factories.GamemodeFactory;
 import model.player.Player;
@@ -20,11 +21,14 @@ public class Model{
     private int maxPlayers = 2;
     private List<Round> rounds;
     private GamemodeFactory gamemodeFactory;
+    private MediaPlayer mediaPlayer;
+    private boolean hasMusic;
 
     /**
      * Default constructor.
      * */
     private Model() {
+        hasMusic = true;
         players = new ArrayList<>();
         playersAnswered = new HashMap<>(maxPlayers);
         for(int i=0;i<maxPlayers;i++)
@@ -32,6 +36,22 @@ public class Model{
         responseTimes = new HashMap<>(maxPlayers);
         for(int i=0;i<maxPlayers;i++)
             responseTimes.put(i, 0);
+    }
+
+    public boolean hasMusic() {
+        return hasMusic;
+    }
+
+    public void setHasMusic(boolean hasMusic) {
+        this.hasMusic = hasMusic;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
     }
 
     public void setGamemodeFactory(GamemodeFactory gamemodeFactory) {

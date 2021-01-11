@@ -1,10 +1,9 @@
 package view.gui;
 
 import controller.FrontController;
-import controller.requests.ClearDataRequest;
-import controller.requests.SaveScoresRequest;
-import controller.requests.ShowPlayerScoresRequest;
+import controller.requests.*;
 import model.player.Player;
+import resources.utilResources.Constants;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
@@ -91,11 +90,13 @@ public class FinishFrame extends GUI {
 
     private void setUpButtonListeners() {
         respawnButton.addActionListener(e -> {
+            FrontController.getInstance().dispatchRequest(new StopSoundRequest());
             new PlayFrame(new IntroFrame());
             FinishFrame.this.gamemodeFrame.dispose();
             FinishFrame.this.dispose();
         });
         titleScreenButton.addActionListener(e -> {
+            FrontController.getInstance().dispatchRequest(new StopSoundRequest());
             new IntroFrame();
             FinishFrame.this.gamemodeFrame.dispose();
             FinishFrame.this.dispose();

@@ -1,12 +1,9 @@
 package view.gui;
 
-import com.sun.webkit.network.Util;
 import controller.FrontController;
-import controller.requests.NextQuestionRequest;
-import controller.requests.PreQuestionRequest;
-import controller.requests.SetMaximumPlayersRequest;
-import controller.requests.UpdateDataRequest;
+import controller.requests.*;
 import model.player.Player;
+import model.questions.Category;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
@@ -34,7 +31,7 @@ public class OnePlayerFrame extends GameplayFrame {
     private JPanel roundPanel;
     private JPanel timerPanel;
     private JPanel answersPanel;
-    private JPanel onePlayerPanel;
+    private final JPanel onePlayerPanel;
     private JPanel leftPanel;
     private JPanel bottomPanel;
     private JPanel usernamePanel;
@@ -266,11 +263,8 @@ public class OnePlayerFrame extends GameplayFrame {
                 answerIndex = 2;
             else
                 answerIndex = 3;
-            //OnePlayerFrame.this.setVisible(false);
             FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, answerIndex,
                     countWhenPressed));
-            //FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
-             //       OnePlayerFrame.this));
             FrontController.getInstance().dispatchRequest(new NextQuestionRequest(OnePlayerFrame.this));
         };
         answersButton1.addActionListener(updateListener);
@@ -326,6 +320,7 @@ public class OnePlayerFrame extends GameplayFrame {
         exitFrame.setVisible(true);
 
         yesButton.addActionListener(e -> {
+            FrontController.getInstance().dispatchRequest(new StopSoundRequest());
             new IntroFrame();
             exitFrame.setVisible(false);
             OnePlayerFrame.this.setVisible(false);
@@ -355,5 +350,10 @@ public class OnePlayerFrame extends GameplayFrame {
     @Override
     public boolean hasMoreThanTwoPlayers() {
         return false;
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        this.categoryLabel.setText("Category : "+category.toString());
     }
 }

@@ -3,7 +3,7 @@ Food;What was the first cold breakfast cereal invented in 1863?;Granola;Corn fla
 Food;Who invented Coca-Cola?;John Pemberton;Asa Griggs Candler;Charles Elmer Hires;John Matthews;John Pemberton;Medium
 Food;How many calories per gram are stored in protein?;4;3;2;5;4;Easy
 Food;What is the only U.S. state to grow coffee beans?;Hawaii;California;Louisiana;Florida;Hawaii;Medium
-Food;What does the word “onion” mean in Latin?;Large pearl;Small oyster;White sphere;White oyster;Large pearl;Medium
+Food;What does the word onion mean in Latin?;Large pearl;Small oyster;White sphere;White oyster;Large pearl;Medium
 Food;What is the only edible food that never expires?;Honey;Rye;Barley;White rice;Honey;Medium
 Food;What condiment was sold in the 1830’s as medicine?;Ketchup;Maple syrup;Ranch dressing;Soy sauce;Ketchup;Hard
 Food;What is a tall chef’s hat called?;Toque;Skull cap;Bucket hat;Trilby;Toque;Hard

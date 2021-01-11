@@ -1,7 +1,9 @@
 package view.gui;
 
 import controller.FrontController;
+import controller.requests.PlaySoundRequest;
 import javafx.embed.swing.JFXPanel;
+import resources.utilResources.Constants;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
@@ -32,6 +34,7 @@ public class IntroFrame extends GUI {
         this.setUpButtonsPanel();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
+        FrontController.getInstance().dispatchRequest(new PlaySoundRequest(Constants.MENU_SOUND_URL));
         frame.setVisible(true);
     }
 
@@ -88,7 +91,7 @@ public class IntroFrame extends GUI {
         versionPanel.setLayout(new BorderLayout());
         versionPanel.setBackground(new Color(0,0,0,0));
 
-        JLabel versionLabel = new JLabel("Buzz! Quiz World 6.1.2021");
+        JLabel versionLabel = new JLabel("Buzz! Quiz World 11.1.2021");
         versionLabel.setForeground(Color.WHITE);
         versionLabel.setFont(UtilGUI.getCustomFont());
 

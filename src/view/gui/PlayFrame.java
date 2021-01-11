@@ -39,7 +39,7 @@ public class PlayFrame extends GUI {
         JPanel buttonsPanel =new JPanel();
         buttonsPanel.setOpaque(false);
         buttonsPanel.setLayout(new GridLayout(1,2,(int)(0.338*UtilGUI.getScreenWidth()),0));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.625*UtilGUI.getScreenHeight()),(int)(0.140*UtilGUI.getScreenWidth()),
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.600*UtilGUI.getScreenHeight()),(int)(0.140*UtilGUI.getScreenWidth()),
                 (int)(0.106*UtilGUI.getScreenHeight()),(int)(0.098*UtilGUI.getScreenWidth())));
 
         onePlayerButton= UtilGUI.getButtonInstance("One Player");

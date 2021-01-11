@@ -2,6 +2,7 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
+import model.player.Player;
 import model.questions.Category;
 import resources.utilResources.Image;
 import javax.swing.*;
@@ -21,6 +22,8 @@ public class TwoPlayersBettingFrame extends GUI {
     private ButtonGroup rightButtonGroup;
     private ButtonGroup leftButtonGroup;
     private JLabel categoryLabel;
+    private JLabel player1Data;
+    private JLabel player2Data;
 
     public static TwoPlayersBettingFrame getInstance() {
         return instance;
@@ -221,11 +224,10 @@ public class TwoPlayersBettingFrame extends GUI {
         topRightPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
         topRightPanel.setOpaque(false);
 
-        JLabel username1=UtilGUI.getLabelInstance("<html>Player1:alvanoss <br><br>Score:1000</html>");
-        JLabel username2=UtilGUI.getLabelInstance("<html>Player2:xristoss <br><br>Score:5500</html>");
-
-        topLeftPanel.add(username1);
-        topRightPanel.add(username2);
+        player1Data =UtilGUI.getLabelInstance("");
+        player2Data =UtilGUI.getLabelInstance("");
+        topLeftPanel.add(player1Data);
+        topRightPanel.add(player2Data);
 
         topPanel.add(topLeftPanel,BorderLayout.WEST);
         topPanel.add(topCenterPanel,BorderLayout.CENTER);
@@ -271,5 +273,12 @@ public class TwoPlayersBettingFrame extends GUI {
     @Override
     public void updateCategory(Category category) {
         this.categoryLabel.setText("Category : "+category.toString());
+    }
+
+    // TODO remove this
+    @Override
+    public void updateScores(List<Player> players) {
+        this.player1Data.setText("<html>"+players.get(0).getUsername()+"<br>"+players.get(0).getScore()+"</html>");
+        this.player2Data.setText("<html>"+players.get(1).getUsername()+"<br>"+players.get(1).getScore()+"</html>");
     }
 }

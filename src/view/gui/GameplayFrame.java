@@ -51,11 +51,6 @@ public abstract class GameplayFrame extends GUI {
     }
 
     @Override
-    public void updateCategory(Category category) {
-        categoryLabel.setText("Category : "+category.toString());
-    }
-
-    @Override
     public void updateRoundId(String id) {
         roundLabel.setText("Round : "+id);
     }
