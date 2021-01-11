@@ -1,15 +1,11 @@
 package view.gui;
 
-import com.sun.javafx.css.StyleCache;
 import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
-import javafx.scene.layout.Border;
 import model.questions.Category;
 import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +14,7 @@ import java.util.List;
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  */
-public class TwoPlayersBettingFrame extends JFrame implements UI {
+public class TwoPlayersBettingFrame extends GUI {
     private static final TwoPlayersBettingFrame instance = new TwoPlayersBettingFrame();
     private final JPanel bettingPanel;
     private JButton confirmButton;
@@ -37,8 +33,9 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         bettingPanel=new JPanel();
         bettingPanel.setLayout(new BorderLayout());
         bettingPanel.setOpaque(false);
-        UtilGUI.setUpJFrameProperties(this);
-        JLabel backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        JLabel backgroundImageLabel = UtilGUI.setUpBackGround(frame,
+                Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
         this.setUpTopPanel();
         this.setUpAmountPanel();
         this.setUpRightSideIcons();
@@ -257,16 +254,13 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
      * This method sets button listeners.
      */
     private void setUpButtonListeners(){
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                List<Integer> betsSelected = new ArrayList<>(2);
-                betsSelected.add(Integer.parseInt(leftButtonGroup.getSelection().getActionCommand()));
-                betsSelected.add(Integer.parseInt(rightButtonGroup.getSelection().getActionCommand()));
-                FrontController.getInstance().dispatchRequest(new SetBetAmountRequest(betsSelected));
-                TwoPlayersFrame.getInstance().setVisible(true);
-                TwoPlayersBettingFrame.this.dispose();
-            }
+        confirmButton.addActionListener(e -> {
+            List<Integer> betsSelected = new ArrayList<>(2);
+            betsSelected.add(Integer.parseInt(leftButtonGroup.getSelection().getActionCommand()));
+            betsSelected.add(Integer.parseInt(rightButtonGroup.getSelection().getActionCommand()));
+            FrontController.getInstance().dispatchRequest(new SetBetAmountRequest(betsSelected));
+            TwoPlayersFrame.getInstance().setVisible(true);
+            TwoPlayersBettingFrame.this.dispose();
         });
     }
 

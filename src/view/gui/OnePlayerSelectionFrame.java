@@ -16,7 +16,7 @@ import java.util.List;
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  */
-public class OnePlayerSelectionFrame extends JFrame implements UI {
+public class OnePlayerSelectionFrame extends GUI {
     private final PlayFrame playFrame;
     private JLabel backgroundImageLabel;
     private JButton backButton;
@@ -35,8 +35,8 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
      */
     public OnePlayerSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(this.frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this.frame, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
         onePlayerSelectionPanel =new JPanel();
         onePlayerSelectionPanel.setLayout(new BorderLayout());
         onePlayerSelectionPanel.setOpaque(false);

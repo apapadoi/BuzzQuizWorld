@@ -10,7 +10,7 @@ import java.awt.*;
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
  */
-public class OptionsFrame extends JFrame implements UI {
+public class OptionsFrame extends GUI {
     private JButton languageButton;
     private JButton fullscreenButton;
     private final IntroFrame introFrame;
@@ -27,8 +27,8 @@ public class OptionsFrame extends JFrame implements UI {
         this.introFrame = introFrame;
         this.fullScreened = false;
         this.fullscreenText = " OFF";
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.OPTIONS_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame, Image.OPTIONS_PAGE_BACKGROUND_IMG);
         this.setUpButtonsPanel();
         this.setUpButtonListeners();
         this.setUpFullScreenListener();
@@ -101,12 +101,13 @@ public class OptionsFrame extends JFrame implements UI {
         this.fullscreenButton.addActionListener(e -> {
             fullScreened = !fullScreened;
             if (fullScreened) {
-                GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(OptionsFrame.this);
+                GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().
+                        setFullScreenWindow(OptionsFrame.this.frame);
                 fullscreenButton.setText(fullscreenButton.getText().replace("OFF","ON"));
             }
             else {
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(null);
-                OptionsFrame.this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                OptionsFrame.this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 fullscreenButton.setText(fullscreenButton.getText().replace("ON","OFF"));
             }
         });

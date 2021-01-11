@@ -52,8 +52,8 @@ public class TwoPlayersFrame extends GameplayFrame {
      * Default constructor.
      */
     private TwoPlayersFrame() {
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.TWO_PLAYERS_GAMEMODE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame, Image.TWO_PLAYERS_GAMEMODE_BACKGROUND_IMG);
         FrontController.getInstance().setView(this);
         this.setUpAnswersPanel();
         this.setUpLeftSideIcons();
@@ -77,7 +77,7 @@ public class TwoPlayersFrame extends GameplayFrame {
     }
 
     private void setUpKeyListeners() {
-        TwoPlayersFrame.this.addKeyListener(new KeyAdapter() {
+        TwoPlayersFrame.this.frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 int countWhenPress = count;

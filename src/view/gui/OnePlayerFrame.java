@@ -44,8 +44,8 @@ public class OnePlayerFrame extends GameplayFrame {
      * Default constructor.
      */
     private OnePlayerFrame(){
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
         onePlayerPanel=new JPanel();
         onePlayerPanel.setOpaque(false);
         onePlayerPanel.setLayout(new BorderLayout());

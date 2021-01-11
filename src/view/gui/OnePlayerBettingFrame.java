@@ -16,7 +16,7 @@ import java.util.List;
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  */
-public class OnePlayerBettingFrame extends JFrame implements UI {
+public class OnePlayerBettingFrame extends GUI {
     private static final OnePlayerBettingFrame instance = new OnePlayerBettingFrame();
     private final JLabel backgroundImageLabel;
     private JButton bettingAmountButton1;
@@ -26,7 +26,7 @@ public class OnePlayerBettingFrame extends JFrame implements UI {
     private JLabel categoryLabel;
     private JLabel scoreLabel;
     private JLabel gamemodeLabel;
-    private JPanel bettingPanel;
+    private final JPanel bettingPanel;
     private JPanel bettingPhasePanel;
     private JPanel buttonsPanel;
     private JLabel amountAvailableLabel;
@@ -40,8 +40,9 @@ public class OnePlayerBettingFrame extends JFrame implements UI {
      * Default constructor.
      */
     private OnePlayerBettingFrame(){
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame,
+                Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
         bettingPanel = new JPanel();
         bettingPanel.setLayout(new BorderLayout());
         bettingPanel.setOpaque(false);

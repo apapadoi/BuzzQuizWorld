@@ -16,16 +16,16 @@ import java.util.List;
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  */
-public class TwoPlayersSelectionFrame extends JFrame implements UI {
+public class TwoPlayersSelectionFrame extends GUI {
     private final PlayFrame playFrame;
-    private JLabel backgroundImageLabel;
+    private final JLabel backgroundImageLabel;
     private JButton backButton;
     private JButton confirmButton;
     private JComboBox roundSelectionBox;
     private JTextField usernameField1;
     private JTextField usernameField2;
     private final String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
-    private JPanel twoPlayersPanel;
+    private final JPanel twoPlayersPanel;
     private JPanel topComponentsPanel;
     private JPanel backPanel;
     private JPanel confirmButtonPanel;
@@ -36,8 +36,8 @@ public class TwoPlayersSelectionFrame extends JFrame implements UI {
      */
     public TwoPlayersSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(this.frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this.frame, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
         twoPlayersPanel=new JPanel();
         twoPlayersPanel.setLayout(new BorderLayout());
         twoPlayersPanel.setOpaque(false);

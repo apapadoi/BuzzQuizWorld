@@ -3,15 +3,22 @@ package controller;
 import controller.requests.Request;
 import model.fileHandler.FileHandler;
 import org.junit.jupiter.api.Test;
+import view.gui.GUI;
 import view.gui.UI;
 
+import java.awt.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DispatcherTest {
-    private final UI view = new UI() {};
+    private final UI view = new GUI() {
+        @Override
+        public Dimension getSize() {
+            return new Dimension(0,0);
+        }
+    };
     private boolean requestExecuted = true;
     private final FileHandler fileHandler = new FileHandler(new ArrayList<>(), Paths.get("test/resources/data/questions" +
             "/textQuestions/textQuestions.txt"),Paths.get("test/resources/data/questions/imagedQuestions" +

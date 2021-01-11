@@ -10,7 +10,7 @@ import java.awt.*;
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  */
-public class PlayFrame extends JFrame implements UI {
+public class PlayFrame extends GUI {
     private final IntroFrame introFrame;
     private JButton onePlayerButton;
     private JButton twoPlayersButton;
@@ -23,8 +23,8 @@ public class PlayFrame extends JFrame implements UI {
      */
     public PlayFrame(IntroFrame introFrame){
         this.introFrame=introFrame;
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.PLAY_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame, Image.PLAY_PAGE_BACKGROUND_IMG);
         this.setUpButtonsPanel();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);

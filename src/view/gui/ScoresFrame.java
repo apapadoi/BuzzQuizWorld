@@ -14,7 +14,7 @@ import java.util.List;
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
  */
-public class ScoresFrame extends JFrame implements UI {
+public class ScoresFrame extends GUI {
     private final JLabel backgroundImageLabel;
     private final IntroFrame introFrame;
     private JPanel scoresPanel;
@@ -33,9 +33,9 @@ public class ScoresFrame extends JFrame implements UI {
         this.players = new ArrayList<>();
         this.scoresLabels = new ArrayList<>();
         this.introFrame = introFrame;
-        UtilGUI.setUpJFrameProperties(this);
+        UtilGUI.setUpJFrameProperties(frame);
         FrontController.getInstance().dispatchRequest(new LoadScoresRequest(this));
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.SCORES_PAGE_BACKGROUND_IMG);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame, Image.SCORES_PAGE_BACKGROUND_IMG);
         this.setUpScoresTextPanel();
         this.setUpScoresPanel();
         this.setUpCentralPanel();
