@@ -1,6 +1,7 @@
 package view.gui;
 
 import controller.FrontController;
+import controller.requests.ClearDataRequest;
 import controller.requests.SaveScoresRequest;
 import controller.requests.ShowPlayerScoresRequest;
 import model.player.Player;
@@ -14,8 +15,8 @@ public class FinishFrame extends GUI {
     private final UI gamemodeFrame;
     private JPanel textPanel;
     private JPanel buttonsPanel;
-    private static final JButton respawnButton = UtilGUI.getButtonInstance("Respawn",(float)25.0);
-    private static final JButton titleScreenButton = UtilGUI.getButtonInstance("Title Screen",(float)25.0);
+    private final JButton respawnButton = UtilGUI.getButtonInstance("Respawn",(float)25.0);
+    private final JButton titleScreenButton = UtilGUI.getButtonInstance("Title Screen",(float)25.0);
 
     @Override
     public Dimension getSize() {

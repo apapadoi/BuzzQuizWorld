@@ -29,4 +29,13 @@ public class TwoPlayersGamemodeFactory implements GamemodeFactory{
 
         return gamemodes[4];
     }
+
+    @Override
+    public void clearGamemodeData() {
+        gamemodes[0] = new PointBuilder();
+        gamemodes[1] = new HighStakes();
+        gamemodes[2] = new StopTheClock();
+        gamemodes[3] = new BoilingPoint();
+        gamemodes[4] = new FastestFinger();
+    }
 }

@@ -200,9 +200,13 @@ public class TwoPlayersSelectionFrame extends GUI {
                         FrontController.getInstance().dispatchRequest(new
                                 SetGamemodeFactoryRequest(TwoPlayersGamemodeFactory.getInstance()));
                         FrontController.getInstance().dispatchRequest(new LoadRequest());
+                        FrontController.getInstance().dispatchRequest(new ClearDataRequest());
                         FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
                         FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
                         FrontController.getInstance().setView(TwoPlayersFrame.getInstance());
+                        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
+                        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                                -1,0));
                         FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
                                 TwoPlayersFrame.getInstance()));
                         TwoPlayersSelectionFrame.this.setVisible(false);

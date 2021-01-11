@@ -160,9 +160,13 @@ public class OnePlayerSelectionFrame extends GUI {
                             OnePlayerGamemodeFactory.getInstance()
                     ));
                     FrontController.getInstance().dispatchRequest(new LoadRequest());
+                    FrontController.getInstance().dispatchRequest(new ClearDataRequest());
                     FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
                     FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
                     FrontController.getInstance().setView(OnePlayerFrame.getInstance());
+                    FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
+                    FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                            -1,0));
                     FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
                             OnePlayerFrame.getInstance()));
                     OnePlayerSelectionFrame.this.setVisible(false);

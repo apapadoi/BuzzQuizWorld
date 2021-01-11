@@ -2,6 +2,7 @@ package view.gui;
 
 import com.sun.webkit.network.Util;
 import controller.FrontController;
+import controller.requests.NextQuestionRequest;
 import controller.requests.PreQuestionRequest;
 import controller.requests.SetMaximumPlayersRequest;
 import controller.requests.UpdateDataRequest;
@@ -55,10 +56,6 @@ public class OnePlayerFrame extends GameplayFrame {
         this.setUpBottomPanel();
         this.connectPanels();
         this.setUpButtonListeners();
-        FrontController.getInstance().setView(this);
-
-        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
-        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
     }
 
     /**
@@ -269,11 +266,12 @@ public class OnePlayerFrame extends GameplayFrame {
                 answerIndex = 2;
             else
                 answerIndex = 3;
-            OnePlayerFrame.this.setVisible(false);
+            //OnePlayerFrame.this.setVisible(false);
             FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, answerIndex,
                     countWhenPressed));
-            FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
-                    OnePlayerFrame.this));
+            //FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
+             //       OnePlayerFrame.this));
+            FrontController.getInstance().dispatchRequest(new NextQuestionRequest(OnePlayerFrame.this));
         };
         answersButton1.addActionListener(updateListener);
         answersButton2.addActionListener(updateListener);

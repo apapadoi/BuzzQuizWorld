@@ -61,10 +61,6 @@ public class TwoPlayersFrame extends GameplayFrame {
         this.setUpQuestionsImageLabel();
         this.setUpDataPanel();
         this.setUpKeyListeners();
-
-        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
-        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
-                -1, 0));
     }
 
     private void setUpDataPanel() {
