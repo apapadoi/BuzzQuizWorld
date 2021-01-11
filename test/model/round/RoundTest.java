@@ -220,6 +220,8 @@ class RoundTest {
 
     @Test
     void actionIfCorrectAnswer() {
+        Model.getInstance().getPlayers().clear();
+        Model.getInstance().setUsernames(new ArrayList<>(List.of("testUsername1","testUsername2")));
         Round round = Model.getInstance().getRound(0);
         round.actionIfCorrectAnswer(0);
         assertEquals(4500, Model.getInstance().getScore(0));
@@ -229,12 +231,14 @@ class RoundTest {
 
     @Test
     void actionIfWrongAnswer() {
+        Model.getInstance().getPlayers().clear();
+        Model.getInstance().setUsernames(new ArrayList<>(List.of("testUsername1","testUsername2")));
         Round round = Model.getInstance().getRound(0);
         round.actionIfWrongAnswer(0);
+        assertEquals(-3000, Model.getInstance().getScore(0));
+        round.actionIfCorrectAnswer(0);
+        assertEquals(1500, Model.getInstance().getScore(0));
+        round.actionIfCorrectAnswer(0);
         assertEquals(6000, Model.getInstance().getScore(0));
-        round.actionIfCorrectAnswer(0);
-        assertEquals(10500, Model.getInstance().getScore(0));
-        round.actionIfCorrectAnswer(0);
-        assertEquals(15000, Model.getInstance().getScore(0));
     }
 }
