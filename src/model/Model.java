@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.media.MediaPlayer;
 import model.fileHandler.FileHandler;
 import model.gamemodes.factories.GamemodeFactory;
 import model.player.Player;
@@ -15,16 +16,19 @@ import java.util.*;
 public class Model{
     private static final Model instance = new Model();
     private final List<Player> players;
-    private final HashMap<Integer,Boolean> playersAnswered;
-    private final HashMap<Integer, Integer> responseTimes;
+    private HashMap<Integer,Boolean> playersAnswered;
+    private HashMap<Integer, Integer> responseTimes;
     private int maxPlayers = 2;
     private List<Round> rounds;
     private GamemodeFactory gamemodeFactory;
+    private MediaPlayer mediaPlayer;
+    private boolean hasMusic;
 
     /**
      * Default constructor.
      * */
     private Model() {
+        hasMusic = true;
         players = new ArrayList<>();
         playersAnswered = new HashMap<>(maxPlayers);
         for(int i=0;i<maxPlayers;i++)
@@ -32,6 +36,22 @@ public class Model{
         responseTimes = new HashMap<>(maxPlayers);
         for(int i=0;i<maxPlayers;i++)
             responseTimes.put(i, 0);
+    }
+
+    public boolean hasMusic() {
+        return hasMusic;
+    }
+
+    public void setHasMusic(boolean hasMusic) {
+        this.hasMusic = hasMusic;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
     }
 
     public void setGamemodeFactory(GamemodeFactory gamemodeFactory) {
@@ -120,8 +140,12 @@ public class Model{
 
     public void setMaxPlayers(int newMaxPlayers) {
         maxPlayers = newMaxPlayers;
-        for(int i=maxPlayers;i<playersAnswered.size();i++)
-            playersAnswered.put(i, true);
+        playersAnswered = new HashMap<>(maxPlayers);
+        for(int i=0;i<maxPlayers;i++)
+            playersAnswered.put(i, false);
+        responseTimes = new HashMap<>(maxPlayers);
+        for(int i=0;i<maxPlayers;i++)
+            responseTimes.put(i, 0);
     }
 
     public void putResponseTime(int playerIndex, int msLeft) {
@@ -142,5 +166,18 @@ public class Model{
 
     public HashMap<Integer, Integer> getResponseTimes() {
         return responseTimes;
+    }
+
+    public void clearData() {
+        if(players!=null)
+            instance.players.clear();
+        if(rounds!=null)
+            instance.rounds.clear();
+        playersAnswered = new HashMap<>(maxPlayers);
+        for(int i=0;i<maxPlayers;i++)
+            playersAnswered.put(i, false);
+        responseTimes = new HashMap<>(maxPlayers);
+        for(int i=0;i<maxPlayers;i++)
+            responseTimes.put(i, 0);
     }
 }

@@ -1,21 +1,21 @@
 package view.gui;
 
 import controller.FrontController;
-import controller.requests.SaveScoresRequest;
-import controller.requests.ShowPlayerScoresRequest;
+import controller.requests.*;
 import model.player.Player;
+import resources.utilResources.Constants;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class FinishFrame extends JFrame implements UI {
+public class FinishFrame extends GUI {
     private final UI gamemodeFrame;
     private JPanel textPanel;
     private JPanel buttonsPanel;
-    private static final JButton respawnButton = UtilGUI.getButtonInstance("Respawn",(float)25.0);
-    private static final JButton titleScreenButton = UtilGUI.getButtonInstance("Title Screen",(float)25.0);
+    private final JButton respawnButton = UtilGUI.getButtonInstance("Respawn",(float)25.0);
+    private final JButton titleScreenButton = UtilGUI.getButtonInstance("Title Screen",(float)25.0);
 
     @Override
     public Dimension getSize() {
@@ -24,9 +24,9 @@ public class FinishFrame extends JFrame implements UI {
 
     public FinishFrame(UI gamemodeFrame){
         this.gamemodeFrame = gamemodeFrame;
-        this.setUndecorated(true);
+        this.frame.setUndecorated(true);
         this.setUpJFrameProperties();
-        setBackground(new Color(0,0,0,0));
+        this.frame.setBackground(new Color(0,0,0,0));
         JPanel centralPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -48,7 +48,7 @@ public class FinishFrame extends JFrame implements UI {
         centralPanel.add(textPanel,BorderLayout.PAGE_START);
         this.setUpButtonsPanel();
         centralPanel.add(buttonsPanel,BorderLayout.PAGE_END);
-        this.setContentPane(centralPanel);
+        this.frame.setContentPane(centralPanel);
         this.setUpButtonListeners();
         FrontController.getInstance().dispatchRequest(new SaveScoresRequest(gamemodeFrame));
         this.setVisible(true);
@@ -78,23 +78,25 @@ public class FinishFrame extends JFrame implements UI {
 
     private void setUpJFrameProperties() {
         // set properties of JFrame
-        this.setTitle("Buzz! Quiz World Remastered");
-        this.setIconImage(ImageFactory.createImage(Image.APP_ICON).getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(this.gamemodeFrame.getSize());
+        this.frame.setTitle("Buzz! Quiz World Remastered");
+        this.frame.setIconImage(ImageFactory.createImage(Image.APP_ICON).getImage());
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setSize(this.gamemodeFrame.getSize());
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch(Exception ignored){}
-        this.setLayout(new BorderLayout());
+        this.frame.setLayout(new BorderLayout());
     }
 
     private void setUpButtonListeners() {
         respawnButton.addActionListener(e -> {
+            FrontController.getInstance().dispatchRequest(new StopSoundRequest());
             new PlayFrame(new IntroFrame());
             FinishFrame.this.gamemodeFrame.dispose();
             FinishFrame.this.dispose();
         });
         titleScreenButton.addActionListener(e -> {
+            FrontController.getInstance().dispatchRequest(new StopSoundRequest());
             new IntroFrame();
             FinishFrame.this.gamemodeFrame.dispose();
             FinishFrame.this.dispose();

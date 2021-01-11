@@ -10,7 +10,7 @@ import java.awt.*;
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  */
-public class PlayFrame extends JFrame implements UI {
+public class PlayFrame extends GUI {
     private final IntroFrame introFrame;
     private JButton onePlayerButton;
     private JButton twoPlayersButton;
@@ -23,8 +23,8 @@ public class PlayFrame extends JFrame implements UI {
      */
     public PlayFrame(IntroFrame introFrame){
         this.introFrame=introFrame;
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.PLAY_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame, Image.PLAY_PAGE_BACKGROUND_IMG);
         this.setUpButtonsPanel();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
@@ -39,7 +39,7 @@ public class PlayFrame extends JFrame implements UI {
         JPanel buttonsPanel =new JPanel();
         buttonsPanel.setOpaque(false);
         buttonsPanel.setLayout(new GridLayout(1,2,(int)(0.338*UtilGUI.getScreenWidth()),0));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.625*UtilGUI.getScreenHeight()),(int)(0.140*UtilGUI.getScreenWidth()),
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.600*UtilGUI.getScreenHeight()),(int)(0.140*UtilGUI.getScreenWidth()),
                 (int)(0.106*UtilGUI.getScreenHeight()),(int)(0.098*UtilGUI.getScreenWidth())));
 
         onePlayerButton= UtilGUI.getButtonInstance("One Player");

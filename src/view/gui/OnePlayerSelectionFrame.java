@@ -3,8 +3,10 @@ package view.gui;
 import controller.FrontController;
 import controller.requests.*;
 import model.gamemodes.factories.OnePlayerGamemodeFactory;
+import resources.utilResources.Constants;
 import resources.utilResources.Image;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,16 +18,16 @@ import java.util.List;
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  */
-public class OnePlayerSelectionFrame extends JFrame implements UI {
+public class OnePlayerSelectionFrame extends GUI {
     private final PlayFrame playFrame;
-    private JLabel backgroundImageLabel;
+    private final JLabel backgroundImageLabel;
     private JButton backButton;
     private JButton confirmButton;
     // TODO ADD PARAMETRIZED JCOMBOBOX
-    private JComboBox roundSelectionBox;
+    private JComboBox<String> roundSelectionBox;
     private JTextField usernameField;
     private final String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
-    private JPanel onePlayerSelectionPanel;
+    private final JPanel onePlayerSelectionPanel;
     private JPanel backPanel;
     private JPanel componentsPanel;
 
@@ -35,8 +37,8 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
      */
     public OnePlayerSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(this.frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(this.frame, Image.ONE_PLAYER_SELECTION_PAGE_BACKGROUND_IMG);
         onePlayerSelectionPanel =new JPanel();
         onePlayerSelectionPanel.setLayout(new BorderLayout());
         onePlayerSelectionPanel.setOpaque(false);
@@ -72,12 +74,17 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
         usernameField =new JTextField("Enter username:");
         usernameField.setHorizontalAlignment(JTextField.CENTER);
         usernameField.setFont(UtilGUI.getCustomFont());
-
-        roundSelectionBox =new JComboBox(roundsList);
+        usernameField.setBackground(new Color(54,54,55,255));
+        usernameField.setForeground(Color.WHITE);
+        usernameField.setBorder(new LineBorder(Color.BLACK));
+        roundSelectionBox =new JComboBox<>(roundsList);
         roundSelectionBox.setAlignmentX(2);
         roundSelectionBox.setSelectedIndex(0);
         roundSelectionBox.setFont(UtilGUI.getCustomFont());
-
+        roundSelectionBox.setBackground(new Color(54,54,55,255));
+        roundSelectionBox.setForeground(Color.WHITE);
+        roundSelectionBox.setUI(new DarkComboBoxUI(roundSelectionBox).getBasicComboBoxUI());
+        roundSelectionBox.setBorder(new LineBorder(Color.BLACK));
         confirmButton= UtilGUI.getButtonInstance("Confirm");
     }
 
@@ -160,12 +167,18 @@ public class OnePlayerSelectionFrame extends JFrame implements UI {
                             OnePlayerGamemodeFactory.getInstance()
                     ));
                     FrontController.getInstance().dispatchRequest(new LoadRequest());
+                    FrontController.getInstance().dispatchRequest(new ClearDataRequest());
                     FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
                     FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
                     FrontController.getInstance().setView(OnePlayerFrame.getInstance());
+                    FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
+                    FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                            -1,0));
                     FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
                             OnePlayerFrame.getInstance()));
+                    FrontController.getInstance().dispatchRequest(new StopSoundRequest());
                     OnePlayerSelectionFrame.this.setVisible(false);
+                    FrontController.getInstance().dispatchRequest(new PlaySoundRequest(Constants.GAMEPLAY_SOUND_URL));
                }
        });
 

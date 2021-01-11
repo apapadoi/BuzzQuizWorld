@@ -2,9 +2,9 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.NextQuestionRequest;
-import controller.requests.SetMaximumPlayersRequest;
 import controller.requests.UpdateDataRequest;
 import model.player.Player;
+import model.questions.Category;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
@@ -52,8 +52,8 @@ public class TwoPlayersFrame extends GameplayFrame {
      * Default constructor.
      */
     private TwoPlayersFrame() {
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.TWO_PLAYERS_GAMEMODE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame, Image.TWO_PLAYERS_GAMEMODE_BACKGROUND_IMG);
         FrontController.getInstance().setView(this);
         this.setUpAnswersPanel();
         this.setUpLeftSideIcons();
@@ -61,10 +61,6 @@ public class TwoPlayersFrame extends GameplayFrame {
         this.setUpQuestionsImageLabel();
         this.setUpDataPanel();
         this.setUpKeyListeners();
-
-        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
-        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
-                -1, 0));
     }
 
     private void setUpDataPanel() {
@@ -77,10 +73,14 @@ public class TwoPlayersFrame extends GameplayFrame {
     }
 
     private void setUpKeyListeners() {
-        TwoPlayersFrame.this.addKeyListener(new KeyAdapter() {
+        TwoPlayersFrame.this.frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 int countWhenPress = count;
+
+                if(keyEventListHashMap.get(e.getKeyCode())==null)
+                    return;
+
                 FrontController.getInstance().dispatchRequest(new UpdateDataRequest(
                         keyEventListHashMap.get(e.getKeyCode()).get(0),
                         keyEventListHashMap.get(e.getKeyCode()).get(1),
@@ -226,5 +226,10 @@ public class TwoPlayersFrame extends GameplayFrame {
     @Override
     public UI getPreQuestionFrame() {
         return TwoPlayersBettingFrame.getInstance();
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        this.categoryLabel.setText(category.toString());
     }
 }

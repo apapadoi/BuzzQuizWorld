@@ -50,6 +50,7 @@ public class UpdateDataRequest extends Request{
         this.restartResponseTimesMap(model.getResponseTimes(),  model.getMaxPlayers());
         this.updateQuestionId();
         if(this.RoundsHaveFinished()) {
+            view.setHasTimer(false);
             this.finishGame();
             return;
         }

@@ -1,7 +1,9 @@
 package view.gui;
 
 import controller.FrontController;
+import controller.requests.PlaySoundRequest;
 import javafx.embed.swing.JFXPanel;
+import resources.utilResources.Constants;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
@@ -11,8 +13,9 @@ import java.awt.*;
  * This class represents the starting frame of the game.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
+ * @version 11.1.2021
  */
-public class IntroFrame extends JFrame implements UI {
+public class IntroFrame extends GUI {
     private final JLabel backgroundImageLabel;
     private JButton playButton;
     private JButton scoresButton;
@@ -24,14 +27,15 @@ public class IntroFrame extends JFrame implements UI {
      */
     public IntroFrame() {
         new JFXPanel();
-        UtilGUI.setUpJFrameProperties(this);
-        this.backgroundImageLabel = UtilGUI.setUpBackGround(this,Image.INTRO_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        this.backgroundImageLabel = UtilGUI.setUpBackGround(frame,Image.INTRO_PAGE_BACKGROUND_IMG);
         this.setUpVersionPanel();
         this.setUpIconPanel();
         this.setUpButtonsPanel();
         this.setUpButtonListeners();
         FrontController.getInstance().setView(this);
-        this.setVisible(true);
+        FrontController.getInstance().dispatchRequest(new PlaySoundRequest(Constants.MENU_SOUND_URL));
+        frame.setVisible(true);
     }
 
     /**
@@ -87,7 +91,7 @@ public class IntroFrame extends JFrame implements UI {
         versionPanel.setLayout(new BorderLayout());
         versionPanel.setBackground(new Color(0,0,0,0));
 
-        JLabel versionLabel = new JLabel("Buzz! Quiz World 6.1.2021");
+        JLabel versionLabel = new JLabel("Buzz! Quiz World 11.1.2021");
         versionLabel.setForeground(Color.WHITE);
         versionLabel.setFont(UtilGUI.getCustomFont());
 
@@ -109,6 +113,5 @@ public class IntroFrame extends JFrame implements UI {
         scoresButton.addActionListener(e -> new ScoresFrame(IntroFrame.this));
         quitButton.addActionListener(e -> System.exit(0));
         playButton.addActionListener(e -> new PlayFrame(IntroFrame.this));
-        quitButton.addActionListener(e -> System.exit(0));
     }
 }

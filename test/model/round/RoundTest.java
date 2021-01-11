@@ -86,6 +86,11 @@ class RoundTest {
         public Gamemodable getRandomGamemode() {
             return RoundTest.this.customGamemode;
         }
+
+        @Override
+        public void clearGamemodeData() {
+
+        }
     };
 
     @BeforeEach

@@ -25,10 +25,12 @@ public class Constants {
     public static final String QUESTION_IMG_TEST_IMG_URL = "src/resources/images/questionImageTest.png";
     public static final String FINISH_PAGE_BACKGROUND_IMG_URL = "src/resources/images/finishPageBackground.png";
     public static final String ONE_PLAYER_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerFrame.gif";
-    public static final String ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerBettingFrameBackground.jpg";
+    public static final String ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG_URL="src/resources/images/onePlayerBettingFrameBackground.gif";
     public static final String FONT_FILE_URL = "src/resources/fonts/Minecraft.ttf";
     public static final String QUESTIONS_FILE_URL = "src/resources/data/questions/textQuestions/textQuestions.txt";
     public static final String DB_FILE_URL = "src/resources/db/scores.bin";
     public static final String IMAGED_QUESTIONS_FILE_URL = "src/resources/data/questions/imagedQuestions/imagedQuestions.txt";
     public static final String ERROR_FRAME_BACKGROUND_IMG_URL="src/resources/images/errorFrameBackground.gif";
+    public static final String MENU_SOUND_URL = "src/resources/sounds/MenuSound.mp3";
+    public static final String GAMEPLAY_SOUND_URL = "src/resources/sounds/GameplaySound.mp3";
 }

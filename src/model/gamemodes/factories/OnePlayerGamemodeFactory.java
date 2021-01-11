@@ -26,4 +26,11 @@ public class OnePlayerGamemodeFactory implements GamemodeFactory {
 
         return gamemodes[2];
     }
+
+    @Override
+    public void clearGamemodeData() {
+        gamemodes[0] = new PointBuilder();
+        gamemodes[1] = new HighStakes();
+        gamemodes[2] = new StopTheClock();
+    }
 }

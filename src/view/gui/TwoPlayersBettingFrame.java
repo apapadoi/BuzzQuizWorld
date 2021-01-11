@@ -1,15 +1,12 @@
 package view.gui;
 
-import com.sun.javafx.css.StyleCache;
 import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
-import javafx.scene.layout.Border;
+import model.player.Player;
 import model.questions.Category;
 import resources.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +15,15 @@ import java.util.List;
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  */
-public class TwoPlayersBettingFrame extends JFrame implements UI {
+public class TwoPlayersBettingFrame extends GUI {
     private static final TwoPlayersBettingFrame instance = new TwoPlayersBettingFrame();
     private final JPanel bettingPanel;
     private JButton confirmButton;
     private ButtonGroup rightButtonGroup;
     private ButtonGroup leftButtonGroup;
     private JLabel categoryLabel;
+    private JLabel player1Data;
+    private JLabel player2Data;
 
     public static TwoPlayersBettingFrame getInstance() {
         return instance;
@@ -37,8 +36,9 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         bettingPanel=new JPanel();
         bettingPanel.setLayout(new BorderLayout());
         bettingPanel.setOpaque(false);
-        UtilGUI.setUpJFrameProperties(this);
-        JLabel backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        JLabel backgroundImageLabel = UtilGUI.setUpBackGround(frame,
+                Image.ONE_PLAYER_BETTING_PAGE_BACKGROUND_IMG);
         this.setUpTopPanel();
         this.setUpAmountPanel();
         this.setUpRightSideIcons();
@@ -224,11 +224,10 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
         topRightPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
         topRightPanel.setOpaque(false);
 
-        JLabel username1=UtilGUI.getLabelInstance("<html>Player1:alvanoss <br><br>Score:1000</html>");
-        JLabel username2=UtilGUI.getLabelInstance("<html>Player2:xristoss <br><br>Score:5500</html>");
-
-        topLeftPanel.add(username1);
-        topRightPanel.add(username2);
+        player1Data =UtilGUI.getLabelInstance("");
+        player2Data =UtilGUI.getLabelInstance("");
+        topLeftPanel.add(player1Data);
+        topRightPanel.add(player2Data);
 
         topPanel.add(topLeftPanel,BorderLayout.WEST);
         topPanel.add(topCenterPanel,BorderLayout.CENTER);
@@ -257,16 +256,13 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
      * This method sets button listeners.
      */
     private void setUpButtonListeners(){
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                List<Integer> betsSelected = new ArrayList<>(2);
-                betsSelected.add(Integer.parseInt(leftButtonGroup.getSelection().getActionCommand()));
-                betsSelected.add(Integer.parseInt(rightButtonGroup.getSelection().getActionCommand()));
-                FrontController.getInstance().dispatchRequest(new SetBetAmountRequest(betsSelected));
-                TwoPlayersFrame.getInstance().setVisible(true);
-                TwoPlayersBettingFrame.this.dispose();
-            }
+        confirmButton.addActionListener(e -> {
+            List<Integer> betsSelected = new ArrayList<>(2);
+            betsSelected.add(Integer.parseInt(leftButtonGroup.getSelection().getActionCommand()));
+            betsSelected.add(Integer.parseInt(rightButtonGroup.getSelection().getActionCommand()));
+            FrontController.getInstance().dispatchRequest(new SetBetAmountRequest(betsSelected));
+            TwoPlayersFrame.getInstance().setVisible(true);
+            TwoPlayersBettingFrame.this.dispose();
         });
     }
 
@@ -277,5 +273,12 @@ public class TwoPlayersBettingFrame extends JFrame implements UI {
     @Override
     public void updateCategory(Category category) {
         this.categoryLabel.setText("Category : "+category.toString());
+    }
+
+    // TODO remove this
+    @Override
+    public void updateScores(List<Player> players) {
+        this.player1Data.setText("<html>"+players.get(0).getUsername()+"<br>"+players.get(0).getScore()+"</html>");
+        this.player2Data.setText("<html>"+players.get(1).getUsername()+"<br>"+players.get(1).getScore()+"</html>");
     }
 }

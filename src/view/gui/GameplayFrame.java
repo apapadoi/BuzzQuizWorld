@@ -5,7 +5,7 @@ import model.questions.Difficulty;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class GameplayFrame extends JFrame implements UI {
+public abstract class GameplayFrame extends GUI {
     protected JLabel gamemode;
     protected JLabel questionTextLabel;
     protected JLabel categoryLabel;
@@ -18,6 +18,7 @@ public abstract class GameplayFrame extends JFrame implements UI {
     protected JLabel questionsImageLabel;
 
     public GameplayFrame() /*throws HeadlessException*/ {
+        super();
         gamemode = UtilGUI.getLabelInstance("");
         questionTextLabel = UtilGUI.getLabelInstance("");
         categoryLabel = UtilGUI.getLabelInstance("");
@@ -47,11 +48,6 @@ public abstract class GameplayFrame extends JFrame implements UI {
     @Override
     public void updateQuestion(String question) {
         this.questionTextLabel.setText("<html>"+question+"</html>");
-    }
-
-    @Override
-    public void updateCategory(Category category) {
-        categoryLabel.setText("Category : "+category.toString());
     }
 
     @Override

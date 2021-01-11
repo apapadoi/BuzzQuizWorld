@@ -14,10 +14,10 @@ import java.util.List;
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
  */
-public class ScoresFrame extends JFrame implements UI {
+public class ScoresFrame extends GUI {
     private final JLabel backgroundImageLabel;
     private final IntroFrame introFrame;
-    private JPanel scoresPanel;
+    private JScrollPane scoresJScrollPane;
     private JPanel scoresTextPanel;
     private JButton backButton;
     private JButton onePlayerSortButton;
@@ -33,9 +33,9 @@ public class ScoresFrame extends JFrame implements UI {
         this.players = new ArrayList<>();
         this.scoresLabels = new ArrayList<>();
         this.introFrame = introFrame;
-        UtilGUI.setUpJFrameProperties(this);
+        UtilGUI.setUpJFrameProperties(frame);
         FrontController.getInstance().dispatchRequest(new LoadScoresRequest(this));
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.SCORES_PAGE_BACKGROUND_IMG);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame, Image.SCORES_PAGE_BACKGROUND_IMG);
         this.setUpScoresTextPanel();
         this.setUpScoresPanel();
         this.setUpCentralPanel();
@@ -103,7 +103,7 @@ public class ScoresFrame extends JFrame implements UI {
         centralPanel.setOpaque(false);
         centralPanel.setLayout(new BorderLayout());
         centralPanel.add(this.scoresTextPanel,BorderLayout.PAGE_START);
-        centralPanel.add(this.scoresPanel,BorderLayout.CENTER);
+        centralPanel.add(this.scoresJScrollPane,BorderLayout.CENTER);
         this.backgroundImageLabel.add(centralPanel,BorderLayout.CENTER);
     }
 
@@ -115,12 +115,16 @@ public class ScoresFrame extends JFrame implements UI {
         this.scoresTextPanel.setLayout(new BorderLayout());
         this.scoresTextPanel.setOpaque(false);
         this.scoresTextPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()/10,0,0,0));
-        JLabel scoresTextLabel = new JLabel("Scoreboard");
-        scoresTextLabel.setHorizontalAlignment(JLabel.CENTER);
-        scoresTextLabel.setOpaque(false);
-        scoresTextLabel.setFont(UtilGUI.getCustomFont());
-        scoresTextLabel.setForeground(Color.WHITE);
-        this.scoresTextPanel.add(scoresTextLabel,BorderLayout.CENTER);
+        JLabel scoresTextLabel = UtilGUI.getLabelInstance("Scoreboard");
+        this.scoresTextPanel.add(scoresTextLabel,BorderLayout.PAGE_START);
+        JPanel menuWordsPanel = new JPanel();
+        menuWordsPanel.setLayout(new GridLayout(1,3,0,0));
+        menuWordsPanel.setOpaque(false);
+        menuWordsPanel.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()/19,0,0,0));
+        menuWordsPanel.add(UtilGUI.getLabelInstance("Username"));
+        menuWordsPanel.add(UtilGUI.getLabelInstance("High Score"));
+        menuWordsPanel.add(UtilGUI.getLabelInstance("1-1 Wins"));
+        scoresTextPanel.add(menuWordsPanel,BorderLayout.PAGE_END);
     }
 
     /**
@@ -140,23 +144,33 @@ public class ScoresFrame extends JFrame implements UI {
      */
     private void setUpScoresPanel() {
         JLabel label;
-        this.scoresPanel = new JPanel();
-        this.scoresPanel.setOpaque(false);
-        this.scoresPanel.setLayout(new GridLayout(players.size()+1,3,0,0));
-        this.scoresPanel.add(UtilGUI.getLabelInstance("Username"));
-        this.scoresPanel.add(UtilGUI.getLabelInstance("High Score"));
-        this.scoresPanel.add(UtilGUI.getLabelInstance("1-1 Wins"));
+        JPanel scoresPanel = new JPanel();
+        scoresPanel.setOpaque(false);
+        scoresPanel.setLayout(new GridLayout(players.size(),3,0,0));
         for(Player player : this.players) {
             label = UtilGUI.getLabelInstance(player.getUsername());
-            this.scoresPanel.add(label);
+            scoresPanel.add(label);
             this.scoresLabels.add(label);
             label = UtilGUI.getLabelInstance(String.valueOf(player.getScore()));
-            this.scoresPanel.add(label);
+            scoresPanel.add(label);
             this.scoresLabels.add(label);
             label = UtilGUI.getLabelInstance(String.valueOf(player.getWins()));
-            this.scoresPanel.add(label);
+            scoresPanel.add(label);
             this.scoresLabels.add(label);
         }
+        scoresJScrollPane = new JScrollPane(scoresPanel,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scoresJScrollPane.setOpaque(false);
+        scoresJScrollPane.getViewport().setOpaque(false);
+        scoresJScrollPane.setBorder(BorderFactory.createEmptyBorder(UtilGUI.getScreenHeight()/20,
+                0,UtilGUI.getScreenHeight()/15,0));
+        scoresJScrollPane.getVerticalScrollBar().setUI(new NoArrowScrollBarUI(Color.WHITE,
+                768/30).getBasicScrollBarUI());
+        scoresJScrollPane.getVerticalScrollBar().setUnitIncrement(25);
+        scoresJScrollPane.getVerticalScrollBar().setBorder(BorderFactory.createEmptyBorder());
+        scoresJScrollPane.getVerticalScrollBar().setBackground(new Color(0,0,0,0));
+        scoresJScrollPane.getVerticalScrollBar().setForeground(Color.WHITE);
     }
 
     /**

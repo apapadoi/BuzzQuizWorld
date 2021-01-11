@@ -1,11 +1,9 @@
 package view.gui;
 
-import com.sun.webkit.network.Util;
 import controller.FrontController;
-import controller.requests.PreQuestionRequest;
-import controller.requests.SetMaximumPlayersRequest;
-import controller.requests.UpdateDataRequest;
+import controller.requests.*;
 import model.player.Player;
+import model.questions.Category;
 import resources.utilResources.Image;
 import resources.utilResources.ImageFactory;
 import javax.swing.*;
@@ -33,7 +31,7 @@ public class OnePlayerFrame extends GameplayFrame {
     private JPanel roundPanel;
     private JPanel timerPanel;
     private JPanel answersPanel;
-    private JPanel onePlayerPanel;
+    private final JPanel onePlayerPanel;
     private JPanel leftPanel;
     private JPanel bottomPanel;
     private JPanel usernamePanel;
@@ -44,8 +42,8 @@ public class OnePlayerFrame extends GameplayFrame {
      * Default constructor.
      */
     private OnePlayerFrame(){
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame, Image.ONE_PLAYER_PAGE_BACKGROUND_IMG);
         onePlayerPanel=new JPanel();
         onePlayerPanel.setOpaque(false);
         onePlayerPanel.setLayout(new BorderLayout());
@@ -55,10 +53,6 @@ public class OnePlayerFrame extends GameplayFrame {
         this.setUpBottomPanel();
         this.connectPanels();
         this.setUpButtonListeners();
-        FrontController.getInstance().setView(this);
-
-        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
-        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1, -1, 0));
     }
 
     /**
@@ -257,6 +251,8 @@ public class OnePlayerFrame extends GameplayFrame {
 
         ActionListener updateListener = e -> {
             OnePlayerFrame.this.timer.stop();
+            int countWhenPressed = count;
+            OnePlayerFrame.this.timer.start();
             int answerIndex;
             JButton buttonPressed = (JButton)e.getSource();
             if(buttonPressed.equals(answersButton1))
@@ -267,11 +263,9 @@ public class OnePlayerFrame extends GameplayFrame {
                 answerIndex = 2;
             else
                 answerIndex = 3;
-            OnePlayerFrame.this.setVisible(false);
             FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, answerIndex,
-                    count));
-            FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
-                    OnePlayerFrame.this));
+                    countWhenPressed));
+            FrontController.getInstance().dispatchRequest(new NextQuestionRequest(OnePlayerFrame.this));
         };
         answersButton1.addActionListener(updateListener);
         answersButton2.addActionListener(updateListener);
@@ -326,6 +320,7 @@ public class OnePlayerFrame extends GameplayFrame {
         exitFrame.setVisible(true);
 
         yesButton.addActionListener(e -> {
+            FrontController.getInstance().dispatchRequest(new StopSoundRequest());
             new IntroFrame();
             exitFrame.setVisible(false);
             OnePlayerFrame.this.setVisible(false);
@@ -355,5 +350,10 @@ public class OnePlayerFrame extends GameplayFrame {
     @Override
     public boolean hasMoreThanTwoPlayers() {
         return false;
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        this.categoryLabel.setText("Category : "+category.toString());
     }
 }

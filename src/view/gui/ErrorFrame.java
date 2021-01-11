@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  */
-public class ErrorFrame extends JFrame implements UI{
+public class ErrorFrame extends GUI{
     private JPanel topPanel;
     private JLabel errorText;
     private JButton exitButton;
@@ -25,8 +25,8 @@ public class ErrorFrame extends JFrame implements UI{
      * Default constructor.
      */
     public ErrorFrame() {
-        UtilGUI.setUpJFrameProperties(this);
-        backgroundImageLabel = UtilGUI.setUpBackGround(this, Image.ERROR_FRAME_BACKGROUND_IMG);
+        UtilGUI.setUpJFrameProperties(frame);
+        backgroundImageLabel = UtilGUI.setUpBackGround(frame, Image.ERROR_FRAME_BACKGROUND_IMG);
         errorPanel = new JPanel();
         errorPanel.setLayout(new BorderLayout());
         errorPanel.setOpaque(false);

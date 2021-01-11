@@ -26,6 +26,7 @@ public class FileHandler {
     private final Path textDataPath;
     private int questionsReturned;
     private final Path imagedDataPath;
+    private boolean loadedQuestions;
 
     /**
      * Create a file handler using the given {@code List<Question>} and {@code Path} given.
@@ -33,6 +34,7 @@ public class FileHandler {
      * @param questionList the List that will be stored the questions from the file
      */
     public FileHandler(List<Question> questionList,Path textDataPath, Path imagedDataPath) {
+        this.loadedQuestions = false;
         this.questionList = questionList;
         this.textDataPath = textDataPath;
         this.questionsReturned = 0;
@@ -48,6 +50,12 @@ public class FileHandler {
      * @throws IOException if the file was not found
      */
     public void readQuestions() throws IOException{
+        if(loadedQuestions) {
+            Collections.shuffle(this.questionList);
+            questionsReturned = 0;
+            return;
+        }
+        loadedQuestions = true;
         this.readTextQuestions();
         this.readImagedQuestions();
     }
