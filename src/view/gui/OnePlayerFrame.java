@@ -257,6 +257,8 @@ public class OnePlayerFrame extends GameplayFrame {
 
         ActionListener updateListener = e -> {
             OnePlayerFrame.this.timer.stop();
+            int countWhenPressed = count;
+            OnePlayerFrame.this.timer.start();
             int answerIndex;
             JButton buttonPressed = (JButton)e.getSource();
             if(buttonPressed.equals(answersButton1))
@@ -269,7 +271,7 @@ public class OnePlayerFrame extends GameplayFrame {
                 answerIndex = 3;
             OnePlayerFrame.this.setVisible(false);
             FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, answerIndex,
-                    count));
+                    countWhenPressed));
             FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
                     OnePlayerFrame.this));
         };
