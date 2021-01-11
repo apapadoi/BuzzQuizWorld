@@ -59,7 +59,6 @@ public class Model{
         players.get(index).setUsername(username);
     }
 
-
     /**
      * Initializes as many as number of rounds the player chose.
      * @param choice the number of rounds the player chose
@@ -127,10 +126,6 @@ public class Model{
 
     public void putResponseTime(int playerIndex, int msLeft) {
         responseTimes.put(playerIndex, msLeft);
-    }
-
-    public boolean allAnswered() {
-        return playersAnswered.values().stream().distinct().count()<=1;
     }
 
     public int getMsLeft(int playerIndex) {

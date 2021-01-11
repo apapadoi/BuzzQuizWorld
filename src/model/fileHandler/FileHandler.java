@@ -21,6 +21,7 @@ import java.util.List;
  * @version 9.1.2021
  * */
 public class FileHandler {
+    private String db_file = Constants.DB_FILE_URL;
     private final List<Question> questionList;
     private final Path textDataPath;
     private int questionsReturned;
@@ -36,6 +37,10 @@ public class FileHandler {
         this.textDataPath = textDataPath;
         this.questionsReturned = 0;
         this.imagedDataPath = imagedDataPath;
+    }
+
+    public void setDb_file(String db_file) {
+        this.db_file = db_file;
     }
 
     /**
@@ -106,7 +111,7 @@ public class FileHandler {
         currentPlayers.forEach(e-> System.out.println(e.toString()));
         System.out.println("Previous Players after processing");
         previousPlayers.forEach(e-> System.out.println(e.toString()));
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(Constants.DB_FILE_URL))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(this.db_file))) {
             out.writeObject(previousPlayers);
         }
 
@@ -114,7 +119,7 @@ public class FileHandler {
 
     public List<Player> readPlayers() throws IOException, ClassNotFoundException{
         List<Player> players=null;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(Constants.DB_FILE_URL))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(this.db_file))) {
             Object object = in.readObject();
             if(object instanceof List) {
                 players = (List<Player>)object;
@@ -167,6 +172,11 @@ public class FileHandler {
             Collections.shuffle(this.questionList);
         }
     }
+
+    public List<Question> getQuestionList() {
+        return questionList;
+    }
+
     /*
     public static void main(String[] args) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(Constants.DB_FILE_URL))) {

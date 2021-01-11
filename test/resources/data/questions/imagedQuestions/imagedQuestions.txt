@@ -1,0 +1,2 @@
+HipHopArtists;Name the Hip Hop artist;Lex;Vlospa;Tzamal;Wang;Lex;Easy;question_1_image.png
+HipHopArtists;Name the Hip Hop artist;Lex;Vlospa;Tzamal;Wang;Vlospa;Medium;question_2_image.png

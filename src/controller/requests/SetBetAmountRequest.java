@@ -15,13 +15,13 @@ public class SetBetAmountRequest extends Request{
     @Override
     public void execute(Dispatcher dispatcher) {
         Round currentRound = model.getRound(Request.roundId);
-        Player currentPlayer = model.getPlayers().get(0);
         Gamemodable currentGamemode = currentRound.getGamemode();
         int playerIndex = 0;
+        Player currentPlayer;
         for(Integer betAmount:betsSelected) {
-            if (betAmount > currentPlayer.getScore()) {
-                betAmount = currentGamemode.getMinBet();
-            }
+            currentPlayer = model.getPlayers().get(playerIndex);
+            if (betAmount > currentPlayer.getScore())
+                betAmount = currentGamemode.getMinBet(); // TODO MAKE METHOD FOR INVOKING GENERAL PRE QUESTION ACTIONS
             currentGamemode.setBetAmount(betAmount, playerIndex);
             playerIndex++;
         }

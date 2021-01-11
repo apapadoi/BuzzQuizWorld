@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 public class UpdateDataRequest extends Request{
     private final int answerIndex;
+    private UI view;
 
     public UpdateDataRequest(int playerIndex, int answerIndex, int msLeft) {
         super(playerIndex);
@@ -18,76 +19,84 @@ public class UpdateDataRequest extends Request{
 
     @Override
     public void execute(Dispatcher dispatcher) {
-        UI view = dispatcher.getView();
-        if(answerIndex==-1 || playerIndex==-1) {
-            view.updateAnswers(model.getRound(0).getQuestions().get(0).getAnswers());
-            view.updateCategory(model.getRound(0).getQuestions().get(0).getCategory());
-            view.updateGamemode(model.getRound(0).getGamemodeString());
-            view.updateQuestion(model.getRound(0).getQuestions().get(0).getQuestionText());
-            view.updateScores(model.getPlayers());
-            view.updateRoundId(String.valueOf(1));
-            view.updateDifficulty(model.getRound(0).getQuestions().get(0).getDifficulty());
-            view.updateUsernames(model.getPlayers());
-            if(model.getRound(0).getQuestions().get(0).hasContent())
-                view.updateQuestionsImage(model.getRound(0).getQuestions().get(0).getContent());
-            else // TODO NULL OBJECT DESIGN PATTERN
-                view.updateQuestionsImage(null);
+        view = dispatcher.getView();
+
+        if(answerIndex==-1 || playerIndex==-1) { // initial update data request
+            this.updateGameplayFrameData(0, 0);
             return;
         }
 
         HashMap<Integer, Boolean> playersAnswered = model.getPlayersAnswered();
-        int maxPlayers = model.getMaxPlayers();
-        HashMap<Integer, Integer> responseTimes = model.getResponseTimes();
-
-        if(playersAnswered.get(playerIndex).equals(true))
+        if(playersAnswered.get(playerIndex).equals(true)) // if player try to answers more than one time
             return;
 
+        // its the first time this specific player answers
         playersAnswered.put(playerIndex, true);
         Round currentRound = model.getRound(roundId);
         Question currentQuestion = currentRound.getQuestions().get(questionId);
+
         if(currentQuestion.getAnswers().get(answerIndex).equals(currentQuestion.getCorrectAnswer()))
             currentRound.actionIfCorrectAnswer(this.playerIndex);
         else
             currentRound.actionIfWrongAnswer(this.playerIndex);
 
-        if(playersAnswered.values().stream().distinct().count()<=1) {
-            if(playersAnswered.get(0).equals(true)) {
-                for(int i=0;i<maxPlayers;i++)
-                    playersAnswered.put(i, false);
-                for(int i=0;i<maxPlayers;i++)
-                    responseTimes.put(i, 0);
-            } else {
-                return;
-            }
-        } else {
+        if(playersAnswered.values().stream().distinct().count()>1) // there is at least one player that has different
+            return;                                                 // answer value (true/false)
+
+        if(playersAnswered.get(0).equals(false)) // there are no players that have answered
+            return;
+        // TODO maybe add these restart methods to model
+        this.restartPlayersAnsweredMap(playersAnswered,  model.getMaxPlayers());
+        this.restartResponseTimesMap(model.getResponseTimes(),  model.getMaxPlayers());
+        this.updateQuestionId();
+        if(this.RoundsHaveFinished()) {
+            this.finishGame();
             return;
         }
+        this.updateGameplayFrameData(roundId, questionId);
+    }
 
+    private void restartResponseTimesMap(HashMap<Integer, Integer> map, int maxPlayers) {
+        for(int i=0;i<maxPlayers;i++)
+            map.put(i, 0);
+    }
+
+    private boolean RoundsHaveFinished() {
+        return roundId == model.getNumOfRounds();
+    }
+
+    private void finishGame() {
+        view.setVisible(true);
+        new FinishFrame(view);
+    }
+
+    private void restartPlayersAnsweredMap(HashMap<Integer, Boolean> map, int maxPlayers) {
+        for(int i=0;i<maxPlayers;i++)
+            map.put(i, false);
+    }
+
+    private void updateQuestionId() {
         questionId++;
         if(questionId==questionsPerRound) {
             roundId++;
             questionId = 0;
         }
+    }
 
-        if(roundId == model.getNumOfRounds()) {
-            view.setVisible(true);
-            new FinishFrame(view);
-            return;
-        }
-
-        currentRound = model.getRound(roundId);
-        currentQuestion = currentRound.getQuestions().get(questionId);
+    private void updateGameplayFrameData(int roundIndex,int questionIndex) {
+        Round currentRound = model.getRound(roundIndex);
+        Question currentQuestion = currentRound.getQuestions().get(questionIndex);
         view.updateAnswers(currentQuestion.getAnswers());
         view.updateCategory(currentQuestion.getCategory());
-        view.updateGamemode(model.getRound(roundId).getGamemodeString());
+        view.updateGamemode(currentRound.getGamemodeString());
         view.updateQuestion(currentQuestion.getQuestionText());
         view.updateScores(model.getPlayers());
-        view.updateRoundId(String.valueOf(roundId + 1));
+        view.updateRoundId(String.valueOf(roundIndex+1));
         view.updateDifficulty(currentQuestion.getDifficulty());
         view.updateUsernames(model.getPlayers());
         if(currentQuestion.hasContent())
             view.updateQuestionsImage(currentQuestion.getContent());
-        else
+        else // TODO NULL OBJECT DESIGN PATTERN
             view.updateQuestionsImage(null);
     }
 }
