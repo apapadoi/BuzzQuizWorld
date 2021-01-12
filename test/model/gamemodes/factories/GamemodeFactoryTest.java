@@ -66,6 +66,7 @@ class GamemodeFactoryTest {
 
         @Override
         public void clearGamemodeData() {
+
         }
     };
 

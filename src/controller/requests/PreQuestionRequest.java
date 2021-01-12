@@ -42,6 +42,7 @@ public class PreQuestionRequest extends Request{
         UI preQuestionFrame = gamemodeFrame.getPreQuestionFrame();
         preQuestionFrame.updateCategory(currentRound.getQuestions().get(questionId).getCategory());
         preQuestionFrame.updateScores(model.getPlayers());
+        dispatcher.getView().updateScores(model.getPlayers());
         preQuestionFrame.updateGamemode(currentRound.getGamemodeString());
         preQuestionFrame.setVisible(true);
     }
