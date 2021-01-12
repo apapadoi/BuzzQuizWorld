@@ -1,6 +1,7 @@
 package controller.requests;
 
 import controller.Dispatcher;
+import model.player.Player;
 import model.questions.Question;
 import model.round.Round;
 import view.gui.FinishFrame;
@@ -50,6 +51,9 @@ public class UpdateDataRequest extends Request{
         this.restartResponseTimesMap(model.getResponseTimes(),  model.getMaxPlayers());
         this.updateQuestionId();
         if(this.RoundsHaveFinished()) {
+            for(Player player:model.getPlayers())
+                if(player.getScore()<0)
+                    player.setScore(0);
             view.setHasTimer(false);
             this.finishGame();
             return;

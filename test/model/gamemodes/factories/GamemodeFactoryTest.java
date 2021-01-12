@@ -63,7 +63,17 @@ class GamemodeFactoryTest {
 
         }
     };
-    private final GamemodeFactory gamemodeFactory = () -> customGamemode;
+    private final GamemodeFactory gamemodeFactory = new GamemodeFactory() {
+        @Override
+        public Gamemodable getRandomGamemode() {
+            return customGamemode;
+        }
+
+        @Override
+        public void clearGamemodeData() {
+
+        }
+    };
 
     @Test
     void getRandomGamemode() {

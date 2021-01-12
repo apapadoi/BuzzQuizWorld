@@ -56,8 +56,8 @@ public class HighStakes extends Gamemode {
      */
     @Override
     public void checkZeroScoreAndUpdate(Model model, int playerIndex) {
-        if (model.getScore(playerIndex)==0) {
-            model.updateScore(250, playerIndex);
+        if (model.getScore(playerIndex)<=0) {
+            model.updateScore(-1*model.getScore(playerIndex)+250, playerIndex);
         }
     }
 
