@@ -13,7 +13,7 @@ import java.awt.*;
  * This class represents the starting frame of the game.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 11.1.2021
+ * @version 12.1.2021
  */
 public class IntroFrame extends GUI {
     private final JLabel backgroundImageLabel;

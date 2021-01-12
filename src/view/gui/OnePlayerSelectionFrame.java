@@ -17,6 +17,7 @@ import java.util.List;
  * This class represents the frame when the player is going to type his username and choose how many rounds he wants to play.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
+ * @version 12.1.2021
  */
 public class OnePlayerSelectionFrame extends GUI {
     private final PlayFrame playFrame;
@@ -33,7 +34,7 @@ public class OnePlayerSelectionFrame extends GUI {
 
     /**
      * Default constructor
-     * @param playFrame
+     * @param playFrame instance of {@code PlayFrame}
      */
     public OnePlayerSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
@@ -114,7 +115,6 @@ public class OnePlayerSelectionFrame extends GUI {
 
     /**
      * @see UI
-     * @return
      */
     @Override
     public List<String> getUsernames() {
@@ -125,7 +125,6 @@ public class OnePlayerSelectionFrame extends GUI {
 
     /**
      * @see UI
-     * @return
      */
     @Override
     public int getNumOfRoundsChoice() {

@@ -12,6 +12,7 @@ import java.awt.*;
  * This class represents the options frame where the player can change language and set fullscreen on and off.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
+ * @version 12.1.2021
  */
 public class OptionsFrame extends GUI {
     private final IntroFrame introFrame;
@@ -23,7 +24,7 @@ public class OptionsFrame extends GUI {
 
     /**
      * Default constructor.
-     * @param introFrame
+     * @param introFrame instance of {@code IntroFrame}
      */
     public OptionsFrame(IntroFrame introFrame) {
         if(Model.getInstance().hasMusic())

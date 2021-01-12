@@ -13,6 +13,7 @@ import java.util.List;
  * This class represents the frame where the high scores will appear. The high scores can be sorted in one versus one wins and single player wins.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
+ * @version 12.1.2021
  */
 public class ScoresFrame extends GUI {
     private final JLabel backgroundImageLabel;
@@ -27,7 +28,7 @@ public class ScoresFrame extends GUI {
 
     /**
      * Default constructor
-     * @param introFrame
+     * @param introFrame instance of {@code IntroFrame}
      */
     public ScoresFrame(IntroFrame introFrame) {
         this.players = new ArrayList<>();
@@ -129,7 +130,6 @@ public class ScoresFrame extends GUI {
 
     /**
      * @see UI
-     * @param players
      */
     @Override
     public void updatePlayers(List<Player> players) {

@@ -15,6 +15,7 @@ import java.util.List;
  * This class represents the betting phase frame (while in High Stakes gamemode) for one player.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
+ * @version 12.1.2021
  */
 public class OnePlayerBettingFrame extends GUI {
     private static final OnePlayerBettingFrame instance = new OnePlayerBettingFrame();
@@ -178,7 +179,6 @@ public class OnePlayerBettingFrame extends GUI {
 
     /**
      * @see UI
-     * @param category
      */
     @Override
     public void updateCategory(Category category) {
@@ -187,7 +187,6 @@ public class OnePlayerBettingFrame extends GUI {
 
     /**
      * @see UI
-     * @param players
      */
     @Override
     public void updateScores(List<Player> players) {
@@ -196,7 +195,6 @@ public class OnePlayerBettingFrame extends GUI {
 
     /**
      * @see UI
-     * @param gamemodeName
      */
     @Override
     public void updateGamemode(String gamemodeName) {
