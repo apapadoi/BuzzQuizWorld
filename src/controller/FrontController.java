@@ -29,4 +29,8 @@ public class FrontController{
     public static FrontController getInstance() {
         return instance;
     }
+
+    public void setFileHandler(FileHandler fileHandler) {
+        dispatcher.setFileHandler(fileHandler);
+    }
 }

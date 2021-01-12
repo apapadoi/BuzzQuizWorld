@@ -6,7 +6,7 @@ import view.gui.UI;
 
 public class Dispatcher {
     private UI view;
-    private final FileHandler fileHandler;
+    private FileHandler fileHandler;
 
     public Dispatcher(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
@@ -22,4 +22,8 @@ public class Dispatcher {
     }
     public UI getView() { return this.view; }
     public FileHandler getFileHandler() { return this.fileHandler; }
+
+    public void setFileHandler(FileHandler fileHandler) {
+        this.fileHandler = fileHandler;
+    }
 }

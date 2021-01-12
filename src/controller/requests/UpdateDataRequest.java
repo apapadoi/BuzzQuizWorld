@@ -7,7 +7,7 @@ import model.round.Round;
 import view.gui.FinishFrame;
 import view.gui.UI;
 import java.util.HashMap;
-
+// TODO TEST negative score case on unit testing
 public class UpdateDataRequest extends Request{
     private final int answerIndex;
     private UI view;
@@ -43,7 +43,7 @@ public class UpdateDataRequest extends Request{
 
         if(playersAnswered.values().stream().distinct().count()>1) // there is at least one player that has different
             return;                                                 // answer value (true/false)
-
+        // TODO REMOVE THIS if probably
         if(playersAnswered.get(0).equals(false)) // there are no players that have answered
             return;
         // TODO maybe add these restart methods to model

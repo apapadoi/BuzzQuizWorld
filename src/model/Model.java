@@ -21,7 +21,7 @@ public class Model{
     private int maxPlayers = 2;
     private List<Round> rounds;
     private GamemodeFactory gamemodeFactory;
-    private MediaPlayer mediaPlayer;
+    private CustomMediaPlayer mediaPlayer;
     private boolean hasMusic;
 
     /**
@@ -46,11 +46,11 @@ public class Model{
         this.hasMusic = hasMusic;
     }
 
-    public MediaPlayer getMediaPlayer() {
+    public CustomMediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }
 
-    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+    public void setMediaPlayer(CustomMediaPlayer mediaPlayer) {
         this.mediaPlayer = mediaPlayer;
     }
 
