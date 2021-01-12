@@ -10,6 +10,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+
+/**
+ * This class represents the frame after the game is over.
+ * @author Tasos Papadopoulos
+ * @author Thodwrhs Myridis
+ * @version 12.1.2021
+ */
 public class FinishFrame extends GUI {
     private final UI gamemodeFrame;
     private JPanel textPanel;
@@ -17,11 +24,18 @@ public class FinishFrame extends GUI {
     private final JButton respawnButton = UtilGUI.getButtonInstance("Respawn",(float)25.0);
     private final JButton titleScreenButton = UtilGUI.getButtonInstance("Title Screen",(float)25.0);
 
+    /**
+     * @see UI
+     */
     @Override
     public Dimension getSize() {
         return super.getSize();
     }
 
+    /**
+     * Default constructor.
+     * @param gamemodeFrame instance of {@code UI}
+     */
     public FinishFrame(UI gamemodeFrame){
         this.gamemodeFrame = gamemodeFrame;
         this.frame.setUndecorated(true);
@@ -54,6 +68,9 @@ public class FinishFrame extends GUI {
         this.setVisible(true);
     }
 
+    /**
+     * This method creates the buttons panel of the frame (center panel).
+     */
     private void setUpButtonsPanel() {
         this.buttonsPanel = new JPanel();
         this.buttonsPanel.setOpaque(false);
@@ -64,6 +81,9 @@ public class FinishFrame extends GUI {
         this.buttonsPanel.add(titleScreenButton);
     }
 
+    /**
+     * This method creates the text panel of the frame (top panel).
+     */
     private void setUpTextPanel() {
         this.textPanel = new JPanel();
         this.textPanel.setOpaque(false);
@@ -76,6 +96,9 @@ public class FinishFrame extends GUI {
         FrontController.getInstance().dispatchRequest(new ShowPlayerScoresRequest(this));
     }
 
+    /**
+     * This method sets all necessary data for the finish frame.
+     */
     private void setUpJFrameProperties() {
         // set properties of JFrame
         this.frame.setTitle("Buzz! Quiz World Remastered");
@@ -88,6 +111,9 @@ public class FinishFrame extends GUI {
         this.frame.setLayout(new BorderLayout());
     }
 
+    /**
+     * This method sets all button actions.
+     */
     private void setUpButtonListeners() {
         respawnButton.addActionListener(e -> {
             FrontController.getInstance().dispatchRequest(new StopSoundRequest());
@@ -103,6 +129,9 @@ public class FinishFrame extends GUI {
         });
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateScores(List<Player> players) {
         for(Player player:players) {

@@ -9,6 +9,7 @@ import java.awt.*;
  * This class represents the frame where we can choose between single player or two players gameplay.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
+ * @version 12.1.2021
  */
 public class PlayFrame extends GUI {
     private final IntroFrame introFrame;
@@ -19,7 +20,7 @@ public class PlayFrame extends GUI {
 
     /**
      * Default constructor.
-     * @param introFrame
+     * @param introFrame instance of {@code IntroFrame}
      */
     public PlayFrame(IntroFrame introFrame){
         this.introFrame=introFrame;
