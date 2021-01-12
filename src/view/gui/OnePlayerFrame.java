@@ -15,7 +15,7 @@ import java.util.List;
  * This class represents the frame for one player gameplay.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
- * @version 10.1.2021
+ * @version 12.1.2021
  */
 
 public class OnePlayerFrame extends GameplayFrame {
@@ -273,11 +273,17 @@ public class OnePlayerFrame extends GameplayFrame {
         answersButton4.addActionListener(updateListener);
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public UI getPreQuestionFrame() {
         return OnePlayerBettingFrame.getInstance();
     }
 
+    /**
+     * This method creates exit button frame.
+     */
     private void createExitButtonFrame(){
         JFrame exitFrame=new JFrame();
         exitFrame.setTitle("Exit");
@@ -329,11 +335,17 @@ public class OnePlayerFrame extends GameplayFrame {
         noButton.addActionListener(e -> exitFrame.setVisible(false));
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateUsernames(List<Player> players) {
         usernameLabel.setText(players.get(0).getUsername());
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateAnswers(List<String> answers) {
         answersButton1.setText(answers.get(0));
@@ -342,16 +354,25 @@ public class OnePlayerFrame extends GameplayFrame {
         answersButton4.setText(answers.get(3));
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateScores(List<Player> players) {
         scoreLabel.setText("Score : "+ players.get(0).getScore());
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public boolean hasMoreThanTwoPlayers() {
         return false;
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateCategory(Category category) {
         this.categoryLabel.setText("Category : "+category.toString());

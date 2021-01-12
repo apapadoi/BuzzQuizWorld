@@ -5,6 +5,12 @@ import model.questions.Difficulty;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Abstract class that contains several default implementations for methods of the {@code GUI} abstract class.
+ * @author Tasos Papadopoulos
+ * @author Thodwrhs Myridis
+ * @version 12.1.2021
+ */
 public abstract class GameplayFrame extends GUI {
     protected JLabel gamemode;
     protected JLabel questionTextLabel;
@@ -17,6 +23,9 @@ public abstract class GameplayFrame extends GUI {
     protected JLabel difficultyLabel;
     protected JLabel questionsImageLabel;
 
+    /**
+     * Default constructor. Creates general gameplay frame.
+     */
     public GameplayFrame() /*throws HeadlessException*/ {
         super();
         gamemode = UtilGUI.getLabelInstance("");
@@ -40,42 +49,69 @@ public abstract class GameplayFrame extends GUI {
         });
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateGamemode(String gamemodeName) {
         this.gamemode.setText(gamemodeName);
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateQuestion(String question) {
         this.questionTextLabel.setText("<html>"+question+"</html>");
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateRoundId(String id) {
         roundLabel.setText("Round : "+id);
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void setHasTimer(boolean b) { this.hasTimer = b; }
 
+    /**
+     * @see UI
+     */
     @Override
     public void restartCount() {
         this.count = 10000;
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void stopTimer() {
         this.timer.stop();
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void startTimer() { this.timer.start(); }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateDifficulty(Difficulty difficulty) {
         this.difficultyLabel.setText(difficulty.toString());
     }
 
+    /**
+     * @see UI`
+     */
     @Override
     public void updateQuestionsImage(ImageIcon imageIcon) {
         if(imageIcon==null) {

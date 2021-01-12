@@ -17,6 +17,7 @@ import java.util.List;
  * This class represents the frame when the players are going to type their usernames and choose how many rounds they want to play.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
+ * @version 12.1.2021
  */
 public class TwoPlayersSelectionFrame extends GUI {
     private final PlayFrame playFrame;
@@ -34,7 +35,7 @@ public class TwoPlayersSelectionFrame extends GUI {
 
     /**
      * Default constructor.
-     * @param playFrame
+     * @param playFrame instance of {@code PlayFrame} class.
      */
     public TwoPlayersSelectionFrame(PlayFrame playFrame){
         this.playFrame=playFrame;
@@ -149,7 +150,6 @@ public class TwoPlayersSelectionFrame extends GUI {
 
     /**
      * @see UI
-     * @return
      */
     @Override
     public List<String> getUsernames() {
@@ -161,7 +161,6 @@ public class TwoPlayersSelectionFrame extends GUI {
 
     /**
      * @see UI
-     * @return
      */
     @Override
     public int getNumOfRoundsChoice() {
