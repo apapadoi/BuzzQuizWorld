@@ -1,12 +1,383 @@
 package controller.requests;
 
+import controller.FrontController;
+import model.fileHandler.FileHandler;
+import model.gamemodes.Gamemodable;
+import model.gamemodes.HighStakes;
+import model.gamemodes.PointBuilder;
+import model.gamemodes.factories.GamemodeFactory;
+import model.player.Player;
+import model.questions.Category;
 import org.junit.jupiter.api.Test;
+import view.gui.GUI;
+import view.gui.UI;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PreQuestionRequestTest {
+    private boolean categoryUpdated = false;
+    private boolean gamemodeUpdated = false;
+    private boolean scoresUpdated = false;
+    private boolean countRestarted = false;
+    private boolean timerStarted = false;
+    private boolean frameIsVisible = false;
+    private FileHandler fileHandler;
+    private UI gamemodeFrame;
 
     @Test
-    void execute() {
+    void execute1() {
+        categoryUpdated = false;
+        gamemodeUpdated = false;
+        scoresUpdated = false;
+        countRestarted = false;
+        timerStarted = false;
+        frameIsVisible = false;
+        fileHandler = new FileHandler(new ArrayList<>(),
+                Paths.get("test/resources/data/questions/textQuestions/textQuestions.txt"),
+                Paths.get("test/resources/data/questions/imagedQuestions/imagedQuestions.txt"));
+        FrontController.getInstance().setFileHandler(fileHandler);
+        FrontController.getInstance().dispatchRequest(new SetGamemodeFactoryRequest(
+                new GamemodeFactory() {
+                    @Override
+                    public Gamemodable getRandomGamemode() {
+                        return new HighStakes();
+                    }
+
+                    @Override
+                    public void clearGamemodeData() {
+
+                    }
+                }
+        ));
+        FrontController.getInstance().dispatchRequest(new LoadRequest());
+        FrontController.getInstance().dispatchRequest(new ClearDataRequest());
+        FrontController.getInstance().setView(new GUI() {
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+
+            @Override
+            public int getNumOfRoundsChoice() {
+                return 1;
+            }
+        });
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                -1,0));
+        gamemodeFrame = new GUI() {
+            @Override
+            public UI getPreQuestionFrame() {
+                return new GUI() {
+                    @Override
+                    public void updateCategory(Category category) {
+                        PreQuestionRequestTest.this.categoryUpdated = true;
+                    }
+
+                    @Override
+                    public void updateScores(List<Player> players) {
+                        PreQuestionRequestTest.this.scoresUpdated = true;
+                    }
+
+                    @Override
+                    public void updateGamemode(String gamemodeName) {
+                        PreQuestionRequestTest.this.gamemodeUpdated = true;
+                    }
+                };
+            }
+
+            @Override
+            public void restartCount() {
+                PreQuestionRequestTest.this.countRestarted = true;
+            }
+
+            @Override
+            public void startTimer() {
+                PreQuestionRequestTest.this.timerStarted = true;
+            }
+
+            @Override
+            public void setVisible(boolean b) {
+                PreQuestionRequestTest.this.frameIsVisible = true;
+            }
+        };
+        Request.roundId = 1;
+        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(gamemodeFrame));
+        assertFalse(categoryUpdated);
+        assertFalse(gamemodeUpdated);
+        assertFalse(scoresUpdated);
+        assertFalse(countRestarted);
+        assertFalse(timerStarted);
+        assertFalse(frameIsVisible);
+    }
+
+    @Test
+    void execute2() {
+        categoryUpdated = false;
+        gamemodeUpdated = false;
+        scoresUpdated = false;
+        countRestarted = false;
+        timerStarted = false;
+        frameIsVisible = false;
+        fileHandler = new FileHandler(new ArrayList<>(),
+                Paths.get("test/resources/data/questions/textQuestions/textQuestions.txt"),
+                Paths.get("test/resources/data/questions/imagedQuestions/imagedQuestions.txt"));
+        FrontController.getInstance().setFileHandler(fileHandler);
+        FrontController.getInstance().dispatchRequest(new SetGamemodeFactoryRequest(
+                new GamemodeFactory() {
+                    @Override
+                    public Gamemodable getRandomGamemode() {
+                        return new PointBuilder();
+                    }
+
+                    @Override
+                    public void clearGamemodeData() {
+
+                    }
+                }
+        ));
+        FrontController.getInstance().dispatchRequest(new LoadRequest());
+        FrontController.getInstance().dispatchRequest(new ClearDataRequest());
+        FrontController.getInstance().setView(new GUI() {
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+
+            @Override
+            public int getNumOfRoundsChoice() {
+                return 1;
+            }
+        });
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                -1,0));
+        gamemodeFrame = new GUI() {
+            @Override
+            public UI getPreQuestionFrame() {
+                return new GUI() {
+                    @Override
+                    public void updateCategory(Category category) {
+                        PreQuestionRequestTest.this.categoryUpdated = true;
+                    }
+
+                    @Override
+                    public void updateScores(List<Player> players) {
+                        PreQuestionRequestTest.this.scoresUpdated = true;
+                    }
+
+                    @Override
+                    public void updateGamemode(String gamemodeName) {
+                        PreQuestionRequestTest.this.gamemodeUpdated = true;
+                    }
+                };
+            }
+
+            @Override
+            public void restartCount() {
+                PreQuestionRequestTest.this.countRestarted = true;
+            }
+
+            @Override
+            public void startTimer() {
+                PreQuestionRequestTest.this.timerStarted = true;
+            }
+
+            @Override
+            public void setVisible(boolean b) {
+                PreQuestionRequestTest.this.frameIsVisible = true;
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(gamemodeFrame));
+        assertFalse(categoryUpdated);
+        assertFalse(gamemodeUpdated);
+        assertFalse(scoresUpdated);
+        assertTrue(countRestarted);
+        assertTrue(timerStarted);
+        assertTrue(frameIsVisible);
+    }
+
+    @Test
+    void execute3() {
+        categoryUpdated = false;
+        gamemodeUpdated = false;
+        scoresUpdated = false;
+        countRestarted = false;
+        timerStarted = false;
+        frameIsVisible = false;
+        fileHandler = new FileHandler(new ArrayList<>(),
+                Paths.get("test/resources/data/questions/textQuestions/textQuestions.txt"),
+                Paths.get("test/resources/data/questions/imagedQuestions/imagedQuestions.txt"));
+        FrontController.getInstance().setFileHandler(fileHandler);
+        FrontController.getInstance().dispatchRequest(new SetGamemodeFactoryRequest(
+                new GamemodeFactory() {
+                    @Override
+                    public Gamemodable getRandomGamemode() {
+                        return new HighStakes();
+                    }
+
+                    @Override
+                    public void clearGamemodeData() {
+
+                    }
+                }
+        ));
+        FrontController.getInstance().dispatchRequest(new LoadRequest());
+        FrontController.getInstance().dispatchRequest(new ClearDataRequest());
+        FrontController.getInstance().setView(new GUI() {
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+
+            @Override
+            public int getNumOfRoundsChoice() {
+                return 1;
+            }
+        });
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                -1,0));
+        gamemodeFrame = new GUI() {
+            @Override
+            public UI getPreQuestionFrame() {
+                return new GUI() {
+                    @Override
+                    public void updateCategory(Category category) {
+                        PreQuestionRequestTest.this.categoryUpdated = true;
+                    }
+
+                    @Override
+                    public void updateScores(List<Player> players) {
+                        PreQuestionRequestTest.this.scoresUpdated = true;
+                    }
+
+                    @Override
+                    public void updateGamemode(String gamemodeName) {
+                        PreQuestionRequestTest.this.gamemodeUpdated = true;
+                    }
+                };
+            }
+
+            @Override
+            public void restartCount() {
+                PreQuestionRequestTest.this.countRestarted = true;
+            }
+
+            @Override
+            public void startTimer() {
+                PreQuestionRequestTest.this.timerStarted = true;
+            }
+
+            @Override
+            public void setVisible(boolean b) {
+                PreQuestionRequestTest.this.frameIsVisible = true;
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(gamemodeFrame));
+        assertTrue(categoryUpdated);
+        assertTrue(gamemodeUpdated);
+        assertTrue(scoresUpdated);
+        assertFalse(countRestarted);
+        assertFalse(timerStarted);
+        assertFalse(frameIsVisible);
+    }
+
+    @Test
+    void execute4() {
+        categoryUpdated = false;
+        gamemodeUpdated = false;
+        scoresUpdated = false;
+        countRestarted = false;
+        timerStarted = false;
+        frameIsVisible = false;
+        fileHandler = new FileHandler(new ArrayList<>(),
+                Paths.get("test/resources/data/questions/textQuestions/textQuestions.txt"),
+                Paths.get("test/resources/data/questions/imagedQuestions/imagedQuestions.txt"));
+        FrontController.getInstance().setFileHandler(fileHandler);
+        FrontController.getInstance().dispatchRequest(new SetGamemodeFactoryRequest(
+                new GamemodeFactory() {
+                    @Override
+                    public Gamemodable getRandomGamemode() {
+                        return new PointBuilder();
+                    }
+
+                    @Override
+                    public void clearGamemodeData() {
+
+                    }
+                }
+        ));
+        FrontController.getInstance().dispatchRequest(new LoadRequest());
+        FrontController.getInstance().dispatchRequest(new ClearDataRequest());
+        FrontController.getInstance().setView(new GUI() {
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+
+            @Override
+            public int getNumOfRoundsChoice() {
+                return 1;
+            }
+        });
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                -1,0));
+        gamemodeFrame = new GUI() {
+            @Override
+            public UI getPreQuestionFrame() {
+                return new GUI() {
+                    @Override
+                    public void updateCategory(Category category) {
+                        PreQuestionRequestTest.this.categoryUpdated = true;
+                    }
+
+                    @Override
+                    public void updateScores(List<Player> players) {
+                        PreQuestionRequestTest.this.scoresUpdated = true;
+                    }
+
+                    @Override
+                    public void updateGamemode(String gamemodeName) {
+                        PreQuestionRequestTest.this.gamemodeUpdated = true;
+                    }
+                };
+            }
+
+            @Override
+            public void restartCount() {
+                PreQuestionRequestTest.this.countRestarted = true;
+            }
+
+            @Override
+            public void startTimer() {
+                PreQuestionRequestTest.this.timerStarted = true;
+            }
+
+            @Override
+            public void setVisible(boolean b) {
+                PreQuestionRequestTest.this.frameIsVisible = true;
+            }
+        };
+        Request.roundId = 1;
+        FrontController.getInstance().dispatchRequest(new PreQuestionRequest(gamemodeFrame));
+        assertFalse(categoryUpdated);
+        assertFalse(gamemodeUpdated);
+        assertFalse(scoresUpdated);
+        assertFalse(countRestarted);
+        assertFalse(timerStarted);
+        assertFalse(frameIsVisible);
     }
 }

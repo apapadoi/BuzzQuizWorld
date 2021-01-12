@@ -29,11 +29,6 @@ class GamemodeFactoryTest {
         }
 
         @Override
-        public void actionPreQuestionsPhase(Model model) {
-
-        }
-
-        @Override
         public boolean hasPreQuestionPhase() {
             return false;
         }
