@@ -17,6 +17,7 @@ public class PlayFrame extends GUI {
     private JButton twoPlayersButton;
     private JButton backButton;
     private final JLabel backgroundImageLabel;
+    private JPanel backPanel;
 
     /**
      * Default constructor.
@@ -49,14 +50,9 @@ public class PlayFrame extends GUI {
         buttonsPanel.add(twoPlayersButton);
         buttonsPanel.add(onePlayerButton);
 
-        JPanel backPanel=new JPanel();
-        backPanel.setLayout(new BorderLayout());
-        backPanel.setOpaque(false);
-
         backButton= UtilGUI.getButtonInstance("Back");
         backButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.037*UtilGUI.getScreenHeight())));
-        backPanel.add(backButton,BorderLayout.LINE_END);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,0,(int)(0.013*UtilGUI.getScreenHeight()),(int)(0.007*UtilGUI.getScreenWidth())));
+        backPanel=UtilGUI.getBackPanel(backButton);
 
         JPanel playPanel=new JPanel();
         playPanel.setLayout(new BorderLayout());

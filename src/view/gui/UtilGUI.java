@@ -145,4 +145,14 @@ public class UtilGUI {
 
         return label;
     }
+
+    public static JPanel getBackPanel(JButton backButton){
+        JPanel backPanel=new JPanel();
+        backPanel.add(backButton,BorderLayout.LINE_END);
+        backPanel.setOpaque(false);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.894*UtilGUI.getScreenWidth()),
+                (int)(0.009*UtilGUI.getScreenHeight()),0));
+
+        return backPanel;
+    }
 }
