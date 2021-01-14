@@ -146,6 +146,11 @@ public class UtilGUI {
         return label;
     }
 
+    /**
+     * This method constructs a general back button panel.
+     * @param backButton instance of {@code JButton}
+     * @return back button panel as {@code JPanel}
+     */
     public static JPanel getBackPanel(JButton backButton){
         JPanel backPanel=new JPanel();
         backPanel.add(backButton,BorderLayout.LINE_END);
