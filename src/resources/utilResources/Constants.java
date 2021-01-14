@@ -1,5 +1,11 @@
 package resources.utilResources;
 
+/**
+ * Contains all the relative paths for the necessary files.
+ * @author Tasos Papadopoulos
+ * @author Thodwris Myridhs
+ * @version 14.1.2021
+ */
 public class Constants {
     public static final String APP_ICON_IMG_URL = "src/resources/images/appIcon.png";
     public static final String INTRO_PAGE_IMG_URL = "src/resources/images/introPageLogo.png";

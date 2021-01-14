@@ -101,7 +101,7 @@ public class UtilGUI {
         button.setForeground(Color.WHITE);
         button.setBorder(new LineBorder(Color.BLACK));
         button.addActionListener(ButtonSoundListener.getInstance());
-        button.setMultiClickThreshhold(500L);
+        button.setMultiClickThreshhold(250L);
         return button;
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
  * This interface contains the methods that must be implemented by a class so it can be added as type of
  * question in the game.For example questions that have just text or questions with image or video etc.
  * @author Tasos Papadopoulos
- * @version 9.11.2020
+ * @version 13.1.2021
  * */
 public interface Questionable {
     /**
@@ -46,5 +46,9 @@ public interface Questionable {
      * */
     boolean hasContent();
 
+    /**
+     * This method returns the image associated with a {@code Question} object.
+     * @return the image associated with the {@code Question} object as {@code ImageIcon}
+     */
     ImageIcon getContent();
 }

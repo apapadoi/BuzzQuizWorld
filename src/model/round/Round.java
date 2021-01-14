@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
- * @version 6.1.2021
+ * @version 13.1.2021
  */
 public class Round {
     private static final Model model = Model.getInstance();
@@ -19,9 +19,10 @@ public class Round {
     private final Gamemodable gamemode;
 
     /**
-     * Create a round with a random gamemode from the {@code NumerablePlayersGamemode} object provided and load 5 questions
-     * using the {@code fileHandler}  provided.
-     * @param fileHandler the file handler that loaded the questions from the data txt file.
+     * Create a round with a random gamemode from the {@code GamemodeFactory} object provided by the {@code Model}
+     * component and load 5 question using the {@code fileHandler} provided.
+     * @param fileHandler the file handler that loaded the questions from the data txt files containing the texted and
+     * imaged questions.
      * */
     public Round(FileHandler fileHandler) {
         this.questions = fileHandler.getNextQuestions();
@@ -69,20 +70,28 @@ public class Round {
         return this.gamemode.hasPreQuestionPhase();
     }
 
+    /**
+     * Returns the gamemode of a {@code Round} object
+     * @return the round's gamemode as {@code Gamemodable}
+     */
     public Gamemodable getGamemode() {
         return gamemode;
     }
 
     /**
      * Calls the corresponding method of round's current gamemode.
+     * @param playerIndex the player's index whose score will be updated depending the current gamemode if he answered
+     *                    correct
      * @see Gamemodable
      */
     public void actionIfCorrectAnswer(int playerIndex) {
-        this.gamemode.actionIfCorrectAnswer(model, model.getMsLeft(playerIndex), playerIndex);
+        this.gamemode.actionIfCorrectAnswer(model, model.getMillisLeft(playerIndex), playerIndex);
     }
 
     /**
      * Calls the corresponding method of round's current gamemode.
+     * @param playerIndex the player's index whose score will be updated depending the current gamemode if he answered
+     *                    wrong
      * @see Gamemodable
      */
     public void actionIfWrongAnswer(int playerIndex) {

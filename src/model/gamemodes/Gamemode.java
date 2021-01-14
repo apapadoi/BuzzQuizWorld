@@ -5,7 +5,7 @@ import model.Model;
 /**
  * Abstract class containing several default implementations for methods of the {@code Gamemodable} interface.
  * @author Tasos Papadopoulos
- * @version 5.12.2020
+ * @version 13.1.2021
  * */
 public abstract class Gamemode implements Gamemodable{
     protected final String description;
@@ -22,6 +22,10 @@ public abstract class Gamemode implements Gamemodable{
         this.availableTime = availableTime;
     }
 
+    /**
+     * Construct a gamemode with the provided description and 0 available time.
+     * @param description the gamemode's description
+     */
     public Gamemode(String description) {
         this.description = description;
         this.availableTime = 0;
@@ -40,6 +44,9 @@ public abstract class Gamemode implements Gamemodable{
         return this.description;
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void actionIfCorrectAnswer(Model model, int playerIndex) { }
 
@@ -72,21 +79,35 @@ public abstract class Gamemode implements Gamemodable{
     @Override
     public void actionIfWrongAnswer(Model model, int playerIndex) { }
 
+    /**
+     * @see Gamemodable
+     * @return whether or not a gamemode has timer as {@code boolean}
+     */
     @Override
     public boolean hasTimer() {
         return false;
     }
 
+    /**
+     * @see Gamemodable
+     * @return the minimum bet for a gamemode as {@code in}
+     */
     @Override
     public int getMinBet() {
         return 0;
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void setBetAmount(int amount, int playerIndex) {
 
     }
 
+    /**
+     * @see Gamemodable
+     */
     @Override
     public void checkZeroScoreAndUpdate(Model model, int playerIndex) {
 

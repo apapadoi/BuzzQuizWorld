@@ -110,7 +110,7 @@ public abstract class GameplayFrame extends GUI {
     }
 
     /**
-     * @see UI`
+     * @see UI
      */
     @Override
     public void updateQuestionsImage(ImageIcon imageIcon) {
