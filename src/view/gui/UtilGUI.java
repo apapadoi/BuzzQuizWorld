@@ -101,7 +101,7 @@ public class UtilGUI {
         button.setForeground(Color.WHITE);
         button.setBorder(new LineBorder(Color.BLACK));
         button.addActionListener(ButtonSoundListener.getInstance());
-        button.setMultiClickThreshhold(500L);
+        button.setMultiClickThreshhold(250L);
         return button;
     }
 
@@ -144,5 +144,20 @@ public class UtilGUI {
         label.setForeground(Color.WHITE);
 
         return label;
+    }
+
+    /**
+     * This method constructs a general back button panel.
+     * @param backButton instance of {@code JButton}
+     * @return back button panel as {@code JPanel}
+     */
+    public static JPanel getBackPanel(JButton backButton){
+        JPanel backPanel=new JPanel();
+        backPanel.add(backButton,BorderLayout.LINE_END);
+        backPanel.setOpaque(false);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.894*UtilGUI.getScreenWidth()),
+                (int)(0.009*UtilGUI.getScreenHeight()),0));
+
+        return backPanel;
     }
 }

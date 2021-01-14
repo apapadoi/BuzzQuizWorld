@@ -1,8 +1,8 @@
 /**
- * This package provides classes that form the {@code Model} component of the app. Backend operations such as updating player's
- * score or username are done by these classes.
+ * This package provides classes that form the {@code Model} component of the app. Data are stored and accessed using
+ * this component.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 29.11.2020
+ * @version 13.1.2021
  */
 package model;

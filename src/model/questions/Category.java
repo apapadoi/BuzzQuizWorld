@@ -14,12 +14,20 @@ public enum Category {
     Films,
     Science,
     HipHopArtists {
+        /**
+         * Returns the category as string.
+         * @return the category as {@code String}
+         */
         @Override
         public String toString() {
             return "Hip Hop Artists";
         }
     },
     HipHopGroups {
+        /**
+         * Returns the category as string.
+         * @return the category as {@code String}
+         */
         @Override
         public String toString() {
             return "Hip Hop Groups";
@@ -27,6 +35,10 @@ public enum Category {
     },
     Cars,
     Formula1 {
+        /**
+         * Returns the category as string.
+         * @return the category as {@code String}
+         */
         @Override
         public String toString() {
             return "Formula 1";

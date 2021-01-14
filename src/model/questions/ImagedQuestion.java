@@ -5,14 +5,17 @@ import java.util.List;
 
 /**
  * This class represents a question associated with an image and 4 possible answers, with only one of them being correct,
- * a category and a difficulty. In the current version there are no question associated with images. This class will be used
- * in the next version.
+ * a category and a difficulty.
  * @author Tasos Papadopoulos
- * @version 9.1.2021
+ * @version 13.1.2021
  * */
 public class ImagedQuestion extends Question {
     private final ImageIcon image;
 
+    /**
+     * Create an ImagedQuestion with image the image from the path provided
+     * @param imagePath the question's image's path
+     */
     public ImagedQuestion(String imagePath) {
         this.image = new ImageIcon(imagePath);
     }
@@ -42,6 +45,11 @@ public class ImagedQuestion extends Question {
         return true;
     }
 
+    /**
+     * Returns the {@code ImageIcon} associated with a {@code ImagedQuestion} object
+     * @see Questionable
+     * @return the image associated with a {@code ImagedQuestion} object as {@code ImageIcon}
+     */
     @Override
     public ImageIcon getContent() {
         return this.image;

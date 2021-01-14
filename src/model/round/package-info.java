@@ -3,6 +3,6 @@
  * random gamemode.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
- * @version 17.11.2020
+ * @version 13.11.2021
  */
 package model.round;

@@ -9,20 +9,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a request for saving the scores of the players of the current game session.
+ * @author Tasos Papadopoulos
+ * @version 14.1.2021
+ */
 public class SaveScoresRequest extends Request{
     private final UI gamemodeFrame;
 
+    /**
+     * Creates a {@code SaveScoresRequest} that saves the scores of the players of the current game session.
+     * @param gamemodeFrame
+     */
     public SaveScoresRequest(UI gamemodeFrame) {
         this.gamemodeFrame = gamemodeFrame;
     }
 
+    /**
+     * @see Request
+     */
     @Override
     public void execute(Dispatcher dispatcher) {
         List<Integer> scores = new ArrayList<>();
         model.getPlayers().forEach(e-> scores.add(e.getScore()));
         if(scores.stream().distinct().count()<=1 && model.getPlayers().size()>1) // draw and more than one player
             return;
-
+        // TODO probably remove this from UI
         if(gamemodeFrame.hasMoreThanTwoPlayers()) {
             List<Player> players = model.getPlayers();
             Player maxPlayer = players.get(0);

@@ -2,7 +2,18 @@ package resources.utilResources;
 
 import javax.swing.*;
 
+/**
+ * Represents a factory for the necessary Image Icons.
+ * @author Tasos Papadopoulos
+ * @author Thodwrhs Myridis
+ * @version 13.1.2021
+ */
 public class ImageFactory {
+    /**
+     * Creates an {@code Image Icon} using the provided {@code Image} enum value
+     * @param image the enum value for the provided {@code Image} enum value
+     * @return an {@code ImageIcon} for the provided {@code Image} enum value
+     */
     public static ImageIcon createImage(Image image) {
         ImageIcon imageIcon = null;
 

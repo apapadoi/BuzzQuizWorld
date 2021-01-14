@@ -32,6 +32,6 @@ public class PointBuilder extends Gamemode {
      */
     @Override
     public void actionIfCorrectAnswer(Model model, int playerIndex) {
-        model.updateScore(1000, playerIndex);
+        model.addScore(1000, playerIndex);
     }
 }

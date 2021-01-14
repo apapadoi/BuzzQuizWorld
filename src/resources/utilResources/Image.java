@@ -1,5 +1,11 @@
 package resources.utilResources;
 
+/**
+ * Contains all the code names for the necessary files.
+ * @author Tasos Papadopoulos
+ * @author Thodwris Myridhs
+ * @version 13.1.2021
+ */
 public enum Image {
     APP_ICON,INTRO_PAGE_LOGO,INTRO_PAGE_BACKGROUND_IMG,OPTIONS_PAGE_BACKGROUND_IMG,
     ENGLISH_FLAG,GREEK_FLAG,SCORES_PAGE_BACKGROUND_IMG,PLAY_PAGE_BACKGROUND_IMG,

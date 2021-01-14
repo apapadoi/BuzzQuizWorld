@@ -95,7 +95,7 @@ class ClearDataRequestTest {
                 Model.getInstance().getPlayersAnswered().values().stream().distinct().count());
         assertFalse(Model.getInstance().getPlayersAnswered().get(0));
         assertEquals(1,
-                Model.getInstance().getResponseTimes().values().stream().distinct().count());
-        assertEquals(0, Model.getInstance().getResponseTimes().get(0));
+                Model.getInstance().getMillisLeft().values().stream().distinct().count());
+        assertEquals(0, Model.getInstance().getMillisLeft().get(0));
     }
 }

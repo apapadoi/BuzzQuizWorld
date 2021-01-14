@@ -5,6 +5,6 @@
  * The enums {@code Category} and {@code Difficulty} correspond to the category and the difficulty of a question.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 17.11.2020
+ * @version 13.1.2021
  */
 package model.questions;
