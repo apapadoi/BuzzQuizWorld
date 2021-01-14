@@ -8,6 +8,6 @@
  * chooseGamemodesForCurrentNumOfPlayers of {@code Model} class is also needed.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 5.12.2020
+ * @version 13.1.2021
  */
 package model.gamemodes;

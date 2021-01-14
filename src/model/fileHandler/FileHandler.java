@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * This class represents a file handler which handles the files containing the data of the app.
  * @author Tasos Papadopoulos
- * @version 9.1.2021
+ * @version 13.1.2021
  * */
 public class FileHandler {
     private String db_file = Constants.DB_FILE_URL;
@@ -29,8 +29,10 @@ public class FileHandler {
     private boolean loadedQuestions;
 
     /**
-     * Create a file handler using the given {@code List<Question>} and {@code Path} given.
-     * @param textDataPath the path of the file that contains the questions
+     * Create a file handler using the given {@code List<Question>} and {@code Paths} given for
+     * the text and imaged questions.
+     * @param textDataPath the path of the file that contains the text questions
+     * @param imagedDataPath the path of the file that contains the imaged questions
      * @param questionList the List that will be stored the questions from the file
      */
     public FileHandler(List<Question> questionList,Path textDataPath, Path imagedDataPath) {
@@ -41,12 +43,16 @@ public class FileHandler {
         this.imagedDataPath = imagedDataPath;
     }
 
+    /**
+     * Set the path of the file containing the scores of the players that have played the game.
+     * @param db_file the path of the file as {@code String}
+     */
     public void setDb_file(String db_file) {
         this.db_file = db_file;
     }
 
     /**
-     * Reads the questions from the file with path the path that was given in the constructor of the class.
+     * Reads the questions from the files that were given in the constructor of the class.
      * @throws IOException if the file was not found
      */
     public void readQuestions() throws IOException{
@@ -75,19 +81,19 @@ public class FileHandler {
         return nextQuestions;
     }
 
+    /**
+     * Updates the specified db file with the player/players of the current game
+     * @throws IOException if the file was not found or another IO problem happened
+     */
     public void savePlayers() throws IOException {
         List<Player> currentPlayers = new ArrayList<>(Model.getInstance().getPlayers());
-        System.out.println("Current Players");
-        currentPlayers.forEach(e-> System.out.println(e.toString()));
         List<Player> previousPlayers = null;
         try {
             previousPlayers = this.readPlayers();
         } catch(IOException|ClassNotFoundException e) {
-            // TODO ADD ERROR FRAME
+            // TODO ADD ERROR FRAME REQUEST
             System.exit(-5);
         }
-        System.out.println("Previous Players");
-        previousPlayers.forEach(e-> System.out.println(e.toString()));
 
         if(previousPlayers.size()==0) {
             previousPlayers.addAll(currentPlayers);
@@ -115,16 +121,17 @@ public class FileHandler {
                 }
             }
         }
-        System.out.println("Current Players after processing");
-        currentPlayers.forEach(e-> System.out.println(e.toString()));
-        System.out.println("Previous Players after processing");
-        previousPlayers.forEach(e-> System.out.println(e.toString()));
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(this.db_file))) {
             out.writeObject(previousPlayers);
         }
-
     }
 
+    /**
+     * Reads the {@code Player} objects from the specified db_file.
+     * @return The {@code Player} objects as {@code List<Player>}
+     * @throws IOException if the file was not found or another IO problem happened
+     * @throws ClassNotFoundException if the {@code Player} class was not found
+     */
     public List<Player> readPlayers() throws IOException, ClassNotFoundException{
         List<Player> players=null;
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(this.db_file))) {
@@ -133,10 +140,13 @@ public class FileHandler {
                 players = (List<Player>)object;
             }
         }
-
         return players;
     }
 
+    /**
+     * Reads the text questions from the file that was given in the constructor of the class.
+     * @throws IOException if the file was not found or another IO problem happened
+     */
     private void readTextQuestions() throws IOException{
         try (BufferedReader reader = Files.newBufferedReader(textDataPath, StandardCharsets.UTF_8)) {
             String line;
@@ -159,6 +169,10 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Reads the imaged questions from the file that was given in the constructor of the class.
+     * @throws IOException if the file was not found or another IO problem happened
+     */
     private void readImagedQuestions() throws IOException{
         try(BufferedReader reader = Files.newBufferedReader(imagedDataPath, StandardCharsets.UTF_8)) {
             String line;
@@ -181,19 +195,11 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Returns the question list that contains the questions were loaded.
+     * @return the question list as {@code List<Question>}
+     */
     public List<Question> getQuestionList() {
         return questionList;
     }
-
-    /*
-    public static void main(String[] args) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(Constants.DB_FILE_URL))) {
-            List<Player> players = new ArrayList<>();
-            out.writeObject(players);
-        } catch(FileNotFoundException e) {
-            System.out.println("File not found exception line 142 File Handler");
-        } catch(IOException e) {
-            System.out.println("IO exception line 144 File Handler");
-        }
-    }*/
 }

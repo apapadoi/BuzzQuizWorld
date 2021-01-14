@@ -1,9 +1,8 @@
 package model.gamemodes;
 
 import model.Model;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * This class represents the gamemode High Stakes. At the start the question's category is shown and the player bets an amount of points. If he answers
@@ -13,7 +12,7 @@ import java.util.List;
  * @version 5.12.2020
  * */
 public class HighStakes extends Gamemode {
-    private HashMap<Integer, Integer> bets;
+    private final HashMap<Integer, Integer> bets;
 
     /**
      * Default constructor.
@@ -35,6 +34,10 @@ public class HighStakes extends Gamemode {
     @Override
     public String toString() { return "High Stakes";}
 
+    /**
+     * Returns the min bet for this gamemode.
+     * @return the min bet value as {@code int}
+     */
     @Override
     public int getMinBet() {
         return 250;
@@ -46,7 +49,7 @@ public class HighStakes extends Gamemode {
      */
     @Override
     public void actionIfCorrectAnswer(Model model,int millis, int playerIndex) {
-        model.updateScore(bets.get(playerIndex), playerIndex);
+        model.addScore(bets.get(playerIndex), playerIndex);
     }
 
 
@@ -56,8 +59,8 @@ public class HighStakes extends Gamemode {
      */
     @Override
     public void checkZeroScoreAndUpdate(Model model, int playerIndex) {
-        if (model.getScore(playerIndex)==0) {
-            model.updateScore(250, playerIndex);
+        if (model.getScore(playerIndex)<=0) {
+            model.addScore(-1*model.getScore(playerIndex)+250, playerIndex);
         }
     }
 
@@ -77,12 +80,13 @@ public class HighStakes extends Gamemode {
      */
     @Override
     public void actionIfWrongAnswer(Model model, int playerIndex) {
-        model.updateScore(-bets.get(playerIndex), playerIndex);
+        model.addScore(-bets.get(playerIndex), playerIndex);
     }
 
     /**
      * Returns the player's bet amount.
      * @return the bet amount as {@code int}
+     * @param playerIndex the player's index whose bet amount will be returned as {@code int}
      */
     public int getBetAmount(int playerIndex){
         return this.bets.get(playerIndex);

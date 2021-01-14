@@ -14,13 +14,27 @@ import java.io.File;
  */
 public class ButtonSoundListener implements ActionListener {
     private static final ButtonSoundListener instance = new ButtonSoundListener();
+    private final MediaPlayer mediaPlayer =
+            new MediaPlayer(new Media(new File(Constants.BUTTON_SOUND_URL).toURI().toString()));
 
+    /**
+     * Default constructor
+     */
     private ButtonSoundListener() { }
 
+    /**
+     * Invoked when a button associated with this type of action listener is pressed. Plays the button sound using a
+     * {@code MediaPlayer} object.
+     * @param e the action event associated with the action performed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-        new MediaPlayer(new Media(new File(Constants.BUTTON_SOUND_URL).toURI().toString())).play();
+        mediaPlayer.play();
     }
 
+    /**
+     * Returns the unique {@code ButtonSoundListener} instance.
+     * @return the unique button sound listener as {@code ButtonSoundListener}
+     */
     public static ButtonSoundListener getInstance() { return instance; }
 }

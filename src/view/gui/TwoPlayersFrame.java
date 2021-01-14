@@ -19,6 +19,7 @@ import java.util.List;
  * This class represents the frame for two players gameplay.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
+ * @version 12.1.2021
  */
 public class TwoPlayersFrame extends GameplayFrame {
     private static final TwoPlayersFrame instance = new TwoPlayersFrame();
@@ -63,6 +64,9 @@ public class TwoPlayersFrame extends GameplayFrame {
         this.setUpKeyListeners();
     }
 
+    /**
+     * This method constructs general panel data.
+     */
     private void setUpDataPanel() {
         JPanel topPanel = new JPanel();
         topPanel.setOpaque(false);
@@ -72,6 +76,9 @@ public class TwoPlayersFrame extends GameplayFrame {
         this.backgroundImageLabel.add(topPanel,BorderLayout.PAGE_START);
     }
 
+    /**
+     * This method sets up key listeners for two players gameplay.
+     */
     private void setUpKeyListeners() {
         TwoPlayersFrame.this.frame.addKeyListener(new KeyAdapter() {
             @Override
@@ -91,6 +98,10 @@ public class TwoPlayersFrame extends GameplayFrame {
         });
     }
 
+    /**
+     * This method constructs the second half panel of the frame.
+     * @return second half panel as {@code JPanel}
+     */
     private JPanel getSecondHalfPanel() {
         JPanel secondHalfPanel = new JPanel();
         secondHalfPanel.setLayout(new GridLayout(2,7,0,20));
@@ -114,6 +125,10 @@ public class TwoPlayersFrame extends GameplayFrame {
         return secondHalfPanel;
     }
 
+    /**
+     * This method constructs the first half panel of the frame.
+     * @return first half panel as {@code JPanel}
+     */
     private JPanel getFirstHalfPanel() {
         username1 = UtilGUI.getLabelInstance("");
         score1 = UtilGUI.getLabelInstance("");
@@ -131,6 +146,9 @@ public class TwoPlayersFrame extends GameplayFrame {
 
     }
 
+    /**
+     * This method creates answers panel for the frame.
+     */
     private void setUpAnswersPanel() {
         answersPanel = new JPanel();
         answersPanel.setOpaque(false);
@@ -151,6 +169,9 @@ public class TwoPlayersFrame extends GameplayFrame {
         this.answersPanel.add(buttonsPanel,BorderLayout.CENTER);
     }
 
+    /**
+     * This method creates questions image label panel and necessary components for it.
+     */
     private void setUpQuestionsImageLabel() {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
@@ -162,6 +183,9 @@ public class TwoPlayersFrame extends GameplayFrame {
         this.backgroundImageLabel.add(panel,BorderLayout.EAST);
     }
 
+    /**
+     * This method constructs right side icons (buttons) for two players gameplay.
+     */
     private void setUpRightSideIcons() {
         Image[] key_images = {Image.UP_KEY_IMG, Image.LEFT_KEY_IMG, Image.DOWN_KEY_IMG, Image.RIGHT_KEY_IMG};
         JPanel rightSideIconsPanel = new JPanel();
@@ -178,6 +202,9 @@ public class TwoPlayersFrame extends GameplayFrame {
         this.answersPanel.add(rightSideIconsPanel,BorderLayout.EAST);
     }
 
+    /**
+     * This method constructs left side icons (buttons) for two players gameplay.
+     */
     private void setUpLeftSideIcons() {
         Image[] key_images = {Image.W_KEY_IMG, Image.A_KEY_IMG, Image.S_KEY_IMG, Image.D_KEY_IMG};
         JPanel leftSideIconsPanel = new JPanel();
@@ -194,40 +221,63 @@ public class TwoPlayersFrame extends GameplayFrame {
         this.answersPanel.add(leftSideIconsPanel,BorderLayout.WEST);
     }
 
+    /**
+     * This method returns an image after being resized.
+     * @param image instance of {@code Image}
+     * @return resized image as {@code Image}
+     */
     private java.awt.Image getResizedImage(Image image) {
         return ImageFactory.createImage(image).getImage().
                 getScaledInstance(UtilGUI.getScreenWidth()/iconMultiplier,
                         UtilGUI.getScreenHeight()/iconMultiplier, java.awt.Image.SCALE_DEFAULT);
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateUsernames(List<Player> players) {
         username1.setText(players.get(0).getUsername());
         username2.setText(players.get(1).getUsername());
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateAnswers(List<String> answers) {
         for(int i=0;i<answersList.size();i++)
             answersList.get(i).setText(answers.get(i));
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateScores(List<Player> players) {
         this.score1.setText(String.valueOf(players.get(0).getScore()));
         this.score2.setText(String.valueOf(players.get(1).getScore()));
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public boolean hasMoreThanTwoPlayers() {
         return true;
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public UI getPreQuestionFrame() {
         return TwoPlayersBettingFrame.getInstance();
     }
 
+    /**
+     * @see UI
+     */
     @Override
     public void updateCategory(Category category) {
         this.categoryLabel.setText(category.toString());

@@ -8,13 +8,13 @@ import java.util.Objects;
  *
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
- * @version 17.11.2020
+ * @version 13.1.2021
  */
 public class Player implements Serializable {
     private static final long serialVersionUID = 1148183335575561098L;
     private String username;
-    private int score; // one player gamemodes high score
-    private int wins; // two players gamemodes wins
+    private int score; // one player game sessions high score
+    private int wins; // two players game sessions wins
 
     /**
      * Default constructor. Create a player with empty string as username and score equal to 0.
@@ -67,7 +67,7 @@ public class Player implements Serializable {
 
     /**
      * Updates user's score with adding the {@code amount} value.
-     * No checking is done on the {@code amount} parameter's value.
+     * <b>No checking is done on the {@code amount} parameter's value.</b>
      *
      * @param amount The amount that will be added to player's score.
      */
@@ -94,6 +94,11 @@ public class Player implements Serializable {
         return this.wins;
     }
 
+    /**
+     * Compares a {@code Player} object with another object.
+     * @param o object of type {@code Object} that will be compared with a {@code Player} object
+     * @return true/false depending the comparison value
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,25 +109,30 @@ public class Player implements Serializable {
                 Objects.equals(getUsername(), player.getUsername());
     }
 
+    /**
+     * Hash Function for {@code Player} objects.
+     * @return hash code for a {@code Player} object
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getUsername(), getScore(), getWins());
     }
 
+    /**
+     * Sets the score of the player
+     * <b>No checking is done in the {@code score} parameter's value.</b>
+     * @param score the new score value
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Sets the wins of the player
+     * <b>No checking is done in the {@code wins} parameter's value.</b>
+     * @param wins the new wins value
+     */
     public void setWins(int wins) {
         this.wins = wins;
-    }
-
-    @Override
-    public String toString() {
-        return "Player{" +
-                "username='" + username + '\'' +
-                ", score=" + score +
-                ", wins=" + wins +
-                '}';
     }
 }

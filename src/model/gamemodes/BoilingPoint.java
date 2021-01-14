@@ -3,6 +3,13 @@ package model.gamemodes;
 import model.Model;
 import java.util.HashMap;
 
+/**
+ * This class represents the gamemode Boiling Point. First player that answers correct the 5 questions earns 5000
+ * points.
+ * @author Tasos Papadopoulos
+ * @author Thodwrhs Myridis
+ * @version 13.1.2021
+ * */
 public class BoilingPoint extends Gamemode{
     private static final HashMap<Integer, Integer> correctAnswersOfPlayerIndex = new HashMap<>();
 
@@ -24,18 +31,26 @@ public class BoilingPoint extends Gamemode{
         return "Boiling Point";
     }
 
-
+    /**
+     * If the players answers correct update his score using the model component.
+     * @see Gamemode
+     */
     @Override
     public void actionIfCorrectAnswer(Model model, int millis, int playerIndex) {
         correctAnswersOfPlayerIndex.put(playerIndex, correctAnswersOfPlayerIndex.get(playerIndex)+1);
 
         if(correctAnswersOfPlayerIndex.get(playerIndex)==5) {
-            model.updateScore(5000, playerIndex);
+            model.addScore(5000, playerIndex);
             for(int i=0;i<Model.getInstance().getMaxPlayers();i++)
                 correctAnswersOfPlayerIndex.put(i, 0);
         }
     }
 
+    /**
+     * If the user answer wrong update his score using the {@code model} component.
+     * @param model instance of {@code Model} class
+     * @see Gamemode
+     */
     @Override
     public void actionIfWrongAnswer(Model model, int playerIndex) {
         correctAnswersOfPlayerIndex.put(playerIndex, 0);

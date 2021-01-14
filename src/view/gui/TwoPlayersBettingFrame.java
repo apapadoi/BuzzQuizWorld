@@ -14,6 +14,7 @@ import java.util.List;
  * This class represents the betting phase frame (while in High Stakes gamemode) for two player.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
+ * @version 12.1.2021
  */
 public class TwoPlayersBettingFrame extends GUI {
     private static final TwoPlayersBettingFrame instance = new TwoPlayersBettingFrame();
@@ -268,7 +269,6 @@ public class TwoPlayersBettingFrame extends GUI {
 
     /**
      * @see UI
-     * @param category
      */
     @Override
     public void updateCategory(Category category) {
@@ -276,6 +276,10 @@ public class TwoPlayersBettingFrame extends GUI {
     }
 
     // TODO remove this
+
+    /**
+     * @see UI
+     */
     @Override
     public void updateScores(List<Player> players) {
         this.player1Data.setText("<html>"+players.get(0).getUsername()+"<br>"+players.get(0).getScore()+"</html>");

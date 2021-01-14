@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This class represents a question with only a correct answer, a difficulty, a category and 3 other wrong answers.
+ * This class represents a question with only one correct answer, a difficulty, a category and 3 other wrong answers.
  *
  * @author Tasos Papadopoulos
- * @version 17.11.2020
+ * @version 13.1.2021
  */
 public class Question implements Questionable {
     protected String questionText;
@@ -144,6 +144,11 @@ public class Question implements Questionable {
         return null;
     }
 
+    /**
+     * Compares a {@code Question} object with another object.
+     * @param o object of type {@code Object} that will be compared with a {@code Question} object
+     * @return true/false depending the comparison value
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -155,6 +160,10 @@ public class Question implements Questionable {
                 getCategory() == question.getCategory();
     }
 
+    /**
+     * Hash Function for {@code Question} objects.
+     * @return hash code for a {@code Question} object
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getQuestionText(), getCorrectAnswer(), getAnswers(), getDifficulty(), getCategory());

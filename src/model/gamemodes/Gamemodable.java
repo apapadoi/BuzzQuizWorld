@@ -1,14 +1,13 @@
 package model.gamemodes;
 
 import model.Model;
-import java.util.InputMismatchException;
 
 /**
  * This interface contains all the methods that a new gamemode class must implement so it can be added to the game.
  *
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
- * @version 4.1.2021
+ * @version 13.1.2021
  */
 public interface Gamemodable {
     /**
@@ -29,8 +28,9 @@ public interface Gamemodable {
      * Performs the actions that must be done when user answers correct.
      *
      * @param model instance of {@code Model} class
+     * @param playerIndex the player's index whose score will be updated depending the current gamemode if he answered
+     *                    correct
      */
-    // TODO REMOVE model reference
     void actionIfCorrectAnswer(Model model, int playerIndex);
 
     /**
@@ -39,17 +39,10 @@ public interface Gamemodable {
      *
      * @param model  instance of {@code Model} class
      * @param millis the time it took the player to answer in milliseconds
+     * @param playerIndex the player's index whose score will be updated depending the current gamemode if he answered
+     *                    correct
      */
     void actionIfCorrectAnswer(Model model, int millis, int playerIndex);
-
-    /**
-     * Performs the actions that must be done before the question is shown.
-     *
-     * @param model instance of {@code Model} class
-     * @throws NumberFormatException  if the user did not type an integer at all
-     * @throws InputMismatchException if the user typed a valid type of input but not a valid logical input
-     */
-    void actionPreQuestionsPhase(Model model);
 
     /**
      * Returns whether or not the current gamemode has pre question phase.
@@ -62,6 +55,7 @@ public interface Gamemodable {
      * Performs the actions that must be done when user answers wrong.
      *
      * @param model instance of {@code Model} class
+     * @param playerIndex the player's index whose score will be updated depending the gamemode if he answered wrong
      */
     void actionIfWrongAnswer(Model model, int playerIndex);
 
@@ -72,11 +66,29 @@ public interface Gamemodable {
      */
     String toString();
 
+    /**
+     * Returns whether or not a gamemode has timer.
+     * @return whether or not a gamemode has timer as {@code boolean}
+     */
     boolean hasTimer();
 
+    /**
+     * Returns the minimum bet for a gamemode.
+     * @return the minimum bet for a gamemode as {@code in}
+     */
     int getMinBet();
 
+    /**
+     * Sets the bet amount for a specific player.
+     * @param amount the bet amount as {@code int}
+     * @param playerIndex the player's index as {@code int}
+     */
     void setBetAmount(int amount, int playerIndex);
 
+    /**
+     * Checks if the player for the provided index has less or equal to 0 points and gives him enough points to bet.
+     * @param model instance of {@code Model} component
+     * @param playerIndex the player's index
+     */
     void checkZeroScoreAndUpdate(Model model, int playerIndex);
 }

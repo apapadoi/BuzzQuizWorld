@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * This class represents the frame that will appear if any error occurs while the game is loading the questions.
  * @author Thodwrhs Myridis
- * @author Tasos Papadopoulos
+ * @version 12.1.2021
  */
 public class ErrorFrame extends GUI{
     private JPanel topPanel;

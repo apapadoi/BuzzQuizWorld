@@ -13,10 +13,19 @@ import view.gui.UI;
 public class PreQuestionRequest extends Request{
     private final UI gamemodeFrame;
 
+    /**
+     * Creates a {@code PreQuestionRequest} using the provided {@code UI gamemodeFrame} in case there are no
+     * pre question actions for the current gamemode.
+     * @param gamemodeFrame the frame that will be displayed in case there are no pre question actions for the current
+     *                      gamemode as {@code UI}
+     */
     public PreQuestionRequest(UI gamemodeFrame) {
         this.gamemodeFrame = gamemodeFrame;
     }
 
+    /**
+     * @see Request
+     */
     @Override
     public void execute(Dispatcher dispatcher) {
         // if rounds are over
@@ -42,6 +51,7 @@ public class PreQuestionRequest extends Request{
         UI preQuestionFrame = gamemodeFrame.getPreQuestionFrame();
         preQuestionFrame.updateCategory(currentRound.getQuestions().get(questionId).getCategory());
         preQuestionFrame.updateScores(model.getPlayers());
+        dispatcher.getView().updateScores(model.getPlayers());
         preQuestionFrame.updateGamemode(currentRound.getGamemodeString());
         preQuestionFrame.setVisible(true);
     }
