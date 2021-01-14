@@ -22,7 +22,7 @@ class ShowPlayerScoresRequestTest {
         List<Player> modelPlayersList = Model.getInstance().getPlayers();
         UI finishFrame = new GUI() {
             @Override
-            public void updateScores(List<Player> players) {
+            public void updatePlayerData(List<Player> players) {
                 showList = new ArrayList<>(players);
             }
         };

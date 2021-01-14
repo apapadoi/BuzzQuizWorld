@@ -81,7 +81,7 @@ class PreQuestionRequestTest {
                     }
 
                     @Override
-                    public void updateScores(List<Player> players) {
+                    public void updatePlayerData(List<Player> players) {
                         PreQuestionRequestTest.this.scoresUpdated = true;
                     }
 
@@ -170,7 +170,7 @@ class PreQuestionRequestTest {
                     }
 
                     @Override
-                    public void updateScores(List<Player> players) {
+                    public void updatePlayerData(List<Player> players) {
                         PreQuestionRequestTest.this.scoresUpdated = true;
                     }
 
@@ -258,7 +258,7 @@ class PreQuestionRequestTest {
                     }
 
                     @Override
-                    public void updateScores(List<Player> players) {
+                    public void updatePlayerData(List<Player> players) {
                         PreQuestionRequestTest.this.scoresUpdated = true;
                     }
 
@@ -346,7 +346,7 @@ class PreQuestionRequestTest {
                     }
 
                     @Override
-                    public void updateScores(List<Player> players) {
+                    public void updatePlayerData(List<Player> players) {
                         PreQuestionRequestTest.this.scoresUpdated = true;
                     }
 

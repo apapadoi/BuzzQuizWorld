@@ -132,7 +132,7 @@ public class ScoresFrame extends GUI {
      * @see UI
      */
     @Override
-    public void updatePlayers(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
         if(players==null)
             return;
         this.players = players;

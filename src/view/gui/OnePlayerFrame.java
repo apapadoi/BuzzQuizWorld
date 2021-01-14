@@ -339,14 +339,6 @@ public class OnePlayerFrame extends GameplayFrame {
      * @see UI
      */
     @Override
-    public void updateUsernames(List<Player> players) {
-        usernameLabel.setText(players.get(0).getUsername());
-    }
-
-    /**
-     * @see UI
-     */
-    @Override
     public void updateAnswers(List<String> answers) {
         answersButton1.setText(answers.get(0));
         answersButton2.setText(answers.get(1));
@@ -358,7 +350,8 @@ public class OnePlayerFrame extends GameplayFrame {
      * @see UI
      */
     @Override
-    public void updateScores(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
+        usernameLabel.setText(players.get(0).getUsername());
         scoreLabel.setText("Score : "+ players.get(0).getScore());
     }
 

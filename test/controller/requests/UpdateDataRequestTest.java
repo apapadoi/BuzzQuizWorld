@@ -341,17 +341,13 @@ class UpdateDataRequestTest {
                 -1,0));
         FrontController.getInstance().setView(new GUI() {
             @Override
-            public void updateUsernames(List<Player> players) {
-                updateUsernames = true;
-            }
-
-            @Override
             public void updateAnswers(List<String> answers) {
                 updateAnswers = true;
             }
 
             @Override
-            public void updateScores(List<Player> players) {
+            public void updatePlayerData(List<Player> players) {
+                updateUsernames = true;
                 updateScores = true;
             }
 
@@ -474,18 +470,14 @@ class UpdateDataRequestTest {
         Request.questionId = 4;
         FrontController.getInstance().setView(new GUI() {
             @Override
-            public void updateUsernames(List<Player> players) {
-                updateUsernames = true;
-            }
-
-            @Override
             public void updateAnswers(List<String> answers) {
                 updateAnswers = true;
             }
 
             @Override
-            public void updateScores(List<Player> players) {
+            public void updatePlayerData(List<Player> players) {
                 updateScores = true;
+                updateUsernames = true;
             }
 
             @Override

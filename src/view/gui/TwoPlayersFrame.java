@@ -236,16 +236,8 @@ public class TwoPlayersFrame extends GameplayFrame {
      * @see UI
      */
     @Override
-    public void updateUsernames(List<Player> players) {
-        username1.setText(players.get(0).getUsername());
-        username2.setText(players.get(1).getUsername());
-    }
-
-    /**
-     * @see UI
-     */
-    @Override
     public void updateAnswers(List<String> answers) {
+
         for(int i=0;i<answersList.size();i++)
             answersList.get(i).setText(answers.get(i));
     }
@@ -254,7 +246,9 @@ public class TwoPlayersFrame extends GameplayFrame {
      * @see UI
      */
     @Override
-    public void updateScores(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
+        username1.setText(players.get(0).getUsername());
+        username2.setText(players.get(1).getUsername());
         this.score1.setText(String.valueOf(players.get(0).getScore()));
         this.score2.setText(String.valueOf(players.get(1).getScore()));
     }
