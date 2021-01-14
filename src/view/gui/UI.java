@@ -15,21 +15,6 @@ import java.util.List;
  * @version 12.1.2021
  */
 public interface UI {
-
-    /**
-     * Returns the usernames of the players.
-     * @return usernames as {@code List<String>}
-     */
-    default List<String> getUsernames() {
-        return null;
-    }
-
-    /**
-     * Returns the number of rounds the player chose.
-     * @return number of rounds as {@code int}
-     */
-    default int getNumOfRoundsChoice() { return 0; }
-
     //TODO maybe one method to update everything except question's image
     /**
      * Updates players usernames.

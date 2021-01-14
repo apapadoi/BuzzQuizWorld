@@ -20,7 +20,7 @@ import java.util.List;
  * @author Tasos Papadopoulos
  * @version 12.1.2021
  */
-public class TwoPlayersSelectionFrame extends GUI {
+public class TwoPlayersSelectionFrame extends GUI implements SelectionFrameUI{
     private final PlayFrame playFrame;
     private final JLabel backgroundImageLabel;
     private JButton backButton;
@@ -214,8 +214,10 @@ public class TwoPlayersSelectionFrame extends GUI {
                     SetGamemodeFactoryRequest(TwoPlayersGamemodeFactory.getInstance()));
             FrontController.getInstance().dispatchRequest(new LoadRequest());
             FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-            FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-            FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+            FrontController.getInstance().dispatchRequest(
+                    new AddUsernamesRequest(TwoPlayersSelectionFrame.this));
+            FrontController.getInstance().dispatchRequest(
+                    new AddNumOfRoundsRequest(TwoPlayersSelectionFrame.this));
             FrontController.getInstance().setView(TwoPlayersFrame.getInstance());
             FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
             FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,

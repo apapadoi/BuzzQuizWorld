@@ -7,9 +7,13 @@ import model.gamemodes.factories.OnePlayerGamemodeFactory;
 import org.junit.jupiter.api.Test;
 import resources.utilResources.Constants;
 import view.gui.GUI;
+import view.gui.SelectionFrameUI;
+
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddNumOfRoundsRequestTest {
@@ -25,42 +29,56 @@ class AddNumOfRoundsRequestTest {
         Model.getInstance().clearData();
         Model.getInstance().setGamemodeFactory(OnePlayerGamemodeFactory.getInstance());
         Model.getInstance().setMaxPlayers(1);
-        FrontController.getInstance().setFileHandler(fileHandler);
-
-        FrontController.getInstance().setView(new GUI() {
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 5;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().setFileHandler(fileHandler);
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         assertEquals(5, Model.getInstance().getNumOfRounds());
 
-        FrontController.getInstance().setView(new GUI() {
+        selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 3;
             }
-        });
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
         try {fileHandler.readQuestions();}
         catch(IOException e) {
             System.out.println("IO EXCEPTION "+e.getMessage());
         }
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         assertEquals(3, Model.getInstance().getNumOfRounds());
 
-        FrontController.getInstance().setView(new GUI() {
+        selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 10;
             }
-        });
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
 
         try {fileHandler.readQuestions();}
         catch(IOException e) {
             System.out.println("IO EXCEPTION "+e.getMessage());
         }
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         assertEquals(10, Model.getInstance().getNumOfRounds());
     }
 }

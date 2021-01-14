@@ -19,7 +19,7 @@ import java.util.List;
  * @author Tasos Papadopoulos
  * @version 12.1.2021
  */
-public class OnePlayerSelectionFrame extends GUI {
+public class OnePlayerSelectionFrame extends GUI implements SelectionFrameUI{
     private final PlayFrame playFrame;
     private final JLabel backgroundImageLabel;
     private JButton backButton;
@@ -165,8 +165,10 @@ public class OnePlayerSelectionFrame extends GUI {
            ));
            FrontController.getInstance().dispatchRequest(new LoadRequest());
            FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-           FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-           FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+           FrontController.getInstance().dispatchRequest(
+                   new AddUsernamesRequest(OnePlayerSelectionFrame.this));
+           FrontController.getInstance().dispatchRequest(
+                   new AddNumOfRoundsRequest(OnePlayerSelectionFrame.this));
            FrontController.getInstance().setView(OnePlayerFrame.getInstance());
            FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
            FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
