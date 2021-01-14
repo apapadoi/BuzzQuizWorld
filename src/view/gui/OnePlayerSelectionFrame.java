@@ -93,15 +93,9 @@ public class OnePlayerSelectionFrame extends GUI {
      * This method creates the back panel (bottom panel) where the back button is going to be.
      */
     private void setUpBackPanel(){
-        backPanel=new JPanel();
-        backPanel.setLayout(new BorderLayout());
-        backPanel.setOpaque(false);
-
         backButton= UtilGUI.getButtonInstance("Back");
         backButton.setPreferredSize(new Dimension((int)(0.091*UtilGUI.getScreenWidth()),(int)(0.037*UtilGUI.getScreenHeight())));
-        backPanel.add(backButton,BorderLayout.LINE_END);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.260*UtilGUI.getScreenWidth()),(int)(0.013*UtilGUI.getScreenHeight()),
-                (int)(0.007*UtilGUI.getScreenWidth())));
+        backPanel= UtilGUI.getBackPanel(backButton);
     }
 
     /**
@@ -160,25 +154,28 @@ public class OnePlayerSelectionFrame extends GUI {
        });
 
        confirmButton.addActionListener(e -> {
-           if (!(usernameField.getText().equals("") || usernameField.getText().equals("Enter username:")))
-                if (!(roundSelectionBox.getSelectedItem().equals("Select rounds:"))){
-                    FrontController.getInstance().dispatchRequest(new SetGamemodeFactoryRequest(
-                            OnePlayerGamemodeFactory.getInstance()
-                    ));
-                    FrontController.getInstance().dispatchRequest(new LoadRequest());
-                    FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-                    FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-                    FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
-                    FrontController.getInstance().setView(OnePlayerFrame.getInstance());
-                    FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
-                    FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
-                            -1,0));
-                    FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
-                            OnePlayerFrame.getInstance()));
-                    FrontController.getInstance().dispatchRequest(new StopSoundRequest());
-                    OnePlayerSelectionFrame.this.setVisible(false);
-                    FrontController.getInstance().dispatchRequest(new PlaySoundRequest(Constants.GAMEPLAY_SOUND_URL));
-               }
+           if (usernameField.getText().equals(""))
+               return;
+           if (usernameField.getText().equals("Enter username:"))
+               return;
+           if (roundSelectionBox.getSelectedItem().equals("Select rounds:"))
+               return;
+           FrontController.getInstance().dispatchRequest(new SetGamemodeFactoryRequest(
+                   OnePlayerGamemodeFactory.getInstance()
+           ));
+           FrontController.getInstance().dispatchRequest(new LoadRequest());
+           FrontController.getInstance().dispatchRequest(new ClearDataRequest());
+           FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+           FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+           FrontController.getInstance().setView(OnePlayerFrame.getInstance());
+           FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
+           FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                   -1,0));
+           FrontController.getInstance().dispatchRequest(new PreQuestionRequest(
+                   OnePlayerFrame.getInstance()));
+           FrontController.getInstance().dispatchRequest(new StopSoundRequest());
+           OnePlayerSelectionFrame.this.setVisible(false);
+           FrontController.getInstance().dispatchRequest(new PlaySoundRequest(Constants.GAMEPLAY_SOUND_URL));
        });
 
        roundSelectionBox.addActionListener(e -> roundSelectionBox.removeItem("Select rounds:"));
