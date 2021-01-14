@@ -61,12 +61,6 @@ public abstract class Gamemode implements Gamemodable{
 
     /**
      * @see Gamemodable
-     */
-    @Override
-    public void actionPreQuestionsPhase(Model model) { }
-
-    /**
-     * @see Gamemodable
      * @return default value for this implementation is false
      */
     @Override

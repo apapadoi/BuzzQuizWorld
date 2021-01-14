@@ -43,15 +43,6 @@ public interface Gamemodable {
     void actionIfCorrectAnswer(Model model, int millis, int playerIndex);
 
     /**
-     * Performs the actions that must be done before the question is shown.
-     *
-     * @param model instance of {@code Model} class
-     * @throws NumberFormatException  if the user did not type an integer at all
-     * @throws InputMismatchException if the user typed a valid type of input but not a valid logical input
-     */
-    void actionPreQuestionsPhase(Model model);
-
-    /**
      * Returns whether or not the current gamemode has pre question phase.
      *
      * @return whether or not the current gamemode has pre question phase as {@code boolean}

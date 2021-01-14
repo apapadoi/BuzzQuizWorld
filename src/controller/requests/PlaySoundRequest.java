@@ -3,13 +3,21 @@ package controller.requests;
 import controller.Dispatcher;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import model.CustomMediaPlayer;
+import model.player.Player;
+
 import java.io.File;
 
 public class PlaySoundRequest extends Request{
-    private final String soundUrl;
+    private final CustomMediaPlayer mediaPlayer;
 
     public PlaySoundRequest(String soundUrl) {
-        this.soundUrl = soundUrl;
+        mediaPlayer = new CustomMediaPlayer(
+                new MediaPlayer(new Media(new File(soundUrl).toURI().toString())));
+    }
+
+    public PlaySoundRequest(CustomMediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
     }
 
     @Override
@@ -17,7 +25,7 @@ public class PlaySoundRequest extends Request{
         if(!model.hasMusic())
             return;
 
-        model.setMediaPlayer(new MediaPlayer(new Media(new File(soundUrl).toURI().toString())));
+        model.setMediaPlayer(mediaPlayer);
         model.getMediaPlayer().play();
     }
 }

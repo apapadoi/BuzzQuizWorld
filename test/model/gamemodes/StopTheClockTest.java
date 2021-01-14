@@ -1,64 +1,203 @@
 package model.gamemodes;
 
+import controller.FrontController;
+import controller.requests.*;
+import model.Model;
+import model.fileHandler.FileHandler;
+import model.gamemodes.factories.GamemodeFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import view.gui.GUI;
+
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StopTheClockTest {
+    private StopTheClock stopTheClock;
+
+    @BeforeEach
+    void setUp() {
+        stopTheClock = new StopTheClock();
+        FileHandler fileHandler = new FileHandler(new ArrayList<>(),
+                Paths.get("test/resources/data/questions/textQuestions/textQuestions.txt"),
+                Paths.get("test/resources/data/questions/imagedQuestions/imagedQuestions.txt"));
+        FrontController.getInstance().setFileHandler(fileHandler);
+        FrontController.getInstance().dispatchRequest(new SetGamemodeFactoryRequest(
+                new GamemodeFactory() {
+                    @Override
+                    public Gamemodable getRandomGamemode() {
+                        return stopTheClock;
+                    }
+
+                    @Override
+                    public void clearGamemodeData() {
+
+                    }
+                }
+        ));
+        FrontController.getInstance().dispatchRequest(new LoadRequest());
+        FrontController.getInstance().dispatchRequest(new ClearDataRequest());
+        FrontController.getInstance().setView(new GUI() {
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername","testUsername2"));
+            }
+
+            @Override
+            public int getNumOfRoundsChoice() {
+                return 1;
+            }
+        });
+
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                -1,0));
+    }
 
     @Test
     void getDescription() {
-    }
-
-    @Test
-    void actionIfCorrectAnswer() {
-    }
-
-    @Test
-    void testActionIfCorrectAnswer() {
-    }
-
-    @Test
-    void getAvailableTime() {
-    }
-
-    @Test
-    void actionPreQuestionsPhase() {
+        assertEquals("Each player has 5 seconds to answer. Depending on how fast he answered he earns more " +
+                        "points.",
+                stopTheClock.getDescription());
     }
 
     @Test
     void hasPreQuestionPhase() {
-    }
-
-    @Test
-    void actionIfWrongAnswer() {
-    }
-
-    @Test
-    void hasTimer() {
-    }
-
-    @Test
-    void getMinBet() {
-    }
-
-    @Test
-    void setBetAmount() {
-    }
-
-    @Test
-    void checkZeroScoreAndUpdate() {
+        assertFalse(stopTheClock.hasPreQuestionPhase());
     }
 
     @Test
     void testToString() {
+        assertEquals("Stop The Clock", stopTheClock.toString());
     }
 
     @Test
-    void testActionIfCorrectAnswer1() {
+    void hasTimer() {
+        assertTrue(stopTheClock.hasTimer());
     }
 
+    /**
+     * Test case if the player answers correct while there is time left and with no previous points.
+     */
     @Test
-    void testHasTimer() {
+    void answerActionsTest() {
+        int correctAnswerIndex = Model.getInstance().getRound(0).getQuestions().get(0).getAnswers().
+                indexOf(Model.getInstance().getRound(0).getQuestions().
+                        get(0).getCorrectAnswer());
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, correctAnswerIndex, 2000));
+        assertEquals(2000*0.2, Model.getInstance().getPlayers().get(0).getScore());
+    }
+
+    /**
+     * Test case if the player answers correct while there is time left and with previous points.
+     */
+    @Test
+    void answerActionsTest1() {
+        int correctAnswerIndex = Model.getInstance().getRound(0).getQuestions().get(0).getAnswers().
+                indexOf(Model.getInstance().getRound(0).getQuestions().
+                        get(0).getCorrectAnswer());
+        Model.getInstance().getPlayers().get(0).setScore(550);
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, correctAnswerIndex, 2000));
+        assertEquals(2000*0.2+550, Model.getInstance().getPlayers().get(0).getScore());
+    }
+
+    /**
+     * Test case if the player answers correct while there is no time left and with previous points.
+     */
+    @Test
+    void answerActionsTest2() {
+        int correctAnswerIndex = Model.getInstance().getRound(0).getQuestions().get(0).getAnswers().
+                indexOf(Model.getInstance().getRound(0).getQuestions().
+                        get(0).getCorrectAnswer());
+        Model.getInstance().getPlayers().get(0).setScore(550);
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, correctAnswerIndex, 0));
+        assertEquals(550, Model.getInstance().getPlayers().get(0).getScore());
+    }
+
+    /**
+     * Test case if the player answers correct while there is no time left without previous points.
+     */
+    @Test
+    void answerActionsTest3() {
+        int correctAnswerIndex = Model.getInstance().getRound(0).getQuestions().get(0).getAnswers().
+                indexOf(Model.getInstance().getRound(0).getQuestions().
+                        get(0).getCorrectAnswer());
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, correctAnswerIndex, 0));
+        assertEquals(0, Model.getInstance().getPlayers().get(0).getScore());
+    }
+
+    /**
+     * Test case if the player answers wrong while there is no time left and with no previous points.
+     */
+    @Test
+    void answerActionsTest4() {
+        int correctAnswerIndex = Model.getInstance().getRound(0).getQuestions().get(0).getAnswers().
+                indexOf(Model.getInstance().getRound(0).getQuestions().
+                        get(0).getCorrectAnswer());
+        int wrongAnswerIndex;
+        if (correctAnswerIndex == 0)
+            wrongAnswerIndex = correctAnswerIndex + 1;
+        else
+            wrongAnswerIndex = correctAnswerIndex - 1;
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, wrongAnswerIndex, 0));
+        assertEquals(0, Model.getInstance().getPlayers().get(0).getScore());
+    }
+
+    /**
+     * Test case if the player answers wrong while there is no time left and with previous points.
+     */
+    @Test
+    void answerActionsTest5() {
+        int correctAnswerIndex = Model.getInstance().getRound(0).getQuestions().get(0).getAnswers().
+                indexOf(Model.getInstance().getRound(0).getQuestions().
+                        get(0).getCorrectAnswer());
+        Model.getInstance().getPlayers().get(0).setScore(500);
+        int wrongAnswerIndex;
+        if (correctAnswerIndex == 0)
+            wrongAnswerIndex = correctAnswerIndex + 1;
+        else
+            wrongAnswerIndex = correctAnswerIndex - 1;
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, wrongAnswerIndex, 0));
+        assertEquals(500, Model.getInstance().getPlayers().get(0).getScore());
+    }
+
+    /**
+     * Test case if the player answers wrong while there is time left and with previous points.
+     */
+    @Test
+    void answerActionsTest6() {
+        int correctAnswerIndex = Model.getInstance().getRound(0).getQuestions().get(0).getAnswers().
+                indexOf(Model.getInstance().getRound(0).getQuestions().
+                        get(0).getCorrectAnswer());
+        Model.getInstance().getPlayers().get(0).setScore(500);
+        int wrongAnswerIndex;
+        if (correctAnswerIndex == 0)
+            wrongAnswerIndex = correctAnswerIndex + 1;
+        else
+            wrongAnswerIndex = correctAnswerIndex - 1;
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, wrongAnswerIndex, 1500));
+        assertEquals(500, Model.getInstance().getPlayers().get(0).getScore());
+    }
+
+    /**
+     * Test case if the player answers wrong while there is time left and without previous points.
+     */
+    @Test
+    void answerActionsTest7() {
+        int correctAnswerIndex = Model.getInstance().getRound(0).getQuestions().get(0).getAnswers().
+                indexOf(Model.getInstance().getRound(0).getQuestions().
+                        get(0).getCorrectAnswer());
+        int wrongAnswerIndex;
+        if (correctAnswerIndex == 0)
+            wrongAnswerIndex = correctAnswerIndex + 1;
+        else
+            wrongAnswerIndex = correctAnswerIndex - 1;
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0, wrongAnswerIndex, 1500));
+        assertEquals(0, Model.getInstance().getPlayers().get(0).getScore());
     }
 }

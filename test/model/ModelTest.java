@@ -32,6 +32,7 @@ class ModelTest {
 
     @Test
     void getPlayers() {
+        Model.getInstance().clearData();
         Model.getInstance().setUsernames(new ArrayList<>(List.of("testUsername1","testUsername2")));
         assertEquals("testUsername1", Model.getInstance().getPlayers().get(0).getUsername());
         assertEquals("testUsername2", Model.getInstance().getPlayers().get(1).getUsername());
@@ -79,6 +80,7 @@ class ModelTest {
 
     @Test
     void updateScore() {
+        Model.getInstance().clearData();
         Model.getInstance().setUsernames(new ArrayList<>(List.of("testUsername1","testUsername2")));
         Model.getInstance().updateScore(1500,0);
         assertEquals(1500, Model.getInstance().getScore(0));
@@ -90,6 +92,7 @@ class ModelTest {
 
     @Test
     void setUsernames() {
+        Model.getInstance().clearData();
         Model.getInstance().getPlayers().clear();
         Model.getInstance().setUsernames(new ArrayList<>(List.of("testUsername1","testUsername2")));
         assertEquals("testUsername1",Model.getInstance().getUsername(0));
@@ -98,6 +101,7 @@ class ModelTest {
 
     @Test
     void setMaxPlayers() {
+        Model.getInstance().clearData();
         Model.getInstance().setMaxPlayers(1);
         assertEquals(1, Model.getInstance().getMaxPlayers());
         Model.getInstance().setMaxPlayers(3);
@@ -106,6 +110,7 @@ class ModelTest {
 
     @Test
     void putResponseTime() {
+        Model.getInstance().clearData();
         Model.getInstance().putResponseTime(0,1500);
         Model.getInstance().putResponseTime(1,3000);
         assertEquals(1500, Model.getInstance().getResponseTimes().get(0));
@@ -114,6 +119,7 @@ class ModelTest {
 
     @Test
     void getMsLeft() {
+        Model.getInstance().clearData();
         Model.getInstance().putResponseTime(0,1500);
         Model.getInstance().putResponseTime(1,3500);
         assertEquals(1500, Model.getInstance().getMsLeft(0));
@@ -122,6 +128,7 @@ class ModelTest {
 
     @Test
     void getPlayersAnswered1() {
+        Model.getInstance().clearData();
         Model.getInstance().getPlayersAnswered().put(0,true);
         assertTrue(Model.getInstance().getPlayersAnswered().get(0));
         Model.getInstance().getPlayersAnswered().put(0,false);
@@ -130,6 +137,7 @@ class ModelTest {
 
     @Test
     void getPlayersAnswered2() {
+        Model.getInstance().clearData();
         Model.getInstance().getPlayersAnswered().put(1,true);
         assertTrue(Model.getInstance().getPlayersAnswered().get(1));
         Model.getInstance().getPlayersAnswered().put(1,false);
@@ -138,6 +146,7 @@ class ModelTest {
 
     @Test
     void getMaxPlayers() {
+        Model.getInstance().clearData();
         Model.getInstance().setMaxPlayers(3);
         assertEquals(3, Model.getInstance().getMaxPlayers());
         Model.getInstance().setMaxPlayers(5);
