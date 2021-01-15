@@ -119,7 +119,7 @@ public class OnePlayerBettingFrame extends GUI {
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel,BoxLayout.X_AXIS));
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,(int)(0.104*UtilGUI.getScreenWidth()),
-                (int)(0.490*UtilGUI.getScreenHeight()),0));
+                (int)(0.430*UtilGUI.getScreenHeight()),0));
         buttonsPanel.setOpaque(false);
 
         this.setUpButtonPanelData();
