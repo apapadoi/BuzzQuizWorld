@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * This class represents the betting phase frame (while in High Stakes gamemode) for two player.
+ * Singleton Design Pattern is used.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  * @version 12.1.2021
@@ -26,6 +27,10 @@ public class TwoPlayersBettingFrame extends GUI {
     private JLabel player1Data;
     private JLabel player2Data;
 
+    /**
+     * Returns the unique {@code TwoPlayersBettingFrame} instance
+     * @return the {@code TwoPlayersBettingFrame} object
+     */
     public static TwoPlayersBettingFrame getInstance() {
         return instance;
     }

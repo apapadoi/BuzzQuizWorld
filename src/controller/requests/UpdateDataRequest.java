@@ -57,7 +57,7 @@ public class UpdateDataRequest extends Request{
 
         if(playersAnswered.values().stream().distinct().count()>1) // there is at least one player that has different
             return;                                                 // answer value (true/false)
-        // TODO REMOVE THIS if probably
+
         if(playersAnswered.get(0).equals(false)) // there are no players that have answered
             return;
 
@@ -119,7 +119,7 @@ public class UpdateDataRequest extends Request{
         view.updatePlayerData(model.getPlayers());
         if(currentQuestion.hasContent())
             view.updateQuestionsImage(currentQuestion.getContent());
-        else // TODO NULL OBJECT DESIGN PATTERN
+        else
             view.updateQuestionsImage(null);
     }
 }

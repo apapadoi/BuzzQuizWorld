@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * This class represents the frame for two players gameplay.
+ * This class represents the frame for two players gameplay. Singleton Design Pattern is used.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
  * @version 12.1.2021
@@ -45,6 +45,10 @@ public class TwoPlayersFrame extends GameplayFrame {
         }
     }
 
+    /**
+     * Returns the unique {@code TwoPlayersFrame} instance
+     * @return the {@code TwoPlayersFrame} object
+     */
     public static TwoPlayersFrame getInstance() {
         return instance;
     }
@@ -260,7 +264,6 @@ public class TwoPlayersFrame extends GameplayFrame {
     public boolean hasMoreThanTwoPlayers() {
         return true;
     }
-
     /**
      * @see UI
      */

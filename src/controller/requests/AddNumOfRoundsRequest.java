@@ -9,8 +9,13 @@ import view.gui.SelectionFrameUI;
  * @version 14.1.2021
  */
 public class AddNumOfRoundsRequest extends Request{
-    private SelectionFrameUI selectionFrame;
+    private final SelectionFrameUI selectionFrame;
 
+    /**
+     * Creates an {@code AddNumOfRoundsRequest} which will use the provided {@code selectionFrame} as a source
+     * for number of rounds.
+     * @param selectionFrame the frame that will provide the number of rounds choice as {@code SelectionFrameUI}
+     */
     public AddNumOfRoundsRequest(SelectionFrameUI selectionFrame) {
         this.selectionFrame = selectionFrame;
     }

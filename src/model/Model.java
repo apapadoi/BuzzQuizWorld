@@ -226,7 +226,7 @@ public class Model{
 
     /**
      * Returns the milliseconds left of the players of the current gameplay session.
-     * @return the milliseconds left as {code HashMap{@literal<}Integer,Integer{@literal>}}
+     * @return the milliseconds left as {code HashMap{@literal <}Integer,Integer{@literal >}}
      */
     public HashMap<Integer, Integer> getMillisLeft() {
         return millisLeft;

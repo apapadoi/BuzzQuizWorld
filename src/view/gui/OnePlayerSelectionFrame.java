@@ -24,7 +24,6 @@ public class OnePlayerSelectionFrame extends GUI implements SelectionFrameUI{
     private final JLabel backgroundImageLabel;
     private JButton backButton;
     private JButton confirmButton;
-    // TODO ADD PARAMETRIZED JCOMBOBOX
     private JComboBox<String> roundSelectionBox;
     private JTextField usernameField;
     private final String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
@@ -143,7 +142,6 @@ public class OnePlayerSelectionFrame extends GUI implements SelectionFrameUI{
            }
        });
 
-       // TODO add focus lost listener
        backgroundImageLabel.addMouseListener(new MouseAdapter() {
            @Override
            public void mouseClicked(MouseEvent e) {

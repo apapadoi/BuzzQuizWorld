@@ -11,8 +11,13 @@ import java.util.List;
  * @version 14.1.2021
  */
 public class AddUsernamesRequest extends Request{
-    private SelectionFrameUI selectionFrame;
+    private final SelectionFrameUI selectionFrame;
 
+    /**
+     * Creates an {@code AddUsernamesRequest} which will use the provided {@code selectionFrame} as a source
+     * for usernames of the players.
+     * @param selectionFrame the frame that will provide the usernames as {@code SelectionFrameUI}
+     */
     public AddUsernamesRequest(SelectionFrameUI selectionFrame) {
         this.selectionFrame = selectionFrame;
     }

@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
- * This class represents the frame for one player gameplay.
+ * This class represents the frame for one player gameplay. Singleton Design Pattern is used.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  * @version 12.1.2021
@@ -239,6 +239,11 @@ public class OnePlayerFrame extends GameplayFrame {
 
         timerPanel.add(timerLabel,BorderLayout.CENTER);
     }
+
+    /**
+     * Returns the unique {@code OnePlayerFrame} instance
+     * @return the {@code OnePlayerFrame} object
+     */
     public static OnePlayerFrame getInstance() {
         return instance;
     }
@@ -354,7 +359,7 @@ public class OnePlayerFrame extends GameplayFrame {
         usernameLabel.setText(players.get(0).getUsername());
         scoreLabel.setText("Score : "+ players.get(0).getScore());
     }
-
+    
     /**
      * @see UI
      */
@@ -362,7 +367,6 @@ public class OnePlayerFrame extends GameplayFrame {
     public boolean hasMoreThanTwoPlayers() {
         return false;
     }
-
     /**
      * @see UI
      */

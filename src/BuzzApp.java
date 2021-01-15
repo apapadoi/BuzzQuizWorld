@@ -10,6 +10,10 @@ import javax.swing.*;
  * @version 14.1.2021
  */
 public class BuzzApp {
+    /**
+     * Main method.
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new IntroFrame());
     }
