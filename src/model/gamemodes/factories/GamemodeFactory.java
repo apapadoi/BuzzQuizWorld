@@ -4,7 +4,7 @@ import model.gamemodes.Gamemodable;
 
 /**
  * This interface contains all the methods that a new gamemode factory class must implement so it can be added to
- * the game.
+ * the game. Factory Design Pattern is used.
  * @author Tasos Papadopoulos
  * @version 13.1.2021
  */

@@ -3,9 +3,9 @@
 This repository contains an assignment developed during
 the course Object Oriented Programming. The assignment is based 
 on a PlayStation game called Buzz! Quiz World. The current version
-can be played by one player only and contains two types of gamemodes 
-Point Builder and High Stakes. Also, the game can be played in command line
-interface.
+can be played by one or two players and contains three gamemodes 
+( Point Builder, High Stakes and Stop The Clock ) for one player game sessions and two more 
+type of gamemodes for two players game sessions ( Boiling Point and Fastest Finger ).
 
 ![](https://img.shields.io/badge/IDE-IntelliJ_IDEA-informational?style=flat-square&logo=intellij-idea&logoColor=white&color=informational)
 ![](https://img.shields.io/badge/Code-Java_11-informational?style=flat-square&logo=Java&logoColor=white&color=informational)
