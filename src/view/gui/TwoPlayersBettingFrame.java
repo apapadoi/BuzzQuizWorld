@@ -281,7 +281,7 @@ public class TwoPlayersBettingFrame extends GUI {
      * @see UI
      */
     @Override
-    public void updateScores(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
         this.player1Data.setText("<html>"+players.get(0).getUsername()+"<br>"+players.get(0).getScore()+"</html>");
         this.player2Data.setText("<html>"+players.get(1).getUsername()+"<br>"+players.get(1).getScore()+"</html>");
     }

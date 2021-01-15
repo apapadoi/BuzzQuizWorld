@@ -16,6 +16,7 @@ import view.gui.GUI;
 import view.gui.GameplayFrame;
 import view.gui.SelectionFrameUI;
 import view.gui.UI;
+import view.gui.SelectionFrameUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -88,19 +89,19 @@ class UpdateDataRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
@@ -137,19 +138,19 @@ class UpdateDataRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
@@ -190,19 +191,19 @@ class UpdateDataRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
@@ -237,19 +238,19 @@ class UpdateDataRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
@@ -289,19 +290,19 @@ class UpdateDataRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername","testUsername2"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
@@ -353,36 +354,32 @@ class UpdateDataRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername","testUsername2"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
 
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername","testUsername2"));
+            }
+        };
+
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
         FrontController.getInstance().setView(new GUI() {
-            @Override
-            public void updateUsernames(List<Player> players) {
-                updateUsernames = true;
-            }
-
             @Override
             public void updateAnswers(List<String> answers) {
                 updateAnswers = true;
             }
 
             @Override
-            public void updateScores(List<Player> players) {
+            public void updatePlayerData(List<Player> players) {
+                updateUsernames = true;
                 updateScores = true;
             }
 
@@ -485,38 +482,34 @@ class UpdateDataRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername","testUsername2"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
 
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername","testUsername2"));
+            }
+        };
+
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
         Request.questionId = 4;
         FrontController.getInstance().setView(new GUI() {
             @Override
-            public void updateUsernames(List<Player> players) {
-                updateUsernames = true;
-            }
-
-            @Override
             public void updateAnswers(List<String> answers) {
                 updateAnswers = true;
             }
 
             @Override
-            public void updateScores(List<Player> players) {
+            public void updatePlayerData(List<Player> players) {
                 updateScores = true;
+                updateUsernames = true;
             }
 
             @Override

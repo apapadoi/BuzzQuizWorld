@@ -115,10 +115,10 @@ public class UpdateDataRequest extends Request{
         view.updateCategory(currentQuestion.getCategory());
         view.updateGamemode(currentRound.getGamemodeString());
         view.updateQuestion(currentQuestion.getQuestionText());
-        view.updateScores(model.getPlayers());
+        view.updatePlayerData(model.getPlayers());
         view.updateRoundId(String.valueOf(roundIndex+1));
         view.updateDifficulty(currentQuestion.getDifficulty());
-        view.updateUsernames(model.getPlayers());
+        view.updatePlayerData(model.getPlayers());
         if(currentQuestion.hasContent())
             view.updateQuestionsImage(currentQuestion.getContent());
         else // TODO NULL OBJECT DESIGN PATTERN

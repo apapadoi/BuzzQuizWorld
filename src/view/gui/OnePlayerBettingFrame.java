@@ -189,7 +189,7 @@ public class OnePlayerBettingFrame extends GUI {
      * @see UI
      */
     @Override
-    public void updateScores(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
         instance.scoreLabel.setText("Score : "+ players.get(0).getScore());
     }
 

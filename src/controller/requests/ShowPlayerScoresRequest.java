@@ -14,8 +14,8 @@ public class ShowPlayerScoresRequest extends Request{
 
     /**
      * Creates a {@code ShowPlayerScoresRequest} which will use the {@code UI finishFrame} provided for invoking
-     * {@code updateScores(List<Player>} method for showing the current game session players' scores.
-     * @param finishFrame the {@code UI} object whose {@code updateScores(List<Player>)} method will be invoked
+     * {@code updatePlayerData(List<Player>} method for showing the current game session players' scores.
+     * @param finishFrame the {@code UI} object whose {@code updatePlayerData(List<Player>)} method will be invoked
      */
     public ShowPlayerScoresRequest(UI finishFrame) {
         this.finishFrame = finishFrame;
@@ -26,6 +26,6 @@ public class ShowPlayerScoresRequest extends Request{
      */
     @Override
     public void execute(Dispatcher dispatcher) {
-        finishFrame.updateScores(new ArrayList<>(model.getPlayers()));
+        finishFrame.updatePlayerData(new ArrayList<>(model.getPlayers()));
     }
 }

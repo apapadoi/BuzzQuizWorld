@@ -36,6 +36,6 @@ public class LoadScoresRequest extends Request{
             System.exit(-5);
         }
 
-        scoresFrame.updatePlayers(players);
+        scoresFrame.updatePlayerData(players);
     }
 }

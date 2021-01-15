@@ -6,6 +6,7 @@ import model.fileHandler.FileHandler;
 import model.gamemodes.factories.OnePlayerGamemodeFactory;
 import org.junit.jupiter.api.Test;
 import view.gui.GUI;
+import view.gui.SelectionFrameUI;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -27,19 +28,19 @@ class ClearDataRequestTest {
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
 
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         Model.getInstance().getPlayersAnswered().put(0,true);
         FrontController.getInstance().setView(new GUI() {
             @Override
@@ -68,19 +69,19 @@ class ClearDataRequestTest {
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
 
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         Model.getInstance().getPlayersAnswered().put(0,true);
         FrontController.getInstance().setView(new GUI() {
             @Override

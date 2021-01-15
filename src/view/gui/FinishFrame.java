@@ -133,7 +133,7 @@ public class FinishFrame extends GUI {
      * @see UI
      */
     @Override
-    public void updateScores(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
         for(Player player:players) {
             int playerScore = player.getScore();
             JLabel label = UtilGUI.getLabelInstance(player.getUsername() + " couldn't even score above "

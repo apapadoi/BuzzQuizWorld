@@ -12,6 +12,7 @@ import view.gui.GUI;
 import view.gui.GameplayFrame;
 import view.gui.SelectionFrameUI;
 import view.gui.UI;
+import view.gui.SelectionFrameUI;
 
 import java.awt.*;
 import java.nio.file.Paths;
@@ -67,20 +68,20 @@ class HighStakesTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
 
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));

@@ -43,7 +43,7 @@ class LoadScoresRequestTest {
         fileHandler.setDb_file(db_file);
         UI view = new GUI() {
             @Override
-            public void updatePlayers(List<Player> players) {
+            public void updatePlayerData(List<Player> players) {
                 loadedPlayers = new ArrayList<>(players);
             }
         };
