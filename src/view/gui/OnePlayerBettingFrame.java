@@ -4,7 +4,7 @@ import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
 import model.player.Player;
 import model.questions.Category;
-import resources.utilResources.Image;
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * This class represents the betting phase frame (while in High Stakes gamemode) for one player.
+ * Singleton Design Pattern is used.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  * @version 12.1.2021
@@ -33,6 +34,11 @@ public class OnePlayerBettingFrame extends GUI {
     private JLabel amountAvailableLabel;
     private JPanel centerPanel;
     private JPanel labelsPanel;
+
+    /**
+     * Returns the unique {@code OnePlayerBettingFrame} instance
+     * @return the {@code OnePlayerBettingFrame} object
+     */
     public static OnePlayerBettingFrame getInstance() {
         return instance;
     }
@@ -72,7 +78,6 @@ public class OnePlayerBettingFrame extends GUI {
      */
     private void setUpTopPanelData(){
         gamemodeLabel = UtilGUI.getLabelInstance("");
-        // TODO ADD PRE QUESTION MESSAGE TO GAMEMODABLE
         JLabel bettingLabel = UtilGUI.getLabelInstance("Select your betting amount");
 
         scoreLabel = UtilGUI.getLabelInstance("");
@@ -161,7 +166,6 @@ public class OnePlayerBettingFrame extends GUI {
     /**
      * This method sets button listeners for all available betting buttons.
      */
-    // TODO SET ACTION COMMANDS IN ALL BUTTONS
     private void setUpButtonListeners() {
         ActionListener listener = e -> {
             List<Integer> betsSelected = new ArrayList<>();
@@ -189,7 +193,7 @@ public class OnePlayerBettingFrame extends GUI {
      * @see UI
      */
     @Override
-    public void updateScores(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
         instance.scoreLabel.setText("Score : "+ players.get(0).getScore());
     }
 

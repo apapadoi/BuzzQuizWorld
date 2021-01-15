@@ -2,6 +2,7 @@ package controller.requests;
 
 import controller.Dispatcher;
 import model.player.Player;
+import view.gui.ErrorFrame;
 import view.gui.UI;
 import java.io.IOException;
 import java.util.List;
@@ -32,10 +33,9 @@ public class LoadScoresRequest extends Request{
         try {
             players = dispatcher.getFileHandler().readPlayers();
         }catch(IOException|ClassNotFoundException e) {
-            // TODO ADD ERROR FRAME
-            System.exit(-5);
+            new ErrorFrame();
         }
 
-        scoresFrame.updatePlayers(players);
+        scoresFrame.updatePlayerData(players);
     }
 }

@@ -3,7 +3,7 @@ package view.gui;
 import controller.FrontController;
 import controller.requests.LoadScoresRequest;
 import model.player.Player;
-import resources.utilResources.Image;
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -132,7 +132,7 @@ public class ScoresFrame extends GUI {
      * @see UI
      */
     @Override
-    public void updatePlayers(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
         if(players==null)
             return;
         this.players = players;
@@ -176,7 +176,6 @@ public class ScoresFrame extends GUI {
     /**
      * This method creates the back button (bottom panel) panel.
      */
-    // TODO REMOVE THIS
     private void setUpBackButton() {
         JPanel backButtonPanel = new JPanel();
         backButtonPanel.setLayout(new BorderLayout());

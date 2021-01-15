@@ -1,11 +1,10 @@
 package view.gui;
 
-import com.sun.webkit.network.Util;
 import controller.FrontController;
 import controller.requests.*;
 import model.gamemodes.factories.TwoPlayersGamemodeFactory;
-import resources.utilResources.Constants;
-import resources.utilResources.Image;
+import view.gui.utilResources.Constants;
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -20,7 +19,7 @@ import java.util.List;
  * @author Tasos Papadopoulos
  * @version 12.1.2021
  */
-public class TwoPlayersSelectionFrame extends GUI {
+public class TwoPlayersSelectionFrame extends GUI implements SelectionFrameUI{
     private final PlayFrame playFrame;
     private final JLabel backgroundImageLabel;
     private JButton backButton;
@@ -213,11 +212,13 @@ public class TwoPlayersSelectionFrame extends GUI {
             FrontController.getInstance().dispatchRequest(new
                     SetGamemodeFactoryRequest(TwoPlayersGamemodeFactory.getInstance()));
             FrontController.getInstance().dispatchRequest(new LoadRequest());
-            FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-            FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-            FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
-            FrontController.getInstance().setView(TwoPlayersFrame.getInstance());
             FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
+            FrontController.getInstance().dispatchRequest(new ClearDataRequest());
+            FrontController.getInstance().dispatchRequest(
+                    new AddUsernamesRequest(TwoPlayersSelectionFrame.this));
+            FrontController.getInstance().dispatchRequest(
+                    new AddNumOfRoundsRequest(TwoPlayersSelectionFrame.this));
+            FrontController.getInstance().setView(TwoPlayersFrame.getInstance());
             FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                     -1,0));
             FrontController.getInstance().dispatchRequest(new PreQuestionRequest(

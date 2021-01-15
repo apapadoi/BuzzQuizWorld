@@ -133,4 +133,16 @@ class QuestionTest {
 
         assertNull(question.getContent());
     }
+
+    @Test
+    void testHashCode() {
+        Question question1 = new Question();
+        Question question2 = new Question();
+        assertEquals(question1.hashCode(),question2.hashCode());
+        question1 = new Question();
+        question1.setCategory(Category.Cars);
+        question2 = new Question();
+        question2.setCategory(Category.Cars);
+        assertEquals(question1.hashCode(),question2.hashCode());
+    }
 }

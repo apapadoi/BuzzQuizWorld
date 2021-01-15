@@ -5,8 +5,8 @@ import controller.requests.NextQuestionRequest;
 import controller.requests.UpdateDataRequest;
 import model.player.Player;
 import model.questions.Category;
-import resources.utilResources.Image;
-import resources.utilResources.ImageFactory;
+import view.gui.utilResources.Image;
+import view.gui.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * This class represents the frame for two players gameplay.
+ * This class represents the frame for two players gameplay. Singleton Design Pattern is used.
  * @author Tasos Papadopoulos
  * @author Thodwrhs Myridis
  * @version 12.1.2021
@@ -45,6 +45,10 @@ public class TwoPlayersFrame extends GameplayFrame {
         }
     }
 
+    /**
+     * Returns the unique {@code TwoPlayersFrame} instance
+     * @return the {@code TwoPlayersFrame} object
+     */
     public static TwoPlayersFrame getInstance() {
         return instance;
     }
@@ -236,16 +240,8 @@ public class TwoPlayersFrame extends GameplayFrame {
      * @see UI
      */
     @Override
-    public void updateUsernames(List<Player> players) {
-        username1.setText(players.get(0).getUsername());
-        username2.setText(players.get(1).getUsername());
-    }
-
-    /**
-     * @see UI
-     */
-    @Override
     public void updateAnswers(List<String> answers) {
+
         for(int i=0;i<answersList.size();i++)
             answersList.get(i).setText(answers.get(i));
     }
@@ -254,7 +250,9 @@ public class TwoPlayersFrame extends GameplayFrame {
      * @see UI
      */
     @Override
-    public void updateScores(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
+        username1.setText(players.get(0).getUsername());
+        username2.setText(players.get(1).getUsername());
         this.score1.setText(String.valueOf(players.get(0).getScore()));
         this.score2.setText(String.valueOf(players.get(1).getScore()));
     }
@@ -266,7 +264,6 @@ public class TwoPlayersFrame extends GameplayFrame {
     public boolean hasMoreThanTwoPlayers() {
         return true;
     }
-
     /**
      * @see UI
      */

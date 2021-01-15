@@ -11,13 +11,14 @@ import java.util.HashMap;
  * @version 13.1.2021
  * */
 public class BoilingPoint extends Gamemode{
-    private static final HashMap<Integer, Integer> correctAnswersOfPlayerIndex = new HashMap<>();
+    private final HashMap<Integer, Integer> correctAnswersOfPlayerIndex;
 
     /**
      * Default Constructor.
      */
     public BoilingPoint() {
         super("First player that answers correct 5 questions earns 5000 points", 15);
+        correctAnswersOfPlayerIndex = new HashMap<>();
         for(int i=0;i<Model.getInstance().getMaxPlayers();i++)
             correctAnswersOfPlayerIndex.put(i, 0);
     }
@@ -37,7 +38,7 @@ public class BoilingPoint extends Gamemode{
      */
     @Override
     public void actionIfCorrectAnswer(Model model, int millis, int playerIndex) {
-        correctAnswersOfPlayerIndex.put(playerIndex, correctAnswersOfPlayerIndex.get(playerIndex)+1);
+        correctAnswersOfPlayerIndex.merge(playerIndex, 1, Integer::sum);
 
         if(correctAnswersOfPlayerIndex.get(playerIndex)==5) {
             model.addScore(5000, playerIndex);

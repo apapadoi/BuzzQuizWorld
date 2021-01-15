@@ -3,9 +3,8 @@ package view.gui;
 import controller.FrontController;
 import controller.requests.*;
 import model.player.Player;
-import resources.utilResources.Constants;
-import resources.utilResources.Image;
-import resources.utilResources.ImageFactory;
+import view.gui.utilResources.Image;
+import view.gui.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -133,7 +132,7 @@ public class FinishFrame extends GUI {
      * @see UI
      */
     @Override
-    public void updateScores(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
         for(Player player:players) {
             int playerScore = player.getScore();
             JLabel label = UtilGUI.getLabelInstance(player.getUsername() + " couldn't even score above "

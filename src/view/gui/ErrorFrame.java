@@ -1,8 +1,6 @@
 package view.gui;
 
-
-import resources.utilResources.Image;
-
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,11 +13,10 @@ import java.awt.event.ActionListener;
  */
 public class ErrorFrame extends GUI{
     private JPanel topPanel;
-    private JLabel errorText;
     private JButton exitButton;
     private JPanel exitPanel;
-    private JPanel errorPanel;
-    private JLabel backgroundImageLabel;
+    private final JPanel errorPanel;
+    private final JLabel backgroundImageLabel;
 
     /**
      * Default constructor.
@@ -33,8 +30,17 @@ public class ErrorFrame extends GUI{
         this.setUpTopPanel();
         this.setUpExitPanel();
         this.connectPanels();
-        this.setVisible(true);
-    }
+        this.setUpButtonListeners();
+        Thread errorThread = new Thread(() -> {
+            try {
+                Thread.sleep(550);
+            }catch(InterruptedException exception) {
+
+            }
+            ErrorFrame.this.setVisible(true);
+        });
+        errorThread.start();
+   }
 
     /**
      * This method creates the top panel for the frame.
@@ -45,7 +51,8 @@ public class ErrorFrame extends GUI{
         topPanel.setBorder(BorderFactory.createEmptyBorder((int)(0.416*UtilGUI.getScreenHeight()), 0, 0, 0));
         topPanel.setOpaque(false);
 
-        errorText = UtilGUI.getLabelInstance("There was an error while loading the questions. Please press exit and try again.", 30);
+        JLabel errorText = UtilGUI.getLabelInstance(
+                "There was an error with the file system. Please press exit and try again.", 30);
 
         topPanel.add(errorText, BorderLayout.CENTER);
     }
@@ -77,11 +84,6 @@ public class ErrorFrame extends GUI{
      * This method sets button listeners.
      */
     private void setUpButtonListeners() {
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO Exit application
-            }
-        });
+        exitButton.addActionListener(e -> System.exit(-1));
     }
 }

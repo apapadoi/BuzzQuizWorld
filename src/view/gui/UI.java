@@ -15,28 +15,6 @@ import java.util.List;
  * @version 12.1.2021
  */
 public interface UI {
-
-    /**
-     * Returns the usernames of the players.
-     * @return usernames as {@code List<String>}
-     */
-    default List<String> getUsernames() {
-        return null;
-    }
-
-    /**
-     * Returns the number of rounds the player chose.
-     * @return number of rounds as {@code int}
-     */
-    default int getNumOfRoundsChoice() { return 0; }
-
-    //TODO maybe one method to update everything except question's image
-    /**
-     * Updates players usernames.
-     * @param players instance of {@code List<Player>}
-     */
-    default void updateUsernames(List<Player> players) {}
-
     /**
      * Updates players answers.
      * @param answers instance of {@code List<String>}
@@ -47,7 +25,7 @@ public interface UI {
      * Updates players scores.
      * @param players instance of {@code List<Player>}
      */
-    default void updateScores(List<Player> players) {}
+    default void updatePlayerData(List<Player> players) {}
 
     /**
      * Updates current gamemode of the game.
@@ -111,12 +89,6 @@ public interface UI {
      * @return prequestion frame as {@code UI}
      */
     default UI getPreQuestionFrame() { return null; }
-
-    /**
-     * Updates players.
-     * @param players instance of {@code List<Player>}
-     */
-    default void updatePlayers(List<Player> players) {}
 
     /**
      * Checks if the game has more than two players.

@@ -35,7 +35,7 @@ public class SetBetAmountRequest extends Request{
         for(Integer betAmount:betsSelected) {
             currentPlayer = model.getPlayers().get(playerIndex);
             if (betAmount > currentPlayer.getScore())
-                betAmount = currentGamemode.getMinBet(); // TODO MAKE METHOD FOR INVOKING GENERAL PRE QUESTION ACTIONS
+                betAmount = currentGamemode.getMinBet();
             currentGamemode.setBetAmount(betAmount, playerIndex);
             playerIndex++;
         }

@@ -1,6 +1,7 @@
 package controller.requests;
 
 import controller.FrontController;
+import javafx.embed.swing.JFXPanel;
 import model.fileHandler.FileHandler;
 import model.gamemodes.Gamemodable;
 import model.gamemodes.HighStakes;
@@ -8,9 +9,14 @@ import model.gamemodes.PointBuilder;
 import model.gamemodes.factories.GamemodeFactory;
 import model.player.Player;
 import model.questions.Category;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.gui.GUI;
+import view.gui.GameplayFrame;
+import view.gui.SelectionFrameUI;
 import view.gui.UI;
+
+import java.awt.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +32,32 @@ class PreQuestionRequestTest {
     private boolean frameIsVisible = false;
     private FileHandler fileHandler;
     private UI gamemodeFrame;
+
+    @BeforeEach
+    void setUp() {
+        new JFXPanel();
+        FrontController.getInstance().setView(new GameplayFrame() {
+            @Override
+            public Dimension getSize() {
+                return new Dimension(1,1);
+            }
+
+            @Override
+            public UI getPreQuestionFrame() {
+                return new GUI() {
+                    @Override
+                    public Dimension getSize() {
+                        return new Dimension(1,1);
+                    }
+
+                    @Override
+                    public void dispose() {
+                        super.dispose();
+                    }
+                };
+            }
+        });
+    }
 
     @Test
     void execute1() {
@@ -54,19 +86,19 @@ class PreQuestionRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
@@ -80,7 +112,7 @@ class PreQuestionRequestTest {
                     }
 
                     @Override
-                    public void updateScores(List<Player> players) {
+                    public void updatePlayerData(List<Player> players) {
                         PreQuestionRequestTest.this.scoresUpdated = true;
                     }
 
@@ -143,19 +175,19 @@ class PreQuestionRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
@@ -169,7 +201,7 @@ class PreQuestionRequestTest {
                     }
 
                     @Override
-                    public void updateScores(List<Player> players) {
+                    public void updatePlayerData(List<Player> players) {
                         PreQuestionRequestTest.this.scoresUpdated = true;
                     }
 
@@ -231,19 +263,19 @@ class PreQuestionRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
@@ -257,7 +289,7 @@ class PreQuestionRequestTest {
                     }
 
                     @Override
-                    public void updateScores(List<Player> players) {
+                    public void updatePlayerData(List<Player> players) {
                         PreQuestionRequestTest.this.scoresUpdated = true;
                     }
 
@@ -319,19 +351,19 @@ class PreQuestionRequestTest {
         ));
         FrontController.getInstance().dispatchRequest(new LoadRequest());
         FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-        FrontController.getInstance().setView(new GUI() {
-            @Override
-            public List<String> getUsernames() {
-                return new ArrayList<>(List.of("testUsername"));
-            }
-
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
             @Override
             public int getNumOfRoundsChoice() {
                 return 1;
             }
-        });
-        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername"));
+            }
+        };
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
         FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
         FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                 -1,0));
@@ -345,7 +377,7 @@ class PreQuestionRequestTest {
                     }
 
                     @Override
-                    public void updateScores(List<Player> players) {
+                    public void updatePlayerData(List<Player> players) {
                         PreQuestionRequestTest.this.scoresUpdated = true;
                     }
 

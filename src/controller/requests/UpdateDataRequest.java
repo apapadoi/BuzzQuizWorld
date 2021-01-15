@@ -7,8 +7,6 @@ import model.round.Round;
 import view.gui.FinishFrame;
 import view.gui.UI;
 import java.util.HashMap;
-// TODO TEST negative score case on unit testing
-
 /**
  * Represents a request for updating the data of the {@code Model component}.
  * @author Tasos Papadopoulos
@@ -59,7 +57,7 @@ public class UpdateDataRequest extends Request{
 
         if(playersAnswered.values().stream().distinct().count()>1) // there is at least one player that has different
             return;                                                 // answer value (true/false)
-        // TODO REMOVE THIS if probably
+
         if(playersAnswered.get(0).equals(false)) // there are no players that have answered
             return;
 
@@ -115,13 +113,13 @@ public class UpdateDataRequest extends Request{
         view.updateCategory(currentQuestion.getCategory());
         view.updateGamemode(currentRound.getGamemodeString());
         view.updateQuestion(currentQuestion.getQuestionText());
-        view.updateScores(model.getPlayers());
+        view.updatePlayerData(model.getPlayers());
         view.updateRoundId(String.valueOf(roundIndex+1));
         view.updateDifficulty(currentQuestion.getDifficulty());
-        view.updateUsernames(model.getPlayers());
+        view.updatePlayerData(model.getPlayers());
         if(currentQuestion.hasContent())
             view.updateQuestionsImage(currentQuestion.getContent());
-        else // TODO NULL OBJECT DESIGN PATTERN
+        else
             view.updateQuestionsImage(null);
     }
 }

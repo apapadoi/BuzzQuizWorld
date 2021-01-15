@@ -3,9 +3,9 @@ package view.gui;
 import controller.FrontController;
 import controller.requests.PlaySoundRequest;
 import javafx.embed.swing.JFXPanel;
-import resources.utilResources.Constants;
-import resources.utilResources.Image;
-import resources.utilResources.ImageFactory;
+import view.gui.utilResources.Constants;
+import view.gui.utilResources.Image;
+import view.gui.utilResources.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
 
@@ -91,11 +91,11 @@ public class IntroFrame extends GUI {
         versionPanel.setLayout(new BorderLayout());
         versionPanel.setBackground(new Color(0,0,0,0));
 
-        JLabel versionLabel = new JLabel("Buzz! Quiz World 11.1.2021");
+        JLabel versionLabel = new JLabel(" Buzz! Quiz World 15.1.2021");
         versionLabel.setForeground(Color.WHITE);
         versionLabel.setFont(UtilGUI.getCustomFont());
 
-        JLabel teamLabel = new JLabel("4 Hills Industry");
+        JLabel teamLabel = new JLabel("Developed by 4 Hills Industry ");
         teamLabel.setForeground(Color.WHITE);
         teamLabel.setFont(UtilGUI.getCustomFont());
 

@@ -2,7 +2,7 @@ package controller;
 
 import controller.requests.Request;
 import model.fileHandler.FileHandler;
-import resources.utilResources.Constants;
+import view.gui.utilResources.Constants;
 import view.gui.UI;
 import java.nio.file.Paths;
 import java.util.ArrayList;

@@ -3,6 +3,7 @@ package controller.requests;
 import controller.Dispatcher;
 import model.fileHandler.FileHandler;
 import model.player.Player;
+import view.gui.ErrorFrame;
 import view.gui.UI;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class SaveScoresRequest extends Request{
 
     /**
      * Creates a {@code SaveScoresRequest} that saves the scores of the players of the current game session.
-     * @param gamemodeFrame
+     * @param gamemodeFrame the gamemode frame for the current game session
      */
     public SaveScoresRequest(UI gamemodeFrame) {
         this.gamemodeFrame = gamemodeFrame;
@@ -34,7 +35,7 @@ public class SaveScoresRequest extends Request{
         model.getPlayers().forEach(e-> scores.add(e.getScore()));
         if(scores.stream().distinct().count()<=1 && model.getPlayers().size()>1) // draw and more than one player
             return;
-        // TODO probably remove this from UI
+
         if(gamemodeFrame.hasMoreThanTwoPlayers()) {
             List<Player> players = model.getPlayers();
             Player maxPlayer = players.get(0);
@@ -59,9 +60,8 @@ public class SaveScoresRequest extends Request{
         FileHandler fileHandler = dispatcher.getFileHandler();
         try {
             fileHandler.savePlayers();
-        } catch(IOException e) {
-            // TODO ADD ERROR FRAME AND LOGGING
-            System.exit(-3);
+        } catch(IOException|ClassNotFoundException e) {
+            new ErrorFrame();
         }
     }
 }

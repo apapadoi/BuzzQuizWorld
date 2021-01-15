@@ -3,8 +3,8 @@ package view.gui;
 import controller.FrontController;
 import controller.requests.*;
 import model.gamemodes.factories.OnePlayerGamemodeFactory;
-import resources.utilResources.Constants;
-import resources.utilResources.Image;
+import view.gui.utilResources.Constants;
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -19,12 +19,11 @@ import java.util.List;
  * @author Tasos Papadopoulos
  * @version 12.1.2021
  */
-public class OnePlayerSelectionFrame extends GUI {
+public class OnePlayerSelectionFrame extends GUI implements SelectionFrameUI{
     private final PlayFrame playFrame;
     private final JLabel backgroundImageLabel;
     private JButton backButton;
     private JButton confirmButton;
-    // TODO ADD PARAMETRIZED JCOMBOBOX
     private JComboBox<String> roundSelectionBox;
     private JTextField usernameField;
     private final String[] roundsList={"Select rounds:","1","2","3","4","5","6","7","8","9","10"};
@@ -143,7 +142,6 @@ public class OnePlayerSelectionFrame extends GUI {
            }
        });
 
-       // TODO add focus lost listener
        backgroundImageLabel.addMouseListener(new MouseAdapter() {
            @Override
            public void mouseClicked(MouseEvent e) {
@@ -164,11 +162,13 @@ public class OnePlayerSelectionFrame extends GUI {
                    OnePlayerGamemodeFactory.getInstance()
            ));
            FrontController.getInstance().dispatchRequest(new LoadRequest());
-           FrontController.getInstance().dispatchRequest(new ClearDataRequest());
-           FrontController.getInstance().dispatchRequest(new AddUsernamesRequest());
-           FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest());
-           FrontController.getInstance().setView(OnePlayerFrame.getInstance());
            FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
+           FrontController.getInstance().dispatchRequest(new ClearDataRequest());
+           FrontController.getInstance().dispatchRequest(
+                   new AddUsernamesRequest(OnePlayerSelectionFrame.this));
+           FrontController.getInstance().dispatchRequest(
+                   new AddNumOfRoundsRequest(OnePlayerSelectionFrame.this));
+           FrontController.getInstance().setView(OnePlayerFrame.getInstance());
            FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                    -1,0));
            FrontController.getInstance().dispatchRequest(new PreQuestionRequest(

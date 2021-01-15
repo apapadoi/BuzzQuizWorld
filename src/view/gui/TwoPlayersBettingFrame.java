@@ -4,7 +4,7 @@ import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
 import model.player.Player;
 import model.questions.Category;
-import resources.utilResources.Image;
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * This class represents the betting phase frame (while in High Stakes gamemode) for two player.
+ * Singleton Design Pattern is used.
  * @author Thodwrhs Myridis
  * @author Tasos Papadopoulos
  * @version 12.1.2021
@@ -26,6 +27,10 @@ public class TwoPlayersBettingFrame extends GUI {
     private JLabel player1Data;
     private JLabel player2Data;
 
+    /**
+     * Returns the unique {@code TwoPlayersBettingFrame} instance
+     * @return the {@code TwoPlayersBettingFrame} object
+     */
     public static TwoPlayersBettingFrame getInstance() {
         return instance;
     }
@@ -275,13 +280,11 @@ public class TwoPlayersBettingFrame extends GUI {
         this.categoryLabel.setText("Category : "+category.toString());
     }
 
-    // TODO remove this
-
     /**
      * @see UI
      */
     @Override
-    public void updateScores(List<Player> players) {
+    public void updatePlayerData(List<Player> players) {
         this.player1Data.setText("<html>"+players.get(0).getUsername()+"<br>"+players.get(0).getScore()+"</html>");
         this.player2Data.setText("<html>"+players.get(1).getUsername()+"<br>"+players.get(1).getScore()+"</html>");
     }

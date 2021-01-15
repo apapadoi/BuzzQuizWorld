@@ -5,7 +5,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import resources.utilResources.Constants;
+import view.gui.utilResources.Constants;
 
 import java.io.File;
 

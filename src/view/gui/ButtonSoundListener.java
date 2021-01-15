@@ -1,8 +1,8 @@
-package controller;
+package view.gui;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import resources.utilResources.Constants;
+import view.gui.utilResources.Constants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -14,8 +14,6 @@ import java.io.File;
  */
 public class ButtonSoundListener implements ActionListener {
     private static final ButtonSoundListener instance = new ButtonSoundListener();
-    private final MediaPlayer mediaPlayer =
-            new MediaPlayer(new Media(new File(Constants.BUTTON_SOUND_URL).toURI().toString()));
 
     /**
      * Default constructor
@@ -29,7 +27,7 @@ public class ButtonSoundListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        mediaPlayer.play();
+        new MediaPlayer(new Media(new File(Constants.BUTTON_SOUND_URL).toURI().toString())).play();
     }
 
     /**

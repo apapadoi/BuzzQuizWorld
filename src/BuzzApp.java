@@ -1,5 +1,7 @@
 import view.gui.IntroFrame;
 
+import javax.swing.*;
+
 /**
  * This class contains the main method that program starts from.
  *
@@ -8,7 +10,11 @@ import view.gui.IntroFrame;
  * @version 14.1.2021
  */
 public class BuzzApp {
+    /**
+     * Main method.
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
-        new IntroFrame();
+        SwingUtilities.invokeLater(() -> new IntroFrame());
     }
 }
