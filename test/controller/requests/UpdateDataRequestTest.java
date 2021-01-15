@@ -1,6 +1,7 @@
 package controller.requests;
 
 import controller.FrontController;
+import javafx.embed.swing.JFXPanel;
 import model.Model;
 import model.fileHandler.FileHandler;
 import model.gamemodes.Gamemodable;
@@ -9,9 +10,15 @@ import model.gamemodes.factories.GamemodeFactory;
 import model.player.Player;
 import model.questions.Category;
 import model.questions.Difficulty;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.gui.GUI;
+import view.gui.GameplayFrame;
+import view.gui.SelectionFrameUI;
+import view.gui.UI;
+
 import javax.swing.*;
+import java.awt.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +37,32 @@ class UpdateDataRequestTest {
     private boolean updateQuestionsImage = false;
     private boolean setHasTimer = true;
     private boolean gamemodeFrameIsVisible = false;
+
+    @BeforeEach
+    void setUp() {
+        new JFXPanel();
+        FrontController.getInstance().setView(new GameplayFrame() {
+            @Override
+            public Dimension getSize() {
+                return new Dimension(150,150);
+            }
+
+            @Override
+            public UI getPreQuestionFrame() {
+                return new GUI() {
+                    @Override
+                    public Dimension getSize() {
+                        return new Dimension(150,150);
+                    }
+
+                    @Override
+                    public void dispose() {
+                        super.dispose();
+                    }
+                };
+            }
+        });
+    }
 
     /**
      * Test case for a player that tries to answer again with choosing the correct answer.

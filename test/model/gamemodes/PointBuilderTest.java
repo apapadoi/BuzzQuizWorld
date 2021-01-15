@@ -2,12 +2,18 @@ package model.gamemodes;
 
 import controller.FrontController;
 import controller.requests.*;
+import javafx.embed.swing.JFXPanel;
 import model.Model;
 import model.fileHandler.FileHandler;
 import model.gamemodes.factories.GamemodeFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.gui.GUI;
+import view.gui.GameplayFrame;
+import view.gui.SelectionFrameUI;
+import view.gui.UI;
+
+import java.awt.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +25,28 @@ class PointBuilderTest {
 
     @BeforeEach
     void setUp() {
+        new JFXPanel();
+        FrontController.getInstance().setView(new GameplayFrame() {
+            @Override
+            public Dimension getSize() {
+                return new Dimension(150,150);
+            }
+
+            @Override
+            public UI getPreQuestionFrame() {
+                return new GUI() {
+                    @Override
+                    public Dimension getSize() {
+                        return new Dimension(150,150);
+                    }
+
+                    @Override
+                    public void dispose() {
+                        super.dispose();
+                    }
+                };
+            }
+        });
         pointBuilder = new PointBuilder();
         FileHandler fileHandler = new FileHandler(new ArrayList<>(),
                 Paths.get("test/resources/data/questions/textQuestions/textQuestions.txt"),

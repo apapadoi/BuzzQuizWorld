@@ -1,6 +1,7 @@
 package controller.requests;
 
 import controller.FrontController;
+import javafx.embed.swing.JFXPanel;
 import model.fileHandler.FileHandler;
 import model.gamemodes.Gamemodable;
 import model.gamemodes.HighStakes;
@@ -8,9 +9,14 @@ import model.gamemodes.PointBuilder;
 import model.gamemodes.factories.GamemodeFactory;
 import model.player.Player;
 import model.questions.Category;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.gui.GUI;
+import view.gui.GameplayFrame;
+import view.gui.SelectionFrameUI;
 import view.gui.UI;
+
+import java.awt.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +32,32 @@ class PreQuestionRequestTest {
     private boolean frameIsVisible = false;
     private FileHandler fileHandler;
     private UI gamemodeFrame;
+
+    @BeforeEach
+    void setUp() {
+        new JFXPanel();
+        FrontController.getInstance().setView(new GameplayFrame() {
+            @Override
+            public Dimension getSize() {
+                return new Dimension(150,150);
+            }
+
+            @Override
+            public UI getPreQuestionFrame() {
+                return new GUI() {
+                    @Override
+                    public Dimension getSize() {
+                        return new Dimension(150,150);
+                    }
+
+                    @Override
+                    public void dispose() {
+                        super.dispose();
+                    }
+                };
+            }
+        });
+    }
 
     @Test
     void execute1() {
