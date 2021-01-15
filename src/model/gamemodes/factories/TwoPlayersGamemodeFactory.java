@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class TwoPlayersGamemodeFactory implements GamemodeFactory{
     private static final Gamemodable[] gamemodes = {new PointBuilder(), new HighStakes(), new StopTheClock(),
-                                                new BoilingPoint(), new FastestFinger()};
+                                                new FastestFinger()};
     private static final TwoPlayersGamemodeFactory instance = new TwoPlayersGamemodeFactory();
 
     /**
@@ -43,9 +43,9 @@ public class TwoPlayersGamemodeFactory implements GamemodeFactory{
         else if( randomNumber == 2)
             return gamemodes[2];
         else if( randomNumber == 3)
-            return gamemodes[3];
+            return new BoilingPoint();
 
-        return gamemodes[4];
+        return gamemodes[3];
     }
 
     /**
@@ -57,7 +57,6 @@ public class TwoPlayersGamemodeFactory implements GamemodeFactory{
         gamemodes[0] = new PointBuilder();
         gamemodes[1] = new HighStakes();
         gamemodes[2] = new StopTheClock();
-        gamemodes[3] = new BoilingPoint();
-        gamemodes[4] = new FastestFinger();
+        gamemodes[3] = new FastestFinger();
     }
 }

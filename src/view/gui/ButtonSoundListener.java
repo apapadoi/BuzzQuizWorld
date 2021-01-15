@@ -14,8 +14,6 @@ import java.io.File;
  */
 public class ButtonSoundListener implements ActionListener {
     private static final ButtonSoundListener instance = new ButtonSoundListener();
-    private final MediaPlayer mediaPlayer =
-            new MediaPlayer(new Media(new File(Constants.BUTTON_SOUND_URL).toURI().toString()));
 
     /**
      * Default constructor
@@ -29,7 +27,7 @@ public class ButtonSoundListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        mediaPlayer.play();
+        new MediaPlayer(new Media(new File(Constants.BUTTON_SOUND_URL).toURI().toString())).play();
     }
 
     /**

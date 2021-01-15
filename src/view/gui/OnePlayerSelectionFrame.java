@@ -162,13 +162,13 @@ public class OnePlayerSelectionFrame extends GUI implements SelectionFrameUI{
                    OnePlayerGamemodeFactory.getInstance()
            ));
            FrontController.getInstance().dispatchRequest(new LoadRequest());
+           FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
            FrontController.getInstance().dispatchRequest(new ClearDataRequest());
            FrontController.getInstance().dispatchRequest(
                    new AddUsernamesRequest(OnePlayerSelectionFrame.this));
            FrontController.getInstance().dispatchRequest(
                    new AddNumOfRoundsRequest(OnePlayerSelectionFrame.this));
            FrontController.getInstance().setView(OnePlayerFrame.getInstance());
-           FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(1));
            FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
                    -1,0));
            FrontController.getInstance().dispatchRequest(new PreQuestionRequest(

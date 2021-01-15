@@ -3,6 +3,7 @@ package controller.requests;
 import controller.Dispatcher;
 import model.fileHandler.FileHandler;
 import model.player.Player;
+import view.gui.ErrorFrame;
 import view.gui.UI;
 
 import java.io.IOException;
@@ -59,9 +60,8 @@ public class SaveScoresRequest extends Request{
         FileHandler fileHandler = dispatcher.getFileHandler();
         try {
             fileHandler.savePlayers();
-        } catch(IOException e) {
-            // TODO ADD ERROR FRAME AND LOGGING
-            System.exit(-3);
+        } catch(IOException|ClassNotFoundException e) {
+            new ErrorFrame();
         }
     }
 }

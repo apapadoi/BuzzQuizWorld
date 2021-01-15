@@ -84,16 +84,12 @@ public class FileHandler {
     /**
      * Updates the specified db file with the player/players of the current game
      * @throws IOException if the file was not found or another IO problem happened
+     * @throws ClassNotFoundException if the {@code Player} class is not found
      */
-    public void savePlayers() throws IOException {
+    public void savePlayers() throws IOException,ClassNotFoundException {
         List<Player> currentPlayers = new ArrayList<>(Model.getInstance().getPlayers());
-        List<Player> previousPlayers = null;
-        try {
-            previousPlayers = this.readPlayers();
-        } catch(IOException|ClassNotFoundException e) {
-            // TODO ADD ERROR FRAME REQUEST
-            System.exit(-5);
-        }
+        List<Player> previousPlayers;
+        previousPlayers = this.readPlayers();
 
         if(previousPlayers.size()==0) {
             previousPlayers.addAll(currentPlayers);

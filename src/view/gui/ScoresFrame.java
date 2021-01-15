@@ -176,7 +176,6 @@ public class ScoresFrame extends GUI {
     /**
      * This method creates the back button (bottom panel) panel.
      */
-    // TODO REMOVE THIS
     private void setUpBackButton() {
         JPanel backButtonPanel = new JPanel();
         backButtonPanel.setLayout(new BorderLayout());

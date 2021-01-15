@@ -278,7 +278,7 @@ class FileHandlerTest {
         try {
             fileHandler.savePlayers();
             savedSuccessfully = true;
-        }catch(IOException e) {
+        }catch(IOException|ClassNotFoundException e) {
             savedSuccessfully = false;
         }
         List<Player> loadedPlayers;

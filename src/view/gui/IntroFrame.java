@@ -91,11 +91,11 @@ public class IntroFrame extends GUI {
         versionPanel.setLayout(new BorderLayout());
         versionPanel.setBackground(new Color(0,0,0,0));
 
-        JLabel versionLabel = new JLabel("Buzz! Quiz World 11.1.2021");
+        JLabel versionLabel = new JLabel(" Buzz! Quiz World 15.1.2021");
         versionLabel.setForeground(Color.WHITE);
         versionLabel.setFont(UtilGUI.getCustomFont());
 
-        JLabel teamLabel = new JLabel("4 Hills Industry");
+        JLabel teamLabel = new JLabel("Developed by 4 Hills Industry ");
         teamLabel.setForeground(Color.WHITE);
         teamLabel.setFont(UtilGUI.getCustomFont());
 

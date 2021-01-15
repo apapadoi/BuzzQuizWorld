@@ -1,6 +1,8 @@
 package controller.requests;
 
 import controller.Dispatcher;
+import view.gui.ErrorFrame;
+
 import java.io.IOException;
 
 /**
@@ -17,8 +19,7 @@ public class LoadRequest extends Request{
         try {
             dispatcher.getFileHandler().readQuestions();
         } catch (IOException exception) {
-            // TODO new ErrorFrame
-            System.exit(-5);
+            new ErrorFrame();
         }
     }
 }
