@@ -1,8 +1,8 @@
-package controller;
+package view.gui;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import resources.utilResources.Constants;
+import view.gui.utilResources.Constants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;

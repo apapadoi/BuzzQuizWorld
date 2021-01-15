@@ -39,7 +39,7 @@ class PreQuestionRequestTest {
         FrontController.getInstance().setView(new GameplayFrame() {
             @Override
             public Dimension getSize() {
-                return new Dimension(150,150);
+                return new Dimension(1,1);
             }
 
             @Override
@@ -47,7 +47,7 @@ class PreQuestionRequestTest {
                 return new GUI() {
                     @Override
                     public Dimension getSize() {
-                        return new Dimension(150,150);
+                        return new Dimension(1,1);
                     }
 
                     @Override

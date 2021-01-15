@@ -45,7 +45,7 @@ class UpdateDataRequestTest {
         FrontController.getInstance().setView(new GameplayFrame() {
             @Override
             public Dimension getSize() {
-                return new Dimension(150,150);
+                return new Dimension(1,1);
             }
 
             @Override
@@ -53,7 +53,7 @@ class UpdateDataRequestTest {
                 return new GUI() {
                     @Override
                     public Dimension getSize() {
-                        return new Dimension(150,150);
+                        return new Dimension(1,1);
                     }
 
                     @Override
@@ -573,5 +573,136 @@ class UpdateDataRequestTest {
         assertFalse(updateQuestionsImage);
         assertFalse(setHasTimer);
         assertTrue(gamemodeFrameIsVisible);
+    }
+
+    /**
+     * Test case when the last player answers and it's the last question while having negative score e.g. losing his
+     * bet from High Stakes.
+     */
+    @Test
+    void execute7() {
+        updateUsernames = false;
+        updateAnswers = false;
+        updateScores = false;
+        updateGamemodes = false;
+        updateQuestion = false;
+        updateCategory = false;
+        updateRoundId = false;
+        updateDifficulty = false;
+        updateQuestionsImage = false;
+        setHasTimer = true;
+        gamemodeFrameIsVisible = false;
+        fileHandler = new FileHandler(new ArrayList<>(),
+                Paths.get("test/resources/data/questions/textQuestions/textQuestions.txt"),
+                Paths.get("test/resources/data/questions/imagedQuestions/imagedQuestions.txt"));
+        FrontController.getInstance().setFileHandler(fileHandler);
+        FrontController.getInstance().dispatchRequest(new SetGamemodeFactoryRequest(
+                new GamemodeFactory() {
+                    @Override
+                    public Gamemodable getRandomGamemode() {
+                        return new PointBuilder();
+                    }
+
+                    @Override
+                    public void clearGamemodeData() {
+
+                    }
+                }
+        ));
+        FrontController.getInstance().dispatchRequest(new LoadRequest());
+        FrontController.getInstance().dispatchRequest(new ClearDataRequest());
+        SelectionFrameUI selectionFrame = new SelectionFrameUI() {
+            @Override
+            public int getNumOfRoundsChoice() {
+                return 1;
+            }
+
+            @Override
+            public List<String> getUsernames() {
+                return new ArrayList<>(List.of("testUsername","testUsername2"));
+            }
+        };
+
+        FrontController.getInstance().dispatchRequest(new AddUsernamesRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new AddNumOfRoundsRequest(selectionFrame));
+        FrontController.getInstance().dispatchRequest(new SetMaximumPlayersRequest(2));
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(-1,
+                -1,0));
+        Request.questionId = 4;
+        FrontController.getInstance().setView(new GUI() {
+            @Override
+            public void updateAnswers(List<String> answers) {
+                updateAnswers = true;
+            }
+
+            @Override
+            public void updatePlayerData(List<Player> players) {
+                updateScores = true;
+                updateUsernames = true;
+            }
+
+            @Override
+            public void updateGamemode(String gamemodeName) {
+                updateGamemodes = true;
+            }
+
+            @Override
+            public void updateQuestion(String question) {
+                updateQuestion = true;
+            }
+
+            @Override
+            public void updateCategory(Category category) {
+                updateCategory = true;
+            }
+
+            @Override
+            public void updateRoundId(String id) {
+                updateRoundId = true;
+            }
+
+            @Override
+            public void updateDifficulty(Difficulty difficulty) {
+                updateDifficulty = true;
+            }
+
+            @Override
+            public void updateQuestionsImage(ImageIcon imageIcon) {
+                updateQuestionsImage = true;
+            }
+
+            @Override
+            public void setHasTimer(boolean b) {
+                setHasTimer = b;
+            }
+
+            @Override
+            public void setVisible(boolean b) {
+                gamemodeFrameIsVisible = b;
+            }
+        });
+        int correctAnswerIndex = Model.getInstance().getRound(Request.roundId).getQuestions().get(Request.questionId).getAnswers().
+                indexOf(Model.getInstance().getRound(Request.roundId).getQuestions().
+                        get(Request.questionId).getCorrectAnswer());
+        int wrongAnswerIndex;
+        if(correctAnswerIndex==0)
+            wrongAnswerIndex = correctAnswerIndex + 1;
+        else
+            wrongAnswerIndex = correctAnswerIndex - 1;
+        Model.getInstance().getPlayers().get(1).setScore(-1100);
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(0,wrongAnswerIndex,1000));
+        FrontController.getInstance().dispatchRequest(new UpdateDataRequest(1,correctAnswerIndex,500));
+        assertFalse(updateUsernames);
+        assertFalse(updateAnswers);
+        assertFalse(updateScores );
+        assertFalse(updateGamemodes);
+        assertFalse(updateQuestion);
+        assertFalse(updateCategory);
+        assertFalse(updateRoundId);
+        assertFalse(updateDifficulty);
+        assertFalse(updateQuestionsImage);
+        assertFalse(setHasTimer);
+        assertTrue(gamemodeFrameIsVisible);
+        assertEquals(0, Model.getInstance().getScore(1));
     }
 }

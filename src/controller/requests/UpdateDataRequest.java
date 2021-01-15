@@ -7,8 +7,6 @@ import model.round.Round;
 import view.gui.FinishFrame;
 import view.gui.UI;
 import java.util.HashMap;
-// TODO TEST negative score case on unit testing
-
 /**
  * Represents a request for updating the data of the {@code Model component}.
  * @author Tasos Papadopoulos

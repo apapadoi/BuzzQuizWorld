@@ -2,9 +2,8 @@ package view.gui;
 
 import controller.FrontController;
 import controller.requests.SetSoundSettingRequest;
-import javafx.scene.layout.Border;
 import model.Model;
-import resources.utilResources.Image;
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 

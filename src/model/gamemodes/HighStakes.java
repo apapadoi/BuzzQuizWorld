@@ -84,15 +84,6 @@ public class HighStakes extends Gamemode {
     }
 
     /**
-     * Returns the player's bet amount.
-     * @return the bet amount as {@code int}
-     * @param playerIndex the player's index whose bet amount will be returned as {@code int}
-     */
-    public int getBetAmount(int playerIndex){
-        return this.bets.get(playerIndex);
-    }
-
-    /**
      * Sets the bet amount of the player
      * @param betAmount the new bet amount
      */

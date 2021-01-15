@@ -1,7 +1,7 @@
 package view.gui;
 
 
-import resources.utilResources.Image;
+import view.gui.utilResources.Image;
 
 import javax.swing.*;
 import java.awt.*;

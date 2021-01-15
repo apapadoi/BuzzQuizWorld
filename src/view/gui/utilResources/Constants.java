@@ -1,4 +1,4 @@
-package resources.utilResources;
+package view.gui.utilResources;
 
 /**
  * Contains all the relative paths for the necessary files.

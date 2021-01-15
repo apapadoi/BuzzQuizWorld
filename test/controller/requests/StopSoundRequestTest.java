@@ -7,7 +7,7 @@ import javafx.scene.media.MediaPlayer;
 import model.CustomMediaPlayer;
 import model.Model;
 import org.junit.jupiter.api.Test;
-import resources.utilResources.Constants;
+import view.gui.utilResources.Constants;
 
 import java.io.File;
 

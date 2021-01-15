@@ -4,7 +4,7 @@ import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
 import model.player.Player;
 import model.questions.Category;
-import resources.utilResources.Image;
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -274,8 +274,6 @@ public class TwoPlayersBettingFrame extends GUI {
     public void updateCategory(Category category) {
         this.categoryLabel.setText("Category : "+category.toString());
     }
-
-    // TODO remove this
 
     /**
      * @see UI

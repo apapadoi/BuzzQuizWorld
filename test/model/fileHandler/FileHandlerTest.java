@@ -1,5 +1,7 @@
 package model.fileHandler;
 
+import model.Model;
+import model.player.Player;
 import model.questions.Category;
 import model.questions.Difficulty;
 import model.questions.ImagedQuestion;
@@ -7,6 +9,7 @@ import model.questions.Question;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -265,11 +268,43 @@ class FileHandlerTest {
 
     @Test
     void savePlayers() {
-
+        Model.getInstance().clearData();
+        FileHandler fileHandler = new FileHandler(new ArrayList<>(), Paths.get("test/resources/data/questions" +
+                "/textQuestions/textQuestions.txt"), Paths.get("test/resources/data/questions/imagedQuestions" +
+                "/imagedQuestions.txt"));
+        fileHandler.setDb_file("test/resources/db/savePlayersTest.bin");
+        Model.getInstance().setUsernames(new ArrayList<>());
+        boolean savedSuccessfully = false;
+        try {
+            fileHandler.savePlayers();
+            savedSuccessfully = true;
+        }catch(IOException e) {
+            savedSuccessfully = false;
+        }
+        List<Player> loadedPlayers;
+        try {
+            loadedPlayers = fileHandler.readPlayers();
+        }catch(IOException|ClassNotFoundException e) {
+            loadedPlayers = null;
+        }
+        assertNotNull(loadedPlayers);
+        assertTrue(savedSuccessfully);
+        assertEquals(0,loadedPlayers.size());
     }
 
     @Test
     void readPlayers() {
+        FileHandler fileHandler = new FileHandler(new ArrayList<>(), Paths.get("test/resources/data/questions" +
+                "/textQuestions/textQuestions.txt"), Paths.get("test/resources/data/questions/imagedQuestions" +
+                "/imagedQuestions.txt"));
+        fileHandler.setDb_file("test/resources/db/scores.bin");
+        List<Player> loadedPlayers;
+        try {
+            loadedPlayers = fileHandler.readPlayers();
+        }catch(IOException|ClassNotFoundException e) {
+            loadedPlayers = null;
+        }
+        assertNotNull(loadedPlayers);
     }
 
 

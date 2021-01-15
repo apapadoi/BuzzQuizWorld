@@ -1,4 +1,4 @@
-package resources.utilResources;
+package view.gui.utilResources;
 
 import javax.swing.*;
 

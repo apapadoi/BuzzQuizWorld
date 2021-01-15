@@ -1,11 +1,10 @@
 package view.gui;
 
-import com.sun.webkit.network.Util;
 import controller.FrontController;
 import controller.requests.*;
 import model.gamemodes.factories.TwoPlayersGamemodeFactory;
-import resources.utilResources.Constants;
-import resources.utilResources.Image;
+import view.gui.utilResources.Constants;
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

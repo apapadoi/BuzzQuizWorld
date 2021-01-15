@@ -3,7 +3,7 @@ package view.gui;
 import controller.FrontController;
 import controller.requests.LoadScoresRequest;
 import model.player.Player;
-import resources.utilResources.Image;
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

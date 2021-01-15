@@ -6,7 +6,7 @@ import model.questions.Category;
 import model.questions.Difficulty;
 import model.questions.ImagedQuestion;
 import model.questions.Question;
-import resources.utilResources.Constants;
+import view.gui.utilResources.Constants;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

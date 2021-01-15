@@ -17,15 +17,6 @@ public class Player implements Serializable {
     private int wins; // two players game sessions wins
 
     /**
-     * Default constructor. Create a player with empty string as username and score equal to 0.
-     */
-    public Player() {
-        this.username = "";
-        this.score = 0;
-        this.wins = 0;
-    }
-
-    /**
      * Constructs a player with username,score and wins with the username,score and wins provided.
      *
      * @param username Player's username as {@code String}

@@ -1,9 +1,8 @@
 package view.gui;
 
-import controller.ButtonSoundListener;
-import resources.utilResources.Constants;
-import resources.utilResources.Image;
-import resources.utilResources.ImageFactory;
+import view.gui.utilResources.Constants;
+import view.gui.utilResources.Image;
+import view.gui.utilResources.ImageFactory;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

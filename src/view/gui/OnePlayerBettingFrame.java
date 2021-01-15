@@ -4,7 +4,7 @@ import controller.FrontController;
 import controller.requests.SetBetAmountRequest;
 import model.player.Player;
 import model.questions.Category;
-import resources.utilResources.Image;
+import view.gui.utilResources.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;

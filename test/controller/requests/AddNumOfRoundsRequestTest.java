@@ -5,8 +5,7 @@ import model.Model;
 import model.fileHandler.FileHandler;
 import model.gamemodes.factories.OnePlayerGamemodeFactory;
 import org.junit.jupiter.api.Test;
-import resources.utilResources.Constants;
-import view.gui.GUI;
+import view.gui.utilResources.Constants;
 import view.gui.SelectionFrameUI;
 
 import java.io.IOException;
